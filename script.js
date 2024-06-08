@@ -7,6 +7,7 @@ function moveLogo() {
     logo.classList.add("logo-small");
   }
 
+
 /**
  * This needs to be moved to an event after loading database
  */
@@ -21,6 +22,7 @@ function moveLogo() {
   function displayNone(id) {
     document.getElementById(id).classList.add('d-none');
 }
+
 
   /**
    * show an element by using ID
