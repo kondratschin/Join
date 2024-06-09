@@ -71,7 +71,11 @@ h1 {
 }
 
 .email-credentials {
-    border: 1px solid gray;
+    border: 1px solid #D1D1D1;
+    display: flex;
+    border-radius: 10px;
+    padding-left: 16px;
+    justify-content: space-between;
 }
 
 
@@ -83,4 +87,10 @@ h1 {
 
 input {
     border: none;
+    gap: 8px;
+}
+
+
+.cred-icon {
+padding-right: 16px;
 }
