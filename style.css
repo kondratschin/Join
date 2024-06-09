@@ -76,6 +76,8 @@ h1 {
     border-radius: 10px;
     padding-left: 16px;
     justify-content: space-between;
+    height: 48px;
+    align-items: center;
 }
 
 
@@ -88,9 +90,11 @@ h1 {
 input {
     border: none;
     gap: 8px;
+    flex-grow: 1;
 }
 
 
 .cred-icon {
 padding-right: 16px;
+height: 24px;
 }
