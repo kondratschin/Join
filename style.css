@@ -18,6 +18,7 @@
 }
 
 body {
+    height: 100vh;
     background-color: #F6F7F8;
 }
 
@@ -38,14 +39,9 @@ body {
     width: 80px;
     height: 80px;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 80px;
+    left: 77px;
     transition: 1s;
-}
-
-h1 {
-    font-family: "Inter-700";
-    font-size: 61px;
 }
 
 .log-in {
@@ -54,6 +50,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     position: absolute;
+    justify-content: space-around;
     width: 652px;
     height: 493px;
     transition: 1s;
@@ -64,10 +61,34 @@ h1 {
     padding: 48px;
 }
 
+.log-in-title{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 89px;
+    width: 315px;
+}
+
+h1 {
+    font-family: "Inter-700";
+    font-size: 61px;
+}
+
 .separator {
     height: 16px;
     width: 150px;
     border-bottom: 3px solid #29ABE2;
+}
+
+.credentials {
+    height: 196px;
+    width: 422px;
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .email-credentials {
@@ -77,24 +98,222 @@ h1 {
     padding-left: 16px;
     justify-content: space-between;
     height: 48px;
-    align-items: center;
-}
-
-
-.credentials {
-    margin-top: 32px;
-    height: 196px;
     width: 422px;
+    align-items: center;
 }
 
 input {
     border: none;
-    gap: 8px;
+    gap: 32px;
     flex-grow: 1;
 }
 
+.rememberMe{
+    font-family: "Inter-Regular";
+    font-size: 16px;
+    font-weight: 400;
+    width: 422px;
+    height: 24px;
+    margin-left: 39px;
+    justify-content: center;
+    gap: 8px;
+}
+
+.rememberMe-button{
+    height: 16px;
+    width: 16px !important;
+}
 
 .cred-icon {
 padding-right: 16px;
 height: 24px;
+}
+
+.lock-icon {
+    width: 24px;
+}
+
+.login-guest-login-buttons{
+    /* Frame 176 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+gap: 35px;
+
+width: 322px;
+height: 48px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+}
+
+.login-button{
+    /* Button wo icon */
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 15px 24px;
+gap: 10px;
+width: 110px;
+height: 48px;
+transition: transform 0.3s ease;
+background: #2A3647;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+/* Text */
+color: white;
+font-family: "Inter-700";
+font-size: 18px;
+line-height: 25.2px;
+}
+
+.login-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.guest-login-button {
+    /* Button seconday wo icon */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 15px 24px;
+gap: 10px;
+transition: transform 0.3s ease;
+width: 177px;
+height: 48px;
+
+/* white */
+background: #FFFFFF;
+/* Version 2/main color */
+border: 1px solid #2A3647;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+color: #2A3647;
+
+/* Text */
+font-family: "Inter-700";
+font-size: 18px;
+line-height: 25.2px;
+
+}
+
+.guest-login-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.footer {
+    width: 100%;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 3%;
+}
+
+.footer a {
+    text-decoration: none;
+    margin: 0 10px;
+    color: #A8A8A8; /* Optional: Textfarbe der Links */
+}
+
+.footer a:hover {
+    color: #29ABE2; /* Optional: Farbe der Links beim Hover */
+}
+
+.not-a-user-container{
+position: absolute;
+display: flex;
+align-items: center;
+justify-content: space-around;
+gap: 35px;
+font-family: "Inter-Regular";
+width: 279px;
+height: 49px;
+top: 5%;
+left: 75%;
+}
+
+.not-a-user-text{
+/* Not a Join user? */
+
+width: 153px;
+height: 24px;
+
+/* Version 2/t6 */
+font-family: 'Inter-Regular';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 120%;
+/* identical to box height, or 24px */
+
+color: #000000;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.not-a-user-button{
+/* Button wo icon */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 15px 16px;
+gap: 10px;
+color: #FFFFFF;
+
+
+width: 91px;
+height: 49px;
+
+background: #2A3647;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+transition: transform 0.3s ease;
+}
+
+.not-a-user-button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }
