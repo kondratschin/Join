@@ -10,7 +10,7 @@
 
 body {
     font-family: "Inter-Regular";
-    height: 100%;
+    height: 100vh;
     width: 100%;
     margin: 0;
     display: flex;
@@ -28,7 +28,7 @@ a:hover {
 
 .leftNavbar{
     width: 232px;
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     background-color: #2A3647;
@@ -85,7 +85,7 @@ a:hover {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-    padding: 243px 0px 0px 52px;
+    padding: 160px 0px 0px 52px;
     gap: 4px;
     width: 232px;
     margin-bottom: 48px;
