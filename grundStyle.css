@@ -11,10 +11,19 @@
 body {
     font-family: "Inter-Regular";
     height: 1024px;
-    width: 1440px;
+    width: 100%;
     margin: 0;
     display: flex;
     background-color: #F6F7F8;
+}
+
+a {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+a:hover {
+    transform: scale(1.1);
 }
 
 .leftNavbar{
@@ -69,29 +78,38 @@ body {
     color: #CDCDCD !important;
 }
 
+
 .navbarFooter {
-    /* Frame 22 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 243px 0px 0px 52px;
+    gap: 4px;
+    width: 232px;
+    margin-bottom: 48px;
+    color: #CDCDCD !important;
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+}
 
-/* Auto layout */
-display: flex;
-flex-direction: column;
-justify-content: flex-end;
-align-items: flex-start;
-padding: 243px 0px 0px 52px;
-gap: 4px;
-color: #CDCDCD !important;
-width: 232px;
+.navbarFooter a {
+    color: inherit !important; /* Verwendet die gleiche Farbe wie das übergeordnete Element */
+    text-decoration: none !important; /* Entfernt die Standardtextdekoration von Links */
+    transition: transform 0.3s ease; /* Fügt eine sanfte Übergangsanimation für die Skalierung hinzu */
+    margin: 8px;
+}
 
-/* Inside auto layout */
-flex: none;
-order: 2;
-align-self: stretch;
-flex-grow: 0;
+.navbarFooter a:hover {
+    transform: scale(1.1); /* Fügt einen leichten Skaleneffekt beim Hover hinzu */
 }
 
 .header{
-
-width: 1440px;
+font-size: 20px;
+font-weight: 400;
+width: 100%;
 height: 96px;
 left: 0px;
 top: 0px;
@@ -101,10 +119,30 @@ justify-content: space-between;
 align-items: center;
 padding: 20px 40px 20px 348px;
 gap: 34px;
-
-
 background: #FFFFFF;
 /* Barra superior */
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
 
+
+.headerIcons{
+    display: flex;
+    width: 104px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.UserProfileInitials {
+    /* Ellipse 3 */
+    box-sizing: border-box;
+    width: 56px;
+    height: 56px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 3px solid #2A3647;
+    border-radius: 50%;
+    color: #29ABE2;
 }
