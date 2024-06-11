@@ -56,7 +56,7 @@ function inputSectionHtml() {
   return /*html*/ ` 
       <div class="login-credentials">
         <input type="name" id="signUpName" placeholder="Name" required>
-        <img class="cred-icon" src="./img/mail.svg" alt="">
+        <img class="cred-icon" src="./img/person.svg" alt="">
       </div>
       <div class="login-credentials">
         <input type="email" name="" id="signUpEmail" placeholder="Email" required>
@@ -67,7 +67,7 @@ function inputSectionHtml() {
         <img class="cred-icon" src="./img/lock.svg" alt="">
       </div>
       <div class="login-credentials">
-        <input type="password" id="againSignUpPassword" placeholder="Password" required>
+        <input type="password" id="againSignUpPassword" placeholder="Repeat password" required>
         <img class="cred-icon" src="./img/lock.svg" alt="">
       </div>
     </form>
