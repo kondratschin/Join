@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="logInStyle.css">
     <script src="./script.js"></script>
 </head>
 
@@ -15,19 +15,20 @@
     <div class="overflow-wrapper">
         <img id="splash-screen" class="logo-big" src="./img/Capa-1.svg" alt="">
 
-        <div class="not-a-user-container">
+        <div id="notUser" class="not-a-user-container">
             <p class="not-a-user-text">Not a Join user?</p>
-            <button class="not-a-user-button">Sign up</button>
+            <button onclick="loadSignUp()" class="not-a-user-button">Sign up</button>
         </div>
     </div>
 
-    <div class="log-in">
+    <div id="log-in" class="log-in-layout">
+        <img src="img/arrow-left-line.svg" id="backToLogInArrow" class="backToLogInArrow d-none" onclick="backToLogInArrow()"></img>
         <div class="log-in-title">
-            <h1>Log in</h1>
+            <h1 id="title">Log in</h1>
             <div class="separator"></div>
         </div>
 
-        <form class="credentials">
+        <form id="inputSection" class="credentials">
             <div class="email-credentials">
                 <input type="email" name="" id="mail-login" placeholder="Email" required>
                 <img class="cred-icon" src="./img/mail.svg" alt="">
@@ -43,8 +44,8 @@
         </form>
 
         <div class="login-guest-login-buttons">
-            <button class="login-button">Log in</button>
-            <button class="guest-login-button">Guest Log in</button>
+            <button id="logInButton" class="login-button">Log in</button>
+            <button id="guestLogInButton" class="guest-login-button">Guest Log in</button>
         </div>
     </div>
 

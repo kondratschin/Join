@@ -22,6 +22,10 @@ body {
     background-color: #F6F7F8;
 }
 
+.d-none {
+    display: none !important;
+}
+
 .overflow-wrapper {
     height: 100vh;
 }
@@ -36,21 +40,21 @@ body {
 }
 
 .logo-small {
-    width: 80px;
-    height: 80px;
+    width: 100.03px;
+    height: 121.97px;
     position: absolute;
     top: 80px;
     left: 77px;
     transition: 1s;
 }
 
-.log-in {
+.log-in-layout {
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 652px;
     height: 493px;
     transition: 1s;
@@ -61,7 +65,25 @@ body {
     padding: 48px;
 }
 
-.log-in-title{
+.signUpLayout {
+    /* Frame 153 */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    justify-content: space-between;
+    width: 598px;
+    height: 630px;
+    transition: 1s;
+    left: calc(50% - 598px/2);
+    top: calc(50% - 630px/2);
+    border-radius: 30px;
+    box-shadow: 0px 0px 14px 3px #0000000A;
+    padding: 48px 88px;
+}
+
+.log-in-title {
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -91,9 +113,35 @@ h1 {
     flex-direction: column;
 }
 
+.inputSectionSignUp {
+    /* Frame 212 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 24px;
+
+    width: 422px;
+    height: 326px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    z-index: 1;
+}
+
+.m-top24 {
+    margin-top: 16px;
+}
+
 .email-credentials {
     border: 1px solid #D1D1D1;
     display: flex;
+    gap: 32px;
     border-radius: 10px;
     padding-left: 16px;
     justify-content: space-between;
@@ -108,7 +156,7 @@ input {
     flex-grow: 1;
 }
 
-.rememberMe{
+.rememberMe {
     font-family: "Inter-Regular";
     font-size: 16px;
     font-weight: 400;
@@ -119,66 +167,109 @@ input {
     gap: 8px;
 }
 
-.rememberMe-button{
+.accept-privacy-policy {
+    font-family: "Inter-Regular";
+    font-size: 16px;
+    font-weight: 400;
+    width: 240px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.accept-privacy-policy a {
+    color: #29ABE2;
+    text-decoration: none;
+}
+
+.rememberMe-button {
     height: 16px;
     width: 16px !important;
 }
 
 .cred-icon {
-padding-right: 16px;
-height: 24px;
+    padding-right: 16px;
+    height: 24px;
 }
 
 .lock-icon {
     width: 24px;
 }
 
-.login-guest-login-buttons{
+.login-guest-login-buttons {
     /* Frame 176 */
 
-/* Auto layout */
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: flex-start;
-padding: 0px;
-gap: 35px;
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 35px;
 
-width: 322px;
-height: 48px;
+    width: 322px;
+    height: 48px;
 
 
-/* Inside auto layout */
-flex: none;
-order: 2;
-flex-grow: 0;
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
 }
 
-.login-button{
+.login-button {
     /* Button wo icon */
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 24px;
+    gap: 10px;
+    width: 110px;
+    height: 48px;
+    transition: transform 0.3s ease;
+    background: #2A3647;
+    border-radius: 8px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    /* Text */
+    color: white;
+    font-family: "Inter-700";
+    font-size: 18px;
+    line-height: 25.2px;
+}
+
+.sign-up-button{
+    /* Button wo icon */
+
 /* Auto layout */
+color: #FFFFFF;
+font-size: 21px;
+font-weight: 700;
 display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
 padding: 15px 24px;
 gap: 10px;
-width: 110px;
-height: 48px;
-transition: transform 0.3s ease;
+
+width: 126px;
+height: 55px;
+
 background: #2A3647;
 border-radius: 8px;
 
 /* Inside auto layout */
 flex: none;
-order: 0;
+order: 2;
 flex-grow: 0;
+z-index: 2;
 
-/* Text */
-color: white;
-font-family: "Inter-700";
-font-size: 18px;
-line-height: 25.2px;
 }
 
 .login-button:hover {
@@ -189,36 +280,36 @@ line-height: 25.2px;
 .guest-login-button {
     /* Button seconday wo icon */
 
-box-sizing: border-box;
+    box-sizing: border-box;
 
-/* Auto layout */
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 15px 24px;
-gap: 10px;
-transition: transform 0.3s ease;
-width: 177px;
-height: 48px;
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 24px;
+    gap: 10px;
+    transition: transform 0.3s ease;
+    width: 177px;
+    height: 48px;
 
-/* white */
-background: #FFFFFF;
-/* Version 2/main color */
-border: 1px solid #2A3647;
-border-radius: 8px;
+    /* white */
+    background: #FFFFFF;
+    /* Version 2/main color */
+    border: 1px solid #2A3647;
+    border-radius: 8px;
 
-/* Inside auto layout */
-flex: none;
-order: 1;
-flex-grow: 0;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
 
-color: #2A3647;
+    color: #2A3647;
 
-/* Text */
-font-family: "Inter-700";
-font-size: 18px;
-line-height: 25.2px;
+    /* Text */
+    font-family: "Inter-700";
+    font-size: 18px;
+    line-height: 25.2px;
 
 }
 
@@ -244,76 +335,95 @@ line-height: 25.2px;
 .footer a {
     text-decoration: none;
     margin: 0 10px;
-    color: #A8A8A8; /* Optional: Textfarbe der Links */
+    color: #A8A8A8;
+    /* Optional: Textfarbe der Links */
 }
 
 .footer a:hover {
-    color: #29ABE2; /* Optional: Farbe der Links beim Hover */
+    color: #29ABE2;
+    /* Optional: Farbe der Links beim Hover */
 }
 
-.not-a-user-container{
+.not-a-user-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 35px;
+    font-family: "Inter-Regular";
+    width: 279px;
+    height: 49px;
+    top: 5%;
+    left: 75%;
+}
+
+.not-a-user-text {
+    /* Not a Join user? */
+
+    width: 153px;
+    height: 24px;
+
+    /* Version 2/t6 */
+    font-family: 'Inter-Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    /* identical to box height, or 24px */
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.not-a-user-button {
+    /* Button wo icon */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 16px;
+    gap: 10px;
+    color: #FFFFFF;
+
+
+    width: 91px;
+    height: 49px;
+
+    background: #2A3647;
+    border-radius: 8px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    transition: transform 0.3s ease;
+}
+
+.not-a-user-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.backToLogInArrow {
+    /* Vector */
+width: 32px;
+height: 32px;
 position: absolute;
-display: flex;
-align-items: center;
-justify-content: space-around;
-gap: 35px;
-font-family: "Inter-Regular";
-width: 279px;
-height: 49px;
-top: 5%;
-left: 75%;
-}
-
-.not-a-user-text{
-/* Not a Join user? */
-
-width: 153px;
-height: 24px;
-
-/* Version 2/t6 */
-font-family: 'Inter-Regular';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 120%;
-/* identical to box height, or 24px */
-
-color: #000000;
-
-
-/* Inside auto layout */
-flex: none;
-order: 0;
-flex-grow: 0;
-}
-
-.not-a-user-button{
-/* Button wo icon */
-
-/* Auto layout */
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 15px 16px;
-gap: 10px;
-color: #FFFFFF;
-
-
-width: 91px;
-height: 49px;
-
-background: #2A3647;
-border-radius: 8px;
-
-/* Inside auto layout */
-flex: none;
-order: 1;
-flex-grow: 0;
+left: 16.67%;
+right: 16.67%;
+top: 10.90%;
+bottom: 17.59%;
 transition: transform 0.3s ease;
 }
 
-.not-a-user-button:hover{
+.backToLogInArrow:hover{
     cursor: pointer;
     transform: scale(1.1);
 }
