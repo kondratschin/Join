@@ -165,7 +165,7 @@ input {
     font-family: "Inter-Regular";
     font-size: 16px;
     font-weight: 400;
-    width: 422px;
+    width: calc(422px - 42px * 2); /* this is to put the button to the place as seen on figma */
     height: 24px;
     justify-content: center;
     gap: 8px;
@@ -182,6 +182,8 @@ input {
     height: 24px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .accept-privacy-policy a {
@@ -268,7 +270,7 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-padding: 15px 24px;
+/* padding: 15px 24px; why this padding? I (SK) removed it */
 gap: 10px;
 
 width: 126px;
