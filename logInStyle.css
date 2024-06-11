@@ -185,6 +185,11 @@ input {
 .rememberMe-button {
     height: 16px;
     width: 16px !important;
+    cursor: pointer;
+}
+
+.rememberMe-text {
+    cursor: pointer;
 }
 
 .cred-icon {
