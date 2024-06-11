@@ -53,20 +53,20 @@ function changeInputSection() {
 }
 
 function inputSectionHtml() {
-  return `
-      <div class="email-credentials">
+  return /*html*/ ` 
+      <div class="login-credentials">
         <input type="name" id="signUpName" placeholder="Name" required>
         <img class="cred-icon" src="./img/mail.svg" alt="">
       </div>
-      <div class="email-credentials">
+      <div class="login-credentials">
         <input type="email" name="" id="signUpEmail" placeholder="Email" required>
         <img class="cred-icon" src="./img/mail.svg" alt="">
       </div>
-      <div class="email-credentials">
+      <div class="login-credentials">
         <input type="password" id="signUpPassword" placeholder="Password" required>
         <img class="cred-icon" src="./img/lock.svg" alt="">
       </div>
-      <div class="email-credentials">
+      <div class="login-credentials">
         <input type="password" id="againSignUpPassword" placeholder="Password" required>
         <img class="cred-icon" src="./img/lock.svg" alt="">
       </div>

@@ -138,7 +138,7 @@ h1 {
     margin-top: 16px;
 }
 
-.email-credentials {
+.login-credentials {
     border: 1px solid #D1D1D1;
     display: flex;
     gap: 32px;
@@ -157,7 +157,7 @@ input {
     outline: none;
 }
 
-.email-credentials:focus-within {
+.login-credentials:focus-within {
     border: 1px solid #000;
 }
 
