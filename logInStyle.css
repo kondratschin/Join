@@ -154,6 +154,11 @@ input {
     border: none;
     gap: 32px;
     flex-grow: 1;
+    outline: none;
+}
+
+.email-credentials:focus-within {
+    border: 1px solid #000;
 }
 
 .rememberMe {
