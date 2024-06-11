@@ -167,9 +167,11 @@ input {
     font-weight: 400;
     width: 422px;
     height: 24px;
-    margin-left: 39px;
     justify-content: center;
     gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .accept-privacy-policy {
@@ -191,6 +193,7 @@ input {
     height: 16px;
     width: 16px !important;
     cursor: pointer;
+    flex-grow: 0;
 }
 
 .rememberMe-text {
