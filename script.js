@@ -101,3 +101,5 @@ function backToLogInArrow() {
   window.location.reload();
 }
 
+
+document.write('<a href="' + document.referrer + '">Go Back</a>');
