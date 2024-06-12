@@ -1,5 +1,5 @@
 /**
- * moves the logo to the upper corner
+ * Moves the logo to the upper corner
  */
 function moveLogo() {
   let logo = document.getElementById("splash-screen");
@@ -9,10 +9,25 @@ function moveLogo() {
 
 
 /**
+ * Shows the content after the logo is moved
+ */
+function showContent() {
+  document.getElementById('content').classList.remove('d-none');
+  setTimeout(() => {
+    document.getElementById('content').classList.add('visible');
+  }, 10); // Slight delay to ensure transition
+}
+
+
+/**
  * This needs to be moved to an event after loading database
  */
-setTimeout(moveLogo, 1000);
-
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    moveLogo();
+    setTimeout(showContent, 1000);  // Show content after the logo animation
+  }, 1000);
+});
 
 /**
  * Hide an element by using ID
@@ -23,9 +38,8 @@ function displayNone(id) {
   document.getElementById(id).classList.add('d-none');
 }
 
-
 /**
- * show an element by using ID
+ * Show an element by using ID
  * 
  * @param {string} id -  This is the ID of an element
  */
@@ -33,6 +47,11 @@ function displayElement(id) {
   document.getElementById(id).classList.remove('d-none');
 }
 
+function backToLogInArrow() {
+  window.location.reload();
+}
+
+// sign up section in JS (kann man evtl löschen sobald wir uns geeinigt haben das wir es hardcoden wollen)
 function loadSignUp() {
   document.getElementById('title').innerHTML = "Sign up";
   document.getElementById('notUser').classList.add('d-none');

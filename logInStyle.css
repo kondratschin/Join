@@ -7,6 +7,16 @@
     box-sizing: border-box;
 }
 
+#content {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+#content.visible {
+    opacity: 1;
+}
+
+
 @font-face {
     font-family: "Inter-Regular";
     src: url("./fonts/inter-v12-latin-regular.woff2") format('woff2');
@@ -30,14 +40,18 @@ body {
     height: 100vh;
 }
 
+
 .logo-big {
     position: absolute;
-    width: 150px;
-    height: 150px;
+    width: 274px;
+    height: 334.07px;
     transition: 1s;
-    top: calc(50% - 150px / 2);
-    left: calc(50% - 150px / 2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
+
 
 .logo-small {
     width: 100.03px;
@@ -46,7 +60,9 @@ body {
     top: 80px;
     left: 77px;
     transition: 1s;
+    z-index: 1000;
 }
+
 
 .log-in-layout {
     background-color: white;

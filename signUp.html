@@ -6,50 +6,53 @@
     <title>Join - Sign Up</title>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
     <link rel="stylesheet" href="logInStyle.css">
+    <script src="./script.js" defer></script>
 </head>
 <body>
     <div class="overflow-wrapper">
         <img id="splash-screen" class="logo-big" src="./img/Capa-1.svg" alt="">
     </div>
 
-    <div id="log-in" class="signUpLayout">
-        <a href="login.html"><img src="img/arrow-left-line.svg" id="backToLogInArrow" class="backToLogInArrow"></a>
-        <div class="log-in-title">
-            <h1 id="title">Sign up</h1>
-            <div class="separator"></div>
+    <div id="content" class="d-none">
+        <div id="log-in" class="signUpLayout">
+            <a href="login.html"><img src="img/arrow-left-line.svg" id="backToLogInArrow" class="backToLogInArrow"></a>
+            <div class="log-in-title">
+                <h1 id="title">Sign up</h1>
+                <div class="separator"></div>
+            </div>
+
+            <form id="inputSection" class="inputSectionSignUp">
+                <div class="login-credentials">
+                    <input type="name" id="signUpName" placeholder="Name" required>
+                    <img class="cred-icon" src="./img/person.svg" alt="">
+                </div>
+                <div class="login-credentials">
+                    <input type="email" name="" id="signUpEmail" placeholder="Email" required>
+                    <img class="cred-icon" src="./img/mail.svg" alt="">
+                </div>
+                <div class="login-credentials">
+                    <input type="password" id="signUpPassword" placeholder="Password" required>
+                    <img class="cred-icon" src="./img/lock.svg" alt="">
+                </div>
+                <div class="login-credentials">
+                    <input type="password" id="againSignUpPassword" placeholder="Repeat password" required>
+                    <img class="cred-icon" src="./img/lock.svg" alt="">
+                </div>
+                <div class="accept-privacy-policy m-top24">
+                    <input class="rememberMe-button" type="checkbox" id="acceptPrivatPolicyButton">
+                    <label class="rememberMe-text" for="rememberMe">I accept the <a href="#privacy-policy">Privacy Policy</a></label>
+                </div>
+            </form>
+
+            <div class="login-guest-login-buttons">
+                <button id="signUpButton" class="sign-up-button">Sign up</button>
+            </div>
         </div>
 
-        <form id="inputSection" class="inputSectionSignUp">
-            <div class="login-credentials">
-                <input type="name" id="signUpName" placeholder="Name" required>
-                <img class="cred-icon" src="./img/person.svg" alt="">
-            </div>
-            <div class="login-credentials">
-                <input type="email" name="" id="signUpEmail" placeholder="Email" required>
-                <img class="cred-icon" src="./img/mail.svg" alt="">
-            </div>
-            <div class="login-credentials">
-                <input type="password" id="signUpPassword" placeholder="Password" required>
-                <img class="cred-icon" src="./img/lock.svg" alt="">
-            </div>
-            <div class="login-credentials">
-                <input type="password" id="againSignUpPassword" placeholder="Repeat password" required>
-                <img class="cred-icon" src="./img/lock.svg" alt="">
-            </div>
-            <div class="accept-privacy-policy m-top24">
-                <input class="rememberMe-button" type="checkbox" id="acceptPrivatPolicyButton">
-                <label class="rememberMe-text" for="rememberMe">I accept the <a href="#privacy-policy">Privacy Policy</a></label>
-            </div>
-        </form>
-
-        <div class="login-guest-login-buttons">
-            <button id="signUpButton" class="sign-up-button">Sign up</button>
+        <div class="footer">
+            <a href="#privacy-policy">Privacy Policy</a>
+            <a href="./legalNoticeExternal.html">Legal notice</a>
         </div>
-    </div>
-
-    <div class="footer">
-        <a href="#privacy-policy">Privacy Policy</a>
-        <a href="./legalNoticeExternal.html">Legal notice</a>
     </div>
 </body>
 </html>

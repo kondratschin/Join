@@ -7,51 +7,52 @@
     <title>Join</title>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
     <link rel="stylesheet" href="logInStyle.css">
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
 </head>
 
 <body>
-
-    <div class="overflow-wrapper">
+    <div id="splash" class="overflow-wrapper">
         <img id="splash-screen" class="logo-big" src="./img/Capa-1.svg" alt="">
+    </div>
 
+    <div id="content" class="d-none">
         <div id="notUser" class="not-a-user-container">
             <p class="not-a-user-text">Not a Join user?</p>
             <a href="signUp.html" class="not-a-user-button">Sign up</a>
         </div>
-    </div>
 
-    <div id="log-in" class="log-in-layout">
-        <img src="img/arrow-left-line.svg" id="backToLogInArrow" class="backToLogInArrow d-none" onclick="backToLogInArrow()"></img>
-        <div class="log-in-title">
-            <h1 id="title">Log in</h1>
-            <div class="separator"></div>
+        <div id="log-in" class="log-in-layout">
+            <img src="img/arrow-left-line.svg" id="backToLogInArrow" class="backToLogInArrow d-none" onclick="backToLogInArrow()"></img>
+            <div class="log-in-title">
+                <h1 id="title">Log in</h1>
+                <div class="separator"></div>
+            </div>
+
+            <form id="inputSection" class="credentials">
+                <div class="login-credentials">
+                    <input type="email" name="" id="mail-login" placeholder="Email" required>
+                    <img class="cred-icon" src="./img/mail.svg" alt="">
+                </div>
+                <div class="login-credentials">
+                    <input type="password" id="passwort-login" placeholder="Password" required>
+                    <img class="cred-icon" src="./img/lock.svg" alt="">
+                </div>
+                <div class="rememberMe">
+                    <input class="rememberMe-button" type="checkbox" id="rememberMe" onclick="">
+                    <label class="rememberMe-text" for="rememberMe">Remember me</label>
+                </div>
+            </form>
+
+            <div class="login-guest-login-buttons">
+                <button id="logInButton" class="login-button">Log in</button>
+                <button id="guestLogInButton" class="guest-login-button">Guest Log in</button>
+            </div>
         </div>
 
-        <form id="inputSection" class="credentials">
-            <div class="login-credentials">
-                <input type="email" name="" id="mail-login" placeholder="Email" required>
-                <img class="cred-icon" src="./img/mail.svg" alt="">
-            </div>
-            <div class="login-credentials">
-                <input type="password" id="passwort-login" placeholder="Password" required>
-                <img class="cred-icon" src="./img/lock.svg" alt="">
-            </div>
-            <div class="rememberMe">
-                <input class="rememberMe-button" type="checkbox" id="rememberMe" onclick="">
-                <label class="rememberMe-text" for="rememberMe">Remember me</label>
-            </div>
-        </form>
-
-        <div class="login-guest-login-buttons">
-            <button id="logInButton" class="login-button">Log in</button>
-            <button id="guestLogInButton" class="guest-login-button">Guest Log in</button>
+        <div class="footer">
+            <a href="#privacy-policy">Privacy Policy</a>
+            <a href="./legalNoticeExternal.html">Legal notice</a>
         </div>
-    </div>
-
-    <div class="footer">
-        <a href="#privacy-policy">Privacy Policy</a>
-        <a href="./legalNoticeExternal.html">Legal notice</a>
     </div>
 
 </body>
