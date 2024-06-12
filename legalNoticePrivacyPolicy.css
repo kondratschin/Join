@@ -21,12 +21,8 @@ body {
 
 a {
     text-decoration: none;
-    transition: transform 0.3s ease;
 }
 
-a:hover {
-    transform: scale(1.1);
-}
 
 .leftNavbar {
     width: 232px;
@@ -57,7 +53,8 @@ a:hover {
     justify-content: center;
     align-items: flex-start;
     padding: 0px;
-    gap: 15px;  
+    gap: 15px;
+    width: 100%;
 }
 
 .navbarSummary {
@@ -68,22 +65,27 @@ a:hover {
 .navbar {
     font-size: 16px;
     color: #CDCDCD !important;
-    padding: 8px, 56px, 8px, 56px;
     display: flex;
-    align-items: center; 
-    justify-content: space-between;
+    align-items: center;
     flex: none;
     order: 1;
     flex-grow: 0;
     height: 46px;
-    display: flex;
+    width: 100%;
 }
+
+
+.navbar:hover {
+    background-color: #2A3D59;
+}
+
 
 .navbarIcon{
     height: 30px;
     width: 30px;
     padding-right: 8px;
     color: #CDCDCD !important;
+    padding-left: 60px;
 }
 
 
@@ -92,11 +94,11 @@ a:hover {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-    padding: 160px 0px 0px 52px;
-    gap: 4px;
+    padding: 160px 0px 0px 0px;
+    gap: 8px;
     width: 232px;
     margin-bottom: 48px;
-    color: #CDCDCD !important;
+    color: #CDCDCD;
     flex: none;
     order: 2;
     align-self: stretch;
@@ -104,15 +106,48 @@ a:hover {
 }
 
 .navbarFooter a {
-    color: inherit !important; /* Verwendet die gleiche Farbe wie das übergeordnete Element */
+    font-weight: 400;
+    color: inherit; /* Verwendet die gleiche Farbe wie das übergeordnete Element */
     text-decoration: none !important; /* Entfernt die Standardtextdekoration von Links */
-    transition: transform 0.3s ease; /* Fügt eine sanfte Übergangsanimation für die Skalierung hinzu */
     margin: 8px;
+    padding-left: 60px;
 }
 
-.navbarFooter a:hover {
-    transform: scale(1.1); /* Fügt einen leichten Skaleneffekt beim Hover hinzu */
+
+.navbarFooter p {
+    font-weight: 400;
+    color: inherit; /* Verwendet die gleiche Farbe wie das übergeordnete Element */
+    text-decoration: none !important; /* Entfernt die Standardtextdekoration von Links */
+    margin: 8px;
+    cursor: default;
+    padding-left: 60px;
 }
+
+
+.navbarFooter a:hover {
+    color: #29ABE2;
+    font-weight: 700;
+}
+
+
+.navbarFooterPicked {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+    padding: 8px 0px;
+    background-color: #091931;
+}
+
+
+.navbarFooterNotPicked {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+    padding: 8px 0px;
+}
+
 
 .header {
     font-size: 20px;
@@ -135,11 +170,24 @@ a:hover {
 }
 
 
-.headerIcons{
+.headerIcons {
     display: flex;
     width: 104px;
     justify-content: space-between;
     align-items: center;
+}
+
+
+.headerIcons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.headerIconLink img:hover {
+    height: 36px;
+    width: 36px;
 }
 
 
@@ -158,13 +206,18 @@ a:hover {
 }
 
 
+.UserProfileInitials:hover {
+    background-color: #E1E6EC;
+}
+
+
 .legalNoticeContent {
     display: flex;
     align-items: flex-start;
     padding: 0px;
     max-width: 1014px;
     font-family: "Inter-Regular";
-    max-height: -webkit-fill-available;
+    height: calc(100vh - 216px);
     margin-top: 80px;
     margin-left: 80px;
 }
@@ -187,11 +240,17 @@ a:hover {
 
 .legalNoticeText h2 {
     margin: 0;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 120%;
 }
 
 
 .legalNoticeText h3 {
     margin-bottom: 0;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 120%;
 }
 
 
@@ -210,12 +269,40 @@ a:hover {
 }
 
 
+.privacyPolicyText::-webkit-scrollbar {
+    display: none;
+}
+
+
+.privacyPolicyText {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    text-wrap: pretty;
+    max-height: calc(100vh - 240px);
+}
+
+
+.privacyPolicyText h1 {
+    font-size: -webkit-xxx-large;
+    margin-top: 0;
+}
+
+
+.privacyPolicyText h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 120%;
+}
+
+
 body::-webkit-scrollbar {
     display: none;
 }
 
 
-.backArrow {
+.backArrow a{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -226,9 +313,8 @@ body::-webkit-scrollbar {
 }
 
 
-.backArrow:hover {
+.backArrow img:hover {
     width: 38px;
-    height: 38px;
     background-color: #EEEEEE;
     border-radius: 18px;
 }
