@@ -153,7 +153,6 @@ async function getContacts() {
   let response = await fetch(BASE_URL + "contacts.json");
   return await response.json();
 }
-
 // Beispielaufruf:
 getContacts().then(contacts => {
   console.log(contacts);
@@ -162,7 +161,7 @@ getContacts().then(contacts => {
 
 
 // Komplettes Beispiel:
-const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
+//const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function postData(path = "", data = {}) {
     let response = await fetch(BASE_URL + path + ".json", {
