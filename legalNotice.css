@@ -50,6 +50,43 @@ a:hover {
 }
 
 
+.navbarMenu {
+    height: 292px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 15px;  
+}
+
+.navbarSummary {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar {
+    font-size: 16px;
+    color: #CDCDCD !important;
+    padding: 8px, 56px, 8px, 56px;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    height: 46px;
+    display: flex;
+}
+
+.navbarIcon{
+    height: 30px;
+    width: 30px;
+    padding-right: 8px;
+    color: #CDCDCD !important;
+}
+
+
 .navbarFooter {
     display: flex;
     flex-direction: column;
@@ -87,6 +124,7 @@ a:hover {
     left: 0px;
     z-index: 900;
     top: 0px;
+    justify-content: space-between;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -96,6 +134,28 @@ a:hover {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
+
+.headerIcons{
+    display: flex;
+    width: 104px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.UserProfileInitials {
+    box-sizing: border-box;
+    width: 56px;
+    height: 56px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 3px solid #2A3647;
+    border-radius: 50%;
+    color: #29ABE2;
+}
 
 
 .legalNoticeContent {
