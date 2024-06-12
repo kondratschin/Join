@@ -318,3 +318,21 @@ body::-webkit-scrollbar {
     background-color: #EEEEEE;
     border-radius: 18px;
 }
+
+
+dl {
+    display: flex;
+}
+
+
+dt {
+    margin: 0;
+    font-weight: 1000;
+    font-size: 35px;
+    line-height: 120%;
+}
+
+
+dd p {
+    margin: 0;
+}
