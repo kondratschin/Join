@@ -70,12 +70,6 @@ async function postData(path = "", data = {}) {
 }
 
 
-
-
-
-
-
-
 //Funktionen für das Posten von Benutzern Aufgaben und Kontakten:
 
 
