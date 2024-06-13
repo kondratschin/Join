@@ -272,7 +272,7 @@ input {
     line-height: 25.2px;
 }
 
-.sign-up-button{
+.sign-up-button {
     /* Button wo icon */
 
 /* Auto layout */
@@ -297,7 +297,12 @@ flex: none;
 order: 2;
 flex-grow: 0;
 z-index: 2;
+}
 
+
+.sign-up-button:hover {
+cursor: pointer;
+transform: scale(1.1);
 }
 
 .login-button:hover {
