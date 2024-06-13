@@ -26,15 +26,15 @@ let currentPage = window.location.pathname.split("/").pop();
 let currentSearchParams = new URLSearchParams(window.location.search);
 
 if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome')) {
-  window.addEventListener('load', () => {
-    setTimeout(() => {
+  window.addEventListener('load', function() { 
+    setTimeout(function() { 
       moveLogo();  // Führe die Logo-Animation aus
       showContent(); // Zeige den Inhalt direkt danach
     }, 1000); // Warte 1 Sekunde vor Beginn der Animationen
   });
 } else {
   showContent(); // Zeige den Inhalt sofort, wenn auf login.html?returnHome oder einer anderen Seite
-  moveLogo();
+  moveLogo(); 
 }
 
 /**
@@ -55,11 +55,9 @@ function displayElement(id) {
   document.getElementById(id).classList.remove('d-none');
 }
 
-function backToLogInArrow() {
+function backToLogInArrow() {o
   window.location.reload();
 }
-
-
 
 document.write('<a href="' + document.referrer + '">Go Back</a>');
 
