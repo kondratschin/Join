@@ -23,8 +23,9 @@ function showContent() {
  * This needs to be moved to an event after loading database
  */
 let currentPage = window.location.pathname.split("/").pop();
+let currentSearchParams = new URLSearchParams(window.location.search);
 
-if (currentPage === "login.html") {
+if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome')) {
   window.addEventListener('load', () => {
     setTimeout(() => {
       moveLogo();  // Führe die Logo-Animation aus
@@ -32,9 +33,9 @@ if (currentPage === "login.html") {
     }, 1000); // Warte 1 Sekunde vor Beginn der Animationen
   });
 } else {
-  showContent(); // Zeige den Inhalt sofort, wenn nicht auf login.html
+  showContent(); // Zeige den Inhalt sofort, wenn auf login.html?returnHome oder einer anderen Seite
+  moveLogo();
 }
-
 
 /**
  * Hide an element by using ID
