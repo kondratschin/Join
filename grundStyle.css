@@ -134,17 +134,25 @@ a {
 }
 
 
-.navbarFooterPicked {
+.navbarPicked {
     display: flex;
     align-items: center;
     height: 35px;
     width: 100%;
     padding: 8px 0px;
     background-color: #091931;
+    color: #CDCDCD;
+    flex: none;
+    order: 1;
 }
 
 
-.navbarFooterNotPicked {
+.navbarPicked:hover {
+    cursor: default;
+}
+
+
+.navbarNotPicked {
     display: flex;
     align-items: center;
     height: 35px;
