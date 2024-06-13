@@ -10,30 +10,32 @@
 
 body {
     font-family: "Inter-Regular";
-    height: 100vh;
-    width: 100%;
     margin: 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #F6F7F8;
+    padding-left: 232px;
+    padding-top: 136px;
 }
 
 a {
     text-decoration: none;
-    transition: transform 0.3s ease;
 }
 
-a:hover {
-    transform: scale(1.1);
-}
 
-.leftNavbar{
+.leftNavbar {
     width: 232px;
     height: 100%;
+    z-index: 999;
     display: flex;
     justify-content: space-between;
     background-color: #2A3647;
     flex-direction: column;
     align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .navbarLogo {
@@ -43,6 +45,7 @@ a:hover {
     padding: 64px 0px 64px 0px;
 }
 
+
 .navbarMenu {
     height: 292px;
     display: flex;
@@ -51,6 +54,7 @@ a:hover {
     align-items: flex-start;
     padding: 0px;
     gap: 15px;  
+    width: 100%;
 }
 
 .navbarSummary {
@@ -61,22 +65,27 @@ a:hover {
 .navbar {
     font-size: 16px;
     color: #CDCDCD !important;
-    padding: 8px, 56px, 8px, 56px;
     display: flex;
-    align-items: center; 
-    justify-content: space-between;
+    align-items: center;
     flex: none;
     order: 1;
     flex-grow: 0;
     height: 46px;
-    display: flex;
+    width: 100%;
 }
 
-.navbarIcon{
+
+.navbar:hover {
+    background-color: #2A3D59;
+}
+
+
+.navbarIcon {
     height: 30px;
     width: 30px;
     padding-right: 8px;
     color: #CDCDCD !important;
+    padding-left: 60px;
 }
 
 
@@ -85,11 +94,11 @@ a:hover {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-    padding: 160px 0px 0px 52px;
-    gap: 4px;
+    padding: 160px 0px 0px 0px;
+    gap: 8px;
     width: 232px;
     margin-bottom: 48px;
-    color: #CDCDCD !important;
+    color: #CDCDCD;
     flex: none;
     order: 2;
     align-self: stretch;
@@ -97,44 +106,96 @@ a:hover {
 }
 
 .navbarFooter a {
-    color: inherit !important; /* Verwendet die gleiche Farbe wie das übergeordnete Element */
-    text-decoration: none !important; /* Entfernt die Standardtextdekoration von Links */
-    transition: transform 0.3s ease; /* Fügt eine sanfte Übergangsanimation für die Skalierung hinzu */
+    font-weight: 400;
+    color: inherit;
+    /* Verwendet die gleiche Farbe wie das übergeordnete Element */
+    text-decoration: none !important;
+    /* Entfernt die Standardtextdekoration von Links */
     margin: 8px;
+    padding-left: 60px;
 }
+
+
+.navbarFooter p {
+    font-weight: 400;
+    color: inherit;
+    /* Verwendet die gleiche Farbe wie das übergeordnete Element */
+    text-decoration: none !important;
+    /* Entfernt die Standardtextdekoration von Links */
+    margin: 8px;
+    cursor: default;
+    padding-left: 60px;
+}
+
 
 .navbarFooter a:hover {
-    transform: scale(1.1); /* Fügt einen leichten Skaleneffekt beim Hover hinzu */
-}
-
-.header{
-font-size: 20px;
-font-weight: 400;
-width: 100%;
-height: 96px;
-left: 0px;
-top: 0px;
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-padding: 20px 40px 20px 348px;
-gap: 34px;
-background: #FFFFFF;
-/* Barra superior */
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    color: #29ABE2;
+    font-weight: 700;
 }
 
 
-.headerIcons{
+.navbarFooterPicked {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+    padding: 8px 0px;
+    background-color: #091931;
+}
+
+
+.navbarFooterNotPicked {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+    padding: 8px 0px;
+}
+
+
+.header {
+    font-size: 20px;
+    font-weight: 400;
+    position: absolute;
+    max-width: 100vw;
+    width: -webkit-fill-available;
+    height: 96px;
+    left: 0px;
+    z-index: 900;
+    top: 0px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px 40px 20px 348px;
+    gap: 34px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.headerIcons {
     display: flex;
     width: 104px;
     justify-content: space-between;
     align-items: center;
 }
 
+
+.headerIcons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.headerIconLink img:hover {
+    height: 36px;
+    width: 36px;
+}
+
+
 .UserProfileInitials {
-    /* Ellipse 3 */
     box-sizing: border-box;
     width: 56px;
     height: 56px;
@@ -146,4 +207,66 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     border: 3px solid #2A3647;
     border-radius: 50%;
     color: #29ABE2;
+}
+
+
+.UserProfileInitials:hover {
+    background-color: #E1E6EC;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 136px;
+    right: 20px;
+    background-color: #2A3647;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 150px;
+    height: 158px;
+    border-radius: 20px 0px 20px 20px;
+    padding: 10px 10px 0 10px;
+}
+
+
+.dropdown-content a {
+    color: #A5A8Ac;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-wrap: nowrap;
+}
+
+
+.dropdown-content a:hover {
+    background-color: #2A3D59;
+}
+
+
+.show {
+    display: block;
+}
+
+
+.initials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    width: 56px;
+    border: solid 3px black;
+    border-radius: 33px;
+}
+
+
+.initials:hover {
+    cursor: default;
+    background-color: #E1E6EC;
 }

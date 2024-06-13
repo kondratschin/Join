@@ -80,7 +80,7 @@ a {
 }
 
 
-.navbarIcon{
+.navbarIcon {
     height: 30px;
     width: 30px;
     padding-right: 8px;
@@ -107,8 +107,10 @@ a {
 
 .navbarFooter a {
     font-weight: 400;
-    color: inherit; /* Verwendet die gleiche Farbe wie das übergeordnete Element */
-    text-decoration: none !important; /* Entfernt die Standardtextdekoration von Links */
+    color: inherit;
+    /* Verwendet die gleiche Farbe wie das übergeordnete Element */
+    text-decoration: none !important;
+    /* Entfernt die Standardtextdekoration von Links */
     margin: 8px;
     padding-left: 60px;
 }
@@ -116,8 +118,10 @@ a {
 
 .navbarFooter p {
     font-weight: 400;
-    color: inherit; /* Verwendet die gleiche Farbe wie das übergeordnete Element */
-    text-decoration: none !important; /* Entfernt die Standardtextdekoration von Links */
+    color: inherit;
+    /* Verwendet die gleiche Farbe wie das übergeordnete Element */
+    text-decoration: none !important;
+    /* Entfernt die Standardtextdekoration von Links */
     margin: 8px;
     cursor: default;
     padding-left: 60px;
@@ -302,7 +306,7 @@ body::-webkit-scrollbar {
 }
 
 
-.backArrow a{
+.backArrow a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -338,50 +342,48 @@ dd p {
 }
 
 
-
-
-
-
-
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
+.dropdown {
     position: relative;
     display: inline-block;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+}
+
+
+.dropdown-content {
     display: none;
     position: absolute;
     top: 136px;
     right: 20px;
     background-color: #2A3647;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     width: 150px;
     height: 158px;
     border-radius: 20px 0px 20px 20px;
     padding: 10px 10px 0 10px;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
+}
+
+
+.dropdown-content a {
     color: #A5A8Ac;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-wrap: nowrap;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #2A3D59;}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
+}
 
 
-  .initials {
+.dropdown-content a:hover {
+    background-color: #2A3D59;
+}
+
+
+.show {
+    display: block;
+}
+
+
+.initials {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -389,9 +391,9 @@ dd p {
     width: 56px;
     border: solid 3px black;
     border-radius: 33px;
-  }
+}
 
 
-  .initials:hover {
+.initials:hover {
     cursor: default;
-  }
+}

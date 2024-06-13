@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
     <link rel="stylesheet" href="grundStyle.css">
-    <script src="./boardScript.js"></script>
+    <script src="./script.js"></script>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
 </head>
 <body>
@@ -30,8 +30,8 @@
             </a>
         </div>
         <div class="navbarFooter">
-            <a href="#privacy-policy">Privacy Policy</a>
-            <a href="#legal-notice">Legal notice</a>
+            <a href="./privacyPolicyInternal.html">Privacy Policy</a>
+            <a href="./legalNoticeInternal.html">Legal notice</a>
         </div>
         
     </div>
@@ -39,18 +39,20 @@
     <div class="header">
         <p>Kanban Project Management Tool</p>
         <div class="headerIcons">
-            <a href="#" class="headerIconLink">
+            <a href="./help.html" class="headerIconLink">
                 <img src="img/helpIcon.svg" alt="Help Icon">
             </a>
-            <a href="#" class="headerIconLink">
-                <div class="UserProfileInitials">
-                    <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-                    </svg>
-                    <div id="initials" style="position: absolute;">AB</div>
+            <div id="dropdownMenu">
+                <div class="initials dropbtn" onclick="showDrpDown()">
+                    <p id="initials" class="dropbtn">AB</p>
                 </div>
-            </a>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="./legalNoticeInternal.html" target="_blank">Legal Notice</a>
+                    <a href="./privacyPolicyInternal.html" target="_blank">Privacy Policy</a>
+                    <a href="./logIn.html">Log out</a>
+                </div>
+            </div>
         </div>
-        
     </div>
 </body>
 </html>
