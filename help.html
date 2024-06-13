@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy</title>
+    <title>Help</title>
 
     <link rel="stylesheet" href="legalNoticePrivacyPolicy.css">
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -40,27 +41,26 @@
             </div>
         </div>
     </div>
-
-
-
     <div class="header">
         <p>Kanban Project Management Tool</p>
         <div class="headerIcons">
             <a href="#" class="headerIconLink">
             </a>
-            <a href="#" class="headerIconLink">
-                <div class="UserProfileInitials">
-                    <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-                    </svg>
-                    <div id="initials" style="position: absolute;">AB</div>
+            <div id="dropdownMenu">
+                <div class="initials dropbtn" onclick="showDrpDown()">
+                    <p id="initials" class="dropbtn">AB</p>
                 </div>
-            </a>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="./legalNoticeInternal.html">Legal Notice</a>
+                    <a href="./privacyPolicyInternal.html">Privacy Policy</a>
+                    <a href="./logIn.html">Log out</a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="legalNoticeContent">
         <div class="privacyPolicyText">
             <h1>Help</h1>
-
             <p>
                 Welcome to the help page for <span style="color: #29ABE2;">Join</span>, your guide to using our kanban
                 project management tool.
@@ -150,7 +150,6 @@
                         Have more questions about <span style="color: #29ABE2;">Join</span>? Feel free to contact us at
                         [Your Contact Email].
                         We're here to help you!
-
                     </p>
                 </dd>
             </dl>
