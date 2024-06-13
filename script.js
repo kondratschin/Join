@@ -84,6 +84,7 @@ async function addUser(user) {
   return await postData("users", user);
 }
 // Beispielaufruf:
+/*
 addUser({
   name: "John Doe",
   email: "john.doe@example.com",
@@ -91,6 +92,7 @@ addUser({
 }).then(response => {
   console.log(response);
 });
+*/
 
 
 // Tasks hinzufügen (Board)
@@ -98,6 +100,7 @@ async function addTask(task) {
   return await postData(`tasks/${task.status}`, task);
 }
 // Beispielaufruf:
+/*
 addTask({
   title: "Task 1",
   description: "Description of task 1",
@@ -110,6 +113,7 @@ addTask({
 }).then(response => {
   console.log(response);
 });
+*/
 
 
 //Contacts hinzufügen
@@ -117,6 +121,7 @@ async function addContact(contact) {
   return await postData("contacts", contact);
 }
 // Beispielaufruf:
+/*
 addContact({
   name: "Jane Smith",
   email: "jane.smith@example.com",
@@ -124,7 +129,7 @@ addContact({
 }).then(response => {
   console.log(response);
 });
-
+*/
 
 //Benutzer abrufen
 async function getUsers() {
@@ -200,6 +205,7 @@ async function getContacts() {
     let response = await fetch(BASE_URL + "contacts.json");
     return await response.json();
 }
+/*
 
 // Beispielaufrufe:
 addUser({
@@ -242,6 +248,8 @@ getTasks("to do").then(tasks => {
 getContacts().then(contacts => {
     console.log("Contacts:", contacts);
 });
+
+*/
 
 
 document.addEventListener('DOMContentLoaded', function () {
