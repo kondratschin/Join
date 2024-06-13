@@ -22,12 +22,19 @@ function showContent() {
 /**
  * This needs to be moved to an event after loading database
  */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    moveLogo();
-    setTimeout(showContent, 1000);  // Show content after the logo animation
-  }, 1000);
-});
+let currentPage = window.location.pathname.split("/").pop();
+
+if (currentPage === "login.html") {
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      moveLogo();  // Führe die Logo-Animation aus
+      showContent(); // Zeige den Inhalt direkt danach
+    }, 1000); // Warte 1 Sekunde vor Beginn der Animationen
+  });
+} else {
+  showContent(); // Zeige den Inhalt sofort, wenn nicht auf login.html
+}
+
 
 /**
  * Hide an element by using ID
