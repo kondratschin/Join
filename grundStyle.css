@@ -70,7 +70,7 @@ a {
     flex: none;
     order: 1;
     flex-grow: 0;
-    height: 46px;
+    height: 51px;
     width: 100%;
 }
 
@@ -108,23 +108,21 @@ a {
 .navbarFooter a {
     font-weight: 400;
     color: inherit;
-    /* Verwendet die gleiche Farbe wie das übergeordnete Element */
     text-decoration: none !important;
-    /* Entfernt die Standardtextdekoration von Links */
-    margin: 8px;
-    padding-left: 60px;
+    padding-left: 68px;
+    flex: none;
+    order: 1;
 }
 
 
 .navbarFooter p {
     font-weight: 400;
     color: inherit;
-    /* Verwendet die gleiche Farbe wie das übergeordnete Element */
     text-decoration: none !important;
-    /* Entfernt die Standardtextdekoration von Links */
-    margin: 8px;
     cursor: default;
-    padding-left: 60px;
+    padding-left: 68px;
+    flex: none;
+    order: 1;
 }
 
 
