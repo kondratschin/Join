@@ -7,7 +7,6 @@ function moveLogo() {
   logo.classList.add("logo-small");
 }
 
-
 /**
  * Shows the content after the logo is moved
  */
@@ -17,7 +16,6 @@ function showContent() {
     document.getElementById('content').classList.add('visible');
   }, 10); // Slight delay to ensure transition
 }
-
 
 /**
  * This needs to be moved to an event after loading database
@@ -56,44 +54,76 @@ function displayElement(id) {
 }
 
 function backToLogInArrow() {
-  o
   window.location.reload();
 }
 
-
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
 
-async function getUsers() { //Funktion zum Laden der User
+async function getUsers() {
   let response = await fetch(BASE_URL + "users.json");
   return await response.json();
 }
 
-document.getElementById('acceptPrivatPolicyButton').addEventListener('change', function () {
+document.addEventListener('DOMContentLoaded', function () {
   let signUpButton = document.getElementById('signUpButton');
-  signUpButton.disabled = !this.checked;
-});
+  let logInButton = document.getElementById('logInButton');
 
-document.getElementById('signUpButton').addEventListener('click', async () => {
-  let email = document.getElementById('signUpEmail').value;
-  let password = document.getElementById('signUpPassword').value;
-  let confirmPassword = document.getElementById('againSignUpPassword').value;
-  let name = document.getElementById('signUpName').value;
-  let checkbox = document.getElementById('acceptPrivatPolicyButton');
+  if (signUpButton) {
+    signUpButton.addEventListener('click', async () => {
+      let email = document.getElementById('signUpEmail').value;
+      let password = document.getElementById('signUpPassword').value;
+      let confirmPassword = document.getElementById('againSignUpPassword').value;
+      let name = document.getElementById('signUpName').value;
+      let checkbox = document.getElementById('acceptPrivatPolicyButton');
 
-  if (!checkbox.checked) {
-    alert("Please accept the Privacy Policy to proceed.");
-    return;
+      if (!checkbox.disabled) {
+        alert("Please accept the Privacy Policy to proceed.");
+        return;
+      }
+
+      if (!email || !password || !confirmPassword || !name) {
+        alert("Please fill in all fields to proceed.");
+        return;
+      }
+
+      await signUp(email, password, confirmPassword, name);
+    });
+
+    document.getElementById('acceptPrivatPolicyButton').addEventListener('change', function () {
+      signUpButton.disabled = !this.checked;
+    });
   }
 
-  if (!email || !password || !confirmPassword || !name) {
-    alert("Please fill in all fields to proceed.");
-    return;
-  }
+  if (logInButton) {
+    logInButton.addEventListener('click', async () => {
+      let email = document.getElementById('mail-login').value;
+      let password = document.getElementById('passwort-login').value;
 
-  await signUp(email, password, confirmPassword, name); 
+      if (!email || !password) {
+        alert("Please fill in all fields to proceed.");
+        return;
+      }
+
+      let users = await getUsers();
+      let userFound = false;
+      for (let key in users) {
+        if (users[key].email === email && users[key].password === password) {
+          userFound = true;
+          break;
+        }
+      }
+
+      if (userFound) {
+        alert("Login successful!");
+        window.location.href = "dashboard.html"; // Hier wird der Benutzer weitergeleitet
+      } else {
+        alert("Invalid email or password. Please try again.");
+      }
+    });
+  }
 });
 
-async function isEmailRegistered(email) { //Check ob Email schon mal registriert wurde
+async function isEmailRegistered(email) {
   let users = await getUsers();
   for (let key in users) {
     if (users[key].email === email) {
@@ -103,7 +133,7 @@ async function isEmailRegistered(email) { //Check ob Email schon mal registriert
   return false;
 }
 
-function arePasswordsMatching(password, confirmPassword) { //Check ob die eingegebenen Passwörter übereinstimmen 
+function arePasswordsMatching(password, confirmPassword) {
   return password === confirmPassword;
 }
 
@@ -135,3 +165,4 @@ async function signUp(email, password, confirmPassword, name) {
     console.log("Error registering user.");
   }
 }
+
