@@ -116,6 +116,13 @@ h1 {
     border-bottom: 3px solid #29ABE2;
 }
 
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: none;
+}
+
 .credentials {
     height: 196px;
     width: 422px;

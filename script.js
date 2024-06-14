@@ -26,15 +26,15 @@ let currentPage = window.location.pathname.split("/").pop();
 let currentSearchParams = new URLSearchParams(window.location.search);
 
 if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome')) {
-  window.addEventListener('load', function() { 
-    setTimeout(function() { 
+  window.addEventListener('load', function () {
+    setTimeout(function () {
       moveLogo();  // Führe die Logo-Animation aus
       showContent(); // Zeige den Inhalt direkt danach
     }, 1000); // Warte 1 Sekunde vor Beginn der Animationen
   });
 } else {
   showContent(); // Zeige den Inhalt sofort, wenn auf login.html?returnHome oder einer anderen Seite
-  moveLogo(); 
+  moveLogo();
 }
 
 /**
@@ -55,221 +55,83 @@ function displayElement(id) {
   document.getElementById(id).classList.remove('d-none');
 }
 
-function backToLogInArrow() {o
+function backToLogInArrow() {
+  o
   window.location.reload();
 }
 
-document.write('<a href="' + document.referrer + '">Go Back</a>');
 
-// Allgemeine postData Funktion
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
 
-async function postData(path = "", data = {}) {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    return await response.json();
-}
-
-
-//Funktionen für das Posten von Benutzern Aufgaben und Kontakten:
-
-
-//Benutzer hinzufügen (Log In Daten)
-async function addUser(user) {
-  return await postData("users", user);
-}
-// Beispielaufruf:
-/*
-addUser({
-  name: "John Doe",
-  email: "john.doe@example.com",
-  password: "securepassword"
-}).then(response => {
-  console.log(response);
-});
-*/
-
-
-// Tasks hinzufügen (Board)
-async function addTask(task) {
-  return await postData(`tasks/${task.status}`, task);
-}
-// Beispielaufruf:
-/*
-addTask({
-  title: "Task 1",
-  description: "Description of task 1",
-  assignTo: "John Doe",
-  dueDate: "2023-12-31",
-  priority: "High",
-  category: "Work",
-  status: "to do",
-  subtasks: ["Subtask 1", "Subtask 2"]
-}).then(response => {
-  console.log(response);
-});
-*/
-
-
-//Contacts hinzufügen
-async function addContact(contact) {
-  return await postData("contacts", contact);
-}
-// Beispielaufruf:
-/*
-addContact({
-  name: "Jane Smith",
-  email: "jane.smith@example.com",
-  phone: "1234567890"
-}).then(response => {
-  console.log(response);
-});
-*/
-
-//Benutzer abrufen
-async function getUsers() {
+async function getUsers() { //Funktion zum Laden der User
   let response = await fetch(BASE_URL + "users.json");
   return await response.json();
 }
-// Beispielaufruf:
-getUsers().then(users => {
-  console.log(users);
+
+document.getElementById('acceptPrivatPolicyButton').addEventListener('change', function () {
+  let signUpButton = document.getElementById('signUpButton');
+  signUpButton.disabled = !this.checked;
 });
 
+document.getElementById('signUpButton').addEventListener('click', async () => {
+  let email = document.getElementById('signUpEmail').value;
+  let password = document.getElementById('signUpPassword').value;
+  let confirmPassword = document.getElementById('againSignUpPassword').value;
+  let name = document.getElementById('signUpName').value;
+  let checkbox = document.getElementById('acceptPrivatPolicyButton');
 
-//Tasks abrufen
-async function getTasks(status) {
-  let response = await fetch(BASE_URL + `tasks/${status}.json`);
-  return await response.json();
-}
-// Beispielaufruf:
-getTasks("to do").then(tasks => {
-  console.log(tasks);
+  if (!checkbox.checked) {
+    alert("Please accept the Privacy Policy to proceed.");
+    return;
+  }
+
+  if (!email || !password || !confirmPassword || !name) {
+    alert("Please fill in all fields to proceed.");
+    return;
+  }
+
+  await signUp(email, password, confirmPassword, name); 
 });
 
-
-//Contacts abrufen
-async function getContacts() {
-  let response = await fetch(BASE_URL + "contacts.json");
-  return await response.json();
-}
-// Beispielaufruf:
-getContacts().then(contacts => {
-  console.log(contacts);
-});
-
-
-
-// Komplettes Beispiel:
-//const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
-
-async function postData(path = "", data = {}) {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data)
-    });
-    return await response.json();
-}
-
-async function addUser(user) {
-    return await postData("users", user);
-}
-
-async function addTask(task) {
-    return await postData(`tasks/${task.status}`, task);
-}
-
-async function addContact(contact) {
-    return await postData("contacts", contact);
-}
-
-async function getUsers() {
-    let response = await fetch(BASE_URL + "users.json");
-    return await response.json();
-}
-
-async function getTasks(status) {
-    let response = await fetch(BASE_URL + `tasks/${status}.json`);
-    return await response.json();
-}
-
-async function getContacts() {
-    let response = await fetch(BASE_URL + "contacts.json");
-    return await response.json();
-}
-/*
-
-// Beispielaufrufe:
-addUser({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    password: "securepassword"
-}).then(response => {
-    console.log("User added:", response);
-});
-
-addTask({
-    title: "Task 1",
-    description: "Description of task 1",
-    assignTo: "John Doe",
-    dueDate: "2023-12-31",
-    priority: "High",
-    category: "Work",
-    status: "to do",
-    subtasks: ["Subtask 1", "Subtask 2"]
-}).then(response => {
-    console.log("Task added:", response);
-});
-
-addContact({
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phone: "1234567890"
-}).then(response => {
-    console.log("Contact added:", response);
-});
-
-getUsers().then(users => {
-    console.log("Users:", users);
-});
-
-getTasks("to do").then(tasks => {
-    console.log("Tasks:", tasks);
-});
-
-getContacts().then(contacts => {
-    console.log("Contacts:", contacts);
-});
-
-*/
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  const dropbtn = document.querySelector(".dropbtn");
-
-  dropbtn.addEventListener('click', function (event) {
-      event.stopPropagation();
-      document.getElementById("myDropdown").classList.toggle("show");
-  });
-
-
-  window.addEventListener('click', function (event) {
-    if (!event.target.closest('.dropdown')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      for (var i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-          }
-        }
+async function isEmailRegistered(email) { //Check ob Email schon mal registriert wurde
+  let users = await getUsers();
+  for (let key in users) {
+    if (users[key].email === email) {
+      return true;
     }
+  }
+  return false;
+}
+
+function arePasswordsMatching(password, confirmPassword) { //Check ob die eingegebenen Passwörter übereinstimmen 
+  return password === confirmPassword;
+}
+
+async function signUp(email, password, confirmPassword, name) {
+  if (await isEmailRegistered(email)) {
+    alert("Email is already registered.");
+    return;
+  }
+  if (!arePasswordsMatching(password, confirmPassword)) {
+    alert("Passwords do not match.");
+    return;
+  }
+  // Save the new user
+  let logInData = {
+    name: name,
+    email: email,
+    password: password
+  };
+  let response = await fetch(BASE_URL + "users.json", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(logInData)
   });
-});
+  if (response.ok) {
+    alert("User registered successfully.");
+  } else {
+    console.log("Error registering user.");
+  }
+}
