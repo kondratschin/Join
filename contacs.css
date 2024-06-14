@@ -1,0 +1,82 @@
+.contactsContent {
+    position: absolute;
+    width: 456px;
+    height: calc(100vh - 136px);
+    left: 232px;
+    top: 136px;
+    overflow-y: scroll;
+    background: #FFFFFF;
+    box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
+    z-index: 999;
+
+    scrollbar-color:#A8A8A8;
+}
+
+
+::-webkit-scrollbar-track {
+    background: #FFFFFF;
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: #A8A8A8;
+    border-radius: 4px;
+}
+
+
+.buttonDiv{
+position: absolute;
+width: 456px;
+height: 101px;
+left: calc(50% - 456px/2);
+top: 0px;
+background: #FFFFFF;
+}
+
+
+.button {
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 0px;
+gap: 16px;
+position: absolute;
+width: 352px;
+height: 56px;
+left: calc(50% - 352px/2);
+top: calc(50% - 56px/2);
+background: #2A3647;
+border: 1px solid #2A3647;
+border-radius: 10px;
+}
+
+
+.button p {
+width: 175px;
+height: 25px;
+font-family: "Inter-Regular";
+font-style: normal;
+font-weight: 700;
+font-size: 21px;
+line-height: 120%;
+color: #FFFFFF;
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+
+.addContactImg {
+width: 32px;
+height: 32px;
+flex: none;
+order: 1;
+flex-grow: 0;
+}
