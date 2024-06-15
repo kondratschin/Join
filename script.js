@@ -163,7 +163,6 @@ document.getElementById('inputSection').addEventListener('submit', async functio
 
   // Call the signUp function
   await signUp(email, password, passwordRepeat, name);
-  window.open('', '_blank');
 });
 
 
