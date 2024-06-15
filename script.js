@@ -165,8 +165,3 @@ document.getElementById('inputSection').addEventListener('submit', async functio
   await signUp(email, password, passwordRepeat, name);
   window.open('grund.html');
 });
-
-
-function showDrpDown(id) {
-  displayElement(id);
-}

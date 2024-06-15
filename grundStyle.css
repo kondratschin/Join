@@ -278,3 +278,8 @@ a {
     cursor: default;
     background-color: #E1E6EC;
 }
+
+
+.d-none {
+    display: none !important;
+}
