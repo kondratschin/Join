@@ -167,12 +167,3 @@ document.getElementById('inputSection').addEventListener('submit', async functio
 });
 
 
-// Hide the dropdown menu on clicks outside
-document.addEventListener("click", function(event) {
-  const dropdown = document.getElementById("myDropdown");
-  const isClickInsideDropdown = dropdown.contains(event.target);
-
-  if (!isClickInsideDropdown) {
-    displayNone(dropdown);
-  }
-});
