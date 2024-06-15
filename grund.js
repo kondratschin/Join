@@ -36,3 +36,13 @@ function displayNone(id) {
   function displayElement(id) {
     document.getElementById(id).classList.remove('d-none');
   }
+
+
+    /**
+   * toggle an element by using ID
+   * 
+   * @param {string} id -  This is the ID of an element
+   */
+    function toggleElement(id) {
+        document.getElementById(id).classList.toggle('d-none');
+      }
