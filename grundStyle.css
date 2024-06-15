@@ -3,10 +3,12 @@
     src: url("./fonts/inter-v12-latin-regular.woff2") format('woff2');
 }
 
+
 @font-face {
     font-family: "Inter-700";
     src: url("./fonts/inter-v12-latin-700.woff2") format('woff2');
 }
+
 
 body {
     font-family: "Inter-Regular";
@@ -19,6 +21,7 @@ body {
     padding-top: 136px;
     height: 100%;
 }
+
 
 a {
     text-decoration: none;
@@ -39,6 +42,7 @@ a {
     top: 0;
 }
 
+
 .navbarLogo {
     height: 121.97px;
     width: 100.03px;
@@ -58,10 +62,12 @@ a {
     width: 100%;
 }
 
+
 .navbarSummary {
     height: 100%;
     width: 100%;
 }
+
 
 .navbar {
     font-size: 16px;
@@ -108,6 +114,7 @@ a {
     align-self: stretch;
     flex-grow: 0;
 }
+
 
 .navbarFooter a {
     font-weight: 400;
@@ -228,11 +235,6 @@ a {
     display: inline-block;
 }
 
-.dropbtn {
-    cursor: pointer;
-}
-
-
 .dropdown-content {
     position: absolute;
     top: 136px;
@@ -275,11 +277,11 @@ a {
     width: 56px;
     border: solid 3px black;
     border-radius: 33px;
+    cursor: pointer;
 }
 
 
 .initials:hover {
-    cursor: default;
     background-color: #E1E6EC;
 }
 
