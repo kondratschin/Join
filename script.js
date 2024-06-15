@@ -65,34 +65,7 @@ async function getUsers() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  let signUpButton = document.getElementById('signUpButton');
   let logInButton = document.getElementById('logInButton');
-
-  if (signUpButton) {
-    signUpButton.addEventListener('click', async () => {
-      let email = document.getElementById('signUpEmail').value;
-      let password = document.getElementById('signUpPassword').value;
-      let confirmPassword = document.getElementById('againSignUpPassword').value;
-      let name = document.getElementById('signUpName').value;
-      let checkbox = document.getElementById('acceptPrivatPolicyButton');
-
-      if (!checkbox.disabled) {
-        alert("Please accept the Privacy Policy to proceed.");
-        return;
-      }
-
-      if (!email || !password || !confirmPassword || !name) {
-        alert("Please fill in all fields to proceed.");
-        return;
-      }
-
-      await signUp(email, password, confirmPassword, name);
-    });
-
-    document.getElementById('acceptPrivatPolicyButton').addEventListener('change', function () {
-      signUpButton.disabled = !this.checked;
-    });
-  }
 
   if (logInButton) {
     logInButton.addEventListener('click', async () => {
@@ -166,3 +139,25 @@ async function signUp(email, password, confirmPassword, name) {
   }
 }
 
+document.getElementById('inputSection').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  // Check if passwords match
+  const password = document.getElementById('signUpPassword').value;
+  const passwordRepeat = document.getElementById('againSignUpPassword').value;
+
+  if (password !== passwordRepeat) {
+    alert('Passwords do not match!');
+    return;
+  }
+
+  // Check if checkbox is checked
+  const checkbox = document.getElementById('acceptPrivatPolicyButton');
+  if (!checkbox.checked) {
+    alert('Please accept the Privacy Policy.');
+    return;
+  }
+
+  // Open a new blank window (or tab)
+  window.open('', '_blank');
+});
