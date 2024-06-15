@@ -41,7 +41,7 @@ if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome')) {
  * @param {string} id -  This is the ID of an element
  */
 function displayNone(id) {
-  document.getElementById(id).classList.add('d-none');
+  document.getElementById(id).classList.toggle('d-none');
 }
 
 /**
@@ -50,7 +50,7 @@ function displayNone(id) {
  * @param {string} id -  This is the ID of an element
  */
 function displayElement(id) {
-  document.getElementById(id).classList.remove('d-none');
+  document.getElementById(id).classList.toggle('d-none');
 }
 
 function backToLogInArrow() {
@@ -164,4 +164,15 @@ document.getElementById('inputSection').addEventListener('submit', async functio
   // Call the signUp function
   await signUp(email, password, passwordRepeat, name);
   window.open('grund.html');
+});
+
+
+// Hide the dropdown menu on clicks outside
+document.addEventListener("click", function(event) {
+  const dropdown = document.getElementById("myDropdown");
+  const isClickInsideDropdown = dropdown.contains(event.target);
+
+  if (!isClickInsideDropdown) {
+    displayNone(dropdown);
+  }
 });
