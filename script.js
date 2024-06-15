@@ -139,13 +139,16 @@ async function signUp(email, password, confirmPassword, name) {
   }
 }
 
-document.getElementById('inputSection').addEventListener('submit', function(event) {
+document.getElementById('inputSection').addEventListener('submit', async function(event) {
   event.preventDefault(); // Prevent default form submission
 
-  // Check if passwords match
+  // Get form values
+  let name = document.getElementById('signUpName').value;
+  let email = document.getElementById('signUpEmail').value;
   let password = document.getElementById('signUpPassword').value;
   let passwordRepeat = document.getElementById('againSignUpPassword').value;
 
+  // Check if passwords match
   if (password !== passwordRepeat) {
     alert('Passwords do not match!');
     return;
@@ -158,6 +161,12 @@ document.getElementById('inputSection').addEventListener('submit', function(even
     return;
   }
 
-  // Open a new blank window (or tab)
+  // Call the signUp function
+  await signUp(email, password, passwordRepeat, name);
   window.open('', '_blank');
 });
+
+
+function showDrpDown(id) {
+  displayElement(id);
+}
