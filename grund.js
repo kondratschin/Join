@@ -1,7 +1,6 @@
 // Hide the dropdown menu on clicks outside
 
 document.addEventListener('click', function (event) {
-    let dropdown = document.getElementById('myDropdown');
     let excludedObjects = document.querySelectorAll('.excludedObject');
     let clickedElement = event.target;
     let isExcluded = false;
@@ -15,7 +14,7 @@ document.addEventListener('click', function (event) {
   
     // If the clicked element is not contained within any excluded object, call the function
     if (!isExcluded) {
-      displayNone(dropdown);
+      displayNone('myDropdown');
     }
   });
 
@@ -26,7 +25,7 @@ document.addEventListener('click', function (event) {
  * @param {string} id -  This is the ID of an element
  */
 function displayNone(id) {
-    document.getElementById(id).classList.toggle('d-none');
+    document.getElementById(id).classList.add('d-none');
   }
   
   /**
@@ -35,5 +34,5 @@ function displayNone(id) {
    * @param {string} id -  This is the ID of an element
    */
   function displayElement(id) {
-    document.getElementById(id).classList.toggle('d-none');
+    document.getElementById(id).classList.remove('d-none');
   }

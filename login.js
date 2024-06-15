@@ -41,7 +41,7 @@ if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome')) {
  * @param {string} id -  This is the ID of an element
  */
 function displayNone(id) {
-  document.getElementById(id).classList.toggle('d-none');
+  document.getElementById(id).classList.add('d-none');
 }
 
 /**
@@ -50,7 +50,7 @@ function displayNone(id) {
  * @param {string} id -  This is the ID of an element
  */
 function displayElement(id) {
-  document.getElementById(id).classList.toggle('d-none');
+  document.getElementById(id).classList.remove('d-none');
 }
 
 function backToLogInArrow() {
