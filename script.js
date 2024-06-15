@@ -143,8 +143,8 @@ document.getElementById('inputSection').addEventListener('submit', function(even
   event.preventDefault(); // Prevent default form submission
 
   // Check if passwords match
-  const password = document.getElementById('signUpPassword').value;
-  const passwordRepeat = document.getElementById('againSignUpPassword').value;
+  let password = document.getElementById('signUpPassword').value;
+  let passwordRepeat = document.getElementById('againSignUpPassword').value;
 
   if (password !== passwordRepeat) {
     alert('Passwords do not match!');
@@ -152,7 +152,7 @@ document.getElementById('inputSection').addEventListener('submit', function(even
   }
 
   // Check if checkbox is checked
-  const checkbox = document.getElementById('acceptPrivatPolicyButton');
+  let checkbox = document.getElementById('acceptPrivatPolicyButton');
   if (!checkbox.checked) {
     alert('Please accept the Privacy Policy.');
     return;
