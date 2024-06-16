@@ -80,7 +80,6 @@ a {
     display: flex;
     align-items: center;
     flex: none;
-    order: 1;
     flex-grow: 0;
     height: 51px;
     width: 100%;
@@ -136,7 +135,6 @@ a {
     cursor: default;
     padding-left: 68px;
     flex: none;
-    order: 1;
 }
 
 
