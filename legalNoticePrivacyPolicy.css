@@ -132,7 +132,6 @@ dd p {
 
 
 .dropdown-content {
-    display: none;
     position: absolute;
     top: 136px;
     right: 20px;
