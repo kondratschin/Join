@@ -6,7 +6,7 @@
     top: 136px;
     background: #FFFFFF;
     box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
-    z-index: 999;
+    z-index: 900;
 }
 
 
@@ -147,4 +147,99 @@ flex-grow: 0;
 .contactCartName {
     font-size: x-large;
     margin: 0;
+}
+
+
+.addContactPopupBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 990;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+
+.addContactPopup {
+    display: flex;
+    z-index: 999;
+    height: 50vh;
+    width: 80vw;
+    background: #FFFFFF;
+    border-radius: 30px;
+}
+
+
+.addContactCardLeftSide {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 100%;
+    background: #2A3647;
+    border-radius: 25px 0 0 25px;
+}
+
+
+.addContactCardLeftSide img{
+    height: 68px;
+}
+
+
+.addContactCardLeftSideContent {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    height: 100%;
+    width: 80%;
+    color: white;
+    font-size: xx-large;
+    text-wrap: nowrap;
+}
+
+
+.addContactCardLeftSideContent h1 {
+    margin: 16px 0;
+}
+
+
+.addContactCardLeftSideContent p {
+    margin: 0;
+    font-size: 26px;
+}
+
+
+.addContactCardLeftSideBreake {
+    margin-top: 8px;
+    height: 3px;
+    background-color: #29ABE2;
+    width: 90px;
+}
+
+
+.addContactCardRightSide {
+    width: 60%;
+    height: 100%;
+}
+
+
+.addContactCardRightSideContent {
+    display: flex;
+    align-items: center;
+}
+
+
+.addContactCardRightSideContentImg {
+    height: 50px;
+    width: 50px;
+    background: #2A3647;
+}
+
+
+.addContactCardRightSideContentInitials {
+
 }
