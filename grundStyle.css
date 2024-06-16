@@ -10,6 +10,11 @@
 }
 
 
+.d-none {
+    display: none !important;
+}
+
+
 body {
     font-family: "Inter-Regular";
     margin: 0;
@@ -286,6 +291,3 @@ a {
 }
 
 
-.d-none {
-    display: none !important;
-}
