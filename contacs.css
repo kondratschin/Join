@@ -228,18 +228,45 @@ flex-grow: 0;
 
 
 .addContactCardRightSideContent {
+    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
 }
 
 
 .addContactCardRightSideContentImg {
-    height: 50px;
-    width: 50px;
-    background: #2A3647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 120px;
+    background: #A8A8A8;
+    border-radius: 60px;
+    margin-left: 56px;
 }
 
 
 .addContactCardRightSideContentInitials {
+    margin: 0;
+}
 
+
+.addContactCardRightSideContentInputfields {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.addContactInput {
+    border: 1px solid #D1D1D1;
+    display: flex;
+    gap: 32px;
+    border-radius: 10px;
+    padding-left: 16px;
+    justify-content: space-between;
+    height: 48px;
+    width: 422px;
+    align-items: center;
 }
