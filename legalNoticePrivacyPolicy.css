@@ -173,9 +173,10 @@ dd p {
     width: 56px;
     border: solid 3px black;
     border-radius: 33px;
+    cursor: pointer;
 }
 
 
 .initials:hover {
-    cursor: default;
+    background-color: #E1E6EC;
 }
