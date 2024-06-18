@@ -167,8 +167,9 @@
 .addContactPopup {
     display: flex;
     z-index: 999;
-    height: 50vh;
-    width: 80vw;
+    height: 592px;
+    width: 100%;
+    max-width: 1212px;
     background: #FFFFFF;
     border-radius: 30px;
 }
@@ -235,6 +236,34 @@
 }
 
 
+.closeButtonDiv {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 20px;
+}
+
+
+.closeButtonBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+
+
+.closeButtonBackground:hover {
+    background: #F0F0F0;
+    cursor: pointer;
+}
+
+
+.addContactCloseButton {
+    width: 13px;
+}
+
+
 .addContactCardRightSideContentImg {
     display: flex;
     align-items: center;
@@ -251,11 +280,13 @@
     margin: 0;
     font-weight: 500;
     font-size: 47px;
+    color: white;
 }
 
 
 .addContactCardRightSideContentInputfieldsAndButtons {
     width: 100%;
+    height: 100%;
 }
 
 
@@ -263,12 +294,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 90%;
     justify-content: center;
-}
-
-
-form {
-    width: 80%;
 }
 
 
@@ -279,7 +306,6 @@ form {
     padding-left: 8px;
     justify-content: space-between;
     height: 48px;
-    width: 90%;
     align-items: center;
     margin-top: 40px;
 }
