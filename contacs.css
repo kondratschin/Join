@@ -27,55 +27,55 @@
 
 
 .buttonDiv{
-position: absolute;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 456px;
-height: 101px;
-left: calc(50% - 456px/2);
-top: 0px;
-background: #FFFFFF;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 456px;
+    height: 101px;
+    left: calc(50% - 456px/2);
+    top: 0px;
+    background: #FFFFFF;
 }
 
 
 .addNewContact {
-box-sizing: border-box;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 12px 0px;
-gap: 16px;
-width: 352px;
-height: 56px;
-background: #2A3647;
-border: 1px solid #2A3647;
-border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0px;
+    gap: 16px;
+    width: 352px;
+    height: 56px;
+    background: #2A3647;
+    border: 1px solid #2A3647;
+    border-radius: 10px;
 }
 
 
 .addNewContact p {
-width: 175px;
-height: 25px;
-font-family: "Inter-Regular";
-font-style: normal;
-font-weight: 700;
-font-size: 21px;
-line-height: 120%;
-color: #FFFFFF;
-flex: none;
-order: 0;
-flex-grow: 0;
+    width: 175px;
+    height: 25px;
+    font-family: "Inter-Regular";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 120%;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
 }
 
 
 .addContactImg {
-width: 32px;
-height: 32px;
-flex: none;
-order: 1;
-flex-grow: 0;
+    width: 32px;
+    height: 32px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
 }
 
 
@@ -240,15 +240,22 @@ flex-grow: 0;
     align-items: center;
     justify-content: center;
     height: 120px;
-    width: 120px;
+    aspect-ratio: 1/1;
     background: #A8A8A8;
     border-radius: 60px;
-    margin-left: 56px;
+    margin: 56px;
 }
 
 
 .addContactCardRightSideContentInitials {
     margin: 0;
+    font-weight: 500;
+    font-size: 47px;
+}
+
+
+.addContactCardRightSideContentInputfieldsAndButtons {
+    width: 100%;
 }
 
 
@@ -256,17 +263,128 @@ flex-grow: 0;
     display: flex;
     flex-direction: column;
     height: 100%;
+    justify-content: center;
+}
+
+
+form {
+    width: 80%;
+}
+
+
+.input {
+    border: 1px solid #D1D1D1;
+    display: flex;
+    border-radius: 10px;
+    padding-left: 8px;
+    justify-content: space-between;
+    height: 48px;
+    width: 90%;
+    align-items: center;
+    margin-top: 40px;
+}
+
+
+.input:focus-within {
+    border: 1px solid #29ABE2;
+    outline: none;
+}
+
+
+.input img {
+    padding-right: 24px;
 }
 
 
 .addContactInput {
-    border: 1px solid #D1D1D1;
-    display: flex;
-    gap: 32px;
-    border-radius: 10px;
+    font-family: "Inter-Regular";
+    height: 40px;
+    width: 80%;
+    border: none;
     padding-left: 16px;
-    justify-content: space-between;
-    height: 48px;
-    width: 422px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+
+.addContactInput:focus {
+    outline: none;
+}
+
+
+/* Firefox */
+::placeholder {
+    color: #D1D1D1;
+    opacity: 1; 
+}
+
+
+/* Edge */  
+::-ms-input-placeholder {
+    color: #D1D1D1;
+}
+
+
+.addContactButtons {
+    margin-top: 16px;
+    width: 100%;
+    display: flex;
     align-items: center;
+    margin-top: 48px;
+    gap: 24px;
+}
+
+
+.cancelButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #2A3647;
+    border-radius: 10px;
+    width: 126px;
+    gap: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.cancelButton:hover {
+    transition: 100ms;
+    border: 2px solid #29ABE2;
+    color: #29ABE2;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+
+.cancelButton:hover .iconSVG path{
+    transition: 100ms;
+    stroke: #29ABE2;
+}
+
+
+.createContactButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    background: #2A3647;
+    border: 1px solid #2A3647;
+    border-radius: 10px;
+    width: 200px;
+    color: white;
+    font-size: large;
+    gap: 8px;
+    font-weight: bold;
+    text-wrap: nowrap;
+    transition: 125ms;
+    cursor: pointer;
+}
+
+
+.createContactButton:hover {
+    background: #29ABE2;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-color: #29ABE2;
 }
