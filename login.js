@@ -65,34 +65,7 @@ async function getUsers() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  let signUpButton = document.getElementById('signUpButton');
   let logInButton = document.getElementById('logInButton');
-
-  if (signUpButton) {
-    signUpButton.addEventListener('click', async () => {
-      let email = document.getElementById('signUpEmail').value;
-      let password = document.getElementById('signUpPassword').value;
-      let confirmPassword = document.getElementById('againSignUpPassword').value;
-      let name = document.getElementById('signUpName').value;
-      let checkbox = document.getElementById('acceptPrivatPolicyButton');
-
-      if (!checkbox.disabled) {
-        alert("Please accept the Privacy Policy to proceed.");
-        return;
-      }
-
-      if (!email || !password || !confirmPassword || !name) {
-        alert("Please fill in all fields to proceed.");
-        return;
-      }
-
-      await signUp(email, password, confirmPassword, name);
-    });
-
-    document.getElementById('acceptPrivatPolicyButton').addEventListener('change', function () {
-      signUpButton.disabled = !this.checked;
-    });
-  }
 
   if (logInButton) {
     logInButton.addEventListener('click', async () => {
@@ -165,4 +138,32 @@ async function signUp(email, password, confirmPassword, name) {
     console.log("Error registering user.");
   }
 }
+
+document.getElementById('inputSection').addEventListener('submit', async function(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  // Get form values
+  let name = document.getElementById('signUpName').value;
+  let email = document.getElementById('signUpEmail').value;
+  let password = document.getElementById('signUpPassword').value;
+  let passwordRepeat = document.getElementById('againSignUpPassword').value;
+
+  // Check if passwords match
+  if (password !== passwordRepeat) {
+    alert('Passwords do not match!');
+    return;
+  }
+
+  // Check if checkbox is checked
+  let checkbox = document.getElementById('acceptPrivatPolicyButton');
+  if (!checkbox.checked) {
+    alert('Please accept the Privacy Policy.');
+    return;
+  }
+
+  // Call the signUp function
+  await signUp(email, password, passwordRepeat, name);
+  window.open('grund.html');
+});
+
 

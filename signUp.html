@@ -6,7 +6,7 @@
     <title>Join - Sign Up</title>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
     <link rel="stylesheet" href="logInStyle.css">
-    <script src="./script.js" defer></script>
+    <script src="./login.js" defer></script>
 </head>
 <body onload="">
     <div class="overflow-wrapper">
@@ -24,34 +24,30 @@
 
             <form id="inputSection" class="inputSectionSignUp">
                 <div class="login-credentials">
-                    <input type="name" id="signUpName" placeholder="Name" required>
+                    <input type="name" id="signUpName" placeholder="Name" required pattern="([A-Z][a-z]{1,}\s[A-Z][a-z]{1,})+" title="Please enter at least two words with initial capital letters.">
                     <img class="cred-icon" src="./img/person.svg" alt="">
-                    <div id="nameError" class="error-message d-none">Please enter a name.</div>
                 </div>
                 <div class="login-credentials">
                     <input type="email" name="" id="signUpEmail" placeholder="Email" required>
                     <img class="cred-icon" src="./img/mail.svg" alt="">
-                    <div id="emailError" class="error-message d-none">Please enter an email.</div>
                 </div>
                 <div class="login-credentials">
                     <input type="password" id="signUpPassword" placeholder="Password" required>
                     <img class="cred-icon" src="./img/lock.svg" alt="">
-                    <div id="passwordError" class="error-message d-none">Please enter a password.</div>
                 </div>
                 <div class="login-credentials">
                     <input type="password" id="againSignUpPassword" placeholder="Repeat password" required>
                     <img class="cred-icon" src="./img/lock.svg" alt="">
-                    <div id="confirmPasswordError" class="error-message d-none">Passwords do not match.</div>
                 </div>
                 <div class="accept-privacy-policy m-top24">
                     <input class="rememberMe-button" type="checkbox" id="acceptPrivatPolicyButton">
-                    <label class="rememberMe-text" for="rememberMe">I accept the <a href="./privacyPolicyExternal.html" target="_blank">Privacy Policy</a></label>
+                    <label class="rememberMe-text" for="acceptPrivatPolicyButton">I accept the <a href="./privacyPolicyExternal.html" target="_blank">Privacy Policy</a></label>
                 </div>
-            </form>
 
             <div class="login-guest-login-buttons">
-                <button type="submit" onclick="" id="signUpButton" class="sign-up-button" disabled>Sign up</button>
+                <button type="submit" id="signUpButton" class="sign-up-button">Sign up</button>
             </div>
+        </form>
         </div>
 
         <div class="footer">

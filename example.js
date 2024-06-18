@@ -174,16 +174,17 @@ async function addUser(user) {
   
   */
   
-  
+  /**
+ * This script handles the opening and closing of a dropdown menu.
+ *
+ * @param {div} dropbtn - The element that triggers the dropdown menu.
+ * @param {MouseEvent} event - The click event.
+ * @param {div} dropdowns - All dropdown content elements.
+ * @param {a} openDropdown - A single dropdown content Element
+ */
   document.addEventListener('DOMContentLoaded', function () {
     const dropbtn = document.querySelector(".dropbtn");
-  
-    dropbtn.addEventListener('click', function (event) {
-        event.stopPropagation();
-        document.getElementById("myDropdown").classList.toggle("show");
-    });
-  
-  
+    toggleDropdownMenu(dropbtn);
     window.addEventListener('click', function (event) {
       if (!event.target.closest('.dropdown')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -196,3 +197,11 @@ async function addUser(user) {
       }
     });
   });
+
+
+  function toggleDropdownMenu(dropbtn) {
+    dropbtn.addEventListener('click', function (event) {
+      event.stopPropagation();
+      document.getElementById("myDropdown").classList.toggle("show");
+  });
+  }

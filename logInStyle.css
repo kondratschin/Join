@@ -134,20 +134,12 @@ h1 {
 }
 
 .inputSectionSignUp {
-    /* Frame 212 */
-
-    /* Auto layout */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0px;
     gap: 24px;
-
     width: 422px;
-    height: 326px;
-
-
-    /* Inside auto layout */
     flex: none;
     order: 1;
     flex-grow: 0;

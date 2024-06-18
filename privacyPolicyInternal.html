@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy</title>
-    <link rel="stylesheet" href="legalNoticePrivacyPolicy.css">
     <link rel="stylesheet" href="grundStyle.css">
+    <link rel="stylesheet" href="legalNoticePrivacyPolicy.css">
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
-    <script src="script.js"></script>
+    <script src="grund.js"></script>
 </head>
 
 <body>
@@ -45,11 +45,11 @@
             <a href="./help.html" class="headerIconLink">
                 <img src="img/helpIcon.svg" alt="Help Icon">
             </a>
-            <div id="dropdownMenu">
-                <div class="initials dropbtn" onclick="showDrpDown()">
-                    <p id="initials" class="dropbtn">AB</p>
+            <div id="dropdownMenuPrivacy" class="excludedObject">
+                <div class="initials dropbtn" onclick="toggleElement('myDropdownPrivacy')">
+                    <p id="initialsPrivacy" class="dropbtn">AB</p>
                 </div>
-                <div id="myDropdown" class="dropdown-content">
+                <div id="myDropdownPrivacy" class="dropdown-content d-none excludedObject">
                     <a href="./legalNoticeInternal.html">Legal Notice</a>
                     <a href="./privacyPolicyInternal.html">Privacy Policy</a>
                     <a href="./logIn.html">Log out</a>
