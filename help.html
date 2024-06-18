@@ -9,56 +9,13 @@
     <link rel="stylesheet" href="legalNoticePrivacyPolicy.css">
     <link rel="stylesheet" href="grundStyle.css">
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
-    <script src="script.js"></script>
+    <script src="grund.js"></script>
 </head>
 
-<body>
-    <div class="leftNavbar">
-        <img class="navbarLogo" src="./img/Capa-2.svg" alt="">
-        <div class="navbarMenu">
-            <a class="navbar" href="./summary.html">
-                <img class="navbarIcon" src="img/summary-navbar.svg" alt="">
-                <p>Summary</p>
-            </a>
-            <a class="navbar" href="./addTask.html">
-                <img class="navbarIcon" src="img/add-task-navbar.svg" alt="">
-                <p>Add Task</p>
-            </a>
-            <a class="navbar" href="./board.html">
-                <img class="navbarIcon" src="img/board-navbar.svg" alt="">
-                <p>Board</p>
-            </a>
-            <a class="navbar" href="./contacts.html">
-                <img class="navbarIcon" src="img/contacts-navbar.svg" alt="">
-                <p>Contacts</p>
-            </a>
-        </div>
-        <div class="navbarFooter">
-            <div class="navbarNotPicked">
-                <a class="navbarNotPicked" href="./privacyPolicyInternal.html">Privacy Policy</a>
-            </div>
-            <div class="navbarNotPicked">
-                <a class="navbarNotPicked" href="./legalNoticeInternal.html">Legal notice</a>
-            </div>
-        </div>
-    </div>
-    <div class="header">
-        <p>Kanban Project Management Tool</p>
-        <div class="headerIcons">
-            <a href="#" class="headerIconLink">
-            </a>
-            <div id="dropdownMenu">
-                <div class="initials dropbtn" onclick="showDrpDown()">
-                    <p id="initials" class="dropbtn">AB</p>
-                </div>
-                <div id="myDropdown" class="dropdown-content">
-                    <a href="./legalNoticeInternal.html">Legal Notice</a>
-                    <a href="./privacyPolicyInternal.html">Privacy Policy</a>
-                    <a href="./logIn.html">Log out</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<body onload="includeHTML()">
+
+    <div w3-include-html="templates/navbar.html"></div>
+
     <div class="legalNoticeContent">
         <div class="privacyPolicyText">
             <h1>Help</h1>
