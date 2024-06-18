@@ -156,6 +156,7 @@ a {
 
 .navbarPicked:hover {
     cursor: default;
+    background-color: #091931;
 }
 
 
