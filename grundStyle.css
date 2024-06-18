@@ -109,7 +109,6 @@ a {
     margin-bottom: 48px;
     color: #CDCDCD;
     flex: none;
-    order: 2;
     align-self: stretch;
     flex-grow: 0;
 }
@@ -238,7 +237,6 @@ a {
 
 
 .dropdown-content {
-    display: none;
     position: absolute;
     top: 136px;
     right: 20px;
@@ -284,6 +282,11 @@ a {
 
 
 .initials:hover {
-    cursor: default;
+    cursor: pointer;
     background-color: #E1E6EC;
+}
+
+
+.d-none {
+    display: none;
 }
