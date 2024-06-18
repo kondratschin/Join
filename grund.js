@@ -47,7 +47,7 @@ function displayNone(id) {
         document.getElementById(id).classList.toggle('d-none');
       }
 
-      
+
       async function includeHTML() {
         let includeElements = document.querySelectorAll('[w3-include-html]');
         for (let i = 0; i < includeElements.length; i++) {
@@ -61,3 +61,18 @@ function displayNone(id) {
             }
         }
     }
+
+
+function navbarPicked(id) {
+  document.getElementById(`${id}`).classList.add('navbarPicked');
+}
+
+
+/**
+ * 
+ * @param {string} navbar - this is the navbar which will be selected
+ */
+async function loadContent(navbar) {
+  await includeHTML();
+  navbarPicked(`${navbar}`);
+}
