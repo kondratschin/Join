@@ -33,7 +33,7 @@
             <input type="text" id="taskAssigned" placeholder="Select contacts to assign" required title="Please enter at least one word.">
         </div>
     </div>
-
+<div class="separator"></div>
     <div class="input-right">
         <span class="input-name">Due date<span style="color: red">*</span></span>
         <div class="task-title">
@@ -52,10 +52,23 @@
             <input type="text" id="taskSub" placeholder="Add new subtask" required title="Please enter at least one word.">
         </div>
     </div>
-
-
     </div>
 
+<div class="task-lowsection">
+    <div class="task-remark">
+    <span style="color: red">*</span><span>This field is required</span>
+</div>
+    <div class="task-buttons">
+    <button type="reset" class="cancelButton" onclick="displayNone('addContactPopupBackground'), clearInput()">Cancel 
+        <svg class="iconSVG" width="14" height="14" viewBox="0 0 14 14" fill="#2A3647">
+        <path d="M7.06917 7.00008L12.3122 12.2431M1.82617 12.2431L7.06917 7.00008L1.82617 12.2431ZM12.3122 1.75708L7.06817 7.00008L12.3122 1.75708ZM7.06817 7.00008L1.82617 1.75708L7.06817 7.00008Z" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <button type="submit" class="createContactButton" >Create Task <img src="./img/buttonCheck.svg"></button>
+</div>
+</div>
+
+    
     </form>
     </div>
 </body>

@@ -7,6 +7,22 @@
     box-sizing: border-box;
 }
 
+.add-task {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    justify-content: space-between;
+    transition: 1s;
+    left: calc(50% - 1116px/2);
+    top: calc(50% - 870px/2);
+    border-radius: 30px;
+    width: 1116px;
+    height: 870px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+}
+
 h1 {
     margin-top: 64px;
     margin-bottom: 32px;
@@ -16,6 +32,7 @@ h1 {
     display: flex;
     flex-direction: column;
     width: 980px;
+    height: 100%;
 }
 
 .input-wrapper {
@@ -26,6 +43,12 @@ h1 {
 .input-left {
     display: flex;
     flex-direction: column;
+}
+
+.separator {
+    width: 0px;
+    height: 100%;
+    border: 1px solid #D1D1D1;
 }
 
 .input-right {
@@ -51,39 +74,73 @@ h1 {
     padding-bottom: 16px;
 }
 
-.ad {
+.task-lowsection {
+    margin-top: auto;
+    margin-bottom: 62px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    gap: 24px;
-    width: 422px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    z-index: 1;
-}
-
-
-
-.login-credentials:focus-within {
-    border: 1px solid #000;
-}
-
-
-.add-task {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
     justify-content: space-between;
-    transition: 1s;
-    left: calc(50% - 1116px/2);
-    top: calc(50% - 870px/2);
-    border-radius: 30px;
-    width: 1116px;
-    height: 870px;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 }
 
+.task-remark {
+    display: flex;
+    align-items: flex-end;
+}
+
+.task-buttons {
+    display: flex;
+    gap: 24px;
+}
+
+.cancelButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #2A3647;
+    border-radius: 10px;
+    width: 126px;
+    gap: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.cancelButton:hover {
+    transition: 100ms;
+    border: 2px solid #29ABE2;
+    color: #29ABE2;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+
+.cancelButton:hover .iconSVG path{
+    transition: 100ms;
+    stroke: #29ABE2;
+}
+
+
+.createContactButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    background: #2A3647;
+    border: 1px solid #2A3647;
+    border-radius: 10px;
+    width: 200px;
+    color: white;
+    font-size: large;
+    gap: 8px;
+    font-weight: bold;
+    text-wrap: nowrap;
+    transition: 125ms;
+    cursor: pointer;
+}
+
+
+.createContactButton:hover {
+    background: #29ABE2;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-color: #29ABE2;
+}
