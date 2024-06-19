@@ -161,6 +161,7 @@
     height: 100vh;
     width: 100vw;
     background: rgba(0, 0, 0, 0.3);
+    animation: appear 125ms;
 }
 
 
@@ -270,9 +271,11 @@
     justify-content: center;
     height: 120px;
     aspect-ratio: 1/1;
-    background: #A8A8A8;
+    background: #D1D1D1;
     border-radius: 60px;
+    border: solid 2px #FFFFFF;
     margin: 56px;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.1));
 }
 
 
@@ -413,4 +416,34 @@
     background: #29ABE2;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     border-color: #29ABE2;
+}
+
+
+.d-none {
+    display: none;
+    animation: vanish 125ms;
+}
+
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes vanish {
+    from {
+        display: flex;
+        opacity: 1;
+    }
+    
+    to {
+        display: none;
+        opacity: 0;
+    }
 }
