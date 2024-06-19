@@ -24,12 +24,12 @@ a {
     text-decoration: none;
 }
 
-.active{
+.active {
     color: #FFFFFF !important;
     background-color: #091931;
 }
 
-.c-white{
+.c-white {
     color: #FFFFFF;
 }
 
@@ -62,7 +62,7 @@ a {
     justify-content: center;
     align-items: flex-start;
     padding: 0px;
-    gap: 15px;  
+    gap: 15px;
     width: 100%;
 }
 

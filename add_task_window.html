@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./grund.js"></script>
+    <link rel="stylesheet" href="grundStyle.css">
+    <link rel="stylesheet" href="logInStyle.css">
+    <link rel="stylesheet" href="add_task_window.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="add-task">
+        <form class="task-form">
+
+        <h1>Add Task</h1>
+
+        <div class="input-wrapper">
+
+            <div class="input-left">
+        <span class="input-name">Title<span style="color: red">*</span></span>
+        <div class="task-title">
+            <input type="text" id="taskTitle" placeholder="Enter a title" required title="Please enter at least one word.">
+        </div>
+        <span class="input-name">Description</span>
+        <div class="task-title">
+            <input type="text" id="taskDescription" placeholder="Enter a Description" required title="Please enter at least one word.">
+        </div>
+        <span class="input-name">Assigned to</span>
+        <div class="task-title">
+            <input type="text" id="taskAssigned" placeholder="Select contacts to assign" required title="Please enter at least one word.">
+        </div>
+    </div>
+
+    <div class="input-right">
+        <span class="input-name">Due date<span style="color: red">*</span></span>
+        <div class="task-title">
+            <input type="date" id="taskDate" placeholder="dd/mm/yyyy" required title="Please enter date">
+        </div>
+        <span class="input-name">Prio</span>
+        <div class="task-title">
+            <input type="text" id="taskPrio" placeholder="Enter a Description" required title="Please enter at least one word.">
+        </div>
+        <span class="input-name">Category<span style="color: red">*</span></span>
+        <div class="task-title">
+            <input type="text" id="taskCategory" placeholder="Select task category" required title="Please enter at least one word.">
+        </div>
+        <span class="input-name">Prio</span>
+        <div class="task-title">
+            <input type="text" id="taskSub" placeholder="Add new subtask" required title="Please enter at least one word.">
+        </div>
+    </div>
+
+
+    </div>
+
+    </form>
+    </div>
+</body>
+
+</html>
