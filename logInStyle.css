@@ -167,6 +167,7 @@ input {
     gap: 32px;
     flex-grow: 1;
     outline: none;
+    font-size: 20px;
 }
 
 .login-credentials:focus-within {
