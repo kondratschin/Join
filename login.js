@@ -125,8 +125,8 @@ async function signUp(email, password, confirmPassword, name) {
     email: email,
     password: password
   };
-  let response = await fetch(BASE_URL + "users.json", {
-    method: "POST",
+  let response = await fetch(BASE_URL + "users/" + name +".json", {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
@@ -163,7 +163,6 @@ document.getElementById('inputSection').addEventListener('submit', async functio
 
   // Call the signUp function
   await signUp(email, password, passwordRepeat, name);
-  window.open('grund.html');
 });
 
 

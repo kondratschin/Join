@@ -11,52 +11,10 @@
     <script src="grund.js"></script>
 </head>
 
-<body>
-    <div class="leftNavbar">
-        <img class="navbarLogo" src="./img/Capa-2.svg" alt="">
-        <div class="navbarMenu">
-            <a class="navbar" href="./summary.html">
-                <img class="navbarIcon" src="img/summary-navbar.svg" alt="">
-                <p>Summary</p>
-            </a>
-            <a class="navbar" href="./addTask.html">
-                <img class="navbarIcon" src="img/add-task-navbar.svg" alt="">
-                <p>Add Task</p>
-            </a>
-            <a class="navbar" href="./board.html">
-                <img class="navbarIcon" src="img/board-navbar.svg" alt="">
-                <p>Board</p>
-            </a>
-            <a class="navbar" href="./contacts.html">
-                <img class="navbarIcon" src="img/contacts-navbar.svg" alt="">
-                <p>Contacts</p>
-            </a>
-        </div>
-        <div class="navbarFooter">
-            <div class="navbarPicked">
-                <p>Privacy Policy</p>
-            </div>
-            <a class="navbarNotPicked" href="./legalNoticeInternal.html">Legal notice</a>
-        </div>
-    </div>
-    <div class="header">
-        <p>Kanban Project Management Tool</p>
-        <div class="headerIcons">
-            <a href="./help.html" class="headerIconLink">
-                <img src="img/helpIcon.svg" alt="Help Icon">
-            </a>
-            <div id="dropdownMenuPrivacy" class="excludedObject">
-                <div class="initials dropbtn" onclick="toggleElement('myDropdownPrivacy')">
-                    <p id="initialsPrivacy" class="dropbtn">AB</p>
-                </div>
-                <div id="myDropdownPrivacy" class="dropdown-content d-none excludedObject">
-                    <a href="./legalNoticeInternal.html">Legal Notice</a>
-                    <a href="./privacyPolicyInternal.html">Privacy Policy</a>
-                    <a href="./logIn.html">Log out</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<body onload="includeHTML()">
+
+    <div w3-include-html="templates/navbar.html"></div>
+
     <div class="legalNoticeContent">
         <div class="privacyPolicyText">
             <h1>Privacy Policy</h1>

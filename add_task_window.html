@@ -4,17 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Task</title>
+    <script src="./grund.js"></script>
     <link rel="stylesheet" href="grundStyle.css">
     <link rel="stylesheet" href="logInStyle.css">
     <link rel="stylesheet" href="add_task_window.css">
-    <script src="./grund.js"></script>
-    <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
+    <title>Document</title>
 </head>
-<body onload="loadContent('navbarTask')">
 
-    <div w3-include-html="templates/navbar.html"></div>
-    <div w3-include-html="templates/add_task_template.html"></div>
+<!-- This file is just for testing purposes and will be removed -->
+
+<body onload="includeHTML()">
+    <div class="add-task">
+        <div w3-include-html="templates/add_task_template.html"></div>
+    </div>
 </body>
 
 </html>
