@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Task</title>
     <link rel="stylesheet" href="grundStyle.css">
+    <link rel="stylesheet" href="addTask.css">
     <script src="./grund.js"></script>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
 </head>
+
 <body>
     <div class="leftNavbar">
         <img class="navbarLogo" src="./img/Capa-2.svg" alt="">
@@ -28,13 +31,11 @@
                 <img class="navbarIcon" src="img/contacts-navbar.svg" alt="">
                 <p>Contacts</p>
             </a>
-            
         </div>
         <div class="navbarFooter">
             <a class="navbarNotPicked" href="./privacyPolicyInternal.html">Privacy Policy</a>
             <a class="navbarNotPicked" href="./legalNoticeInternal.html">Legal notice</a>
         </div>
-        
     </div>
 
     <div class="header">
@@ -55,5 +56,59 @@
             </div>
         </div>
     </div>
+
+    <div class="mainContainer">
+        <div class="mainContainerHeader">
+            <div class="mainContainerHeaderText">Add Task</div>
+        </div>
+        <div class="addTaskMainContainer">
+            <div class="leftAddTaskContainer">
+                <div class="Box">
+                    <p class="pText">Title*</p>
+                    <input type="text" placeholder="Enter a Title">
+                </div>
+
+                <div class="Box">
+                    <p class="pText">Description</p>
+                    <input type="text" class="descriptionInput" placeholder="Enter a Description">
+                </div>
+
+                <div class="Box">
+                    <p class="pText">Assigned to</p>
+                    <input type="selection" name="" id="">
+                </div>
+            </div>
+
+            <img class="vector" src="./img/vector-4.svg" alt="">
+
+            <div class="rightAddTaskContainer">
+
+                <div class="Box">
+                    <p class="pText">Due Date*</p>
+                    <input type="date" placeholder="dd/mm/yyyy">
+                </div>
+
+                <div class="Box">
+                    <p class="pText">Prio</p>
+                    <div class="prioSelectionBox">
+                        <button></button>
+                        <button></button>
+                        <button></button>
+                    </div>
+                </div>
+
+                <div class="Box">
+                    <p class="pText">Category*</p>
+                    <input type="date" placeholder="Select task category">
+                </div>
+
+                <div class="Box">
+                    <p></p>
+                    <input type="date" placeholder="Select task category">
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
