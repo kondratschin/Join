@@ -82,9 +82,7 @@
 .addNewContact:hover {
     background: #29ABE2;
     border: unset;
-    position: relative;
-    left: 1px;
-    top: 1px;
+    cursor: pointer;
     box-shadow: 0 4px 5px #B5B5B5;
 }
 
@@ -134,7 +132,6 @@
     font-size: large;
     color: white;
     border-radius: 25px;
-    background: orange;
     margin: 0 30px;
 }
 
