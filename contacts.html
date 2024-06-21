@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="./contacts.css">
     <script src="./grund.js"></script>
     <script src="./contacts.js"></script>
+    <script src="./contactsTemplates.js"></script>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
 </head>
-<body onload="loadContent('navbarContacts')">
+<body onload="loadContent('navbarContacts'), getContacts()">
 
     <div w3-include-html="templates/navbar.html"></div>
 
@@ -21,23 +22,7 @@
         </div>
         <div class="contactsText">
             <div id="contactCarts">
-                <div class="contactSort">
-                    <p>
-                        A
-                    </p>
-                </div>
-
-                <div class="contactCart">
-                    <div class="initialsContactCart">
-                        <p id="contactCartInitals">AB</p>
-                    </div>
-                    <div class="nameAndEmail">
-                        <p class="contactCartName" id="contactCartName">
-                            Anton Mayer
-                        </p>
-                        <span id="contactCartEmail" style="color: #29ABE2;">antom@gmail.com</span>
-                    </div>
-                </div>
+            
             </div>
         </div>    
     </div>
@@ -104,7 +89,6 @@
 <!-- 
 Vorlage Kontaktkarte
 
-    <div id="contactCarts">
         <div class="contactSort">
             <p>
                 A
@@ -122,6 +106,6 @@ Vorlage Kontaktkarte
             <span id="contactCartEmail" style="color: #29ABE2;">antom@gmail.com</span>
             </div>
         </div>
-    </div>
+
 
 -->
