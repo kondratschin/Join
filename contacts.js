@@ -155,6 +155,7 @@ function createContactListAlphabethicContainer(sortLetterNr) {
     if (sortLetterNr['list'].length > 0) {
         printContactAlphabethicContainer(sortLetterNr);
         showContactInList(sortLetterNr);
+        setBackgroundColor();
     }
 }
 

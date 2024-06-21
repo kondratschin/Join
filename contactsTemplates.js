@@ -9,11 +9,23 @@ function printContactAlphabethicContainer(sortLetterNr) {
 }
 
 
+function setBackgroundColor() {
+    let colorElement = document.getElementsByClassName('initialsContactCart');
+    for (let i = 0; i < colorElement.length; i++) {
+        const element = colorElement.item(i);
+        let hue = Math.random() * 360;
+        let randomColor = `hsl(${hue}, 70%, 50%)`
+        
+        element.style.background = randomColor;
+    }
+}
+
+
 function printContact(LetterContactNr) {
     contactCarts.innerHTML += `
         <div class="contactCart">
             <div class="initialsContactCart">
-                <p id="contactCartInitals">AB</p>
+                <p id="contactCartInitals">${LetterContactNr['name'].match(/\b(\w)/g).join('')}</p>
             </div>
             <div class="nameAndEmail">
                 <p class="contactCartName" id="contactCartName">
