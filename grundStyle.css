@@ -75,7 +75,6 @@ a {
     display: flex;
     align-items: center;
     flex: none;
-    order: 1;
     flex-grow: 0;
     height: 46px;
     width: 100%;
