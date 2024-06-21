@@ -7,11 +7,6 @@
 }
 
 
-body {
-    padding: 0;
-}
-
-
 .add-task {
     background-color: white;
     display: flex;
@@ -29,9 +24,15 @@ body {
 }
 
 
+.add-task-inline {
+    height: 100%;
+}
+
+
 .form-wrapper {
-    margin-top: 136px;
-    margin-left: 232px;
+    position: absolute;
+    top: 0;
+    height: 100vh;
 }
 
 
