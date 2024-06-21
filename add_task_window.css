@@ -200,6 +200,7 @@ textarea {
     justify-content: center;
     box-sizing: border-box;
     gap: 12px;
+    cursor: pointer;
 }
 
 .prio-alta img {
