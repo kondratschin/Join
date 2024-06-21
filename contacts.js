@@ -80,7 +80,8 @@ async function createContact(contactName, contactEmail, contactPhone) {
         alert("Contact creation successfully.");
     } else {
         console.log("Error creating contact.");
-    }
+    };
+    getContacts();
 }
 
 
@@ -91,6 +92,7 @@ function showAddContact(id) {
 
 
 function createContactSortArray() {
+    alphabetContainer = [];
     const startCharCode = 'A'.charCodeAt(0);
     const endCharCode = 'Z'.charCodeAt(0);
 
@@ -140,7 +142,7 @@ function pushContactIntoSort(responseAsJson, contactsAsArray, alphabetChar) {
 
 function showContactsInList() {
     let contactCarts = document.getElementById('contactCarts');
-    contactCarts.innerHTML += "";
+    contactCarts.innerHTML = "";
 
     for (let i = 0; i < alphabetContainer.length; i++) {
         const sortLetterNr = alphabetContainer[i];
