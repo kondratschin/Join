@@ -4,7 +4,6 @@
     transition: 0.2s linear;
     font-family: "Inter-Regular";
     scroll-behavior: smooth;
-    box-sizing: content-box !important;
 }
 
 .add-task {
