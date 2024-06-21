@@ -187,3 +187,15 @@ textarea {
 .task-title:focus-within {
     border: 1px solid #000;
 }
+
+.prio-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.prio-task {
+    width: 136px;
+    height: 56px;
+    padding: 0;
+    justify-content: center;
+}
