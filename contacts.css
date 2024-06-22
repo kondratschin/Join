@@ -1,9 +1,13 @@
+.ContactsContentBox {
+    display: flex;
+    height: calc(100vh - 96px);
+    width: calc(100vw - 232px);
+    background: #29ABE2;
+}
+
+
 .contactsContent {
-    position: absolute;
-    width: 456px;
-    height: calc(100vh - 136px);
-    left: 232px;
-    top: 96px;
+    max-width: 456px;
     background: #FFFFFF;
     box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
     z-index: 900;
@@ -27,14 +31,11 @@
 
 
 .buttonDiv{
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 456px;
     height: 101px;
-    left: calc(50% - 456px/2);
-    top: 0px;
     background: #FFFFFF;
 }
 
@@ -89,8 +90,8 @@
 
 .contactsText {
     width: 356px;
-    height: calc(100vh - 237px);
-    margin-top: 101px;
+    height: 100%;
+    max-height: calc(100vh - 197px);
     overflow-y: scroll;
     scrollbar-color:#A8A8A8;
     padding: 0 50px 0 50px;
@@ -443,4 +444,97 @@
         display: none;
         opacity: 0;
     }
+}
+
+
+.contactsRightsideContent {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+
+
+.contactsRightsideContentHeadlineBox {
+    height: 250px;
+    width: 100%;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+
+.contactsRightsideContentHeadline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.contactsRightsideContentHeadline h1 {
+    font-weight: 700;
+    font-size: 61px;
+}
+
+
+.contactsRightsideContentHeadline img {
+    height: 59px;
+    width: 3px;
+}
+
+
+.contactsRightsideContentHeadline p {
+    font-size: 27px;
+}
+
+
+.contactsRightsideContentInfoBox {
+    background:#A8A8A8;
+    width: 100%;
+    height: calc(100% - 250px);
+    gap: 8px;
+}
+
+
+.contactsRightsideContentInfoBoxProfile {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 54px;
+    gap: 54px;
+}
+
+
+.contactsRightsideContentInfoBoxProfile img {
+    height: 120px;
+    width: 120px;
+}
+
+
+.contactsRightsideContentInfoBoxProfileName h1 {
+    font-weight: 500;
+    font-size: 47px;
+    margin: 0;
+}
+
+
+.contactsRightsideContentInfoBoxProfileButtons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.contactsRightsideContentInfoBoxProfileName button {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    gap: 8px;
+    border: none;
+}
+
+
+.contactsRightsideContentInfoBoxProfileName button img {
+    height: 24px;
+    width: 24px;
 }

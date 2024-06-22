@@ -64,10 +64,13 @@ function addSubmitEvent() {
 
 
 async function createContact(contactName, contactEmail, contactPhone) {
+    let hue = Math.random() * 360;
+    let randomColor = `hsl(${hue}, 70%, 50%)`
     let newContact = {
         name: contactName,
         email: contactEmail,
-        phone: contactPhone
+        phone: contactPhone,
+        color: randomColor
     };
     let response = await fetch(BASE_URL + "contacts/" + accName + "/" + contactName + ".json", {
         method: "PUT",
@@ -134,6 +137,7 @@ function pushContactIntoSort(responseAsJson, contactsAsArray, alphabetChar) {
                 name: responseAsJson[contactsAsArray]['name'],
                 email: responseAsJson[contactsAsArray]['email'],
                 phone: responseAsJson[contactsAsArray]['phone'],
+                color: responseAsJson[contactsAsArray]['color'],
             }
         )
     }
@@ -155,7 +159,6 @@ function createContactListAlphabethicContainer(sortLetterNr) {
     if (sortLetterNr['list'].length > 0) {
         printContactAlphabethicContainer(sortLetterNr);
         showContactInList(sortLetterNr);
-        setBackgroundColor();
     }
 }
 
