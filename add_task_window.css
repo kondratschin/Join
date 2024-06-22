@@ -250,7 +250,6 @@ textarea {
 .contacts-drp-list {
     display: flex;
     flex-direction: column;
-
 }
 
 .contact-list-open {
@@ -258,5 +257,4 @@ textarea {
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     width: 440px;
-    height: 200px;
 }
