@@ -96,6 +96,10 @@ h1 {
     flex-grow: 0;
 }
 
+input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+
 .task-lowsection {
     margin-top: auto;
     margin-bottom: 62px;
@@ -268,3 +272,4 @@ textarea {
 .border-bottom-0 {
     border-bottom: 0;
 }
+
