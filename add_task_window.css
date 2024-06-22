@@ -85,6 +85,7 @@ h1 {
     margin-bottom: 32px;
     background-color: white;
     box-sizing: border-box;
+    transition: none !important;
 }
 
 .input-name {
@@ -245,11 +246,15 @@ textarea {
     border-left: 0;
     border-right: 0;
     border-top: 0;
+    box-sizing: border-box;
+    width: 438px;
 }
 
 .contacts-drp-list {
     display: flex;
     flex-direction: column;
+    width: 440px;
+    box-sizing: border-box;
 }
 
 .contact-list-open {
@@ -257,6 +262,7 @@ textarea {
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     width: 440px;
+    box-sizing: border-box;
 }
 
 .border-bottom-0 {
