@@ -191,7 +191,7 @@ textarea {
 }
 
 .task-title:focus-within {
-    border: 1px solid #000;
+    border: 1px solid #29ABE2;
 }
 
 .prio-buttons {
