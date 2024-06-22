@@ -169,3 +169,8 @@ function showContactInList(sortLetterNr) {
         printContact(LetterContactNr);
     }
 }
+
+
+function showContactDetails(LetterContactNr) {
+    
+}

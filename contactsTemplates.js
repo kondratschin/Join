@@ -11,7 +11,7 @@ function printContactAlphabethicContainer(sortLetterNr) {
 
 function printContact(LetterContactNr) {
     contactCarts.innerHTML += `
-        <div class="contactCart">
+        <div class="contactCart" onclick="showContactDetails(${LetterContactNr})">
             <div class="initialsContactCart" style="background: ${LetterContactNr['color']}">
                 <p id="contactCartInitals">${LetterContactNr['name'].match(/\b(\w)/g).join('')}</p>
             </div>

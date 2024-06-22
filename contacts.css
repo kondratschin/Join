@@ -451,13 +451,13 @@
     box-sizing: border-box;
     height: 100%;
     width: 100%;
+    background: #F6F7F8;
 }
 
 
 .contactsRightsideContentHeadlineBox {
     height: 250px;
     width: 100%;
-    background: #FFFFFF;
     display: flex;
     flex-direction: column-reverse;
 }
@@ -489,10 +489,12 @@
 
 
 .contactsRightsideContentInfoBox {
-    background:#A8A8A8;
+    display: flex;
+    background: #A8A8A8;
     width: 100%;
     height: calc(100% - 250px);
-    gap: 8px;
+    gap: 16px;
+    flex-direction: column;
 }
 
 
@@ -502,6 +504,7 @@
     align-items: center;
     margin-left: 54px;
     gap: 54px;
+    padding-top: 56px;
 }
 
 
@@ -537,4 +540,23 @@
 .contactsRightsideContentInfoBoxProfileName button img {
     height: 24px;
     width: 24px;
+}
+
+
+.contactsRightsideContentInfoBoxContactInformationBox {
+    display: flex;
+    margin-left: 54px;
+    gap: 16px;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+
+.contactsRightsideContentInfoBoxContactInformationHeader{
+    font-size: 20px;
+}
+
+
+.bigText {
+    font-weight: 700;
 }
