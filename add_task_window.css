@@ -223,6 +223,14 @@ textarea {
     justify-content: center;
     align-items: center;
     margin-right: 12px;
+    cursor: pointer;
+    transition: none !important;
+}
+
+.arrow-drp-dwn:hover {
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    transition: none !important;
 }
 
 .assign-contact {
