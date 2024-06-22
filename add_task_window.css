@@ -273,3 +273,6 @@ textarea {
     border-bottom: 0;
 }
 
+.flip-vertically {
+    transform: scaleY(-1);
+  }
