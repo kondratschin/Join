@@ -258,3 +258,7 @@ textarea {
     border-radius: 10px;
     width: 440px;
 }
+
+.border-bottom-0 {
+    border-bottom: 0;
+}
