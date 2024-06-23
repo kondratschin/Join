@@ -294,6 +294,8 @@ textarea {
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
+    height: 100%;
+    align-items: center;
 }
 
 .assign-field {
@@ -314,11 +316,14 @@ textarea {
 }
 
 .contact-list-open {
+    position: relative;
     background-color: white;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     width: 440px;
     box-sizing: border-box;
+    margin-bottom: 32px;
+
 }
 
 .border-bottom-0 {
@@ -327,4 +332,17 @@ textarea {
 
 .flip-vertically {
     transform: scaleY(-1);
+}
+
+.dropdown-category {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-category-content {
+    position: absolute;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
