@@ -5,6 +5,13 @@ function showContactDrp() {
 }
 
 
+function showCategoryDrp() {
+    document.getElementById('category-field').classList.toggle('border-bottom-0');
+    document.getElementById('category-drp-dwn').classList.toggle('d-none');
+    document.getElementById('arrow-drp-dwn2').classList.toggle('flip-vertically');
+}
+
+
 function prioritySelected(id, className, arrow) {
     removeSelection(id);
     document.getElementById(id).classList.toggle(className);
