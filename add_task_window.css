@@ -93,18 +93,35 @@ h1 {
 }
 
 .task-date {
-    flex-grow: 0;
+    padding-right: 12px;
 }
 
 input::-webkit-calendar-picker-indicator {
     cursor: pointer;
-  }
+}
 
 .task-lowsection {
     margin-top: auto;
     margin-bottom: 62px;
     display: flex;
     justify-content: space-between;
+}
+
+.plus {
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: none !important;
+}
+
+.plus:hover {
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    transition: none !important;
 }
 
 .task-remark {
@@ -138,7 +155,7 @@ input::-webkit-calendar-picker-indicator {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.cancelButton:hover .iconSVG path{
+.cancelButton:hover .iconSVG path {
     transition: 100ms;
     stroke: #29ABE2;
 }
@@ -310,4 +327,4 @@ textarea {
 
 .flip-vertically {
     transform: scaleY(-1);
-  }
+}
