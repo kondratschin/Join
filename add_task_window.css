@@ -355,6 +355,21 @@ textarea {
     width: 442px;
     box-sizing: border-box;
     padding-top: 12px;
+    overflow-y: auto;
+    max-height: 250px;
+}
+
+.dropdown-category-content::-webkit-scrollbar  {
+    width: 6px;
+}
+
+.dropdown-category-content::-webkit-scrollbar-track  {
+    border-radius: 10px;
+}
+
+.dropdown-category-content::-webkit-scrollbar-thumb  {
+    background: #A8A8A8;
+    border-radius: 10px;
 }
 
 .category-wrapper {
