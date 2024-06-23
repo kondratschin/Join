@@ -209,6 +209,10 @@ textarea {
     cursor: pointer;
 }
 
+.prio-task:hover {
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
 .prio-alta img {
     transition: none !important;
     filter: brightness(0) saturate(100%) invert(35%) sepia(60%) saturate(5519%) hue-rotate(0deg) brightness(101%) contrast(107%)
@@ -232,6 +236,11 @@ textarea {
 .prio-select {
     font-weight: 700;
     color: white;
+}
+
+.prio-select:hover {
+    box-shadow: none;
+
 }
 
 .prio-select-red {
