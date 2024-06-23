@@ -229,6 +229,11 @@ textarea {
     filter: brightness(0) saturate(100%) invert(99%) sepia(13%) saturate(0%) hue-rotate(218deg) brightness(102%) contrast(102%)
 }
 
+.prio-select {
+    font-weight: 700;
+    color: white;
+}
+
 .prio-select-red {
     background-color: #FF3D00;
     ;
