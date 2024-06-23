@@ -3,6 +3,7 @@
     height: calc(100vh - 96px);
     width: calc(100vw - 232px);
     background: #29ABE2;
+    overflow-x: hidden;
 }
 
 
@@ -106,6 +107,17 @@
 }
 
 
+.contactCart:focus {
+    background-color: #2A3647;
+    color: white;
+}
+
+
+.contactCart:focus:hover {
+    box-shadow: none;
+}
+
+
 .contactCart:hover {
     cursor: pointer;
     box-shadow: inset 0 -80px 20px 0 #F0F0F0;
@@ -134,6 +146,7 @@
     color: white;
     border-radius: 25px;
     margin: 0 30px;
+    border: 1px solid #F6F7F8;
 }
 
 
@@ -149,7 +162,7 @@
 
 
 .addContactPopupBackground {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     position: absolute;
@@ -159,7 +172,7 @@
     height: 100vh;
     width: 100vw;
     background: rgba(0, 0, 0, 0.3);
-    animation: appear 125ms;
+    overflow-x: hidden;
 }
 
 
@@ -171,6 +184,8 @@
     max-width: 1212px;
     background: #FFFFFF;
     border-radius: 30px;
+    position: relative;
+    animation: slideIn 125ms;
 }
 
 
@@ -370,9 +385,9 @@
     background: #FFFFFF;
     border: 1px solid #2A3647;
     border-radius: 10px;
-    width: 126px;
+    width: 113px;
     gap: 8px;
-    font-size: 20px;
+    font-size: 21px;
     cursor: pointer;
 }
 
@@ -401,7 +416,7 @@
     border-radius: 10px;
     width: 200px;
     color: white;
-    font-size: large;
+    font-size: 21px;
     gap: 8px;
     font-weight: bold;
     text-wrap: nowrap;
@@ -418,6 +433,17 @@
 
 
 .d-none {
+    display: none;
+}
+
+
+.appear {
+    display: flex;
+    animation: appear 125ms;
+}
+
+
+.vanish {
     display: none;
     animation: vanish 125ms;
 }
@@ -490,11 +516,51 @@
 
 .contactsRightsideContentInfoBox {
     display: flex;
-    background: #A8A8A8;
+    background: #F6F7F8;
     width: 100%;
     height: calc(100% - 250px);
     gap: 16px;
     flex-direction: column;
+    position: relative;
+    left: 100vw;
+}
+
+
+@keyframes slideIn {
+    from {
+        left: 100vw;
+    }
+
+    to {
+        left: 0;
+    }
+}
+
+
+@keyframes slideOut {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: 100vw;
+    }
+}
+
+
+.fadeIn {
+    animation: slideIn 125ms linear;
+}
+
+
+.fadeOut {
+    animation: slideOut 125ms linear;
+}
+
+
+.contactsRightsideContentInfoBoxTransition {
+    transition: 125ms;
+    left: 0;
 }
 
 
@@ -505,12 +571,6 @@
     margin-left: 54px;
     gap: 54px;
     padding-top: 56px;
-}
-
-
-.contactsRightsideContentInfoBoxProfile img {
-    height: 120px;
-    width: 120px;
 }
 
 
@@ -534,6 +594,8 @@
     font-size: 16px;
     gap: 8px;
     border: none;
+    background: #F6F7F8;
+    cursor: pointer;
 }
 
 
@@ -542,6 +604,15 @@
     width: 24px;
 }
 
+
+.contactsRightsideContentInfoBoxProfileName button:hover{
+    color: #29ABE2;
+}
+
+
+.contactsRightsideContentInfoBoxProfileName button:hover path{
+    fill: #29ABE2;
+}
 
 .contactsRightsideContentInfoBoxContactInformationBox {
     display: flex;
@@ -552,6 +623,19 @@
 }
 
 
+.contactsRightsideContentInfoBoxProfileInitials {
+    height: 120px;
+    width: 120px;
+    font-weight: 500;
+    font-size: 47px;
+    border-radius: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+
 .contactsRightsideContentInfoBoxContactInformationHeader{
     font-size: 20px;
 }
@@ -559,4 +643,42 @@
 
 .bigText {
     font-weight: 700;
+}
+
+
+.contactsEditContactInitials {
+    height: 114px;
+    width: 114px;
+    font-weight: 500;
+    font-size: 40px;
+    border-radius: 57px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+
+.editContactButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    background: #2A3647;
+    border: 1px solid #2A3647;
+    border-radius: 10px;
+    width: 111px;
+    color: white;
+    font-size: 21px;
+    gap: 8px;
+    font-weight: bold;
+    text-wrap: nowrap;
+    transition: 125ms;
+    cursor: pointer;
+}
+
+
+.editContactButton:hover {
+    background: #29ABE2;
+    border-color: #29ABE2;
 }

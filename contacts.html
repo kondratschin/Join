@@ -30,8 +30,8 @@
                 </div>
             </div>
         </div>
-        <div id="addContactPopupBackground" class="addContactPopupBackground d-none"
-            onclick="displayNone('addContactPopupBackground'), clearInput()">
+        <div id="addContactPopupBackground" class="addContactPopupBackground"
+            onclick="vanishAddConact()">
             <div id="addContactPopup" class="addContactPopup" onclick="stopPropagation(event)">
                 <div class="addContactCardLeftSide">
                     <div class="addContactCardLeftSideContent">
@@ -53,7 +53,7 @@
                             <div class="addContactCardRightSideContentInputfields">
                                 <div class="closeButtonDiv">
                                     <div class="closeButtonBackground"
-                                        onclick="displayNone('addContactPopupBackground'), clearInput()">
+                                        onclick="vanishAddConact()">
                                         <img class="addContactCloseButton" src="./img/close.svg">
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="addContactButtons">
                                         <button type="reset" class="cancelButton"
-                                            onclick="displayNone('addContactPopupBackground'), clearInput()">Cancel
+                                            onclick="vanishAddConact()">Cancel
                                             <svg class="iconSVG" width="14" height="14" viewBox="0 0 14 14"
                                                 fill="#2A3647">
                                                 <path
@@ -106,7 +106,7 @@
                     <p>Better with a team</p>
                 </div>
             </div>
-            <div class="contactsRightsideContentInfoBox">
+            <div id="contactsRightsideContentInfoBox" class="contactsRightsideContentInfoBox">
                 <div class="contactsRightsideContentInfoBoxProfile">
                     <img style="background: orange;">
                     <div class="contactsRightsideContentInfoBoxProfileName">
