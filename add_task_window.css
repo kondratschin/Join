@@ -296,6 +296,7 @@ textarea {
     justify-content: space-between;
     height: 100%;
     align-items: center;
+    padding-left: 12px;
 }
 
 .assign-field {
@@ -318,16 +319,15 @@ textarea {
 .contact-list-open {
     position: relative;
     background-color: white;
-    border: 1px solid #D1D1D1;
     border-radius: 10px;
     width: 440px;
     box-sizing: border-box;
-    margin-bottom: 32px;
-
 }
 
 .border-bottom-0 {
     border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .flip-vertically {
@@ -345,4 +345,31 @@ textarea {
     display: flex;
     flex-direction: column;
     width: 100%;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    transform: translateX(-1px);
+    z-index: 999;
+    width: 442px;
+    box-sizing: border-box;
+    padding: 12px;
+}
+
+.category-wrapper {
+    background-color: white;
+    height: 48px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    cursor: pointer;
+}
+
+.pddng-bttm-12 {
+    padding-bottom: 12px;
 }

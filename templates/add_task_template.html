@@ -17,23 +17,25 @@
             </div>
             <span class="input-name">Assigned to</span>
             <div class="contact-list-open">
-            <div id="assign-field" onclick="showContactDrp()" class="task-title assign-field border-bottom-0">
-                <div class="assign-contact">
-                    <p>Select contacts to assign</p>
+                <div id="assign-field" onclick="showContactDrp()" class="task-title assign-field border-bottom-0">
+                    <div class="assign-contact">
+                        <p>Select contacts to assign</p>
 
-                    <div class="arrow-drp-dwn">
-                        <img id="arrow-drp-dwn" src="./img/arrow_drop_down.svg" alt="">
+                        <div class="arrow-drp-dwn">
+                            <img id="arrow-drp-dwn" src="./img/arrow_drop_down.svg" alt="">
+                        </div>
+
                     </div>
-
+                </div>
+                <div id="contact-drp-dwn" class="contacts-drp-list d-none">
+                    <div>
+                        <span>Lisa Müller</span>
+                        <span>Lisa Müller</span>
+                    </div>
                 </div>
             </div>
-            <div id="contact-drp-dwn" class="contacts-drp-list d-none">
-                <div>
-                <span>Lisa Müller</span>
-                <span>Lisa Müller</span>
-            </div>
-            </div>
-        </div>
+
+
 
         </div>
         <div class="separator"></div>
@@ -45,15 +47,18 @@
             </div>
             <span class="input-name">Prio</span>
             <div class="prio-buttons">
-                <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta">
+                <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta"
+                    class="task-title prio-task prio-alta">
                     <p>Urgent</p>
                     <img src="./img/prio-alta.svg" alt="">
                 </div>
-                <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media" class="task-title prio-task prio-media">
+                <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media"
+                    class="task-title prio-task prio-media">
                     <p>Medium</p>
                     <img src="./img/prio-media.svg" alt="">
                 </div>
-                <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja" class="task-title prio-task prio-baja">
+                <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja"
+                    class="task-title prio-task prio-baja">
                     <p>Low</p>
                     <img src="./img/prio-baja.svg" alt="">
                 </div>
@@ -61,53 +66,33 @@
 
 
             <span class="input-name">Category<span style="color: red">*</span></span>
-            <div class="contact-list-open">
-                <div id="category-field" onclick="showCategoryDrp()" class="task-title assign-field border-bottom-0">
-                    <div class="assign-contact">
-                        <p>Select task category</p>
-    
-                        <div class="arrow-drp-dwn">
-                            <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="">
-                        </div>
-    
-                    </div>
-                </div>
-                <div id="category-drp-dwn" class="contacts-drp-list d-none">
-                    <div class="dropdown-category-content">
-                        <span>Technical Task</span>
-                        <span>User Story</span>
-                    </div>
+            <div class="category-wrapper">
+                <div class="contact-list-open">
+                    <div id="category-field" onclick="showCategoryDrp()" class="category-field">
+                        <div class="assign-contact">
+                            <p>Select task category</p>
 
+                            <div class="arrow-drp-dwn">
+                                <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="category-drp-dwn" class="contacts-drp-list d-none">
+                        <div class="dropdown-category-content">
+                            <span class="pddng-bttm-12">Technical Task</span>
+                            <span>User Story</span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
-
-            <!-- <div onclick="toggleElement('dropdown-category-content'), showCategoryDrp()" class="task-title dropdown-category">
-
-
-                    <div class="assign-contact">
-                        <p>Select task category</p>
-    
-                        <div class="arrow-drp-dwn">
-                            <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="">
-                        </div>
-    
-                    </div>
-
-                    <div id="dropdown-category-content" class="dropdown-category-content d-none">
-                        <span>Technical Task</span>
-                        <span>User Story</span>
-                    </div>
-
-            </div> -->
-
-
 
             <span class="input-name">Subtask</span>
             <div class="task-title">
                 <input type="text" id="taskSub" placeholder="Add new subtask" required
                     title="Please enter at least one word.">
-                    <img class="plus" src="./img/plus.svg" alt="">
+                <img class="plus" src="./img/plus.svg" alt="">
             </div>
         </div>
     </div>
