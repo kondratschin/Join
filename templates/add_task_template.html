@@ -44,15 +44,15 @@
             </div>
             <span class="input-name">Prio</span>
             <div class="prio-buttons">
-                <div class="task-title prio-task prio-alta">
+                <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta">
                     <p>Urgent</p>
                     <img src="./img/prio-alta.svg" alt="">
                 </div>
-                <div class="task-title prio-task prio-media">
+                <div onclick="prioritySelected('prio-select-orange')" id="prio-media" class="task-title prio-task prio-media">
                     <p>Medium</p>
                     <img src="./img/prio-media.svg" alt="">
                 </div>
-                <div class="task-title prio-task prio-baja">
+                <div onclick="prioritySelected('prio-select-green')" id="prio-baja" class="task-title prio-task prio-baja">
                     <p>Low</p>
                     <img src="./img/prio-baja.svg" alt="">
                 </div>
