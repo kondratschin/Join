@@ -354,7 +354,7 @@ textarea {
     z-index: 999;
     width: 442px;
     box-sizing: border-box;
-    padding: 12px;
+    padding-top: 12px;
 }
 
 .category-wrapper {
@@ -369,6 +369,44 @@ textarea {
     cursor: pointer;
 }
 
-.pddng-bttm-12 {
-    padding-bottom: 12px;
+.pddng-12 {
+    padding: 12px;
+}
+
+.contact-in-list:hover {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    transition: none !important;
+}
+
+.contact-in-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.initialsContact-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    width: 42px;
+    font-size: large;
+    color: white;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    background-color: #7AE229;
+}
+
+.initialsContactCart-small p {
+    margin: 0;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+
+span {
+    padding-left: 12px;
 }
