@@ -468,3 +468,18 @@ textarea {
     margin-right: 12px;
     width: 56px;
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+
+.createContactButton:disabled {
+    /* Entferne hier alle Hover-Stile */
+    background: #2A3647;
+    cursor: default; /* Cursor auf Standard zurücksetzen */
+    /* ... weitere Stile, die du beim Hover deaktivieren willst */
+    border: solid 1px red;
+    filter: none;
+}
