@@ -89,3 +89,8 @@ document.addEventListener('click', function (event) {
         alternateTwoElements('category-plus', 'category-buttons');
     }
   });
+
+
+  function resetInput() {
+    document.getElementById('taskSub').value = ""; 
+  }
