@@ -6,7 +6,6 @@
     scroll-behavior: smooth;
 }
 
-
 .add-task {
     background-color: white;
     display: flex;
@@ -23,12 +22,10 @@
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 .add-task-inline {
     height: 100%;
     width: 100%;
 }
-
 
 .form-wrapper {
     position: absolute;
@@ -40,13 +37,10 @@
     left: 0;
 }
 
-
-
 h1 {
     margin-top: 64px;
     margin-bottom: 32px;
 }
-
 
 .task-form {
     display: flex;
@@ -90,6 +84,8 @@ h1 {
     height: 48px;
     margin-bottom: 32px;
     background-color: white;
+    box-sizing: border-box;
+    transition: none !important;
 }
 
 .input-name {
@@ -97,7 +93,11 @@ h1 {
 }
 
 .task-date {
-    flex-grow: 0;
+    padding-right: 12px;
+}
+
+input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
 }
 
 .task-lowsection {
@@ -105,6 +105,23 @@ h1 {
     margin-bottom: 62px;
     display: flex;
     justify-content: space-between;
+}
+
+.plus {
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: none !important;
+}
+
+.plus:hover {
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    transition: none !important;
 }
 
 .task-remark {
@@ -131,7 +148,6 @@ h1 {
     cursor: pointer;
 }
 
-
 .cancelButton:hover {
     transition: 100ms;
     border: 2px solid #29ABE2;
@@ -139,12 +155,10 @@ h1 {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-
-.cancelButton:hover .iconSVG path{
+.cancelButton:hover .iconSVG path {
     transition: 100ms;
     stroke: #29ABE2;
 }
-
 
 .createContactButton {
     display: flex;
@@ -164,13 +178,11 @@ h1 {
     cursor: pointer;
 }
 
-
 .createContactButton:hover {
     background: #29ABE2;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     border-color: #29ABE2;
 }
-
 
 input {
     border: none;
@@ -178,4 +190,238 @@ input {
     flex-grow: 1;
     outline: none;
     font-size: 20px;
+}
+
+textarea {
+    border: none;
+    gap: 32px;
+    flex-grow: 1;
+    outline: none;
+    font-size: 20px;
+    height: 100%;
+    max-height: 96px;
+}
+
+.task-text {
+    height: 120px;
+    padding: 12px;
+}
+
+.task-title:focus-within {
+    border: 1px solid #29ABE2;
+}
+
+.prio-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.prio-task {
+    width: 136px;
+    height: 56px;
+    padding: 0;
+    justify-content: center;
+    box-sizing: border-box;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.prio-task:hover {
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.prio-alta img {
+    transition: none !important;
+    filter: brightness(0) saturate(100%) invert(35%) sepia(60%) saturate(5519%) hue-rotate(0deg) brightness(101%) contrast(107%)
+}
+
+.prio-media img {
+    transition: none !important;
+    filter: brightness(0) saturate(100%) invert(59%) sepia(65%) saturate(842%) hue-rotate(0deg) brightness(103%) contrast(103%)
+}
+
+.prio-baja img {
+    transition: none !important;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(64%) saturate(3663%) hue-rotate(32deg) brightness(94%) contrast(87%)
+}
+
+.prio-select img {
+    transition: none !important;
+    filter: brightness(0) saturate(100%) invert(99%) sepia(13%) saturate(0%) hue-rotate(218deg) brightness(102%) contrast(102%)
+}
+
+.prio-select {
+    font-weight: 700;
+    color: white;
+}
+
+.prio-select:hover {
+    box-shadow: none;
+
+}
+
+.prio-select-red {
+    background-color: #FF3D00;
+    ;
+}
+
+.prio-select-orange {
+    background-color: #FFA800;
+}
+
+.prio-select-green {
+    background-color: #7AE229;
+}
+
+.arrow-drp-dwn {
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: none !important;
+}
+
+.arrow-drp-dwn:hover {
+    background-color: #D9D9D9;
+    border-radius: 50%;
+    transition: none !important;
+}
+
+.assign-contact {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+    padding-left: 12px;
+}
+
+.assign-field {
+    cursor: pointer;
+    margin-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    box-sizing: border-box;
+    width: 438px;
+}
+
+.contacts-drp-list {
+    display: flex;
+    flex-direction: column;
+    width: 440px;
+    box-sizing: border-box;
+}
+
+.contact-list-open {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    width: 440px;
+    box-sizing: border-box;
+}
+
+.border-bottom-0 {
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.flip-vertically {
+    transform: scaleY(-1);
+}
+
+.dropdown-category {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-category-content {
+    position: absolute;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    transform: translateX(-1px);
+    z-index: 999;
+    width: 442px;
+    box-sizing: border-box;
+    padding-top: 12px;
+    overflow-y: auto;
+    max-height: 250px;
+}
+
+.dropdown-category-content::-webkit-scrollbar  {
+    width: 6px;
+}
+
+.dropdown-category-content::-webkit-scrollbar-track  {
+    border-radius: 10px;
+}
+
+.dropdown-category-content::-webkit-scrollbar-thumb  {
+    background: #A8A8A8;
+    border-radius: 10px;
+}
+
+.category-wrapper {
+    background-color: white;
+    height: 48px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    cursor: pointer;
+}
+
+.pddng-12 {
+    padding: 12px;
+}
+
+.contact-in-list:hover {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    transition: none !important;
+}
+
+.contact-in-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.initialsContact-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    width: 42px;
+    font-size: large;
+    color: white;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    background-color: #7AE229;
+}
+
+.initialsContactCart-small p {
+    margin: 0;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+
+span {
+    padding-left: 12px;
 }
