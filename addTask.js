@@ -62,3 +62,24 @@ function toggleTwoElements(one, two) {
     document.getElementById(`${one}`).classList.toggle('d-none');
     document.getElementById(`${two}`).classList.toggle('d-none');
 }
+
+
+
+document.addEventListener('click', function (event) {
+    let excludedObjects = document.querySelectorAll('.excludedObject');
+    let clickedElement = event.target;
+    let isExcluded = false;
+  
+    // Check if the clicked element is contained within any excluded object
+    excludedObjects.forEach(function (object) {
+      if (object.contains(clickedElement)) {
+        isExcluded = true;
+      }
+    });
+  
+    // If the clicked element is not contained within any excluded object, call the function
+    if (!isExcluded) {
+        hideCategoryDrp();
+        hideContactDrp();
+    }
+  });

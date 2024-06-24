@@ -131,14 +131,14 @@
             </div>
 
             <span class="input-name">Subtask</span>
-            <div class="task-title">
-                <input onclick="toggleTwoElements('category-plus', 'category-buttons')" type="text" id="taskSub" placeholder="Add new subtask" required
+            <div class="task-title excludedObject">
+                <input onfocus="toggleTwoElements('category-plus', 'category-buttons')" type="text" id="taskSub" placeholder="Add new subtask" required
                     title="Please enter at least one word.">
-                <img id="category-plus" class="plus" src="./img/plus.svg" alt="">
+                <img id="category-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="">
                 <div id="category-buttons" class="sub-task-buttons d-none">
-                    <img src="./img/cross-box-small.svg" alt="">
+                    <img class="plus" src="./img/cross-box-small.svg" alt="">
                     <img src="./img/separator-small.svg" alt="">
-                    <img src="./img/check-small.svg" alt="">
+                    <img class="plus" src="./img/check-small.svg" alt="">
                 </div>
             </div>
         </div>

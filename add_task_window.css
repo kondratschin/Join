@@ -112,7 +112,6 @@ input::-webkit-calendar-picker-indicator {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 12px;
     cursor: pointer;
     transition: none !important;
 }
@@ -456,6 +455,10 @@ textarea {
 
 .mrg-bttm-8 {
     margin-bottom: 8px;
+}
+
+.mrg-rgt-12 {
+    margin-right: 12px;
 }
 
 .sub-task-buttons {
