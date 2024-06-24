@@ -294,7 +294,7 @@ textarea {
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
-    height: 100%;
+    height: 48px;
     align-items: center;
     padding-left: 12px;
 }
@@ -354,9 +354,10 @@ textarea {
     z-index: 999;
     width: 442px;
     box-sizing: border-box;
-    padding-top: 12px;
+    padding-top: 8px;
     overflow-y: auto;
     max-height: 250px;
+    top: 40px;
 }
 
 .dropdown-category-content::-webkit-scrollbar  {
