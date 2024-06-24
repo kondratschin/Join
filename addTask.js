@@ -64,6 +64,11 @@ function toggleTwoElements(one, two) {
 }
 
 
+function alternateTwoElements(one, two) {
+    document.getElementById(`${one}`).classList.remove('d-none');
+    document.getElementById(`${two}`).classList.add('d-none');
+}
+
 
 document.addEventListener('click', function (event) {
     let excludedObjects = document.querySelectorAll('.excludedObject');
@@ -81,5 +86,6 @@ document.addEventListener('click', function (event) {
     if (!isExcluded) {
         hideCategoryDrp();
         hideContactDrp();
+        alternateTwoElements('category-plus', 'category-buttons');
     }
   });
