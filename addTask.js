@@ -56,3 +56,9 @@ function highlightContact(no) {
     document.getElementById(`check-button${no}`).classList.toggle('d-none');
     document.getElementById(`contact-in-list${no}`).classList.toggle('selected-contact');
 }
+
+
+function toggleTwoElements(one, two) {
+    document.getElementById(`${one}`).classList.toggle('d-none');
+    document.getElementById(`${two}`).classList.toggle('d-none');
+}

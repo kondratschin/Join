@@ -36,7 +36,8 @@
                                 <div class="flex-center">
                                     <div class="initialsContact-small">LM</div>
                                     <span class="pddng-lft-12">Lisa Müller</span>
-                                </div><img id="check-button1" src="./img/check-button.svg" alt=""> <img id="checked-button1" class="d-none" src="./img/checked-button.svg" alt="">
+                                </div><img id="check-button1" src="./img/check-button.svg" alt=""> <img
+                                    id="checked-button1" class="d-none" src="./img/checked-button.svg" alt="">
                             </div>
                             <div class="contact-in-list pddng-12">
                                 <div class="flex-center">
@@ -73,10 +74,10 @@
                     </div>
                 </div>
             </div>
-<div class="selected-initial-ico">
-    <div class="initialsContact-small">LM</div>
-    <div class="initialsContact-small">RM</div>
-</div>
+            <div class="selected-initial-ico">
+                <div class="initialsContact-small">LM</div>
+                <div class="initialsContact-small">RM</div>
+            </div>
 
         </div>
         <div class="separator"></div>
@@ -131,9 +132,14 @@
 
             <span class="input-name">Subtask</span>
             <div class="task-title">
-                <input type="text" id="taskSub" placeholder="Add new subtask" required
+                <input onclick="toggleTwoElements('category-plus', 'category-buttons')" type="text" id="taskSub" placeholder="Add new subtask" required
                     title="Please enter at least one word.">
-                <img class="plus" src="./img/plus.svg" alt="">
+                <img id="category-plus" class="plus" src="./img/plus.svg" alt="">
+                <div id="category-buttons" class="sub-task-buttons d-none">
+                    <img src="./img/cross-box-small.svg" alt="">
+                    <img src="./img/separator-small.svg" alt="">
+                    <img src="./img/check-small.svg" alt="">
+                </div>
             </div>
         </div>
     </div>
