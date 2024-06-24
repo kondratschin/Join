@@ -139,8 +139,12 @@ a {
     width: 100%;
     padding: 8px 0px;
     background-color: #091931;
-    color: #CDCDCD;
+    color: white !important;
     flex: none;
+}
+
+.navbarPicked img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(1%) hue-rotate(186deg) brightness(100%) contrast(102%);
 }
 
 .navbarPicked:hover {

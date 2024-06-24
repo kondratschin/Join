@@ -447,3 +447,12 @@ textarea {
     background: #091931;
     transition: none !important;
 }
+
+.selected-initial-ico {
+    display: flex;
+    gap: 8px;
+}
+
+.mrg-bttm-8 {
+    margin-bottom: 8px;
+}
