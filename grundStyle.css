@@ -8,6 +8,11 @@
     src: url("./fonts/inter-v12-latin-700.woff2") format('woff2');
 }
 
+@font-face {
+    font-family: "Inter-500";
+    src: url("./fonts/inter-v13-latin-500.woff2") format('woff2');
+}
+
 body {
     font-family: "Inter-Regular";
     margin: 0;

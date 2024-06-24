@@ -498,7 +498,7 @@
 
 
 .contactsRightsideContentHeadline h1 {
-    font-weight: 700;
+    font-family: "inter-700";
     font-size: 61px;
 }
 
@@ -575,9 +575,10 @@
 
 
 .contactsRightsideContentInfoBoxProfileName h1 {
-    font-weight: 500;
+    font-family: "inter-500";
     font-size: 47px;
     margin: 0;
+    margin-bottom: 16px;
 }
 
 
@@ -642,7 +643,7 @@
 
 
 .bigText {
-    font-weight: 700;
+    font-family: "inter-700";
 }
 
 
