@@ -16,6 +16,7 @@ document.addEventListener('click', function (event) {
     if (!isExcluded) {
       displayNone('myDropdown');
       hideCategoryDrp();
+      hideContactDrp();
     }
   });
 
