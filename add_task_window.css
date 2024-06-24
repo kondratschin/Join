@@ -451,6 +451,7 @@ textarea {
 .selected-initial-ico {
     display: flex;
     gap: 8px;
+    cursor: default;
 }
 
 .mrg-bttm-8 {
