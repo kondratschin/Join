@@ -1,10 +1,17 @@
 /**
+ * Remember me funktion korrigieren 
+ * sign up transition darf nicht sein
+ * pop up bei erfolgreichem registrieren 
+ */
+/**
  * Moves the logo to the upper corner
  */
 function moveLogo() {
   let logo = document.getElementById("splash-screen");
   logo.classList.remove("logo-big");
   logo.classList.add("logo-small");
+  // Speichern, dass die Animation ausgeführt wurde
+  localStorage.setItem('logoAnimated', 'true');
 }
 
 /**
@@ -17,13 +24,13 @@ function showContent() {
   }, 10); // Slight delay to ensure transition
 }
 
-/**
- * This needs to be moved to an event after loading database
- */
 let currentPage = window.location.pathname.split("/").pop();
 let currentSearchParams = new URLSearchParams(window.location.search);
 
-if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome')) {
+// Überprüfen, ob die Animation bereits ausgeführt wurde
+let logoAnimated = localStorage.getItem('logoAnimated');
+
+if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome') && !logoAnimated) {
   window.addEventListener('load', function () {
     setTimeout(function () {
       moveLogo();  // Führe die Logo-Animation aus
@@ -35,26 +42,18 @@ if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome')) {
   moveLogo();
 }
 
-/**
- * Hide an element by using ID
- * 
- * @param {string} id -  This is the ID of an element
- */
 function displayNone(id) {
   document.getElementById(id).classList.add('d-none');
 }
 
-/**
- * Show an element by using ID
- * 
- * @param {string} id -  This is the ID of an element
- */
 function displayElement(id) {
   document.getElementById(id).classList.remove('d-none');
 }
 
 function backToLogInArrow() {
-  window.location.reload();
+  // Entferne den Zustand, um die Animation beim nächsten Laden zu verhindern
+  localStorage.setItem('logoAnimated', 'false');
+  window.location.href = "logIn.html?returnHome=true";
 }
 
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
@@ -66,6 +65,7 @@ async function getUsers() {
 
 document.addEventListener('DOMContentLoaded', function () {
   let logInButton = document.getElementById('logInButton');
+  let loginForm = document.getElementById('inputSection');
 
   if (logInButton) {
     logInButton.addEventListener('click', async () => {
@@ -88,12 +88,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (userFound) {
         alert("Login successful!");
-        window.location.href = "dashboard.html"; // Hier wird der Benutzer weitergeleitet
+        // Speichere oder lösche Login-Daten basierend auf der "Remember Me" Auswahl
+        rememberMe(email, password);
+        window.location.href = "./summary.html"; // Hier wird der Benutzer weitergeleitet
       } else {
         alert("Invalid email or password. Please try again.");
       }
     });
   }
+
+  // Initialisiere die Remember Me Funktion
+  initRememberMe();
 });
 
 async function isEmailRegistered(email) {
@@ -119,7 +124,6 @@ async function signUp(email, password, confirmPassword, name) {
     alert("Passwords do not match.");
     return;
   }
-  // Save the new user
   let logInData = {
     name: name,
     email: email,
@@ -165,4 +169,65 @@ document.getElementById('inputSection').addEventListener('submit', async functio
   await signUp(email, password, passwordRepeat, name);
 });
 
+function transformLockIcon(x) {
+  const element = document.getElementById(`lock${x}`);
+  const inputElement = (x === 1) ? document.getElementById('signUpPassword') : document.getElementById('againSignUpPassword');
+  if (element) {
+    if (inputElement.value.length > 0) {
+      element.src = "./img/eye.svg"; // Ändere das Bild zu einem Auge
+    } else {
+      element.src = "./img/lock.svg"; // Ändere das Bild zu einem Schloss
+    }
+  } else {
+    console.error(`Element with ID lock${x} not found`);
+  }
+}
 
+function hide(x) {
+  const inputElement = (x === 1) ? document.getElementById('signUpPassword') : document.getElementById('againSignUpPassword');
+  const iconElement = document.getElementById(`lock${x}`);
+
+  if (inputElement.type === "password") {
+    inputElement.type = "text";
+    iconElement.src = "./img/hide.svg"; // Ändere das Bild zu einem geschlossenen Auge
+  } else {
+    inputElement.type = "password";
+    iconElement.src = "./img/eye.svg"; // Ändere das Bild zu einem offenen Auge
+  }
+}
+
+/**
+ * Remember Me Funktion
+ */
+function rememberMe(email, password) {
+  let rememberMeCheckbox = document.getElementById('rememberMe');
+  if (rememberMeCheckbox.checked) {
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+    localStorage.setItem('rememberMe', true);
+  } else {
+    localStorage.removeItem('email');
+    localStorage.removeItem('password');
+    localStorage.removeItem('rememberMe');
+  }
+}
+
+/**
+ * Initialisiere die Remember Me Funktion
+ */
+function initRememberMe() {
+  let emailInput = document.getElementById('mail-login');
+  let passwordInput = document.getElementById('passwort-login');
+  let rememberMeCheckbox = document.getElementById('rememberMe');
+
+  if (localStorage.getItem('rememberMe') === 'true') {
+    let savedEmail = localStorage.getItem('email');
+    let savedPassword = localStorage.getItem('password');
+
+    emailInput.value = savedEmail;
+    passwordInput.value = savedPassword;
+    rememberMeCheckbox.checked = true;
+  } else {
+    rememberMeCheckbox.checked = false;
+  }
+}

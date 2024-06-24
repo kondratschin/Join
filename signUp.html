@@ -32,12 +32,12 @@
                     <img class="cred-icon" src="./img/mail.svg" alt="">
                 </div>
                 <div class="login-credentials">
-                    <input type="password" id="signUpPassword" placeholder="Password" required>
-                    <img class="cred-icon" src="./img/lock.svg" alt="">
+                    <input oninput="transformLockIcon(1)" type="password" id="signUpPassword" placeholder="Password" required>
+                    <img onclick="hide(1)" id="lock1" class="cred-icon hoverEffect" src="./img/lock.svg" alt="">
                 </div>
                 <div class="login-credentials">
-                    <input type="password" id="againSignUpPassword" placeholder="Repeat password" required>
-                    <img class="cred-icon" src="./img/lock.svg" alt="">
+                    <input oninput="transformLockIcon(2)" type="password" id="againSignUpPassword" placeholder="Repeat password" required>
+                    <img onclick="hide(2)" id="lock2" class="cred-icon hoverEffect" src="./img/lock.svg" alt="">
                 </div>
                 <div class="accept-privacy-policy m-top24">
                     <input class="rememberMe-button" type="checkbox" id="acceptPrivatPolicyButton">

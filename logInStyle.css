@@ -218,6 +218,12 @@ input {
 .cred-icon {
     padding-right: 16px;
     height: 24px;
+    transition: transform 0.1s;
+}
+
+.hoverEffect:hover {
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 .lock-icon {
@@ -387,7 +393,7 @@ transform: scale(1.1);
     width: 279px;
     height: 49px;
     top: 5%;
-    left: 75%;
+    left: 65%;
 }
 
 .not-a-user-text {
@@ -461,3 +467,4 @@ transition: transform 0.3s ease;
     cursor: pointer;
     transform: scale(1.1);
 }
+
