@@ -15,6 +15,7 @@ document.addEventListener('click', function (event) {
     // If the clicked element is not contained within any excluded object, call the function
     if (!isExcluded) {
       displayNone('myDropdown');
+      hideCategoryDrp();
     }
   });
 

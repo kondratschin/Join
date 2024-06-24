@@ -11,6 +11,12 @@ function showCategoryDrp() {
     document.getElementById('arrow-drp-dwn2').classList.toggle('flip-vertically');
 }
 
+function hideCategoryDrp() {
+    document.getElementById('category-field').classList.remove('border-bottom-0');
+    document.getElementById('category-drp-dwn').classList.add('d-none');
+    document.getElementById('arrow-drp-dwn2').classList.remove('flip-vertically');
+}
+
 
 function prioritySelected(id, className, arrow) {
     removeSelection(id);

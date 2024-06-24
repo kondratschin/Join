@@ -422,6 +422,12 @@ textarea {
     align-items: center;
 }
 
-span {
+.pddng-lft-12 {
     padding-left: 12px;
+}
+
+.highlight-gray:hover {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    transition: none !important;
 }
