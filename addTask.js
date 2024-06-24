@@ -1,3 +1,26 @@
+const taskTitleInput = document.getElementById('task-title1');
+const taskDateInput = document.getElementById('taskDate');
+const createTaskButton = document.getElementById('create-task-bttn');
+
+taskTitleInput.addEventListener('input', validateForm);
+taskDateInput.addEventListener('input', validateForm);
+
+function validateForm() {
+    const taskTitle = taskTitleInput.value.trim();
+    const taskDate = taskDateInput.value;
+
+    // Enable/Disable submit button
+    createTaskButton.disabled = !(taskTitle && taskDate);
+
+    // Optional visual feedback:
+    if (!taskTitle || !taskDate) {
+        createTaskButton.textContent = "Title and Date Required";
+    } else {
+        createTaskButton.textContent = "Create Task"; 
+    }
+}
+
+
 function showContactDrp() {
     document.getElementById('contact-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
@@ -94,3 +117,4 @@ document.addEventListener('click', function (event) {
   function resetInput() {
     document.getElementById('taskSub').value = ""; 
   }
+
