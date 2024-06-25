@@ -86,15 +86,15 @@ function addSubmitEvent() {
 }
 
 
-function addEditSubmitEvent() {
+async function addEditSubmitEvent(color, oldName) {
     document.getElementById('editContactInputForm').addEventListener('submit', async function (event) {
         event.preventDefault();
-
+      
         let contactName = document.getElementById('contactName').value;
         let contactEmail = document.getElementById('contactEmail').value;
         let contactPhone = document.getElementById('contactPhone').value;
 
-        await editContact(contactName, contactEmail, contactPhone);
+        await editContact(contactName, contactEmail, contactPhone, color, oldName);
     });
 }
 
@@ -121,28 +121,34 @@ async function createContact(contactName, contactEmail, contactPhone) {
         console.log("Error creating contact.");
     };
     getContacts();
+    vanishAddConact();
 }
 
 
-async function editContact(contactName, contactEmail, contactPhone) {
-    let editContact = {
+async function editContact(contactName, contactEmail, contactPhone, contactColor, oldName) {
+    let initials = contactName.match(/\b(\w)/g).join('');
+    let editData = {
         name: contactName,
         email: contactEmail,
         phone: contactPhone,
+        color: contactColor
     };
     let response = await fetch(BASE_URL + "contacts/" + accName + "/" + contactName + ".json", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(editContact)
+        body: JSON.stringify(editData)
     });
     if (response.ok) {
         alert("Edit Contact successfully.");
     } else {
         console.log("Error Editing contact.");
     };
+    await deleteBackendContact(oldName);
     getContacts();
+    vanishAddConact();
+    showContactDetails(contactColor, initials, contactName, contactEmail, contactPhone);
 }
 
 
@@ -151,6 +157,14 @@ function showAddContact(id) {
     appear(id);
     fadeIn('addContactPopup');
     addSubmitEvent();
+}
+
+
+function showEditContact(id, color, initials, name, email, phone) {
+    editCart(color, initials, name, email, phone);
+    appear(id);
+    fadeIn('addContactPopup');
+    addEditSubmitEvent(color, name);
 }
 
 
@@ -236,12 +250,6 @@ function showContactInList(sortLetterNr) {
         const LetterContactNr = sortLetterNr['list'][y];
         printContact(LetterContactNr);
     }
-}
-
-
-function editContact(color, initials, name, email, phone) {
-    showAddContact('addContactPopupBackground');
-    editCart(color, initials, name, email, phone);
 }
 
 

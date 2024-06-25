@@ -43,7 +43,7 @@ function showContactDetails(color, initials, name, email, phone) {
             <div class="contactsRightsideContentInfoBoxProfileName">
                 <h1>${name}</h1>
                 <div class="contactsRightsideContentInfoBoxProfileButtons">
-                    <button onclick="editContact('${color}', '${initials}', '${name}', '${email}', '${phone}')"><svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button onclick="showEditContact('addContactPopupBackground', '${color}', '${initials}', '${name}', '${email}', '${phone}')"><svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2 17H3.4L12.025 8.375L10.625 6.975L2 15.6V17ZM16.3 6.925L12.05 2.725L13.45 1.325C13.8333 0.941667 14.3042 0.75 14.8625 0.75C15.4208 0.75 15.8917 0.941667 16.275 1.325L17.675 2.725C18.0583 3.10833 18.2583 3.57083 18.275 4.1125C18.2917 4.65417 18.1083 5.11667 17.725 5.5L16.3 6.925ZM14.85 8.4L4.25 19H0V14.75L10.6 4.15L14.85 8.4Z" fill="#2A3647"/>
                     </svg>Edit</button>
                     <button onclick="deleteContact('${name}')"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +71,6 @@ function showContactDetails(color, initials, name, email, phone) {
 
 function editCart(color, initials, name, email, phone) {
     let popup = document.getElementById('addContactPopup');
-    showAddContact('addContactPopupBackground');
     popup.innerHTML = `
         <div class="addContactCardLeftSide">
             <div class="addContactCardLeftSideContent">
@@ -131,7 +130,6 @@ function editCart(color, initials, name, email, phone) {
             </div>
         </div>
     `;
-    addEditSubmitEvent();
 }
 
 
@@ -191,8 +189,9 @@ function addNewContactCart() {
                                             stroke-linejoin="round" />
                                     </svg>
                                 </button>
-                                <button type="submit" class="createContactButton">Create contact <img
-                                        src="./img/buttonCheck.svg"></button>
+                                <button type="submit" class="createContactButton">
+                                Create contact <img src="./img/buttonCheck.svg">
+                                </button>
                             </div>
                         </form>
 
