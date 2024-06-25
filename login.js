@@ -63,10 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
           break;
         }
       }
-
       if (userFound) {
         alert("Login successful!");
-        // Speichere oder lösche Login-Daten basierend auf der "Remember Me" Auswahl
         rememberMe(email, password);
         window.location.href = "./summary.html"; // Hier wird der Benutzer weitergeleitet
       } else {
@@ -74,8 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-
-  // Initialisiere die Remember Me Funktion
   initRememberMe();
 });
 
@@ -140,9 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // document.getElementById('login-form').submit();
     }
   }
-});
-
-
+}); 
 
 function showSuccessMessage() {
   const overlay = document.createElement('div');

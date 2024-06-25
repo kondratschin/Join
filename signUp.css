@@ -1,5 +1,4 @@
 .signUpLayout {
-    /* Frame 153 */
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -27,6 +26,16 @@
     order: 1;
     flex-grow: 0;
     z-index: 1;
+
+}
+
+.sign-up-title {
+    font-family: 'Inter-700';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 120%;
+    text-align: center;
 }
 
 .accept-privacy-policy {
@@ -63,17 +72,17 @@
 
 .backToLogInArrow {
     /* Vector */
-width: 32px;
-height: 32px;
-position: absolute;
-left: 16.67%;
-right: 16.67%;
-top: 10.90%;
-bottom: 17.59%;
-transition: transform 0.3s ease;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    left: 16.67%;
+    right: 16.67%;
+    top: 10.90%;
+    bottom: 17.59%;
+    transition: transform 0.3s ease;
 }
 
-.backToLogInArrow:hover{
+.backToLogInArrow:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -81,35 +90,36 @@ transition: transform 0.3s ease;
 .sign-up-button {
     /* Button wo icon */
 
-/* Auto layout */
-color: #FFFFFF;
-font-size: 21px;
-font-weight: 700;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-/* padding: 15px 24px; why this padding? I (SK) removed it */
-gap: 10px;
+    /* Auto layout */
+    color: #FFFFFF;
+    font-size: 21px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* padding: 15px 24px; why this padding? I (SK) removed it */
+    gap: 10px;
 
-width: 126px;
-height: 55px;
+    width: 126px;
+    height: 55px;
 
-background: #2A3647;
-border-radius: 8px;
+    background: #2A3647;
+    border-radius: 8px;
 
-/* Inside auto layout */
-flex: none;
-order: 2;
-flex-grow: 0;
-z-index: 2;
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+    z-index: 2;
 }
 
 
 .sign-up-button:hover {
-cursor: pointer;
-transform: scale(1.1);
+    cursor: pointer;
+    transform: scale(1.1);
 }
+
 .success-container {
     display: flex;
     flex-direction: column;
@@ -119,10 +129,12 @@ transform: scale(1.1);
     height: 74px;
     background: #2A3647;
     color: #FFFFFF;
-    position: absolute; /* Geändert von fixed zu absolute */
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, 100px); /* Startposition anpassen */
+    position: absolute;
+    /* Geändert von fixed zu absolute */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    /* Startposition anpassen */
     border-radius: 20px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
     z-index: 1050;
@@ -131,7 +143,8 @@ transform: scale(1.1);
 }
 
 .success-container.show {
-    transform: translate(-50%, -50%); /* Endposition bei der Mitte */
+    transform: translate(-50%, -50%);
+    /* Endposition bei der Mitte */
     opacity: 1;
 }
 
@@ -142,11 +155,71 @@ transform: scale(1.1);
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 1040; 
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
 }
 
 
 .d-none {
     display: none;
+}
+
+.log-in-title {
+    margin-bottom: 40px;
+}
+
+@media (max-width: 400px) {
+    .signUpLayout {
+        justify-content: center;
+        padding: 0px 0px;
+        width: 396px;
+        height: 595px;
+        left: calc(50% - 396px/2);
+        top: calc(50% - 595px/2);
+    }
+
+    .inputSectionSignUp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+        gap: 24px;
+        width: 364px;
+        height: 392px;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+        z-index: 0;
+    }
+
+    .sign-up-title{
+        font-size: 47px;
+        margin-top: 0;
+    }
+
+    .sign-up-button {
+        width: 180px;
+        height: 51px;
+
+        background: #2A3647;
+        border-radius: 8px;
+        margin-bottom: 80px;
+    }
+
+    .log-in-title{
+        font-size: 47px !important;
+        margin-bottom: 40px;
+    }
+
+    .backToLogInArrow {
+        /* Vector */
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        left: 10.67%;
+        right: 16.67%;
+        top: 7.50%;
+        bottom: 17.59%;
+        transition: transform 0.3s ease;
+    }
 }

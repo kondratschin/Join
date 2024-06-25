@@ -60,7 +60,6 @@ body {
     z-index: 1000;
 }
 
-
 .log-in-layout {
     background-color: white;
     display: flex;
@@ -79,6 +78,7 @@ body {
 }
 
 .log-in-title {
+    font-size: 47px !important;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -89,7 +89,7 @@ body {
 
 h1 {
     font-family: "Inter-700";
-    font-size: 61px;
+    font-size: 47px;
 }
 
 .separator {
@@ -114,7 +114,6 @@ h1 {
     justify-content: space-between;
     flex-direction: column;
 }
-
 
 .m-top24 {
     margin-top: 16px;
@@ -148,7 +147,8 @@ input {
     font-family: "Inter-Regular";
     font-size: 16px;
     font-weight: 400;
-    width: calc(422px - 42px * 2); /* this is to put the button to the place as seen on figma */
+    width: calc(422px - 42px * 2);
+    /* this is to put the button to the place as seen on figma */
     height: 24px;
     justify-content: center;
     gap: 8px;
@@ -167,7 +167,6 @@ input {
 .rememberMe-text {
     cursor: pointer;
 }
-
 
 .login-guest-login-buttons {
     /* Frame 176 */
@@ -223,11 +222,7 @@ input {
 }
 
 .guest-login-button {
-    /* Button seconday wo icon */
-
     box-sizing: border-box;
-
-    /* Auto layout */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -281,12 +276,10 @@ input {
     text-decoration: none;
     margin: 0 10px;
     color: #A8A8A8;
-    /* Optional: Textfarbe der Links */
 }
 
 .footer a:hover {
     color: #29ABE2;
-    /* Optional: Farbe der Links beim Hover */
 }
 
 .not-a-user-container {
@@ -303,32 +296,17 @@ input {
 }
 
 .not-a-user-text {
-    /* Not a Join user? */
-
-    width: 153px;
-    height: 24px;
-
-    /* Version 2/t6 */
     font-family: 'Inter-Regular';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 120%;
-    /* identical to box height, or 24px */
-
-    color: #000000;
-
-
-    /* Inside auto layout */
     flex: none;
     order: 0;
     flex-grow: 0;
 }
 
 .not-a-user-button {
-    /* Button wo icon */
-
-    /* Auto layout */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -337,19 +315,16 @@ input {
     gap: 10px;
     color: #FFFFFF;
     text-decoration: none;
-
-
     width: 91px;
     height: 49px;
-
-    background: #2A3647;
+    background-color: #2A3647;
+    width: 91px;
+    height: 49px;
     border-radius: 8px;
-
-    /* Inside auto layout */
     flex: none;
     order: 1;
     flex-grow: 0;
-    transition: transform 0.3s ease;
+
 }
 
 .not-a-user-button:hover {
@@ -357,4 +332,125 @@ input {
     transform: scale(1.1);
 }
 
+@media (max-width: 400px) {
 
+    .cred-icon {
+        padding: 0 !important;
+    }
+
+    input {
+        width: 100px;
+    }
+
+    .log-in-layout {
+        width: 396px;
+        height: 515px;
+        padding: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .log-in-title {
+        width: 100%;
+    }
+
+    .credentials {
+        width: 100%;
+    }
+
+    .login-credentials {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 21px;
+        gap: 10px;
+        width: 364px;
+        height: 48px;
+        background: #FFFFFF;
+        border: 1px solid #D1D1D1;
+        border-radius: 10px;
+        flex: none;
+        order: 0;
+        align-self: stretch;
+        flex-grow: 0;
+
+    }
+
+    .login-button,
+    .guest-login-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .not-a-user-container {
+        top: 10%;
+        left: 10%;
+        width: 80%;
+    }
+
+    .login-guest-login-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 5px;
+        width: 180px;
+        height: 123px;
+    }
+
+    .logo-small {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 0px;
+        gap: 10px;
+        position: absolute;
+        width: 64px;
+        height: 78.03px;
+        left: calc(50% - 64px/2 - 144px);
+        top: calc(50% - 78.03px/2 - 386.98px);
+        margin: 16px;
+    }
+
+    .not-a-user-container {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 35px;
+        font-family: "Inter-Regular";
+        width: 279px;
+        height: 49px;
+        top: 85%;
+
+    }
+
+    .not-a-user-text {
+        font-family: 'Inter-Regular';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 120%;
+    }
+
+    .not-a-user-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 15px 16px;
+        gap: 10px;
+        color: #FFFFFF;
+        text-decoration: none;
+        width: 104px;
+        height: 49px;
+        background: #2A3647;
+        border-radius: 8px;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        transition: transform 0.3s ease;
+    }
+}
