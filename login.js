@@ -1,58 +1,36 @@
 /**
- * Remember me funktion korrigieren 
- * sign up transition darf nicht sein
- * pop up bei erfolgreichem registrieren 
- */
-/**
- * Moves the logo to the upper corner
+ * Moves the logo to the upper corner unconditionally
  */
 function moveLogo() {
   let logo = document.getElementById("splash-screen");
-  logo.classList.remove("logo-big");
-  logo.classList.add("logo-small");
-  // Speichern, dass die Animation ausgeführt wurde
-  localStorage.setItem('logoAnimated', 'true');
+  if (logo) {
+    logo.classList.remove("logo-big");
+    logo.classList.add("logo-small");
+  }
 }
 
 /**
  * Shows the content after the logo is moved
  */
 function showContent() {
-  document.getElementById('content').classList.remove('d-none');
+  let content = document.getElementById('content');
+  content.classList.remove('d-none');
   setTimeout(() => {
-    document.getElementById('content').classList.add('visible');
+    content.classList.add('visible');
   }, 10); // Slight delay to ensure transition
 }
 
-let currentPage = window.location.pathname.split("/").pop();
-let currentSearchParams = new URLSearchParams(window.location.search);
-
-// Überprüfen, ob die Animation bereits ausgeführt wurde
-let logoAnimated = localStorage.getItem('logoAnimated');
-
-if (currentPage === "logIn.html" && !currentSearchParams.has('returnHome') && !logoAnimated) {
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      moveLogo();  // Führe die Logo-Animation aus
-      showContent(); // Zeige den Inhalt direkt danach
-    }, 1000); // Warte 1 Sekunde vor Beginn der Animationen
-  });
-} else {
-  showContent(); // Zeige den Inhalt sofort, wenn auf login.html?returnHome oder einer anderen Seite
-  moveLogo();
-}
-
-function displayNone(id) {
-  document.getElementById(id).classList.add('d-none');
-}
-
-function displayElement(id) {
-  document.getElementById(id).classList.remove('d-none');
-}
+window.addEventListener('load', function () {
+  moveLogo();  // Führe die Logo-Animation aus, wenn die Seite geladen wird
+  showContent(); // Zeige den Inhalt direkt danach
+});
 
 function backToLogInArrow() {
-  // Entferne den Zustand, um die Animation beim nächsten Laden zu verhindern
-  localStorage.setItem('logoAnimated', 'false');
+  let logo = document.getElementById("splash-screen");
+  if (logo) {
+    logo.classList.remove("logo-big"); // Entfernen der Klasse, die die Animation steuert
+    logo.classList.add("logo-small"); // Direktes Umschalten auf die kleine Logo-Klasse
+  }
   window.location.href = "logIn.html?returnHome=true";
 }
 
@@ -137,10 +115,54 @@ async function signUp(email, password, confirmPassword, name) {
     body: JSON.stringify(logInData)
   });
   if (response.ok) {
-    alert("User registered successfully.");
+    // Speichern der Anmeldedaten im Local Storage für die automatische Anmeldung
+    localStorage.setItem('autoLoginEmail', email);
+    localStorage.setItem('autoLoginPassword', password);
+    showSuccessMessage();  // Zeige die Erfolgsmeldung
   } else {
     console.log("Error registering user.");
   }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const storedEmail = localStorage.getItem('autoLoginEmail');
+  const storedPassword = localStorage.getItem('autoLoginPassword');
+
+  if (storedEmail && storedPassword) {
+    const emailInput = document.getElementById('mail-login');
+    const passwordInput = document.getElementById('passwort-login');
+    
+    if (emailInput && passwordInput) {
+      emailInput.value = storedEmail;
+      passwordInput.value = storedPassword;
+
+      // Optional: Automatisch das Login-Formular absenden
+      // document.getElementById('login-form').submit();
+    }
+  }
+});
+
+
+
+function showSuccessMessage() {
+  const overlay = document.createElement('div');
+  overlay.className = 'success-overlay';
+  document.body.appendChild(overlay);
+
+  const successMessage = document.createElement('div');
+  successMessage.className = 'success-container';
+  successMessage.textContent = 'You Signed Up Successfully!';
+  document.body.appendChild(successMessage);
+
+  // Klasse sofort hinzufügen für eine flüssigere Animation
+  requestAnimationFrame(() => {
+      successMessage.classList.add('show');
+  });
+
+  setTimeout(() => {
+      backToLogInArrow();
+      document.body.removeChild(overlay);
+  }, 2000);  // Verkürzte Zeit für die Demo
 }
 
 document.getElementById('inputSection').addEventListener('submit', async function(event) {

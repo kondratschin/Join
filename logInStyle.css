@@ -33,7 +33,7 @@ body {
 }
 
 .d-none {
-    display: none !important;
+    display: none;
 }
 
 .overflow-wrapper {
@@ -78,24 +78,6 @@ body {
     padding: 48px;
 }
 
-.signUpLayout {
-    /* Frame 153 */
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    justify-content: space-between;
-    width: 598px;
-    height: 630px;
-    transition: 1s;
-    left: calc(50% - 598px/2);
-    top: calc(50% - 630px/2);
-    border-radius: 30px;
-    box-shadow: 0px 0px 14px 3px #0000000A;
-    padding: 48px 88px;
-}
-
 .log-in-title {
     background-color: white;
     display: flex;
@@ -133,18 +115,6 @@ h1 {
     flex-direction: column;
 }
 
-.inputSectionSignUp {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    gap: 24px;
-    width: 422px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    z-index: 1;
-}
 
 .m-top24 {
     margin-top: 16px;
@@ -187,23 +157,6 @@ input {
     justify-content: flex-start;
 }
 
-.accept-privacy-policy {
-    font-family: "Inter-Regular";
-    font-size: 16px;
-    font-weight: 400;
-    width: 240px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
-
-.accept-privacy-policy a {
-    color: #29ABE2;
-    text-decoration: none;
-}
-
 .rememberMe-button {
     height: 16px;
     width: 16px !important;
@@ -215,20 +168,6 @@ input {
     cursor: pointer;
 }
 
-.cred-icon {
-    padding-right: 16px;
-    height: 24px;
-    transition: transform 0.1s;
-}
-
-.hoverEffect:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-.lock-icon {
-    width: 24px;
-}
 
 .login-guest-login-buttons {
     /* Frame 176 */
@@ -276,39 +215,6 @@ input {
     font-family: "Inter-700";
     font-size: 18px;
     line-height: 25.2px;
-}
-
-.sign-up-button {
-    /* Button wo icon */
-
-/* Auto layout */
-color: #FFFFFF;
-font-size: 21px;
-font-weight: 700;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-/* padding: 15px 24px; why this padding? I (SK) removed it */
-gap: 10px;
-
-width: 126px;
-height: 55px;
-
-background: #2A3647;
-border-radius: 8px;
-
-/* Inside auto layout */
-flex: none;
-order: 2;
-flex-grow: 0;
-z-index: 2;
-}
-
-
-.sign-up-button:hover {
-cursor: pointer;
-transform: scale(1.1);
 }
 
 .login-button:hover {
@@ -451,20 +357,4 @@ transform: scale(1.1);
     transform: scale(1.1);
 }
 
-.backToLogInArrow {
-    /* Vector */
-width: 32px;
-height: 32px;
-position: absolute;
-left: 16.67%;
-right: 16.67%;
-top: 10.90%;
-bottom: 17.59%;
-transition: transform 0.3s ease;
-}
-
-.backToLogInArrow:hover{
-    cursor: pointer;
-    transform: scale(1.1);
-}
 
