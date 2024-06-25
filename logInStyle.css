@@ -346,7 +346,7 @@ input {
         width: 396px;
         height: 515px;
         padding: 20px;
-        top: 50%;
+        top: 48%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -411,7 +411,7 @@ input {
         height: 78.03px;
         left: calc(50% - 64px/2 - 144px);
         top: calc(50% - 78.03px/2 - 386.98px);
-        margin: 16px;
+   
     }
 
     .not-a-user-container {
