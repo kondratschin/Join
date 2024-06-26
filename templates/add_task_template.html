@@ -12,7 +12,7 @@
                 <input type="text" id="task-title1" placeholder="Enter a title" title="Please enter at least one word.">
 
             </div>
-            <span id="titleError" class="error">This field is required.</span>
+            <span id="titleError" class="error d-none">Task title must not be empty.</span>
             
             <span class="input-name">Description</span>
             <div class="task-title task-text">
@@ -88,6 +88,7 @@
             <div class="task-title">
                 <input class="task-date" type="date" id="taskDate" placeholder="dd/mm/yyyy" title="Please enter date">
             </div>
+            <span class="error d-none" id="errorDate">Please select date</span>
             <span class="input-name">Prio</span>
             <div class="prio-buttons">
                 <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta">
@@ -154,7 +155,7 @@
                         stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
-            <button disabled id="create-task-bttn" type="submit" class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
+            <button onmousemove="showErrorMsg()" disabled id="create-task-bttn" type="submit" class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
         </div>
     </div>
 

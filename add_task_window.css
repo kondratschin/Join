@@ -472,7 +472,7 @@ textarea {
 .error {
     color: red;
     font-size: 12px;
-    display: none;
+    transform: translateY(-30px);
 }
 
 .create-task-button:disabled:hover {
