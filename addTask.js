@@ -1,25 +1,81 @@
-const taskTitleInput = document.getElementById('task-title1');
-const taskDateInput = document.getElementById('taskDate');
-const createTaskButton = document.getElementById('create-task-bttn');
+document.addEventListener('DOMContentLoaded', () => {
+    const createTaskButton = document.getElementById('create-task-bttn');
 
-taskTitleInput.addEventListener('input', validateForm);
-taskDateInput.addEventListener('input', validateForm);
+    document.addEventListener('input', (event) => {
+        if (event.target.id === 'taskDate') {
+            validateDate();
+        }
+        if (event.target.id === 'task-title1') {
+            validateTitle();
+        }
+    });
 
-function validateForm() {
-    const taskTitle = taskTitleInput.value.trim();
-    const taskDate = taskDateInput.value;
+    function validateDate() {
+        const taskDateInput = document.getElementById('taskDate');
+        let errorSpan = taskDateInput.nextElementSibling;
 
-    // Enable/Disable submit button
-    createTaskButton.disabled = !(taskTitle && taskDate);
+        // Create errorSpan if it doesn't exist
+        if (!errorSpan || !errorSpan.classList.contains('error')) {
+            errorSpan = document.createElement('span');
+            errorSpan.classList.add('error');
+            taskDateInput.parentNode.appendChild(errorSpan);
+        }
 
-    // Optional visual feedback:
-    if (!taskTitle || !taskDate) {
-        createTaskButton.textContent = "Title and Date Required";
-    } else {
-        createTaskButton.textContent = "Create Task"; 
+        const taskDate = taskDateInput.value;
+
+        // Überprüfen, ob ein Datum eingegeben wurde
+        if (!taskDate) {
+            createTaskButton.disabled = true;
+            errorSpan.textContent = "Please select a date.";
+            return;
+        }
+
+        // Überprüfen, ob das Datum gültig ist (z.B. nicht in der Vergangenheit)
+        const selectedDate = new Date(taskDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Nur das Datum vergleichen
+
+        if (selectedDate < today) {
+            createTaskButton.disabled = true;
+            errorSpan.textContent = "Please select a future date.";
+        } else {
+            errorSpan.textContent = ""; // Fehlermeldung löschen
+            validateForm();
+        }
     }
-}
 
+    function validateTitle() {
+        const taskTitleInput = document.getElementById('task-title1');
+        let errorSpan = taskTitleInput.nextElementSibling;
+
+        // Create errorSpan if it doesn't exist
+        if (!errorSpan || !errorSpan.classList.contains('error')) {
+            errorSpan = document.createElement('span');
+            errorSpan.classList.add('error');
+            taskTitleInput.parentNode.appendChild(errorSpan);
+        }
+
+        const taskTitle = taskTitleInput.value.trim();
+
+        // Überprüfen, ob ein Titel eingegeben wurde
+        if (!taskTitle) {
+            createTaskButton.disabled = true;
+            errorSpan.textContent = "Task title must not be empty.";
+        } else {
+            errorSpan.textContent = ""; // Fehlermeldung löschen
+            validateForm();
+        }
+    }
+
+    function validateForm() {
+        const taskDateInput = document.getElementById('taskDate').value;
+        const taskTitleInput = document.getElementById('task-title1').value.trim();
+
+        if (taskDateInput && taskTitleInput) {
+            document.getElementById('create-task-bttn').disabled = false;
+        }
+    }
+});
 
 function showContactDrp() {
     document.getElementById('contact-drp-dwn').classList.toggle('d-none');
@@ -93,25 +149,7 @@ function alternateTwoElements(one, two) {
 }
 
 
-document.addEventListener('click', function (event) {
-    let excludedObjects = document.querySelectorAll('.excludedObject');
-    let clickedElement = event.target;
-    let isExcluded = false;
-  
-    // Check if the clicked element is contained within any excluded object
-    excludedObjects.forEach(function (object) {
-      if (object.contains(clickedElement)) {
-        isExcluded = true;
-      }
-    });
-  
-    // If the clicked element is not contained within any excluded object, call the function
-    if (!isExcluded) {
-        hideCategoryDrp();
-        hideContactDrp();
-        alternateTwoElements('category-plus', 'category-buttons');
-    }
-  });
+
 
 
   function resetInput() {
