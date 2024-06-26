@@ -120,6 +120,7 @@ h1 {
 }
 
 .login-credentials {
+    padding-right: 8px;
     border: 1px solid #D1D1D1;
     display: flex;
     gap: 32px;
@@ -332,7 +333,11 @@ input {
     transform: scale(1.1);
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
+
+    .input-section{
+        height: 192px; 
+    }
 
     .cred-icon {
         padding: 0 !important;
@@ -340,11 +345,12 @@ input {
 
     input {
         width: 100px;
+        font-size: 16px;
     }
 
     .log-in-layout {
-        width: 396px;
-        height: 515px;
+        width: 95%;
+        height: 60%;
         padding: 20px;
         top: 48%;
         left: 50%;
@@ -353,7 +359,13 @@ input {
 
     .log-in-title {
         width: 100%;
+        height: 139px;
     }
+
+    h1 {
+        font-size: 40px;
+    }
+
 
     .credentials {
         width: 100%;
@@ -366,8 +378,8 @@ input {
         align-items: center;
         padding: 12px 21px;
         gap: 10px;
-        width: 364px;
-        height: 48px;
+        width: 100%;
+        height: 40px;
         background: #FFFFFF;
         border: 1px solid #D1D1D1;
         border-radius: 10px;
@@ -375,19 +387,23 @@ input {
         order: 0;
         align-self: stretch;
         flex-grow: 0;
-
     }
 
     .login-button,
     .guest-login-button {
         width: 100%;
+        height: 40px;
         margin-top: 10px;
+        font-size: 16px;
     }
 
     .not-a-user-container {
         top: 10%;
-        left: 10%;
+        display: flex;
+        justify-content: center;
+        position: absolute;
         width: 80%;
+        left: 8%;
     }
 
     .login-guest-login-buttons {
@@ -398,20 +414,17 @@ input {
         gap: 5px;
         width: 180px;
         height: 123px;
+        margin: 8px;
+        font-size: 16px;
     }
 
     .logo-small {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 0px;
-        gap: 10px;
-        position: absolute;
+        position: sticky;
         width: 64px;
         height: 78.03px;
-        left: calc(50% - 64px/2 - 144px);
-        top: calc(50% - 78.03px/2 - 386.98px);
-   
+        left: calc(60% - 84px/2 - 144px);
+        top: calc(60% - 78.03px/2 - 386.98px);
+        margin: 16px;
     }
 
     .not-a-user-container {
@@ -423,7 +436,7 @@ input {
         font-family: "Inter-Regular";
         width: 279px;
         height: 49px;
-        top: 85%;
+        top: 83%;
 
     }
 
@@ -431,7 +444,7 @@ input {
         font-family: 'Inter-Regular';
         font-style: normal;
         font-weight: 400;
-        font-size: 20px;
+        font-size: 16px;
         line-height: 120%;
     }
 
@@ -445,12 +458,16 @@ input {
         color: #FFFFFF;
         text-decoration: none;
         width: 104px;
-        height: 49px;
+        height: 40px;
         background: #2A3647;
         border-radius: 8px;
         flex: none;
         order: 1;
         flex-grow: 0;
         transition: transform 0.3s ease;
+    }
+
+    .rememberMe{
+     width: 80%;
     }
 }
