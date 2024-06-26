@@ -477,10 +477,18 @@ textarea {
 
 .create-task-button:disabled:hover {
     /* Entferne hier alle Hover-Stile */
-    background: #2A3647;
+    background: #2a36472a;
     cursor: default; /* Cursor auf Standard zurücksetzen */
     /* ... weitere Stile, die du beim Hover deaktivieren willst */
     border: solid 1px red;
+    filter: none;
+}
+
+.create-task-button:disabled {
+    /* Entferne hier alle Hover-Stile */
+    background: #2a36472a;
+    cursor: default; /* Cursor auf Standard zurücksetzen */
+    /* ... weitere Stile, die du beim Hover deaktivieren willst */
     filter: none;
 }
 
