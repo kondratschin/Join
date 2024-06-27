@@ -63,7 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function showContactDrp() {
-    createContactDrpDwn();
+    if (selectedContacts.length === 0) {
+        createContactDrpDwn();
+    }
     document.getElementById('contact-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
 }
@@ -124,22 +126,22 @@ function highlightContact(no) {
     document.getElementById(`checked-button${no}`).classList.toggle('d-none');
     document.getElementById(`check-button${no}`).classList.toggle('d-none');
 
-    updateSelectedContacts(contactElement, isSelected);
+    updateSelectedContacts(contactElement, isSelected, no);
 }
 
-function updateSelectedContacts(contactElement, isSelected) {
+function updateSelectedContacts(contactElement, isSelected, index) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
     const initials = contactElement.querySelector('.initialsContact-small').innerText;
     const name = contactElement.querySelector('span').innerText;
 
     if (isSelected) {
         // Add to selectedContacts
-        selectedContacts.push({ color, initials, name });
+        selectedContacts.push({ index, color, initials, name });
     } else {
         // Remove from selectedContacts
-        selectedContacts = selectedContacts.filter(contact => contact.name !== name);
+        selectedContacts = selectedContacts.filter(contact => contact.index !== index);
     }
-
+    selectedInitialIcos();
     console.log(selectedContacts); // For debugging
 }
 
@@ -210,6 +212,8 @@ async function loadContactsArray() {
 function createContactDrpDwn() {
     let contactDrpDwn = document.getElementById('contact-content');
     contactDrpDwn.innerHTML = "";
+    let selectedInitialIco = document.getElementById('selected-initial-ico');
+    selectedInitialIco.innerHTML = "";
 
     for (let i = 0; i < alphabetContainer.length; i++) {
         const sortLetterNr = alphabetContainer[i];
@@ -245,4 +249,18 @@ function printContactDrpDwn(LetterContactNr, i) {
     `;
 }
 
+
+function selectedInitialIcos() {
+    let selectedInitialIco = document.getElementById('selected-initial-ico');
+    selectedInitialIco.innerHTML = ""; // Clear the existing content
+
+    for (let contact of selectedContacts) {
+        let color = contact.color;
+        let initials = contact.initials;
+
+        selectedInitialIco.innerHTML += /*html*/ `
+            <div class="initialsContact-small" style="background: ${color}">${initials}</div>
+        `;
+    }
+}
 
