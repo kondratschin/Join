@@ -457,6 +457,10 @@ textarea {
     margin-bottom: 0px;
 }
 
+.mrg-bttm-4 {
+    margin-bottom: 4px;
+}
+
 .mrg-bttm-8 {
     margin-bottom: 8px;
 }
@@ -486,7 +490,7 @@ textarea {
 }
 
 .error-wrapper {
-    height: 86px;
+    height: 80px;
 }
 
 .create-task-button:disabled:hover {
@@ -536,7 +540,7 @@ textarea {
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
-    padding: 8px 0px 8px 8px;
+    padding: 5px 0px 5px 8px;
 }
 
 .sub-task-list:hover {
