@@ -453,8 +453,16 @@ textarea {
     cursor: default;
 }
 
+.mrg-bttm-0 {
+    margin-bottom: 0px;
+}
+
 .mrg-bttm-8 {
     margin-bottom: 8px;
+}
+
+.mrg-bttm-17 {
+    margin-bottom: 17px;
 }
 
 .mrg-rgt-12 {
@@ -472,7 +480,13 @@ textarea {
 .error {
     color: red;
     font-size: 12px;
-    transform: translateY(-30px);
+    height: 15px;
+    display: flex;
+    margin-top: 2px;
+}
+
+.error-wrapper {
+    height: 80px;
 }
 
 .create-task-button:disabled:hover {

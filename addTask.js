@@ -166,3 +166,8 @@ function showErrorMsg() {
         alternateTwoElements('category-plus', 'category-buttons');
     }
   });
+
+
+  function assignCategory(category) {
+    document.getElementById('selected-category').innerHTML = `${category}`;
+  }
