@@ -164,7 +164,7 @@ function showErrorMsg() {
     if (!isExcluded) {
         hideCategoryDrp();
         hideContactDrp();
-        alternateTwoElements('category-plus', 'category-buttons');
+        alternateTwoElements('subtask-plus', 'subtask-buttons');
     }
   });
 
