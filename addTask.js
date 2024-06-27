@@ -139,6 +139,7 @@ function disableButton() {
 function showErrorMsg() {
     document.getElementById('errorDate').classList.remove('d-none');
     document.getElementById('titleError').classList.remove('d-none');
+    document.getElementById('categoryError').classList.remove('d-none');
     }
     
 

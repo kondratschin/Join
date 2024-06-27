@@ -1,5 +1,3 @@
-
-
 <form class="task-form" id="taskForm">
 
     <h1>Add Task</h1>
@@ -9,12 +7,13 @@
         <div class="input-left">
             <span class="input-name">Title<span style="color: red">*</span></span>
             <div class="error-wrapper">
-            <div class="task-title mrg-bttm-0">
-                <input type="text" id="task-title1" placeholder="Enter a title" title="Please enter at least one word.">
+                <div class="task-title mrg-bttm-0">
+                    <input type="text" id="task-title1" placeholder="Enter a title"
+                        title="Please enter at least one word.">
 
+                </div>
+                <span id="titleError" class="error d-none">Task title must not be empty</span>
             </div>
-            <span id="titleError" class="error d-none">Task title must not be empty.</span>
-        </div>
             <span class="input-name">Description</span>
             <div class="task-title task-text">
                 <textarea id="taskDescription" placeholder="Enter a Description"></textarea>
@@ -40,7 +39,8 @@
                                 <div class="flex-center">
                                     <div class="initialsContact-small">LM</div>
                                     <span class="pddng-lft-12">Lisa Müller</span>
-                                </div><img id="check-button1" src="./img/check-button.svg" alt=""> <img id="checked-button1" class="d-none" src="./img/checked-button.svg" alt="">
+                                </div><img id="check-button1" src="./img/check-button.svg" alt=""> <img
+                                    id="checked-button1" class="d-none" src="./img/checked-button.svg" alt="">
                             </div>
                             <div class="contact-in-list pddng-12">
                                 <div class="flex-center">
@@ -87,22 +87,26 @@
         <div class="input-right">
             <span class="input-name">Due date<span style="color: red">*</span></span>
             <div class="error-wrapper">
-            <div class="task-title mrg-bttm-0">
-                <input class="task-date" type="date" id="taskDate" placeholder="dd/mm/yyyy" title="Please enter date">
-            </div>
-            <span class="error d-none" id="errorDate">Please select date</span>
+                <div class="task-title mrg-bttm-0">
+                    <input class="task-date" type="date" id="taskDate" placeholder="dd/mm/yyyy"
+                        title="Please enter date">
+                </div>
+                <span class="error d-none" id="errorDate">Please select date</span>
             </div>
             <span class="input-name">Prio</span>
             <div class="prio-buttons">
-                <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta">
+                <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta"
+                    class="task-title prio-task prio-alta">
                     <p>Urgent</p>
                     <img src="./img/prio-alta.svg" alt="">
                 </div>
-                <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media" class="task-title prio-task prio-media">
+                <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media"
+                    class="task-title prio-task prio-media">
                     <p>Medium</p>
                     <img src="./img/prio-media.svg" alt="">
                 </div>
-                <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja" class="task-title prio-task prio-baja">
+                <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja"
+                    class="task-title prio-task prio-baja">
                     <p>Low</p>
                     <img src="./img/prio-baja.svg" alt="">
                 </div>
@@ -110,34 +114,42 @@
 
 
             <span class="input-name">Category<span style="color: red">*</span></span>
-            <div onclick="showCategoryDrp()" class="category-wrapper excludedObject">
-                <div class="contact-list-open">
-                    <div id="category-field" class="category-field">
-                        <div class="assign-contact">
-                            <p id="selected-category">Select task category</p>
+            <div class="error-wrapper">
+                <div onclick="showCategoryDrp()" class="category-wrapper excludedObject  mrg-bttm-0">
+                    <div class="contact-list-open">
+                        <div id="category-field" class="category-field">
+                            <div class="assign-contact">
+                                <p id="selected-category">Select task category</p>
 
-                            <div class="arrow-drp-dwn">
-                                <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="">
+                                <div class="arrow-drp-dwn">
+                                    <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="category-drp-dwn" class="contacts-drp-list d-none">
+                            <div class="dropdown-category-content">
+                                <span onclick="assignCategory('Technical Task')"
+                                    class="pddng-12 highlight-gray">Technical Task</span>
+                                <span onclick="assignCategory('User Story')" class="pddng-12 highlight-gray">User
+                                    Story</span>
                             </div>
 
                         </div>
-                    </div>
-                    <div id="category-drp-dwn" class="contacts-drp-list d-none">
-                        <div class="dropdown-category-content">
-                            <span onclick="assignCategory('Technical Task')" class="pddng-12 highlight-gray">Technical Task</span>
-                            <span onclick="assignCategory('User Story')" class="pddng-12 highlight-gray">User Story</span>
-                        </div>
 
                     </div>
+
                 </div>
+                <span id="categoryError" class="error d-none">Please select category</span>
             </div>
-
             <span class="input-name">Subtask</span>
             <div class="task-title excludedObject">
-                <input onfocus="alternateTwoElements('category-buttons', 'category-plus')" type="text" id="taskSub" placeholder="Add new subtask">
+                <input onfocus="alternateTwoElements('category-buttons', 'category-plus')" type="text" id="taskSub"
+                    placeholder="Add new subtask">
                 <img id="category-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="">
                 <div id="category-buttons" class="sub-task-buttons d-none">
-                    <img onclick="resetInput(); alternateTwoElements('category-plus', 'category-buttons');" class="plus" src="./img/cross-box-small.svg" alt="">
+                    <img onclick="resetInput(); alternateTwoElements('category-plus', 'category-buttons');" class="plus"
+                        src="./img/cross-box-small.svg" alt="">
                     <img src="./img/separator-small.svg" alt="">
                     <img class="plus" src="./img/check-small.svg" alt="">
                 </div>
@@ -158,7 +170,8 @@
                         stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
-            <button onmousemove="showErrorMsg()" disabled id="create-task-bttn" type="submit" class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
+            <button onmousemove="showErrorMsg()" disabled id="create-task-bttn" type="submit"
+                class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
         </div>
     </div>
 
