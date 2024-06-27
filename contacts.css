@@ -2,8 +2,8 @@
     display: flex;
     height: calc(100vh - 96px);
     width: calc(100vw - 232px);
-    background: #29ABE2;
     overflow-x: hidden;
+    max-width: 1440px;
 }
 
 
@@ -35,7 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 456px;
+    padding: 0 50px;
     height: 101px;
     background: #FFFFFF;
 }
@@ -90,7 +90,6 @@
 
 
 .contactsText {
-    width: 356px;
     height: 100%;
     max-height: calc(100vh - 197px);
     overflow-y: scroll;
@@ -491,9 +490,10 @@
 
 .contactsRightsideContentHeadline {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 30px;
+    margin-left: 54px;
 }
 
 
@@ -683,3 +683,63 @@
     background: #29ABE2;
     border-color: #29ABE2;
 }
+
+
+@media (max-width: 428) {
+    .contactsRightsideContent {
+        position: relative;
+        left: 428px;
+    }
+}
+
+
+@media (max-width: 1280px) {
+    .contactsText {
+        padding: 0 0 0 8px;
+    }
+
+
+    .buttonDiv {
+        justify-content: flex-start;
+        width: auto;
+        padding: 0 8px;
+    }
+}
+
+
+@media (max-width: 1115px) {
+    .contactsRightsideContentInfoBoxProfile {
+        margin-left: 8px;
+        gap: 16px;
+    }
+
+
+    .contactsRightsideContentHeadline {
+        gap: 16px;
+        margin-left: 8px;
+    }
+}
+
+
+@media (max-width: 1025px) {
+    .contactsContent  {
+        max-width: 255px;
+    }
+
+
+    .initialsContactCart  {
+        margin: 0 15px;
+    }
+
+
+    .contactCart {
+        justify-content: center;
+    }
+
+
+    .addNewContact {
+        gap: 8px;
+    }
+}
+
+
