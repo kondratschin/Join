@@ -81,7 +81,6 @@ a {
     flex: none;
     flex-grow: 0;
     height: 46px;
-    width: 100%;
 }
 
 .navbar:hover {
@@ -187,6 +186,12 @@ a {
     box-sizing: border-box;
 }
 
+.InitialLetters{
+    font-size: 20px !important;
+    font-family: "inter-700";
+    color: #29ABE2;
+}
+
 .headerIcons {
     display: flex;
     width: 104px;
@@ -268,6 +273,10 @@ a {
     border-radius: 33px;
 }
 
+.InitialsLetters{
+    font-size: 24px !important;
+}
+
 .initials:hover {
     cursor: pointer;
     background-color: #E1E6EC;
@@ -275,4 +284,249 @@ a {
 
 .d-none {
     display: none !important;
+}
+
+@media (max-width: 500px) {
+
+    .leftNavbar {
+        top: 90%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        position: absolute;
+        width: 100%;
+        height: 10%;
+        left: 0px;
+        bottom: 0px;
+        margin: 0;
+    }
+
+
+    body {
+        font-family: "Inter-Regular";
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+        background-color: #F6F7F8;
+        padding-left: 0;
+        padding-top: 0;
+        height: 100vh;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .active {
+        color: #FFFFFF !important;
+        background-color: #091931;
+    }
+
+    .c-white {
+        color: #FFFFFF;
+    }
+
+
+    .navbarLogo {
+        display: none;
+    }
+
+    .navbarMenu {
+        display: flex;
+        flex-direction: row;
+        height: 68px;
+        position: fixed;
+        
+    }
+
+
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        width: 66px;
+        height: 66px;
+        border-radius: 8px;
+    }
+
+    .navbar:hover {
+        background-color: #2A3D59;
+    }
+
+    .navbarIcon {
+        height: 30px;
+        padding-right: 0px;
+        color: #CDCDCD !important;
+        padding-left: 0px;
+    }
+
+    .navbarFooter {
+        display: none;
+    }
+
+    .navbarFooter a {
+        display: none;
+    }
+
+    .navbarFooter p {
+        display: none;
+    }
+
+    .navbarFooter a:hover {
+        color: #29ABE2;
+        font-weight: 700;
+    }
+
+    .navbarPicked {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        padding: 8px 0px;
+        background-color: #091931;
+        color: white !important;
+        flex: none;
+    }
+
+    .navbarPicked img {
+        filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(1%) hue-rotate(186deg) brightness(100%) contrast(102%);
+    }
+
+    .navbarPicked:hover {
+        cursor: default;
+        background-color: #091931;
+    }
+
+    .navbarNotPicked {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        width: 100%;
+        padding: 8px 0px;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 16px;
+        position: absolute;
+        width: 428px;
+        height: 66px;
+        left: 0px;
+        top: 0px;
+
+        background: #FFFFFF;
+        /* Barra superior */
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .headerIcons {
+        width: 100%;
+        height: 40px;
+    }
+
+    .helpIcon{
+        display: none;
+    }
+
+    .headerIcons a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .headerIconLink img:hover {
+        height: 36px;
+        width: 36px;
+    }
+
+    .UserProfileInitials {
+        box-sizing: border-box;
+        width: 56px;
+        height: 56px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #FFFFFF;
+        border: 3px solid #2A3647;
+        border-radius: 50%;
+        color: #29ABE2;
+    }
+
+    .UserProfileInitials:hover {
+        background-color: #E1E6EC;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        position: absolute;
+        top: 96px;
+        right: 20px;
+        background-color: #2A3647;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        width: 150px;
+        height: 158px;
+        border-radius: 20px 0px 20px 20px;
+        padding: 10px 10px 0 10px;
+    }
+
+    .dropdown-content a {
+        color: #A5A8Ac;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-wrap: nowrap;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #2A3D59;
+    }
+
+    .initials {
+        /* Group 13 */
+
+        margin: 0 auto;
+        width: 40px;
+        height: 40px;
+
+
+        /* Inside auto layout */
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+
+    }
+
+    .initials:hover {
+        cursor: pointer;
+        background-color: #E1E6EC;
+    }
+
+    .kanbanTextHeader {
+        display: none;
+    }
+
+    p {
+        margin: 0px;
+        font-size: 12px;
+    }
+
+}
+
+@media (min-width: 500px) {
+    .smalLogo{
+        display: none;
+    }
 }
