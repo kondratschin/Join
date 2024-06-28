@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
       if (userFound) {
-        alert("Login successful!");
         rememberMe(email, password);
         window.location.href = "./summary.html"; // Hier wird der Benutzer weitergeleitet
       } else {

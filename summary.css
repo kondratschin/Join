@@ -9,8 +9,9 @@
 
 .mainContainer {
     height: 100%;
-    width: 100%;
-    margin-left: 96px;
+    
+    margin-left: 160px;
+    margin-top: 80px;
 }
 
 h1 {
@@ -40,7 +41,7 @@ h1 {
     justify-content: center;
     align-items: center;
     gap: 18px;
-    width: 264px;
+    width: 47%;
     height: 168px;
     left: 0px;
     top: calc(50% - 168px/2);
@@ -146,53 +147,307 @@ p {
     border-radius: 30px;
 }
 
-.boxText{
+.boxText {
     font-size: 20px;
     text-align: center;
 }
 
-.midContainer{
+.midContainer {
     width: 100%;
     display: flex;
     align-items: center;
 }
 
-.gmName{
+.gmName {
     margin-left: 80px;
 }
 
-.goodMorning{
+.goodMorning {
     font-size: 47px;
     font-weight: 500;
 }
 
-.name{
-/* Sofia Müller */
+.name {
+    /* Sofia Müller */
 
-width: 385px;
-height: 77px;
+    width: 385px;
+    height: 77px;
 
- font-family: "Inter-700";
-font-style: normal;
-font-weight: 700;
-font-size: 64px;
-line-height: 120%;
-/* identical to box height, or 77px */
+    font-family: "Inter-700";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 120%;
+    /* identical to box height, or 77px */
 
-/* Ligth blue */
-color: #29ABE2;
+    /* Ligth blue */
+    color: #29ABE2;
 
 
-/* Inside auto layout */
-flex: none;
-order: 1;
-flex-grow: 0;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+
+.headlineContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 232px;
+    width: 625px;
+    margin-top: 50px;
+}
+
+h1 {
+    font-size: 61px;
+    font-weight: 700;
+    justify-content: flex-start;
+    margin: 0;
+    font-family: "Inter-700";
+}
+
+.headerText {
+    font-size: 27px !important;
+}
+
+.TaskContainer {
+    width: 560px;
+    height: 562px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 7%;
+}
+
+.toDo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    width: 47%;
+    height: 168px;
+    left: 0px;
+    top: calc(50% - 168px/2);
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+
+.toDoDoneContainer {
+    width: 560px;
+    height: 168px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.count {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.align {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 69px;
+    height: 69px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.urgentContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 560px;
+    height: 168px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+
+.urgentCount {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    width: 264px;
+    height: 168px;
+    left: 0px;
+    top: calc(50% - 168px/2);
+}
+
+.bottomContainers {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deadline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 13px;
+    width: 178px;
+    height: 57px;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+    margin: 24px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 168px;
+    height: 168px;
+    left: 0px;
+    top: calc(50% - 168px/2);
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+
+.boxText {
+    font-size: 20px;
+    text-align: center;
+}
+
+.midContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.gmName {
+    margin-left: 80px;
+}
+
+.goodMorning {
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.name {
+    width: 385px;
+    height: 77px;
+    font-family: "Inter-700";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 120%;
+    color: #29ABE2;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
 }
 
 @media (max-width: 1700px) {
 
-    .headlineContainer{
+    .headlineContainer {
         height: 150px;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 47px;
+        font-weight: 700;
+        justify-content: flex-start;
+        margin: 0;
+        font-family: "Inter-700";
+    }
+
+    .count {
+        font-size: 40px;
+    }
+
+    .boxText {
+        font-size: 16px;
+    }
+
+    .deadline {
+        margin: 0;
+    }
+
+    .mainContainer{
+        margin-left: 94px;
+        margin-top: 24px;
+    }
+
+    .midContainer {
+        height: 420px;
+        width: 420px;
+        margin: 0;
+        justify-content: space-between;
+    }
+
+    .TaskContainer {
+        width: 420px;
+        height: 420px;
+        margin: 0;
+        justify-content: space-between;
+    }
+
+    .toDo {
+        width: 200px;
+        height: 128px;
+    }
+
+    .box {
+        width: 124px;
+        height: 128px;
+    }
+
+    .urgentContainer {
+        width: 420px;
+        height: 124px;
+        gap: 40px;
+    }
+
+    .urgentCount {
+        height: 124px;
+        width: 120px;
+    }
+
+    .deadline{
+        width: 140px;
+    }
+
+    .deadlineText{
+        font-size: 12px;
+    }
+
+    .toDoDoneContainer {
+        width: 420px;
+        height: 128px;
+    }
+
+    .icon {
+        height: 48px;
+        width: 48px;
     }
 
 }

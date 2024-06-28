@@ -149,7 +149,6 @@ input {
     font-size: 16px;
     font-weight: 400;
     width: calc(422px - 42px * 2);
-    /* this is to put the button to the place as seen on figma */
     height: 24px;
     justify-content: center;
     gap: 8px;
