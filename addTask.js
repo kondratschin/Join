@@ -167,6 +167,7 @@ function alternateTwoElements(one, two) {
 function disableButton() {
     document.getElementById('create-task-bttn').disabled = true;
     selectedContacts = [];
+    subTaskList = [];
     createContactDrpDwn();
 }
 
