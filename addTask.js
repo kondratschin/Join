@@ -161,6 +161,19 @@ function alternateTwoElements(one, two) {
 }
 
 
+function monitorInputFieldTitle() {
+    let inputField = document.getElementById('task-title1');
+    let errorSpan = document.getElementById('titleError');
+
+  
+    inputField.addEventListener('input', function() {
+        if (inputField.value.trim() === '') {
+            errorSpan.textContent = "Task title must not be empty";
+        }
+    });
+}
+
+
 /**
  * Disable submit button
  */
@@ -168,12 +181,18 @@ function disableButton() {
     document.getElementById('create-task-bttn').disabled = true;
     selectedContacts = [];
     subTaskList = [];
+    document.getElementById('categoryError').innerHTML = "Please select category";
+    document.getElementById('selected-category').innerHTML = "Select task category";
+    document.getElementById('errorDate').innerHTML = "Please select date";
+    displayNone('titleError');
+    displayNone('errorDate');
+    displayNone('categoryError');
     createContactDrpDwn();
 }
 
 
 /**
- * Show error messages ir required fields are empty
+ * Show error messages if required fields are empty
  */
 function showErrorMsg() {
     document.getElementById('errorDate').classList.remove('d-none');
@@ -217,6 +236,7 @@ document.addEventListener('click', function (event) {
  */
 function assignCategory(category) {
     document.getElementById('selected-category').innerHTML = `${category}`;
+    document.getElementById('categoryError').innerHTML = "";
 }
 
 
@@ -306,9 +326,8 @@ function renderSubTaskList() {
     for (let i = 0; i < subTaskList.length; i++) {
         let subTask = subTaskList[i];
         
-
         subTaskListHTML.innerHTML += /*html*/ `
-            <div class="highlight-subtask sub-task-entry">
+            <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
                 <li id="subtask-in-list${i}">${subTask}</li>
                 <div class="sub-task-buttons">
                     <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
@@ -318,12 +337,19 @@ function renderSubTaskList() {
             </div>
         `;
     }
+
+    // Attach double-click event listeners
+    for (let i = 0; i < subTaskList.length; i++) {
+        let subTaskEntry = document.getElementById(`sub-task-entry${i}`);
+        subTaskEntry.addEventListener('dblclick', () => {
+            editTaskInList(i);
+        });
+    }
 }
 
 
 function deleteSubtaskHTML(index) {
     subTaskList.splice(index, 1);
-    resetParentStyle(index);
       renderSubTaskList();
   }
   
@@ -363,7 +389,6 @@ function saveEditedTask(index) {
         // Update the subTaskList with the new value
         subTaskList[index] = editedTask;
         renderSubTaskList();
-        resetParentStyle()
     } else {
         console.error("Edited subtask is empty");
     }
@@ -380,17 +405,4 @@ function changeParentStyle(index) {
 
     parentDiv.style.borderBottom = '1px solid #29ABE2';
     parentDiv.style.backgroundColor = '#ffffff';
-}
-
-
-function resetParentStyle(index) {
-    let childDiv = document.getElementById(`subtask-in-list${index}`);
-    let parentDiv = childDiv.parentElement;
-
-    childDiv.style.borderRadius = ''; // Reset border radius
-    childDiv.style.backgroundColor = ''; // Reset background color
-    parentDiv.classList.add('highlight-subtask'); // Add back the 'highlight-subtask' class
-
-    parentDiv.style.borderBottom = ''; // Remove border bottom
-    parentDiv.style.backgroundColor = ''; // Reset background color
 }
