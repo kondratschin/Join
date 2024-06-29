@@ -1,6 +1,7 @@
 let selectedContacts = [];
 let subTaskList = [];
 let priority = [];
+let chosenCategory = [];
 
 function validateForm() {
     const taskDateInput = document.getElementById('taskDate').value;
@@ -119,6 +120,8 @@ function prioritySelected(id, className, arrow) {
     removeSelection(id);
     document.getElementById(id).classList.toggle(className);
     document.getElementById(id).classList.toggle(arrow);
+    priority = [];
+    priority.push(id);
 }
 
 
@@ -251,6 +254,8 @@ document.addEventListener('click', function (event) {
 function assignCategory(category) {
     document.getElementById('selected-category').innerHTML = `${category}`;
     document.getElementById('categoryError').innerHTML = "";
+    chosenCategory = [];
+    chosenCategory.push(category);
     validateForm();
 }
 
@@ -329,8 +334,8 @@ function selectedInitialIcos() {
 function pushToSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
     
-    // Check if newSubtask has at least two characters
-    if (newSubtask.length >= 2) {
+    // Check if newSubtask has at least one character
+    if (newSubtask.length >= 1) {
         subTaskList.push(newSubtask);
         resetInput();
         alternateTwoElements('subtask-plus', 'subtask-buttons');
@@ -342,7 +347,12 @@ function pushToSubTaskList() {
 function renderSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
-    for (let i = 0; i < subTaskList.length; i++) {
+
+    // Determine the starting index based on the length of subTaskList
+    let startIndex = Math.max(0, subTaskList.length - 2); // Start from the last two items or less
+
+    // Loop through the last two (or less) items in subTaskList
+    for (let i = startIndex; i < subTaskList.length; i++) {
         let subTask = subTaskList[i];
         
         subTaskListHTML.innerHTML += /*html*/ `
@@ -351,20 +361,21 @@ function renderSubTaskList() {
                 <div class="sub-task-buttons" style="display: none">
                     <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
                     <img src="./img/separator-small.svg" class="sep-small" alt="">
-                    <img id="recycle-small-img${i}" onclick="deleteSubtaskHTML(${i})"; class="plus" src="./img/recycle.svg" alt="">
+                    <img id="recycle-small-img${i}" onclick="deleteSubtaskHTML(${i})" class="plus" src="./img/recycle.svg" alt="">
                 </div>
             </div>
         `;
     }
 
-    // Attach double-click event listeners
-    for (let i = 0; i < subTaskList.length; i++) {
+    // Attach double-click event listeners for the displayed entries
+    for (let i = startIndex; i < subTaskList.length; i++) {
         let subTaskEntry = document.getElementById(`sub-task-entry${i}`);
         subTaskEntry.addEventListener('dblclick', () => {
             editTaskInList(i);
         });
     }
 }
+
 
 
 function deleteSubtaskHTML(index) {
