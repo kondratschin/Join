@@ -1,5 +1,6 @@
 let selectedContacts = [];
 let subTaskList = [];
+let priority = [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Überprüfen, ob ein Titel eingegeben wurde
         if (!taskTitle) {
             errorSpan.textContent = "Task title must not be empty.";
+            forceDisableButton();
         } else {
             errorSpan.textContent = ""; // Fehlermeldung löschen
             validateForm();
@@ -61,6 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+
+function monitorInputFieldTitle() {
+    let inputField = document.getElementById('task-title1');
+    let errorSpan = document.getElementById('titleError');
+
+  
+    inputField.addEventListener('input', function() {
+        if (inputField.value.trim() === '') {
+            errorSpan.textContent = "Task title must not be empty";
+        }
+    });
+}
+
+
+function forceDisableButton() {
+    let createButton = document.getElementById('create-task-bttn');
+
+    createButton.disabled = true;
+}
+
 
 /**
  * Contacts from array 'selectedContacts' will be shown as selected/highlighted, if no contacts have been selected previously, contact list will be rendered
@@ -161,17 +184,7 @@ function alternateTwoElements(one, two) {
 }
 
 
-function monitorInputFieldTitle() {
-    let inputField = document.getElementById('task-title1');
-    let errorSpan = document.getElementById('titleError');
 
-  
-    inputField.addEventListener('input', function() {
-        if (inputField.value.trim() === '') {
-            errorSpan.textContent = "Task title must not be empty";
-        }
-    });
-}
 
 
 /**
@@ -187,6 +200,7 @@ function disableButton() {
     displayNone('titleError');
     displayNone('errorDate');
     displayNone('categoryError');
+    renderSubTaskList();
     createContactDrpDwn();
 }
 
@@ -313,10 +327,14 @@ function selectedInitialIcos() {
 
 function pushToSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
-    subTaskList.push(newSubtask);
-    resetInput();
-    alternateTwoElements('subtask-plus', 'subtask-buttons');
-    renderSubTaskList();
+    
+    // Check if newSubtask has at least two characters
+    if (newSubtask.length >= 2) {
+        subTaskList.push(newSubtask);
+        resetInput();
+        alternateTwoElements('subtask-plus', 'subtask-buttons');
+        renderSubTaskList();
+    }
 }
 
 
@@ -329,9 +347,9 @@ function renderSubTaskList() {
         subTaskListHTML.innerHTML += /*html*/ `
             <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
                 <li id="subtask-in-list${i}">${subTask}</li>
-                <div class="sub-task-buttons">
+                <div class="sub-task-buttons" style="display: none">
                     <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
-                    <img src="./img/separator-small.svg" alt="">
+                    <img src="./img/separator-small.svg" class="sep-small" alt="">
                     <img id="recycle-small-img${i}" onclick="deleteSubtaskHTML(${i})"; class="plus" src="./img/recycle.svg" alt="">
                 </div>
             </div>
@@ -406,3 +424,6 @@ function changeParentStyle(index) {
     parentDiv.style.borderBottom = '1px solid #29ABE2';
     parentDiv.style.backgroundColor = '#ffffff';
 }
+
+
+

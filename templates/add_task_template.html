@@ -117,7 +117,7 @@
             <div class="task-title excludedObject mrg-bttm-4">
                 <input onfocus="alternateTwoElements('subtask-buttons', 'subtask-plus')" type="text" id="taskSub"
                     placeholder="Add new subtask">
-                <img id="subtask-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="">
+                <img onclick="pushToSubTaskList()" id="subtask-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="">
                 <div id="subtask-buttons" class="sub-task-buttons d-none">
                     <img onclick="resetInput(); alternateTwoElements('subtask-plus', 'subtask-buttons');" class="plus"
                         src="./img/cross-box-small.svg" alt="">
