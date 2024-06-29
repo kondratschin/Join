@@ -1,4 +1,5 @@
 let selectedContacts = [];
+let subTaskList = [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -61,7 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
+/**
+ * Contacts from array 'selectedContacts' will be shown as selected/highlighted, if no contacts have been selected previously, contact list will be rendered
+ */
 function showContactDrp() {
     if (selectedContacts.length === 0) {
         createContactDrpDwn();
@@ -129,6 +132,7 @@ function highlightContact(no) {
     updateSelectedContacts(contactElement, isSelected, no);
 }
 
+
 function updateSelectedContacts(contactElement, isSelected, index) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
     const initials = contactElement.querySelector('.initialsContact-small').innerText;
@@ -142,10 +146,7 @@ function updateSelectedContacts(contactElement, isSelected, index) {
         selectedContacts = selectedContacts.filter(contact => contact.index !== index);
     }
     selectedInitialIcos();
-    console.log(selectedContacts); // For debugging
 }
-
-
 
 
 function toggleTwoElements(one, two) {
@@ -160,19 +161,28 @@ function alternateTwoElements(one, two) {
 }
 
 
+/**
+ * Disable submit button
+ */
 function disableButton() {
     document.getElementById('create-task-bttn').disabled = true;
     selectedContacts = [];
     createContactDrpDwn();
 }
 
+
+/**
+ * Show error messages ir required fields are empty
+ */
 function showErrorMsg() {
     document.getElementById('errorDate').classList.remove('d-none');
     document.getElementById('titleError').classList.remove('d-none');
     document.getElementById('categoryError').classList.remove('d-none');
 }
 
-
+/**
+ * Reset input field at Subtask
+ */
 function resetInput() {
     document.getElementById('taskSub').value = "";
 }
@@ -199,10 +209,19 @@ document.addEventListener('click', function (event) {
 });
 
 
+  /**
+ * Select category
+ * 
+ * @param {category} id -  This is the ID of clicked element
+ */
 function assignCategory(category) {
     document.getElementById('selected-category').innerHTML = `${category}`;
 }
 
+
+/**
+ * Load contacts from Firebase into array
+ */
 async function loadContactsArray() {
     let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
     let responseAsJson = await response.json();
@@ -211,6 +230,9 @@ async function loadContactsArray() {
 }
 
 
+/**
+ * Contact list from array will be sorted
+ */
 function createContactDrpDwn() {
     let contactDrpDwn = document.getElementById('contact-content');
     contactDrpDwn.innerHTML = "";
@@ -256,7 +278,8 @@ function selectedInitialIcos() {
     let selectedInitialIco = document.getElementById('selected-initial-ico');
     selectedInitialIco.innerHTML = ""; // Clear the existing content
 
-    for (let contact of selectedContacts) {
+    for (let i = 0; i < selectedContacts.length; i++) {
+        let contact = selectedContacts[i];
         let color = contact.color;
         let initials = contact.initials;
 
@@ -266,3 +289,69 @@ function selectedInitialIcos() {
     }
 }
 
+
+function pushToSubTaskList() {
+    let newSubtask = document.getElementById('taskSub').value;
+    subTaskList.push(newSubtask);
+    resetInput();
+    alternateTwoElements('subtask-plus', 'subtask-buttons');
+    renderSubTaskList();
+}
+
+
+function renderSubTaskList() {
+    let subTaskListHTML = document.getElementById('sub-task-list');
+    subTaskListHTML.innerHTML = '';
+    for (let i = 0; i < subTaskList.length; i++) {
+        let subTask = subTaskList[i];
+        
+
+        subTaskListHTML.innerHTML += /*html*/ `
+            <div class="sub-task-list highlight-subtask">
+                <li id="subtask-in-list${i}">${subTask}</li>
+                <div class="sub-task-buttons">
+                    <img onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
+                    <img src="./img/separator-small.svg" alt="">
+                    <img onclick="deleteSubtaskHTML(${i})"; class="plus" src="./img/recycle.svg" alt="">
+                </div>
+            </div>
+        `;
+    }
+}
+
+
+function deleteSubtaskHTML(index) {
+    subTaskList.splice(index, 1);
+      renderSubTaskList();
+  }
+  
+
+  function editTaskInList(index) {
+    // Get the subtask element to be edited
+    let subTaskElement = document.getElementById(`subtask-in-list${index}`);
+    let currentTask = subTaskList[index];
+
+    // Replace the subtask item with an input field prefilled with the current value
+    subTaskElement.innerHTML = /*html*/ `
+        <input type="text" id="edited-sub-task-${index}" value="${currentTask}">
+        <div class="sub-task-buttons">
+            <button onclick="saveEditedTask(${index})">Save</button>
+            <button onclick="renderSubTaskList()">Cancel</button>
+        </div>
+    `;
+}
+
+
+function saveEditedTask(index) {
+    // Get the edited value from the input field
+    let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
+    let editedTask = editedTaskElement.value.trim();
+
+    if (editedTask) {
+        // Update the subTaskList with the new value
+        subTaskList[index] = editedTask;
+        renderSubTaskList();
+    } else {
+        console.error("Edited subtask is empty");
+    }
+}
