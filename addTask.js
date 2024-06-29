@@ -307,12 +307,12 @@ function renderSubTaskList() {
         
 
         subTaskListHTML.innerHTML += /*html*/ `
-            <div class="sub-task-list highlight-subtask">
+            <div class="highlight-subtask sub-task-entry">
                 <li id="subtask-in-list${i}">${subTask}</li>
                 <div class="sub-task-buttons">
-                    <img onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
+                    <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
                     <img src="./img/separator-small.svg" alt="">
-                    <img onclick="deleteSubtaskHTML(${i})"; class="plus" src="./img/recycle.svg" alt="">
+                    <img id="recycle-small-img${i}" onclick="deleteSubtaskHTML(${i})"; class="plus" src="./img/recycle.svg" alt="">
                 </div>
             </div>
         `;
@@ -322,6 +322,7 @@ function renderSubTaskList() {
 
 function deleteSubtaskHTML(index) {
     subTaskList.splice(index, 1);
+    resetParentStyle(index);
       renderSubTaskList();
   }
   
@@ -330,15 +331,25 @@ function deleteSubtaskHTML(index) {
     // Get the subtask element to be edited
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
+    let firstButtonImg = document.getElementById(`edit-small-img${index}`);
+    let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
+
 
     // Replace the subtask item with an input field prefilled with the current value
     subTaskElement.innerHTML = /*html*/ `
         <input type="text" id="edited-sub-task-${index}" value="${currentTask}">
-        <div class="sub-task-buttons">
-            <button onclick="saveEditedTask(${index})">Save</button>
-            <button onclick="renderSubTaskList()">Cancel</button>
-        </div>
     `;
+
+    firstButtonImg.src = './img/recycle.svg';
+    firstButtonImg.onclick = function() {
+        deleteSubtaskHTML(index);
+    };
+    
+    secondButtonImg.src = './img/check-small.svg';
+    secondButtonImg.onclick = function() {
+        saveEditedTask(index);
+    };
+    changeParentStyle(index);
 }
 
 
@@ -351,7 +362,34 @@ function saveEditedTask(index) {
         // Update the subTaskList with the new value
         subTaskList[index] = editedTask;
         renderSubTaskList();
+        resetParentStyle()
     } else {
         console.error("Edited subtask is empty");
     }
+}
+
+
+function changeParentStyle(index) {
+    let childDiv = document.getElementById(`subtask-in-list${index}`);
+    let parentDiv = childDiv.parentElement;
+
+    childDiv.style.borderRadius = '0';
+    childDiv.style.backgroundColor = '#ffffff';
+    parentDiv.classList.remove('highlight-subtask');
+
+    parentDiv.style.borderBottom = '1px solid #29ABE2';
+    parentDiv.style.backgroundColor = '#ffffff';
+}
+
+
+function resetParentStyle(index) {
+    let childDiv = document.getElementById(`subtask-in-list${index}`);
+    let parentDiv = childDiv.parentElement;
+
+    childDiv.style.borderRadius = ''; // Reset border radius
+    childDiv.style.backgroundColor = ''; // Reset background color
+    parentDiv.classList.add('highlight-subtask'); // Add back the 'highlight-subtask' class
+
+    parentDiv.style.borderBottom = ''; // Remove border bottom
+    parentDiv.style.backgroundColor = ''; // Reset background color
 }
