@@ -2,9 +2,24 @@ let selectedContacts = [];
 let subTaskList = [];
 let priority = [];
 
+function validateForm() {
+    const taskDateInput = document.getElementById('taskDate').value;
+    const taskTitleInput = document.getElementById('task-title1').value.trim();
+    const taskCategory = document.getElementById('selected-category').textContent;
+    
+    if (taskDateInput && taskTitleInput) {
+        if (taskCategory.includes('Select task category')) {
+            document.getElementById('create-task-bttn').disabled = true;
+        } else {
+            document.getElementById('create-task-bttn').disabled = false;
+        }
+    } else {
+        document.getElementById('create-task-bttn').disabled = true;
+    }
+}
+
+// Wait for DOMContentLoaded to ensure DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-
-
     document.addEventListener('input', (event) => {
         if (event.target.id === 'taskDate') {
             validateDate();
@@ -20,21 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const taskDate = taskDateInput.value;
 
-
-        // Überprüfen, ob das Datum gültig ist (z.B. nicht in der Vergangenheit)
         const selectedDate = new Date(taskDate);
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Nur das Datum vergleichen
-
-
+        today.setHours(0, 0, 0, 0);
 
         if (selectedDate < today) {
-
             errorSpan.textContent = "Please select a future date.";
-
         } else {
-            errorSpan.textContent = ""; // Fehlermeldung löschen
-            validateForm();
+            errorSpan.textContent = "";
+            validateForm(); // Call validateForm after successful validation
         }
     }
 
@@ -44,24 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const taskTitle = taskTitleInput.value.trim();
 
-        // Überprüfen, ob ein Titel eingegeben wurde
         if (!taskTitle) {
             errorSpan.textContent = "Task title must not be empty.";
             forceDisableButton();
         } else {
-            errorSpan.textContent = ""; // Fehlermeldung löschen
-            validateForm();
+            errorSpan.textContent = "";
+            validateForm(); // Call validateForm after successful validation
         }
     }
 
-    function validateForm() {
-        const taskDateInput = document.getElementById('taskDate').value;
-        const taskTitleInput = document.getElementById('task-title1').value.trim();
-
-        if (taskDateInput && taskTitleInput) {
-            document.getElementById('create-task-bttn').disabled = false;
-        }
-    }
 });
 
 
@@ -251,6 +251,7 @@ document.addEventListener('click', function (event) {
 function assignCategory(category) {
     document.getElementById('selected-category').innerHTML = `${category}`;
     document.getElementById('categoryError').innerHTML = "";
+    validateForm();
 }
 
 
