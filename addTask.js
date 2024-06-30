@@ -7,7 +7,7 @@ function validateForm() {
     const taskDateInput = document.getElementById('taskDate').value;
     const taskTitleInput = document.getElementById('task-title1').value.trim();
     const taskCategory = document.getElementById('selected-category').textContent;
-    
+
     if (taskDateInput && taskTitleInput) {
         if (taskCategory.includes('Select task category')) {
             document.getElementById('create-task-bttn').disabled = true;
@@ -70,8 +70,8 @@ function monitorInputFieldTitle() {
     let inputField = document.getElementById('task-title1');
     let errorSpan = document.getElementById('titleError');
 
-  
-    inputField.addEventListener('input', function() {
+
+    inputField.addEventListener('input', function () {
         if (inputField.value.trim() === '') {
             errorSpan.textContent = "Task title must not be empty";
         }
@@ -244,11 +244,11 @@ document.addEventListener('click', function (event) {
 });
 
 
-  /**
- * Select category
- * 
- * @param {category} id -  This is the ID of clicked element
- */
+/**
+* Select category
+* 
+* @param {category} id -  This is the ID of clicked element
+*/
 function assignCategory(category) {
     document.getElementById('selected-category').innerHTML = `${category}`;
     document.getElementById('categoryError').innerHTML = "";
@@ -331,7 +331,7 @@ function selectedInitialIcos() {
 
 function pushToSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
-    
+
     // Check if newSubtask has at least one character
     if (newSubtask.length >= 1) {
         subTaskList.push(newSubtask);
@@ -352,7 +352,7 @@ function renderSubTaskList() {
     // Loop through the last two (or less) items in subTaskList
     for (let i = startIndex; i < subTaskList.length; i++) {
         let subTask = subTaskList[i];
-        
+
         subTaskListHTML.innerHTML += /*html*/ `
             <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
                 <li id="subtask-in-list${i}">${subTask}</li>
@@ -378,11 +378,11 @@ function renderSubTaskList() {
 
 function deleteSubtaskHTML(index) {
     subTaskList.splice(index, 1);
-      renderSubTaskList();
-  }
-  
+    renderSubTaskList();
+}
 
-  function editTaskInList(index) {
+
+function editTaskInList(index) {
     // Get the subtask element to be edited
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
@@ -396,12 +396,12 @@ function deleteSubtaskHTML(index) {
     `;
 
     firstButtonImg.src = './img/recycle.svg';
-    firstButtonImg.onclick = function() {
+    firstButtonImg.onclick = function () {
         deleteSubtaskHTML(index);
     };
-    
+
     secondButtonImg.src = './img/check-small.svg';
-    secondButtonImg.onclick = function() {
+    secondButtonImg.onclick = function () {
         saveEditedTask(index);
     };
     changeParentStyle(index);
@@ -438,30 +438,41 @@ function changeParentStyle(index) {
 
 
 function addTaskEvent() {
-        let taskTitle = document.getElementById('task-title1').value;
+    let taskTitle = document.getElementById('task-title1').value;
 
-        // Ensure taskTitle is a string
-        taskTitle = String(taskTitle);
-        createTask(taskTitle);
-        disableButton();
-        document.getElementById('taskForm').reset();
-        return false; 
-    };
+    // Ensure taskTitle is a string
+    taskTitle = String(taskTitle);
+    createTask(taskTitle);
+    disableButton();
+    document.getElementById('taskForm').reset();
+    return false;
+};
 
 
 async function createTask(taskTitle) {
-
-    let response = await fetch(BASE_URL + "tasks/" + accName + "/" + taskTitle + ".json", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(selectedContacts)
-    });
-    if (response.ok) {
-        alert("Task created successfully.");
-    } else {
-        console.log("Error creating task.");
+    // Assuming selectedContacts and subTaskList are defined somewhere in your code
+    let dataToSend = {
+        selectedContacts: selectedContacts,
+        subTaskList: subTaskList
     };
 
+    let url = BASE_URL + "tasks/" + accName + "/" + taskTitle + ".json";
+
+    try {
+        let response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataToSend)
+        });
+
+        if (response.ok) {
+            alert("Task created successfully.");
+        } else {
+            console.log("Error creating task.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
