@@ -453,7 +453,9 @@ async function createTask(taskTitle) {
     // Assuming selectedContacts and subTaskList are defined somewhere in your code
     let dataToSend = {
         selectedContacts: selectedContacts,
-        subTaskList: subTaskList
+        subTaskList: subTaskList,
+        priority: priority,
+        chosenCategory: chosenCategory
     };
 
     let url = BASE_URL + "tasks/" + accName + "/" + taskTitle + ".json";
