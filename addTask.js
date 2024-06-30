@@ -19,6 +19,7 @@ function validateForm() {
     }
 }
 
+
 // Wait for DOMContentLoaded to ensure DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('input', (event) => {
@@ -145,7 +146,6 @@ function removeSelection(id) {
         document.getElementById('prio-baja').classList.remove('prio-select');
     };
 }
-
 
 
 function highlightContact(no) {

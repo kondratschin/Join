@@ -222,3 +222,8 @@
     justify-content: flex-end;
     gap: 8px;
 }
+
+.task-overlay-ass-person {
+    display: flex;
+    align-items: center;
+}
