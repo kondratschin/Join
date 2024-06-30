@@ -375,7 +375,6 @@ function renderSubTaskList() {
 }
 
 
-
 function deleteSubtaskHTML(index) {
     subTaskList.splice(index, 1);
     renderSubTaskList();
@@ -383,14 +382,11 @@ function deleteSubtaskHTML(index) {
 
 
 function editTaskInList(index) {
-    // Get the subtask element to be edited
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
     let firstButtonImg = document.getElementById(`edit-small-img${index}`);
     let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
 
-
-    // Replace the subtask item with an input field prefilled with the current value
     subTaskElement.innerHTML = /*html*/ `
         <input type="text" id="edited-sub-task-${index}" value="${currentTask}">
     `;
@@ -409,12 +405,11 @@ function editTaskInList(index) {
 
 
 function saveEditedTask(index) {
-    // Get the edited value from the input field
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
 
     if (editedTask) {
-        // Update the subTaskList with the new value
+
         subTaskList[index] = editedTask;
         renderSubTaskList();
     } else {
@@ -430,7 +425,6 @@ function changeParentStyle(index) {
     childDiv.style.borderRadius = '0';
     childDiv.style.backgroundColor = '#ffffff';
     parentDiv.classList.remove('highlight-subtask');
-
     parentDiv.style.borderBottom = '1px solid #29ABE2';
     parentDiv.style.backgroundColor = '#ffffff';
 }
@@ -439,8 +433,6 @@ function changeParentStyle(index) {
 
 function addTaskEvent() {
     let taskTitle = document.getElementById('task-title1').value;
-
-    // Ensure taskTitle is a string
     taskTitle = String(taskTitle);
     createTask(taskTitle);
     disableButton();
@@ -450,12 +442,16 @@ function addTaskEvent() {
 
 
 async function createTask(taskTitle) {
-    // Assuming selectedContacts and subTaskList are defined somewhere in your code
+    let taskDescription = document.getElementById('taskDescription').value;
+    let taskDate = document.getElementById('taskDate').value;
+
     let dataToSend = {
         selectedContacts: selectedContacts,
         subTaskList: subTaskList,
         priority: priority,
-        chosenCategory: chosenCategory
+        chosenCategory: chosenCategory,
+        taskDescription: taskDescription,
+        taskDate: taskDate
     };
 
     let url = BASE_URL + "tasks/" + accName + "/" + taskTitle + ".json";
