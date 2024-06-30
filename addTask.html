@@ -20,21 +20,19 @@
         .task-form {
             margin-left: calc((100vw - 232px) / 2 + 232px - 980px / 2);
         }
-
     </style>
-
-<script>
-
-    </script>
-
-
 </head>
+
 <body onload="loadContent('navbarTask'), loadContactsArray()">
 
     <div w3-include-html="templates/navbar.html"></div>
     <div class="form-wrapper">
         <div class="add-task-inline" w3-include-html="templates/add_task_template.html"></div>
+        <div id="task-scc-add-ntn" class="floating-notification d-none">
+            <span>Task added to board</span> <img src="./img/board.svg" alt="">
+        </div>
     </div>
 
 </body>
+
 </html>

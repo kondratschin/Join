@@ -430,6 +430,10 @@ function changeParentStyle(index) {
 }
 
 
+function openBoardPage() {
+    window.location.href = './board.html';
+}
+
 
 function addTaskEvent() {
     let taskTitle = document.getElementById('task-title1').value;
@@ -437,6 +441,7 @@ function addTaskEvent() {
     createTask(taskTitle);
     disableButton();
     document.getElementById('taskForm').reset();
+
     return false;
 };
 
@@ -466,7 +471,8 @@ async function createTask(taskTitle) {
         });
 
         if (response.ok) {
-            alert("Task created successfully.");
+            displayElement('task-scc-add-ntn');
+            setTimeout(openBoardPage, 900);
         } else {
             console.log("Error creating task.");
         }

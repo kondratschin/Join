@@ -1,6 +1,5 @@
 .mainContainer {
     margin-left: 96px;
-
     margin-right: 96px;
 }
 
@@ -8,7 +7,6 @@
     justify-content: space-between;
     height: 332px;
     margin-top: 50px;
-
 }
 
 .mainContainerHeaderText {
