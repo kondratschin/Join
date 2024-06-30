@@ -1,4 +1,4 @@
-<form class="task-form" id="taskForm">
+<form class="task-form" id="taskForm" onsubmit="return addTaskEvent()">
 
     <h1>Add Task</h1>
 
@@ -148,8 +148,7 @@
                         stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
-            <button onmousemove="showErrorMsg()" disabled id="create-task-bttn" type="submit"
-                class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
+            <button onmousemove="showErrorMsg()" type="submit" disabled id="create-task-bttn" class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
         </div>
     </div>
 

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./grund.js"></script>
     <script src="./addTask.js"></script>
+    <script src="./contacts.js"></script>
+    <script src="./contactsTemplates.js"></script>
     <link rel="stylesheet" href="grundStyle.css">
     <link rel="stylesheet" href="logInStyle.css">
     <link rel="stylesheet" href="add_task_window.css">
@@ -14,7 +16,7 @@
 
 <!-- This file is just for testing purposes and will be removed -->
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), loadContactsArray()">
 
     <div class="add-task" w3-include-html="templates/add_task_template.html"></div>
     

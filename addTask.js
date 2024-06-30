@@ -187,11 +187,8 @@ function alternateTwoElements(one, two) {
 }
 
 
-
-
-
 /**
- * Disable submit button
+ * Disable submit button and clear fields
  */
 function disableButton() {
     document.getElementById('create-task-bttn').disabled = true;
@@ -200,6 +197,7 @@ function disableButton() {
     document.getElementById('categoryError').innerHTML = "Please select category";
     document.getElementById('selected-category').innerHTML = "Select task category";
     document.getElementById('errorDate').innerHTML = "Please select date";
+    resetInput();
     displayNone('titleError');
     displayNone('errorDate');
     displayNone('categoryError');
@@ -439,3 +437,31 @@ function changeParentStyle(index) {
 
 
 
+function addTaskEvent() {
+        let taskTitle = document.getElementById('task-title1').value;
+
+        // Ensure taskTitle is a string
+        taskTitle = String(taskTitle);
+        createTask(taskTitle);
+        disableButton();
+        document.getElementById('taskForm').reset();
+        return false; 
+    };
+
+
+async function createTask(taskTitle) {
+
+    let response = await fetch(BASE_URL + "tasks/" + accName + "/" + taskTitle + ".json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(selectedContacts)
+    });
+    if (response.ok) {
+        alert("Task created successfully.");
+    } else {
+        console.log("Error creating task.");
+    };
+
+}
