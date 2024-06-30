@@ -25,6 +25,11 @@ async function getTasks() {
     renderOverlayTask();
 }
 
+
+/**
+ * This is just an example, logic needs to be implemented
+ * @returns 
+ */
 function renderOverlayTask() {
     let content = document.getElementById('task-overlay');
 
