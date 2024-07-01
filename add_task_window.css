@@ -536,18 +536,27 @@ textarea {
 }
 
 .sub-task-list {
-    display: flex;
+
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
     padding: 5px 0px 5px 8px;
 }
 
-.sub-task-list:hover {
+.sub-task-entry {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        padding: 5px 0px 5px 8px;
+        height: 28px;
+}
+
+/* .sub-task-list:hover {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-}
+} */
 
 .highlight-subtask:hover {
     background-color: #EEEEEE;
@@ -555,3 +564,6 @@ textarea {
     transition: none !important;
 }
 
+.sub-task-entry:hover .sub-task-buttons {
+    display: flex !important;
+}

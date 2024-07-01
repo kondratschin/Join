@@ -7,12 +7,13 @@
     <title>Board</title>
     <link rel="stylesheet" href="grundStyle.css">
     <link rel="stylesheet" href="board.css">
+    <link rel="stylesheet" href="add_task_window.css">
     <script src="./grund.js"></script>
     <script src="./board.js"></script>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
 </head>
 
-<body onload="loadContent('navbarBoard'); load();">
+<body onload="loadContent('navbarBoard'); load(); getTasks()">
 
     <div w3-include-html="templates/navbar.html"></div>
 
@@ -94,6 +95,11 @@
             </div>
         </div>
     </div>
+
+<div id="task-overlay" class="task-overlay">
+
+</div>
+
 
 </body>
 
