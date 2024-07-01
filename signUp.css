@@ -71,7 +71,6 @@
 }
 
 .backToLogInArrow {
-    /* Vector */
     width: 32px;
     height: 32px;
     position: absolute;
@@ -88,9 +87,6 @@
 }
 
 .sign-up-button {
-    /* Button wo icon */
-
-    /* Auto layout */
     color: #FFFFFF;
     font-size: 21px;
     font-weight: 700;
@@ -98,7 +94,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* padding: 15px 24px; why this padding? I (SK) removed it */
     gap: 10px;
 
     width: 126px;
@@ -106,8 +101,6 @@
 
     background: #2A3647;
     border-radius: 8px;
-
-    /* Inside auto layout */
     flex: none;
     order: 2;
     flex-grow: 0;
@@ -118,6 +111,8 @@
 .sign-up-button:hover {
     cursor: pointer;
     transform: scale(1.1);
+    background: #29ABE2;
+    border: #29ABE2;
 }
 
 .success-container {

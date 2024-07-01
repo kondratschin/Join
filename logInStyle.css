@@ -219,6 +219,8 @@ input {
 .login-button:hover {
     cursor: pointer;
     transform: scale(1.1);
+    background: #29ABE2;
+    border: #29ABE2;
 }
 
 .guest-login-button {
@@ -232,14 +234,9 @@ input {
     transition: transform 0.3s ease;
     width: 177px;
     height: 48px;
-
-    /* white */
     background: #FFFFFF;
-    /* Version 2/main color */
     border: 1px solid #2A3647;
     border-radius: 8px;
-
-    /* Inside auto layout */
     flex: none;
     order: 1;
     flex-grow: 0;
@@ -256,6 +253,8 @@ input {
 .guest-login-button:hover {
     cursor: pointer;
     transform: scale(1.1);
+    color: #29ABE2;
+    border: 1px solid #29ABE2;
 }
 
 .footer {
@@ -330,6 +329,8 @@ input {
 .not-a-user-button:hover {
     cursor: pointer;
     transform: scale(1.1);
+    background-color: #29ABE2;
+    border: #29ABE2;
 }
 
 @media (max-width: 500px) {
