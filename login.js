@@ -43,7 +43,6 @@ async function getUsers() {
 
 document.addEventListener('DOMContentLoaded', function () {
   let logInButton = document.getElementById('logInButton');
-  let loginForm = document.getElementById('inputSection');
 
   if (logInButton) {
     logInButton.addEventListener('click', async () => {
@@ -57,14 +56,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       let users = await getUsers();
       let userFound = false;
+      let userName = ''; // Variable, um den Benutzernamen zu speichern
+
       for (let key in users) {
         if (users[key].email === email && users[key].password === password) {
           userFound = true;
+          userName = users[key].name; // Speichern des Namens des gefundenen Benutzers
           break;
         }
       }
       if (userFound) {
-        rememberMe(email, password);
+        localStorage.setItem('userName', userName); // Speichern des Benutzernamens im Local Storage
         window.location.href = "./summary.html"; // Hier wird der Benutzer weitergeleitet
       } else {
         alert("Invalid email or password. Please try again.");
@@ -73,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   initRememberMe();
 });
+
 
 async function isEmailRegistered(email) {
   let users = await getUsers();
@@ -245,4 +248,11 @@ function initRememberMe() {
   } else {
     rememberMeCheckbox.checked = false;
   }
+}
+
+
+function guestLogIn() {
+  localStorage.clear(); // Löscht alle Daten im localStorage
+  console.log("All local storage data cleared.");
+  window.location.href = "./summary.html"; 
 }

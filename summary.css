@@ -165,26 +165,18 @@ p {
 .goodMorning {
     font-size: 47px;
     font-weight: 500;
+    width: 400px;
 }
 
 .name {
-    /* Sofia Müller */
-
     width: 385px;
     height: 77px;
-
     font-family: "Inter-700";
     font-style: normal;
     font-weight: 700;
     font-size: 64px;
     line-height: 120%;
-    /* identical to box height, or 77px */
-
-    /* Ligth blue */
     color: #29ABE2;
-
-
-    /* Inside auto layout */
     flex: none;
     order: 1;
     flex-grow: 0;
@@ -234,6 +226,14 @@ h1 {
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+    transition: transform 0.2s
+}
+
+.toDo:hover{   
+    transform: scale(1.1);
+    background-color: #2A3D59;
+    color: #FFFFFF;
+
 }
 
 .toDoDoneContainer {
@@ -284,6 +284,8 @@ p {
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+    transition: transform 0.3s;
+
 }
 
 .urgentCount {
@@ -296,6 +298,13 @@ p {
     height: 168px;
     left: 0px;
     top: calc(50% - 168px/2);
+    transition: transform 0.2s;
+}
+
+.urgentContainer:hover{
+    transform: scale(1.1);
+    background-color: #2A3D59;
+    color: #FFFFFF;
 }
 
 .bottomContainers {
@@ -329,6 +338,13 @@ p {
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+    transition: transform 0.2s;
+}
+
+.box:hover{
+    transform: scale(1.1);
+    background-color: #2A3D59;
+    color: #FFFFFF;
 }
 
 .boxText {
@@ -342,17 +358,9 @@ p {
     align-items: center;
 }
 
-.gmName {
-    margin-left: 80px;
-}
-
-.goodMorning {
-    font-size: 47px;
-    font-weight: 500;
-}
 
 .name {
-    width: 385px;
+    width: max-content;
     height: 77px;
     font-family: "Inter-700";
     font-style: normal;
@@ -370,6 +378,10 @@ p {
     .headlineContainer {
         height: 150px;
         margin: 0;
+    }
+
+    .gmName{
+        font-size: 3px !important;
     }
 
     h1 {

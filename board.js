@@ -1,6 +1,11 @@
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
-let accName = 'Justin Koll';
+let accName = getName();
 let tasks = [];
+
+function getName(){
+    let name = localStorage.getItem('userName');
+    return name; // Return the retrieved name
+}
 
 
 /**
@@ -44,7 +49,7 @@ function renderOverlayTask() {
     content.innerHTML = /*html*/ `
     <div class="task-overlay-head">
         <span class="task-overlay-category">${task.chosenCategory} !!farbe anpassen!!</span> 
-        <img src="./img/close.svg" alt="">
+        <img onclick="closeOverlay()" src="./img/close.svg" alt="">
     </div>
     <span class="task-overlay-title">${task.taskTitle}</span>
     <span class="task-overlay-text">${task.taskDescription}</span>

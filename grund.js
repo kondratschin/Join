@@ -75,4 +75,20 @@ function navbarPicked(id) {
 async function loadContent(navbar) {
   await includeHTML();
   navbarPicked(`${navbar}`);
+  changeInitials();
+}
+
+
+function changeInitials() {
+  let initialsElement = document.getElementById('initials');
+  let fullName = localStorage.getItem('userName'); // Assume the full name is stored
+  
+  if (fullName) {
+      let names = fullName.split(' '); // Split the name into parts
+      let initials = names.map(name => name[0]).join(''); // Take the first letter of each part and join them
+      
+      initialsElement.innerHTML = initials; // Set the initials as innerHTML
+  } else {
+      initialsElement.innerHTML = "G"; // Default initials if no name is found
+  }
 }
