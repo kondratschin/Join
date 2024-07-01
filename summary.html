@@ -6,7 +6,6 @@
     <title>Summary</title>
     <link rel="stylesheet" href="grundStyle.css">
     <link rel="stylesheet" href="summary.css">
-    <link rel="stylesheet" href="summaryMobile.css">
     <script src="./grund.js"></script>
     <script src="./summary.js"></script>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
@@ -27,14 +26,14 @@
                     <div class="toDo">
                         <img class="icon" src="./img/to-do-Icon.svg" alt="">
                         <div class="align">
-                            <div class="count" id="toDos">1</div>
+                            <div class="count" id="toDo">1</div>
                             <p class="boxText">To-do</p>
                         </div>
                     </div>
                     <div class="toDo">
                         <img class="icon" src="./img/done.svg" alt="">
                         <div class="align">
-                            <div class="count" id="toDos">1</div>
+                            <div class="count" id="done">1</div>
                             <p class="boxText">Done</p>
                         </div>
                     </div>
@@ -44,28 +43,28 @@
                     <div class="urgentCount">
                         <img class="icon" src="./img/urgent.svg" alt="">
                         <div class="align">
-                            <div class="count" id="toDos">1</div>
+                            <div class="count" id="urgent">1</div>
                             <p>Urgent</p>
                         </div>
                     </div>
                     <img class="vector-urgent" src="./img/vector-urgent.svg" alt="">
                     <div class="deadline">
-                        <b class="deadlineDate">October 16, 2042</b>
-                        <p class="deadlineText">Upcoming Deadline</p>
+                        <b id="dedlineDate" class="deadlineDate">October 16, 2042</b>
+                        <p id="deadlineText" class="deadlineText">Upcoming Deadline</p>
                     </div>
                 </div>
                 
                 <div class="bottomContainers">
                     <div class="align box">
-                        <div class="count">1</div>
+                        <div id="taskInBoard" class="count">1</div>
                         <p class="boxText">Tasks In<br>Board</p>
                     </div>
                     <div class="align box">
-                        <div class="count">1</div>
+                        <div id="taskInProgress" class="count">1</div>
                         <p class="boxText">Tasks in<br>Progress</p>
                     </div>
                     <div class="align box">
-                        <div class="count">1</div>
+                        <div id="awaitingFeedback" class="count">1</div>
                         <p class="boxText">Awaiting Feedback</p>
                     </div>
                 </div>
