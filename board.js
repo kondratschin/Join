@@ -54,7 +54,7 @@ function renderOverlayTask() {
     <span class="task-overlay-title">${task.taskTitle}</span>
     <span class="task-overlay-text">${task.taskDescription}</span>
     <span class="task-overlay-text">Due date: ${task.taskDate}</span>
-    <span class="task-overlay-text">Priority: ${task.priority} !!umbenennen in code von addTask.js!!</span>
+    <span class="task-overlay-text">Priority: ${task.priority}</span>
     <span class="task-overlay-text">Assigned to:</span>
     <div class="task-overlay-assigned">
         <div class="task-overlay-ass-person">
