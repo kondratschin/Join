@@ -3,6 +3,16 @@ let subTaskList = [];
 let priority = [];
 let chosenCategory = [];
 
+
+/**
+ * function exists in board.js and must be removed
+ * @returns 
+ */
+function getName(){
+    let name = localStorage.getItem('userName');
+    return name; // Return the retrieved name
+}
+
 function validateForm() {
     const taskDateInput = document.getElementById('taskDate').value;
     const taskTitleInput = document.getElementById('task-title1').value.trim();
@@ -267,6 +277,7 @@ function assignCategory(category) {
  * Load contacts from Firebase into array
  */
 async function loadContactsArray() {
+
     let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
     let responseAsJson = await response.json();
     let contactsAsArray = Object.keys(responseAsJson);
@@ -464,7 +475,7 @@ async function createTask(taskTitle) {
         taskDate: taskDate
     };
 
-    let url = BASE_URL + "tasks/" + accName + "/" + taskTitle + ".json";
+    let url = BASE_URL + "tasks/" + accName + "/toDo/" + taskTitle + ".json";
 
     try {
         let response = await fetch(url, {

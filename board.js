@@ -1,8 +1,8 @@
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
-let accName = getName();
 let tasks = [];
 
-function getName(){
+
+function getName() {
     let name = localStorage.getItem('userName');
     return name; // Return the retrieved name
 }
@@ -13,7 +13,7 @@ function getName(){
  */
 async function getTasks() {
     try {
-        let response = await fetch(BASE_URL + "tasks/" + accName + ".json");
+        let response = await fetch(BASE_URL + "tasks/" + getName() + "/toDo/" + ".json");
         let responseAsJson = await response.json();
 
         if (responseAsJson) {

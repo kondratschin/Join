@@ -1,7 +1,17 @@
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
-let accName = 'Justin Koll';
+let accName = getName();
 let contacts = [];
 let alphabetContainer = [];
+
+/**
+ * function exists in board.js and must be removed
+ * @returns 
+ */
+function getName() {
+    let name = localStorage.getItem('userName');
+    return name; // Return the retrieved name
+}
+
 
 /**
  * Hide an element by using ID
