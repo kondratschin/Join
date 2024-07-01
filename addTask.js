@@ -121,8 +121,13 @@ function prioritySelected(id, className, arrow) {
     removeSelection(id);
     document.getElementById(id).classList.toggle(className);
     document.getElementById(id).classList.toggle(arrow);
-    priority = [];
-    priority.push(id);
+    if (id === 'prio-baja') {
+        priority = 'Low';
+    } else if (id === 'prio-media') {
+        priority = 'Medium';
+    } else if (id === 'prio-alta') {
+        priority = 'High';
+    }
 }
 
 
