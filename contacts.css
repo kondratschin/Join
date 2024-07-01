@@ -1,3 +1,8 @@
+body {
+    overflow-x: hidden;
+}
+
+
 .ContactsContentBox {
     display: flex;
     height: calc(100vh - 96px);
@@ -436,42 +441,6 @@
 }
 
 
-.appear {
-    display: flex;
-    animation: appear 125ms;
-}
-
-
-.vanish {
-    display: none;
-    animation: vanish 125ms;
-}
-
-
-@keyframes appear {
-    from {
-        opacity: 0;
-    }
-    
-    to {
-        opacity: 1;
-    }
-}
-
-
-@keyframes vanish {
-    from {
-        display: flex;
-        opacity: 1;
-    }
-    
-    to {
-        display: none;
-        opacity: 0;
-    }
-}
-
-
 .contactsRightsideContent {
     box-sizing: border-box;
     height: 100%;
@@ -523,38 +492,6 @@
     flex-direction: column;
     position: relative;
     left: 100vw;
-}
-
-
-@keyframes slideIn {
-    from {
-        left: 100vw;
-    }
-
-    to {
-        left: 0;
-    }
-}
-
-
-@keyframes slideOut {
-    from {
-        left: 0;
-    }
-
-    to {
-        left: 100vw;
-    }
-}
-
-
-.fadeIn {
-    animation: slideIn 125ms linear;
-}
-
-
-.fadeOut {
-    animation: slideOut 125ms linear;
 }
 
 
@@ -685,6 +622,99 @@
 }
 
 
+.contactSuccesBox {
+    display: flex;
+    height: 74px;
+    max-width: 326px;
+    width: 100%;
+    background: #2A3647;
+    border-radius: 16px;
+    color: #FFFFFF;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
+    position: absolute;
+    bottom: 160px;
+    left: 0;
+    margin-left: 48%;
+}
+
+
+.contactSuccesBox p {
+    font-size: 20px;
+}
+
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes vanish {
+    from {
+        display: flex;
+        opacity: 1;
+    }
+    
+    to {
+        display: none;
+        opacity: 0;
+    }
+}
+
+
+@keyframes slideIn {
+    from {
+        left: 100vw;
+    }
+
+    to {
+        left: 0;
+    }
+}
+
+
+@keyframes slideOut {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: 100vw;
+    }
+}
+
+
+.fadeIn {
+    animation: slideIn 125ms linear;
+}
+
+
+.fadeOut {
+    animation: slideOut 125ms linear;
+}
+
+
+.appear {
+    display: flex;
+    animation: appear 125ms;
+}
+
+
+.vanish {
+    display: none;
+    animation: vanish 125ms;
+}
+
+
+
 @media (max-width: 428) {
     .contactsRightsideContent {
         position: relative;
@@ -743,3 +773,6 @@
 }
 
 
+@media (max-width: 900px) {
+    
+}

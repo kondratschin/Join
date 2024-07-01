@@ -116,10 +116,11 @@ async function createContact(contactName, contactEmail, contactPhone) {
         body: JSON.stringify(newContact)
     });
     if (response.ok) {
-        alert("Contact creation successfully.");
+    
     } else {
         console.log("Error creating contact.");
     };
+    showSuccesPopup()
     getContacts();
     vanishAddConact();
 }
@@ -149,6 +150,24 @@ async function editContact(contactName, contactEmail, contactPhone, contactColor
     getContacts();
     vanishAddConact();
     showContactDetails(contactColor, initials, contactName, contactEmail, contactPhone);
+}
+
+
+function showSuccesPopup() {
+    fadeIn('contactSuccesBox');
+    displayElement('contactSuccesBox');
+    setTimeout(fadeSuccesPopup, 2000);
+}
+
+
+function fadeSuccesPopup() {
+    fadeOut('contactSuccesBox');
+    setTimeout(dnoneSuccesPopup, 100);
+}
+
+
+function dnoneSuccesPopup() {
+    displayNone('contactSuccesBox');
 }
 
 
