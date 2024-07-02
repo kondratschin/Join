@@ -173,6 +173,7 @@
     flex-direction: column;
     padding: 48px 40px;
     max-height: 931px;
+    width: 525px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
     border-radius: 30px;
     position: absolute;
@@ -203,6 +204,15 @@
     border-radius: 8px;
 }
 
+.technical-task {
+    background: #1FD7C1;
+}
+
+.user-story-task {
+    background: #0038FF;
+}
+
+
 .task-overlay-title {
     font-size: 61px;
     font-weight: 700;
@@ -227,3 +237,23 @@
     display: flex;
     align-items: center;
 }
+
+.task-overlay-text td:first-child {
+    width: 120px;
+}
+
+.task-overlay-text td {
+    padding-bottom: 24px;
+}
+
+.task-overlay-text tr:last-child td {
+    padding-bottom: 0;
+}
+
+.overlay-action {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px;
+}
+
