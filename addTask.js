@@ -2,8 +2,13 @@ let selectedContacts = [];
 let subTaskList = [];
 let priority = [];
 let chosenCategory = [];
-let boardStatus = [];
+let boardStatus = []; //defines in which list in the board the task will be put
 
+
+/**
+ * 
+ * @param {string} status name of the list in the board
+ */
 function setBoardStatus(status) {
     boardStatus = status;
 }
@@ -466,6 +471,10 @@ function addTaskEvent() {
 };
 
 
+/**
+ * Creates a task in the corrospending list
+ * @param {string} taskTitle is called from the input 
+ */
 async function createTask(taskTitle) {
     let taskDescription = document.getElementById('taskDescription').value;
     let taskDate = document.getElementById('taskDate').value;
@@ -491,8 +500,13 @@ async function createTask(taskTitle) {
         });
 
         if (response.ok) {
-            displayElement('task-scc-add-ntn');
-            setTimeout(openBoardPage, 900);
+            if (window.location.pathname.endsWith("addTask.html")) {
+                displayElement('task-scc-add-ntn');
+                setTimeout(openBoardPage, 900);
+            } else if (window.location.pathname.endsWith("board.html")) {
+                load();
+                displayNone('addTaskWindow');
+            }
         } else {
             console.log("Error creating task.");
         }
@@ -500,3 +514,10 @@ async function createTask(taskTitle) {
         console.error("Error:", error);
     }
 }
+
+
+function addTaskWindow(status) {
+    setBoardStatus(status);
+    displayElement('addTaskWindow');
+}
+

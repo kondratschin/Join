@@ -19,7 +19,17 @@
     width: 1116px;
     height: 870px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
 }
+
+.add-task-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 64px;
+    margin-bottom: 32px;
+}
+
 
 .add-task-inline {
     height: 100%;
@@ -36,10 +46,10 @@
     left: 0;
 }
 
-h1 {
+/* h1 {
     margin-top: 64px;
     margin-bottom: 32px;
-}
+} */
 
 .task-form {
     display: flex;

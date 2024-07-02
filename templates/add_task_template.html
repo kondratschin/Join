@@ -1,6 +1,11 @@
 <form class="task-form" id="taskForm" onsubmit="return addTaskEvent()">
 
-    <h1>Add Task</h1>
+    <div class="add-task-title">
+        <h1>Add Task</h1>
+        <div class="closeButtonBackground">
+            <img onclick="displayNone('addTaskWindow')" src="./img/close.svg" alt="">
+        </div>
+    </div>
 
     <div class="input-wrapper">
 
@@ -114,22 +119,23 @@
             </div>
             <span class="input-name">Subtask</span>
             <div class="subtask-wrapper">
-            <div class="task-title excludedObject mrg-bttm-4">
-                <input onfocus="alternateTwoElements('subtask-buttons', 'subtask-plus')" type="text" id="taskSub"
-                    placeholder="Add new subtask">
-                <img onclick="pushToSubTaskList()" id="subtask-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="">
-                <div id="subtask-buttons" class="sub-task-buttons d-none">
-                    <img onclick="resetInput(); alternateTwoElements('subtask-plus', 'subtask-buttons');" class="plus"
-                        src="./img/cross-box-small.svg" alt="">
-                    <img src="./img/separator-small.svg" alt="">
-                    <img onclick="pushToSubTaskList()" class="plus" src="./img/check-small.svg" alt="">
+                <div class="task-title excludedObject mrg-bttm-4">
+                    <input onfocus="alternateTwoElements('subtask-buttons', 'subtask-plus')" type="text" id="taskSub"
+                        placeholder="Add new subtask">
+                    <img onclick="pushToSubTaskList()" id="subtask-plus" class="plus mrg-rgt-12" src="./img/plus.svg"
+                        alt="">
+                    <div id="subtask-buttons" class="sub-task-buttons d-none">
+                        <img onclick="resetInput(); alternateTwoElements('subtask-plus', 'subtask-buttons');"
+                            class="plus" src="./img/cross-box-small.svg" alt="">
+                        <img src="./img/separator-small.svg" alt="">
+                        <img onclick="pushToSubTaskList()" class="plus" src="./img/check-small.svg" alt="">
+                    </div>
+                </div>
+
+                <div id="sub-task-list" class="sub-task-list">
+
                 </div>
             </div>
-
-            <div id="sub-task-list" class="sub-task-list">
-
-</div>
-        </div>
 
 
         </div>
@@ -148,7 +154,8 @@
                         stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
-            <button onmousemove="showErrorMsg()" type="submit" disabled id="create-task-bttn" class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
+            <button onmousemove="showErrorMsg()" type="submit" disabled id="create-task-bttn"
+                class="create-task-button">Create Task<img src="./img/buttonCheck.svg"></button>
         </div>
     </div>
 

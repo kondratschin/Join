@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="contacts.css">
     <script src="./grund.js"></script>
     <script src="./board.js"></script>
+    <script src="./addTask.js"></script>
+    <script src="./contacts.js"></script>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
 </head>
 
-<body onload="loadContent('navbarBoard'); load()">
+<body onload="loadContent('navbarBoard'); load(); loadContactsArray()">
 
     <div w3-include-html="templates/navbar.html"></div>
 
@@ -44,7 +46,7 @@
             <div class="toDoContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">To do</div>
-                    <div class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                    <div onclick="addTaskWindow('toDo')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                             <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
@@ -60,7 +62,7 @@
             <div class="inProgressContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">In progress</div>
-                    <div class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                    <div onclick="addTaskWindow('inProgress')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                             <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
@@ -71,12 +73,12 @@
                 <div id="progressPlaceholder" class="noTask">
                     No task's in progress
                 </div>
-                <div id="progressList"></div>
+                <div id="inProgressList"></div>
             </div>
             <div class="awaitFeedbackContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">Await feedback</div>
-                    <div class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                    <div onclick="addTaskWindow('awaitFeedback')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                             <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
@@ -87,7 +89,7 @@
                 <div id="feedbackPlaceholder" class="noTask">
                     No feedback awaitet
                 </div>
-                <div id="feedbackList"></div>
+                <div id="awaitFeedbackList"></div>
             </div>
             <div class="doneContainer">
                 <div class="taskHeader">
@@ -102,9 +104,9 @@
     </div>
 
 <div id="task-overlay" class="task-overlay d-none">
-
 </div>
 
+<div id="addTaskWindow" class="add-task d-none" w3-include-html="templates/add_task_template.html"></div>
 
 </body>
 

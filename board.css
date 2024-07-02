@@ -253,3 +253,7 @@
     cursor: pointer;
     padding: 6px;
 }
+
+.taskHeaderAddButton {
+    cursor: pointer;
+}

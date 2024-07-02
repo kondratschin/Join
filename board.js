@@ -1,4 +1,4 @@
-const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
+// const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
 let tasks = {
     toDo: [],
     inProgress: [],
@@ -109,7 +109,7 @@ function renderOverlayTask(taskCategory = 'toDo') { // Add parameter to choose t
 }
 
 function renderToDoList() {
-    let categories = ['toDo', 'progress', 'feedback', 'done'];
+    let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
     categories.forEach(renderList);
 }
 
