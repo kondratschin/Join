@@ -1,5 +1,10 @@
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
-let tasks = [];
+let tasks = {
+    toDo: [],
+    inProgress: [],
+    awaitFeedback: [],
+    done: []
+};
 
 
 function getName() {
@@ -7,8 +12,9 @@ function getName() {
     return name; // Return the retrieved name
 }
 
-function load(){
+function load() {
     addPlus();
+    getTasks();  // Aufrufen der getTasks beim Laden der Seite
 }
 
 
@@ -16,23 +22,27 @@ function load(){
  * load tasks from firebase into array 'tasks' render overlay for test purpose
  */
 async function getTasks() {
-    try {
-        let response = await fetch(BASE_URL + "tasks/" + getName() + "/toDo/" + ".json");
-        let responseAsJson = await response.json();
+    const categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];  // Die Kategorien, die wir abfragen wollen
 
-        if (responseAsJson) {
-            Object.keys(responseAsJson).forEach(taskKey => {
-                let task = responseAsJson[taskKey];
-                task.taskTitle = taskKey;
-                tasks.push(task);
-            });
+    try {
+        for (const category of categories) {
+            const response = await fetch(BASE_URL + "tasks/" + getName() + "/" + category + ".json");
+            const responseAsJson = await response.json();
+            console.log(category, responseAsJson);  // Zur Überprüfung der geladenen Daten
+
+            if (responseAsJson) {
+                tasks[category] = Object.keys(responseAsJson).map(taskKey => ({
+                    ...responseAsJson[taskKey],
+                    id: taskKey,  // Speichern des Keys als 'id' im Task-Objekt
+                    category: category  // Speichern der Kategorie als Teil des Task-Objekts
+                }));
+            }
         }
     } catch (error) {
         console.error("Error fetching tasks:", error);
     }
 
-   //renderOverlayTask(); 
-    renderTasks();
+    renderTasks(); // Diese Funktion müsste implementiert werden, um die Tasks anzuzeigen
 }
 
 
@@ -40,15 +50,16 @@ async function getTasks() {
  * This is just an example, logic needs to be implemented
  * @returns 
  */
-function renderOverlayTask() {
+function renderOverlayTask(taskCategory = 'toDo') { // Add parameter to choose the task category
     let content = document.getElementById('task-overlay');
+    const tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
 
-    if (tasks.length === 0) {
-        content.innerHTML = "<p>No tasks available.</p>";
+    if (tasksInCategory.length === 0) {
+        content.innerHTML = "<p>No tasks available in this category.</p>";
         return;
     }
 
-    let task = tasks[0]; // Display the first task for this example
+    let task = tasksInCategory[0]; // Display the first task for this example
     let selectedContact = task.selectedContacts.length > 0 ? task.selectedContacts[0] : { color: '#ccc', initials: '', name: 'Unknown' };
 
     content.innerHTML = /*html*/ `
@@ -56,7 +67,7 @@ function renderOverlayTask() {
         <span class="task-overlay-category">${task.chosenCategory} !!farbe anpassen!!</span> 
         <img onclick="closeOverlay()" src="./img/close.svg" alt="">
     </div>
-    <span class="task-overlay-title">${task.taskTitle}</span>
+    <span class="task-overlay-title">${task.id}</span>
     <span class="task-overlay-text">${task.taskDescription}</span>
     <span class="task-overlay-text">Due date: ${task.taskDate}</span>
     <span class="task-overlay-text">Priority: ${task.priority}</span>
