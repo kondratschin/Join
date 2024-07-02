@@ -2,7 +2,11 @@ let selectedContacts = [];
 let subTaskList = [];
 let priority = [];
 let chosenCategory = [];
+let boardStatus = [];
 
+function setBoardStatus(status) {
+    boardStatus = status;
+}
 
 /**
  * function exists in board.js and must be removed
@@ -475,7 +479,7 @@ async function createTask(taskTitle) {
         taskDate: taskDate
     };
 
-    let url = BASE_URL + "tasks/" + accName + "/toDo/" + taskTitle + ".json";
+    let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json"; 
 
     try {
         let response = await fetch(url, {
