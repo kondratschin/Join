@@ -109,68 +109,78 @@ function renderOverlayTask(taskCategory = 'toDo') { // Add parameter to choose t
 }
 
 function renderToDoList() {
-    renderList('toDo');
+    let categories = ['toDo', 'progress', 'feedback', 'done'];
+    categories.forEach(renderList);
 }
 
 
-function renderList(taskCategory) { // Add parameter to choose the task category
-    let content = document.getElementById('toDoList');
-    let tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
+function renderList(taskCategory) {
+    let content = document.getElementById(`${taskCategory}List`);
+    let tasksInCategory = tasks[taskCategory];
 
-    if (tasksInCategory.length === 0) {
+    if (!tasksInCategory || tasksInCategory.length === 0) { 
         content.innerHTML = "<p>No tasks available in this category.</p>";
         return;
     }
 
-    let task = tasksInCategory[0]; // Display the first task for this example
-    let selectedContact = task.selectedContacts.length > 0 ? task.selectedContacts[0] : { color: '#ccc', initials: '', name: 'Unknown' };
-        // Access the first element of the chosenCategory array
+    // Start with an empty string to build the HTML content
+    let htmlContent = '';
+
+    // Iterate over each task in the category
+    for (let i = 0; i < tasksInCategory.length; i++) {
+        let task = tasksInCategory[i];
+        let selectedContact = task.selectedContacts.length > 0 ? task.selectedContacts[0] : { color: '#ccc', initials: '', name: 'Unknown' };
         let chosenCategory = task.chosenCategory[0];
 
-    content.innerHTML = /*html*/ `
-    <div class="task-overlay-head">
-    <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span> 
-        <div class="closeButtonBackground">
-        <img onclick="displayNone('task-overlay')" src="./img/close.svg" alt="">
-        </div>
-    </div>
-    </div>
-    <span class="task-overlay-title">${task.id}</span>
-    <span class="task-overlay-text">${task.taskDescription}</span>
-    <table class="task-overlay-text">
-        <tr>
-            <td>Due date:</td>
-            <td>${task.taskDate}</td>
-        </tr>
-        <tr>
-            <td>Priority:</td>
-            <td>${task.priority}</td>
-        </tr>
-    </table>
-    <span class="task-overlay-text">Assigned to:</span>
-    <div class="task-overlay-assigned">
-        <div class="task-overlay-ass-person">
-            <div class="initialsContact-small" style="background: ${selectedContact.color}">
-                ${selectedContact.initials}
+        // Append the HTML for the current task to the htmlContent variable
+        htmlContent += /*html*/ `
+        <div class="task-overlay-head">
+            <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
+            <div class="closeButtonBackground">
+                <img onclick="displayNone('task-overlay')" src="./img/close.svg" alt="">
             </div>
-            <span class="pddng-lft-12">${selectedContact.name}</span>
         </div>
-    </div>
-    <span class="task-overlay-text">Subtasks</span>
-    <li> ${task.subTaskList}</li>
-    <div class="task-overlay-foot">
-        <div class="overlay-action highlight-gray">
-        <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
-        <span>Delete</span>
+        <span class="task-overlay-title">${task.id}</span>
+        <span class="task-overlay-text">${task.taskDescription}</span>
+        <table class="task-overlay-text">
+            <tr>
+                <td>Due date:</td>
+                <td>${task.taskDate}</td>
+            </tr>
+            <tr>
+                <td>Priority:</td>
+                <td>${task.priority}</td>
+            </tr>
+        </table>
+        <span class="task-overlay-text">Assigned to:</span>
+        <div class="task-overlay-assigned">
+            <div class="task-overlay-ass-person">
+                <div class="initialsContact-small" style="background: ${selectedContact.color}">
+                    ${selectedContact.initials}
+                </div>
+                <span class="pddng-lft-12">${selectedContact.name}</span>
+            </div>
         </div>
-        <img src="./img/separator-small.svg" class="sep-small" alt="">
-        <div class="overlay-action highlight-gray">
-        <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
-        <span>Edit</span>
+        <span class="task-overlay-text">Subtasks</span>
+        <li> ${task.subTaskList}</li>
+        <div class="task-overlay-foot">
+            <div class="overlay-action highlight-gray">
+                <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
+                <span>Delete</span>
+            </div>
+            <img src="./img/separator-small.svg" class="sep-small" alt="">
+            <div class="overlay-action highlight-gray">
+                <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
+                <span>Edit</span>
+            </div>
         </div>
-    </div>
-    `;
+        `; 
+    }
+
+    // Set the innerHTML of the content element to the complete HTML content
+    content.innerHTML = htmlContent;
 }
+
 
 
 
