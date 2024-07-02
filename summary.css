@@ -133,6 +133,14 @@ p {
     margin: 24px;
 }
 
+.mobileVector{
+    display: none;
+}
+
+.mobileVector2{
+    display: none;
+}
+
 .box {
     display: flex;
     flex-direction: column;
@@ -219,7 +227,7 @@ h1 {
     justify-content: center;
     align-items: center;
     gap: 18px;
-    width: 47%;
+    width: 266px;
     height: 168px;
     left: 0px;
     top: calc(50% - 168px/2);
@@ -240,7 +248,6 @@ h1 {
     width: 560px;
     height: 168px;
     display: flex;
-    justify-content: space-between;
 }
 
 .count {
@@ -455,6 +462,166 @@ p {
     .toDoDoneContainer {
         width: 420px;
         height: 128px;
+    }
+
+    .icon {
+        height: 48px;
+        width: 48px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    html {
+        height: 100%;
+    }
+
+    .icon{
+        height: 32px;
+    }
+
+    body {
+        height: 50%;
+    }
+
+    .midContainer{
+        width: 290px;
+        height: 350px !important;
+    }
+
+    .mainContainer {
+        height: 500px;
+        width: 320px;
+        margin: 0;
+        position: relative; /* This makes it a reference for absolutely positioned children */
+    }
+    
+
+
+    .headlineContainer {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        height: 50px;
+        width: 290px;
+        margin-top: 100px;
+        margin-left: 24px;
+    }
+
+
+    .gmName{
+        display: none;
+        width: 250px;
+    }
+
+    .name{
+        font-size: 32px;
+    }
+
+    .goodMorning{
+        font-size: 24px;
+        width: 250px;
+    }
+
+    h1 {
+        font-size: 40px;
+        font-weight: 700;
+        justify-content: flex-start;
+        margin: 0;
+        font-family: "Inter-700";
+    }
+
+    .splitLine {
+        display: none;
+    }
+
+    .count {
+        font-size: 32px;
+    }
+
+    .boxText {
+        font-size: 12px;
+    }
+
+    .deadline {
+        margin: 0;
+    }
+
+    .deadlineText{
+        margin: 0;
+    }
+
+    .midContainer {
+        height: 300px;
+        width: 300px;
+        margin: 0;
+        justify-content: space-between;
+    }
+
+    .TaskContainer {
+        width: 300px;
+        height: 300px;
+        margin-top: 160px;
+        justify-content: space-between;
+        margin-left: 4%;
+    }
+
+    .headerText{
+        font-size: 20px !important;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .toDo {
+        width: 140px;
+        height: 90px;
+        border-radius: 15px;
+    }
+
+    .box {
+        width: 90px;
+        height: 90px;
+        border-radius: 15px;
+    }
+
+    .urgentContainer {
+        width: 300px;
+        height: 90px;
+        gap: 0px;
+        border-radius: 15px;
+        justify-content: space-around;
+    }
+
+    .mobileVector{
+        display: block;
+    }  
+    
+    .mobileVector2{
+        display: block;
+    }
+
+    .vector-urgent {
+        display: none;
+    }
+
+    .urgentCount {
+        height: 80px;
+        width: 120px;
+    }
+
+    .deadline{
+        width: 140px;
+    }
+
+    .deadlineText{
+        font-size: 12px;
+    }
+
+    .toDoDoneContainer {
+        width: 300px;
+        height: 90px;
     }
 
     .icon {

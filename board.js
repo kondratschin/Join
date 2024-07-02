@@ -7,6 +7,10 @@ function getName() {
     return name; // Return the retrieved name
 }
 
+function load(){
+    addPlus();
+}
+
 
 /**
  * load tasks from firebase into array 'tasks' render overlay for test purpose
@@ -27,7 +31,8 @@ async function getTasks() {
         console.error("Error fetching tasks:", error);
     }
 
-    renderOverlayTask();
+   //renderOverlayTask(); 
+    renderTasks();
 }
 
 
@@ -77,9 +82,7 @@ function renderOverlayTask() {
 }
 
 
-function load(){
-    addPlus();
-}
+
 
 function addPlus(){
     document.getElementById('addTaskButton').innerHTML += `
