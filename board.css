@@ -119,14 +119,7 @@
 .boardContainer {
     display: flex;
     justify-content: space-between;
-}
-
-.taskHeader {
-    width: 200px;
-    display: flex;
-    justify-content: space-between;
-    margin-right: 24px;
-
+    gap: 24px;
 }
 
 .taskHeader {
@@ -135,6 +128,12 @@
     color: #42526E;
     margin-bottom: 24px;
     height: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
 }
 
 .noTask {
@@ -150,10 +149,8 @@
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
     border-radius: 10px;
     flex: none;
-    order: 1;
     align-self: stretch;
     flex-grow: 0;
-    margin: 5px;
 }
 
 
@@ -256,4 +253,3 @@
     cursor: pointer;
     padding: 6px;
 }
-

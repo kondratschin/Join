@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
 </head>
 
-<body onload="loadContent('navbarBoard'); load(); getTasks()">
+<body onload="loadContent('navbarBoard'); load()">
 
     <div w3-include-html="templates/navbar.html"></div>
 
@@ -52,9 +52,10 @@
                         </svg>
                     </div>
                 </div>
-                <div id="task" class="noTask">
+                <div id="todoPlaceholder" class="noTask">
                     No task's to do
                 </div>
+                <div id="toDoList"></div>
             </div>
             <div class="inProgressContainer">
                 <div class="taskHeader">
@@ -67,7 +68,7 @@
                         </svg>
                     </div>
                 </div>
-                <div id="task" class="noTask">
+                <div id="progressPlaceholder" class="noTask">
                     No task's in progress
                 </div>
             </div>
@@ -82,7 +83,7 @@
                         </svg>
                     </div>
                 </div>
-                <div id="task" class="noTask">
+                <div id="feedbackPlaceholder" class="noTask">
                     No feedback awaitet
                 </div>
             </div>
@@ -90,14 +91,14 @@
                 <div class="taskHeader">
                     <div class="taskTitle">Done</div>
                 </div>
-                <div id="task" class="noTask">
+                <div id="donePlaceholder" class="noTask">
                     No task's done
                 </div>
             </div>
         </div>
     </div>
 
-<div id="task-overlay" class="task-overlay">
+<div id="task-overlay" class="task-overlay d-none">
 
 </div>
 
