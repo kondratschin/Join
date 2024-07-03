@@ -384,10 +384,8 @@
 }
 
 
-.priority-icon{
- 
-    color: #0038FF;
-    background-color: #0038FF;
+.priority-icon {
+    background-color: white;
     height: 24px;
     width: 24px;
 }

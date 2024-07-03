@@ -562,12 +562,6 @@ textarea {
         height: 28px;
 }
 
-/* .sub-task-list:hover {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-} */
-
 .highlight-subtask:hover {
     background-color: #EEEEEE;
     border-radius: 10px;
@@ -576,4 +570,19 @@ textarea {
 
 .sub-task-entry:hover .sub-task-buttons {
     display: flex !important;
+}
+
+.prio-red {
+    transition: none !important;
+    filter: brightness(0) saturate(100%) invert(35%) sepia(60%) saturate(5519%) hue-rotate(0deg) brightness(101%) contrast(107%)
+}
+
+.prio-orange {
+    transition: none !important;
+    filter: brightness(0) saturate(100%) invert(59%) sepia(65%) saturate(842%) hue-rotate(0deg) brightness(103%) contrast(103%)
+}
+
+.prio-green {
+    transition: none !important;
+    filter: brightness(0) saturate(100%) invert(98%) sepia(64%) saturate(3663%) hue-rotate(32deg) brightness(94%) contrast(87%)
 }
