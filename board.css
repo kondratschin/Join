@@ -356,10 +356,33 @@
     display: none;
 }
 
-.initialLogoContainer{
+.initialLogoContainer {
     display: flex;
     justify-content: center;
+    position: relative; /* Dies ermöglicht eine relative Positionierung der Kinder */
 }
+
+.initialsContact-small {
+    margin-right: -10px; /* Negative Margin schiebt jedes folgende Element nach links */
+    width: 30px; /* oder eine feste Breite, die zu deinem Design passt */
+    height: 30px; /* oder eine feste Höhe, die zu deinem Design passt */
+    background: #ccc; /* Beispielhintergrundfarbe */
+    border-radius: 50%; /* Kreisförmige Initialen-Logos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Farbe des Textes */
+    font-size: 14px; /* Größe des Textes */
+    position: relative;
+    z-index: 1; /* Stellt sicher, dass das Logo über dem vorherigen liegt */
+}
+
+/* Optional: Hinzufügen eines Hover-Effekts, der das volle Logo zeigt */
+.initialsContact-small:hover {
+    margin-right: 0; /* Entfernt die negative Margin beim Hover */
+    z-index: 2; /* Stellt das gehoverte Logo in den Vordergrund */
+}
+
 
 .priority-icon{
  

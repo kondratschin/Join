@@ -20,10 +20,6 @@ function load() {
     });
 }
 
-
-/**
- * load tasks from firebase into array 'tasks' render overlay for test purpose
- */
 async function getTasks() {
     const categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];  // Die Kategorien, die wir abfragen wollen
 
@@ -45,7 +41,6 @@ async function getTasks() {
         console.error("Error fetching tasks:", error);
     }
 }
-
 
 function renderOverlayTask(index, taskCategory = 'toDo') {
     displayElement('task-overlay');
