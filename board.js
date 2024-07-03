@@ -42,6 +42,8 @@ async function getTasks() {
     }
 }
 
+
+
 function renderOverlayTask(index, taskCategory = 'toDo') {
     displayElement('task-overlay');
     let content = document.getElementById('task-overlay');
@@ -129,7 +131,6 @@ function buildTaskHTML(task, index, taskCategory) {
     let subtasksHTML = getSubtasksHTML(task);
     let contactsHTML = getContactsHTML(task);
     let prioritySVGHTML = getPrioToSVG(task.priority);
-    console.log(prioritySVGHTML);
     return /*html*/ `
     <div onclick="renderOverlayTask(${index}, '${taskCategory}')" class="taskContainer">
         <div class="task-overlay-head">

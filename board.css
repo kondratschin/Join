@@ -165,19 +165,20 @@
 }
 
 .task-overlay {
+
     z-index: 999;
     display: flex;
     flex-direction: column;
     padding: 48px 40px;
     max-height: 931px;
-    width: 525px;
+    width: 400px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
     border-radius: 30px;
-    position: absolute;
+    position: fixed;
     background: white;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-30%, -50%);
     animation: flyInRight 500ms forwards;
     gap: 24px;
 }
@@ -363,29 +364,27 @@
 }
 
 .initialsContact-small {
-    margin-right: -10px; /* Negative Margin schiebt jedes folgende Element nach links */
-    width: 30px; /* oder eine feste Breite, die zu deinem Design passt */
-    height: 30px; /* oder eine feste Höhe, die zu deinem Design passt */
-    background: #ccc; /* Beispielhintergrundfarbe */
-    border-radius: 50%; /* Kreisförmige Initialen-Logos */
+    margin-right: -10px;
+    width: 30px; 
+    height: 30px; 
+    background: #ccc; 
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white; /* Farbe des Textes */
-    font-size: 14px; /* Größe des Textes */
+    color: white;
+    font-size: 14px; 
     position: relative;
-    z-index: 1; /* Stellt sicher, dass das Logo über dem vorherigen liegt */
+    z-index: 1; 
 }
 
-/* Optional: Hinzufügen eines Hover-Effekts, der das volle Logo zeigt */
 .initialsContact-small:hover {
-    margin-right: 0; /* Entfernt die negative Margin beim Hover */
-    z-index: 2; /* Stellt das gehoverte Logo in den Vordergrund */
+    margin-right: 0; 
+    z-index: 2;
 }
 
 
 .priority-icon{
- 
     color: #0038FF;
     background-color: #0038FF;
     height: 24px;
