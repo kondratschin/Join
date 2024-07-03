@@ -272,8 +272,13 @@
     order: 0;
     flex-grow: 0;
     margin-bottom: 24px;
+    transition: transform 0.2s;
 }
 
+.taskContainer:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
 .taskCategory {
     color: #FFFFFF;
     display: flex;
@@ -349,4 +354,17 @@
 
 .d-none{
     display: none;
+}
+
+.initialLogoContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.priority-icon{
+ 
+    color: #0038FF;
+    background-color: #0038FF;
+    height: 24px;
+    width: 24px;
 }
