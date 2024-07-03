@@ -14,7 +14,10 @@ function getName() {
 
 function load() {
     addPlus();
-    getTasks().then(renderToDoList);
+    getTasks().then(() => {
+        renderToDoList();
+        checkArraysForContent();
+    });
 }
 
 
@@ -113,71 +116,79 @@ function renderToDoList() {
     categories.forEach(renderList);
 }
 
+function checkArraysForContent(){
+    console.log('Checking content...');
+
+    const todoPlaceholder = document.getElementById('todoPlaceholder');
+    const inProgressPlaceholder = document.getElementById('progressPlaceholder');
+    const feedbackPlaceholder = document.getElementById('feedbackPlaceholder');
+    const donePlaceholder = document.getElementById('donePlaceholder');
+
+    console.log('ToDo Placeholder:', todoPlaceholder);
+    console.log('InProgress Placeholder:', inProgressPlaceholder);
+    console.log('Feedback Placeholder:', feedbackPlaceholder);
+    console.log('Done Placeholder:', donePlaceholder);
+
+    if (tasks.toDo.length == 0 && todoPlaceholder) {
+        todoPlaceholder.classList.remove('d-none');
+    }
+    if (tasks.inProgress.length == 0 && inProgressPlaceholder) {
+        inProgressPlaceholder.classList.remove('d-none');
+    }
+    if (tasks.awaitFeedback.length == 0 && feedbackPlaceholder) {
+        feedbackPlaceholder.classList.remove('d-none');
+    }
+    if (tasks.done.length == 0 && donePlaceholder) {
+        donePlaceholder.classList.remove('d-none');
+    }
+}
+
+
 
 function renderList(taskCategory) {
     let content = document.getElementById(`${taskCategory}List`);
     let tasksInCategory = tasks[taskCategory];
 
-    if (!tasksInCategory || tasksInCategory.length === 0) { 
-        content.innerHTML = "<p>No tasks available in this category.</p>";
-        return;
-    }
 
-    // Start with an empty string to build the HTML content
     let htmlContent = '';
 
-    // Iterate over each task in the category
     for (let i = 0; i < tasksInCategory.length; i++) {
         let task = tasksInCategory[i];
         let selectedContact = task.selectedContacts.length > 0 ? task.selectedContacts[0] : { color: '#ccc', initials: '', name: 'Unknown' };
         let chosenCategory = task.chosenCategory[0];
 
-        // Append the HTML for the current task to the htmlContent variable
         htmlContent += /*html*/ `
-        <div class="task-overlay-head">
-            <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
-            <div class="closeButtonBackground">
-                <img onclick="displayNone('task-overlay')" src="./img/close.svg" alt="">
+
+        <div onclick="renderOverlayTask()" class="taskContainer">
+            <div class="task-overlay-head">
+                <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
             </div>
-        </div>
-        <span class="task-overlay-title">${task.id}</span>
-        <span class="task-overlay-text">${task.taskDescription}</span>
-        <table class="task-overlay-text">
-            <tr>
-                <td>Due date:</td>
-                <td>${task.taskDate}</td>
-            </tr>
-            <tr>
-                <td>Priority:</td>
-                <td>${task.priority}</td>
-            </tr>
-        </table>
-        <span class="task-overlay-text">Assigned to:</span>
-        <div class="task-overlay-assigned">
-            <div class="task-overlay-ass-person">
-                <div class="initialsContact-small" style="background: ${selectedContact.color}">
-                    ${selectedContact.initials}
+            <span class="taskTitle">${task.id}</span>
+            <span class="taskText">${task.taskDescription}</span>`;
+
+        if (task.subTaskList && task.subTaskList.length > 0) {
+            let completedCount = task.subTaskList.filter(subtask => subtask.completed).length;
+            let total = task.subTaskList.length;
+            let progressPercent = (completedCount / total) * 100;
+
+            htmlContent += /*html*/ `
+            <div class="subTaskContainer">
+                <div class="progress">
+                    <div class="progress-bar" style="width: ${progressPercent}%;"></div>
                 </div>
-                <span class="pddng-lft-12">${selectedContact.name}</span>
-            </div>
+                <span class="">Subtasks</span>
+            </div>`;
+        }
+
+        htmlContent += `
+        <div class="taskFooter">
+            <div class="initialsContact-small" style="background: ${selectedContact.color}">
+            ${selectedContact.initials}</div>
+            <div>${task.priority}</div>
         </div>
-        <span class="task-overlay-text">Subtasks</span>
-        <li> ${task.subTaskList}</li>
-        <div class="task-overlay-foot">
-            <div class="overlay-action highlight-gray">
-                <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
-                <span>Delete</span>
-            </div>
-            <img src="./img/separator-small.svg" class="sep-small" alt="">
-            <div class="overlay-action highlight-gray">
-                <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
-                <span>Edit</span>
-            </div>
-        </div>
-        `; 
+        </div>`;
     }
 
-    // Set the innerHTML of the content element to the complete HTML content
     content.innerHTML = htmlContent;
 }
 

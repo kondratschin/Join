@@ -257,3 +257,96 @@
 .taskHeaderAddButton {
     cursor: pointer;
 }
+
+.taskContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 10px;
+    height: fit-content;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-bottom: 24px;
+}
+
+.taskCategory {
+    color: #FFFFFF;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 4px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.taskTitle {
+    font-family: "inter-700";
+    width: 220px;
+
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 120%;
+    color: #2A3647;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.taskText {
+    width: 220px;
+    height: 38px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #A8A8A8;
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+    margin-bottom: 26px;
+}
+
+.progress {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 15px;
+    height: 12px;
+    margin-right: 24px;
+}
+
+.progress-bar {
+    height: 12px;
+    background: #4589FF;
+    text-align: center;
+    line-height: 20px;
+    /* Zentriert den Text vertikal */
+    color: white;
+}
+
+.subTaskContainer {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    height: 16px;
+    flex: none;
+    flex-grow: 0;
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.taskFooter {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.d-none{
+    display: none;
+}
