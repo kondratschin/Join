@@ -1,4 +1,4 @@
-let selectedContacts = [];
+let selectedContacts = [""];
 let subTaskList = [];
 let priority = [];
 let chosenCategory = [];
