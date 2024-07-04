@@ -51,8 +51,18 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
     if (index >= 0 && index < tasksInCategory.length) {
         let task = tasksInCategory[index]; // Access the specific task by index
 
-        let selectedContact = task.selectedContacts.length > 0 ? task.selectedContacts[0] : null;
+        let selectedContacts = task.selectedContacts || [];
         let hasSubtasks = task.subTaskList && task.subTaskList.length > 0;
+
+        // Generate HTML for all selected contacts
+        let contactsHtml = selectedContacts.map(contact => `
+            <div id="assOverlayAssPerson" class="task-overlay-ass-person">
+                <div class="initialsContact-small" style="background: ${contact.color}">
+                    ${contact.initials}
+                </div>
+                <span class="pddng-lft-12">${contact.name}</span>
+            </div>
+        `).join('');
 
         content.innerHTML = /*html*/ `
             <div class="task-overlay-head">
@@ -73,17 +83,10 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
                     <td>${task.priority}</td>
                 </tr>
             </table>
-            <div class="${selectedContact ? '' : 'd-none'}">
+            <div class="${selectedContacts.length > 0 ? '' : 'd-none'}">
                 <span class="task-overlay-text">Assigned to:</span>
                 <div class="task-overlay-assigned">
-                    ${selectedContact ? `
-                    <div id="assOverlayAssPerson" class="task-overlay-ass-person">
-                        <div class="initialsContact-small" style="background: ${selectedContact.color}">
-                            ${selectedContact.initials}
-                        </div>
-                        <span class="pddng-lft-12">${selectedContact.name}</span>
-                    </div>
-                    ` : ''}
+                    ${contactsHtml}
                 </div>
             </div>
             <div class="${hasSubtasks ? '' : 'd-none'}">
@@ -106,6 +109,7 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
         content.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
     }
 }
+
 
 
 function renderToDoList() {
