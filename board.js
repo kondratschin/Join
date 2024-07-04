@@ -114,31 +114,26 @@ function renderToDoList() {
 }
 
 function checkArraysForContent() {
-    const todoPlaceholder = document.getElementById('todoPlaceholder');
-    const inProgressPlaceholder = document.getElementById('progressPlaceholder');
-    const feedbackPlaceholder = document.getElementById('feedbackPlaceholder');
-    const donePlaceholder = document.getElementById('donePlaceholder');
-    if (tasks.toDo.length == 0 && todoPlaceholder) {
-        todoPlaceholder.classList.remove('d-none');
-    } else {
-        todoPlaceholder.classList.add('d-none')
-    }
-    if (tasks.inProgress.length == 0 && inProgressPlaceholder) {
-        inProgressPlaceholder.classList.remove('d-none');
-    } else {
-        inProgressPlaceholder.classList.add('d-none')
-    }
-    if (tasks.awaitFeedback.length == 0 && feedbackPlaceholder) {
-        feedbackPlaceholder.classList.remove('d-none');
-    }else {
-        feedbackPlaceholder.classList.add('d-none')
-    }
-    if (tasks.done.length == 0 && donePlaceholder) {
-        donePlaceholder.classList.remove('d-none');
-    }else {
-        donePlaceholder.classList.add('d-none')
-    }
+    // Definiere die Kategorien und die zugehörigen Platzhalter
+    const categories = [
+        { key: 'toDo', placeholderId: 'todoPlaceholder' },
+        { key: 'inProgress', placeholderId: 'progressPlaceholder' },
+        { key: 'awaitFeedback', placeholderId: 'feedbackPlaceholder' },
+        { key: 'done', placeholderId: 'donePlaceholder' }
+    ];
+
+    categories.forEach(category => {
+        const placeholder = document.getElementById(category.placeholderId);
+        const visibleTasks = document.querySelectorAll(`.${category.key}Container .taskContainer:not(.d-none)`);
+
+        if (visibleTasks.length === 0) {
+            placeholder.classList.remove('d-none'); // Zeige den Platzhalter, wenn keine Tasks sichtbar sind
+        } else {
+            placeholder.classList.add('d-none'); // Verstecke den Platzhalter, wenn Tasks vorhanden sind
+        }
+    });
 }
+
 
 function buildTaskHTML(task, index, taskCategory) {
     let selectedContact = getSelectedContact(task);
