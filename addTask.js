@@ -13,6 +13,7 @@ function setBoardStatus(status) {
     boardStatus = status;
 }
 
+
 /**
  * function exists in board.js and must be removed
  * @returns 

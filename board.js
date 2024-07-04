@@ -67,8 +67,8 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
         content.innerHTML = /*html*/ `
             <div class="task-overlay-head">
                 <span class="task-overlay-category ${task.chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
-                <div class="closeButtonBackground">
-                    <img onclick="displayNone('task-overlay')" src="./img/close.svg" alt="">
+                <div onclick="displayNone('task-overlay')" class="closeButtonBackground">
+                    <img src="./img/close.svg" alt="">
                 </div>
             </div>
             <span class="task-overlay-title">${task.id}</span>
@@ -90,7 +90,7 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
                 </div>
             </div>
             <div class="${hasSubtasks ? '' : 'd-none'}">
-                <span id="overlaySubtask" class="task-overlay-text">Subtasks</span>
+                <span class="task-overlay-text">Subtasks</span>
                 <li> ${task.subTaskList}</li>
             </div>
             <div class="task-overlay-foot">
@@ -186,7 +186,7 @@ function getContactsHTML(task) {
     if (Array.isArray(task.selectedContacts)) {
         task.selectedContacts.forEach(contact => {
             htmlContent += `
-                <div class="initialsContact-small margin-10" style="background: ${contact.color}">
+                <div class="initialsContact-small margin-left-10" style="background: ${contact.color}">
                     ${contact.initials}
                 </div>`;
         });
