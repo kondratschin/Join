@@ -1,4 +1,4 @@
-let selectedContacts = [""];
+let selectedContacts = [];
 let subTaskList = [];
 let priority = [];
 let chosenCategory = [];
@@ -292,6 +292,7 @@ async function loadContactsArray() {
     let responseAsJson = await response.json();
     let contactsAsArray = Object.keys(responseAsJson);
     sortContactlist(responseAsJson, contactsAsArray);
+    createContactDrpDwn();
 }
 
 

@@ -52,8 +52,11 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
         let selectedContacts = task.selectedContacts || [];
         let hasSubtasks = task.subTaskList && task.subTaskList.length > 0;
 
-        // Generate HTML for all selected contacts
-        let contactsHtml = selectedContacts.map(contact => `
+        // Filter out undefined contacts
+        let validContacts = selectedContacts.filter(contact => contact !== undefined && contact !== null);
+
+        // Generate HTML for all valid selected contacts
+        let contactsHtml = validContacts.map(contact => `
             <div id="assOverlayAssPerson" class="task-overlay-ass-person">
                 <div class="initialsContact-small" style="background: ${contact.color}">
                     ${contact.initials}
@@ -81,7 +84,7 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
                     <td>${task.priority}</td>
                 </tr>
             </table>
-            <div class="${selectedContacts.length > 0 ? '' : 'd-none'}">
+            <div class="${validContacts.length > 0 ? '' : 'd-none'}">
                 <span class="task-overlay-text">Assigned to:</span>
                 <div class="task-overlay-assigned">
                     ${contactsHtml}
@@ -107,6 +110,8 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
         content.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
     }
 }
+
+
 
 function renderToDoList() {
     let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
