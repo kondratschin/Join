@@ -182,7 +182,7 @@ function getContactsHTML(task) {
     if (Array.isArray(task.selectedContacts)) {
         task.selectedContacts.forEach(contact => {
             htmlContent += `
-                <div class="initialsContact-small" style="background: ${contact.color}">
+                <div class="initialsContact-small margin-10" style="background: ${contact.color}">
                     ${contact.initials}
                 </div>`;
         });
