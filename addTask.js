@@ -1,4 +1,4 @@
-let selectedContacts = [];
+let selectedContacts = [""];
 let subTaskList = [];
 let priority = [];
 let chosenCategory = [];
@@ -12,6 +12,7 @@ let boardStatus = []; //defines in which list in the board the task will be put
 function setBoardStatus(status) {
     boardStatus = status;
 }
+
 
 /**
  * function exists in board.js and must be removed
