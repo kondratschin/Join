@@ -41,7 +41,7 @@ async function getTasks() {
     }
 }
 
-function renderOverlayTask(index, taskCategory = 'toDo') {
+function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
     displayElement('task-overlay');
     let content = document.getElementById('task-overlay');
     const tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
@@ -64,7 +64,7 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
 
         content.innerHTML = /*html*/ `
             <div class="task-overlay-head">
-                <span class="task-overlay-category ${task.chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
+                <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
                 <div onclick="displayNone('task-overlay')" class="closeButtonBackground">
                     <img src="./img/close.svg" alt="">
                 </div>
@@ -142,7 +142,7 @@ function buildTaskHTML(task, index, taskCategory) {
     let contactsHTML = getContactsHTML(task);
     let prioritySVGHTML = getPrioToSVG(task.priority);
     return /*html*/ `
-    <div onclick="renderOverlayTask(${index}, '${taskCategory}')" class="taskContainer">
+    <div onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer">
         <div class="task-overlay-head">
             <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
         </div>
