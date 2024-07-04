@@ -100,7 +100,7 @@
 }
 
 .lupe {
-    margin-left: 15%;
+    margin-left: 8px;
     transition: transform 0.3s;
 }
 
@@ -365,6 +365,7 @@
 }
 
 .initialsContact-small {
+
     width: 30px; /* oder eine feste Breite, die zu deinem Design passt */
     height: 30px; /* oder eine feste Höhe, die zu deinem Design passt */
     background: #ccc; /* Beispielhintergrundfarbe */

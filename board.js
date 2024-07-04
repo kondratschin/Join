@@ -6,7 +6,6 @@ let tasks = {
     done: []
 };
 
-
 function getName() {
     let name = localStorage.getItem('userName');
     return name; // Return the retrieved name
@@ -41,7 +40,6 @@ async function getTasks() {
         console.error("Error fetching tasks:", error);
     }
 }
-
 
 function renderOverlayTask(index, taskCategory = 'toDo') {
     displayElement('task-overlay');
@@ -94,7 +92,7 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
                 <li> ${task.subTaskList}</li>
             </div>
             <div class="task-overlay-foot">
-                <div class="overlay-action highlight-gray">
+                <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
                     <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
                     <span>Delete</span>
                 </div>
@@ -110,8 +108,6 @@ function renderOverlayTask(index, taskCategory = 'toDo') {
     }
 }
 
-
-
 function renderToDoList() {
     let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
     categories.forEach(renderList);
@@ -124,15 +120,23 @@ function checkArraysForContent() {
     const donePlaceholder = document.getElementById('donePlaceholder');
     if (tasks.toDo.length == 0 && todoPlaceholder) {
         todoPlaceholder.classList.remove('d-none');
+    } else {
+        todoPlaceholder.classList.add('d-none')
     }
     if (tasks.inProgress.length == 0 && inProgressPlaceholder) {
         inProgressPlaceholder.classList.remove('d-none');
+    } else {
+        inProgressPlaceholder.classList.add('d-none')
     }
     if (tasks.awaitFeedback.length == 0 && feedbackPlaceholder) {
         feedbackPlaceholder.classList.remove('d-none');
+    }else {
+        feedbackPlaceholder.classList.add('d-none')
     }
     if (tasks.done.length == 0 && donePlaceholder) {
         donePlaceholder.classList.remove('d-none');
+    }else {
+        donePlaceholder.classList.add('d-none')
     }
 }
 
@@ -222,6 +226,65 @@ function getPrioToSVG(priority) {
 }
 
 function addPlus() {
-    document.getElementById('addTaskButton').innerHTML += `
-    <img class="add" src="./img/add.svg" alt="Add">`;
+    const addButton = document.getElementById('addTaskButton');
+    // Prüfen, ob das Plus-Symbol bereits existiert
+    if (!addButton.querySelector('.add')) {
+        addButton.innerHTML += `<img class="add" src="./img/add.svg" alt="Add">`;
+    }
 }
+
+async function deleteTask(taskId, taskCategory) {
+    const userName = getName();
+    const url = `${BASE_URL}tasks/${userName}/${taskCategory}/${taskId}.json`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            console.log("Task successfully deleted");
+            removeTaskFromUI(taskId, taskCategory);
+        } else {
+            throw new Error(`Failed to delete task with status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error("Error deleting task:", error);
+    }
+}
+
+function removeTaskFromUI(taskId, taskCategory) {
+    tasks[taskCategory] = tasks[taskCategory].filter(task => task.id !== taskId);
+    renderList(taskCategory);
+    load();
+    displayNone('task-overlay')
+}
+
+function findTask() {
+    let input = document.getElementById('findTaskInput').value.trim().toLowerCase(); // Den Input trimmen und in Kleinbuchstaben umwandeln
+
+
+    let found = false;
+    const taskContainers = document.querySelectorAll('.taskContainer'); // Annahme, dass deine Task-Elemente diese Klasse haben
+
+    taskContainers.forEach(container => {
+        const taskDescription = container.querySelector('.taskText').textContent.toLowerCase(); // Text des Task-Beschreibungselements
+        const taskTitle = container.querySelector('.taskTitle').textContent.toLowerCase(); // Text des Task-Beschreibungselements
+        if (taskDescription.includes(input) || taskTitle.includes(input)) {
+            container.classList.remove('d-none');
+            found = true;
+        } else {
+            container.classList.add('d-none');
+        }
+    });
+
+    if (!found) {
+        console.log('Kein Task mit diesem Text gefunden.'); // Hier könntest du auch Benachrichtigungen für den Benutzer anzeigen
+    }
+
+    checkArraysForContent();
+}
+
