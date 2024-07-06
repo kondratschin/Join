@@ -7,6 +7,10 @@ let tasks = {
 };
 
 
+/**
+ * 
+ * @returns the user Name of the logged in user
+ */
 function getName() {
     let name = localStorage.getItem('userName');
     return name; // Return the retrieved name
@@ -24,6 +28,10 @@ function load() {
 
 let currentDraggedElement;
 
+
+/**
+ * fetches the tasks from firebase
+ */
 async function getTasks() {
     const categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];  // Die Kategorien, die wir abfragen wollen
 
@@ -46,6 +54,13 @@ async function getTasks() {
     }
 }
 
+
+/**
+ * shows pop up screen wiht details
+ * @param {string} index 
+ * @param {string} taskCategory 
+ * @param {string} chosenCategory 
+ */
 function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
     displayElement('task-overlay');
     let content = document.getElementById('task-overlay');
@@ -117,11 +132,14 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
 }
 
 
-
+/**
+ * renders the tasks in the list
+ */
 function renderToDoList() {
     let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
     categories.forEach(renderList);
 }
+
 
 function checkArraysForContent() {
     // Definiere die Kategorien und die zugehörigen Platzhalter
@@ -151,8 +169,9 @@ function startDragging(currentCategory, index, taskTitle) {
 
 function moveTo(category) {
     let [index, currentCategory, taskTitle] = currentDraggedElement;
-    moveToCategory(category, index, currentCategory, taskTitle)
+    moveToCategory(category, index, currentCategory, taskTitle);
     renderToDoList();
+    checkArraysForContent();
 }
 
 
