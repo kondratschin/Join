@@ -43,7 +43,7 @@
         </div>
 
         <div class="boardContainer">
-            <div class="toDoContainer">
+            <div id="toDoContainer" ondrop="moveTo('toDo')" ondragover="allowDrop(event)" class="toDoContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">To do</div>
                     <div onclick="addTaskWindow('toDo')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
@@ -59,7 +59,7 @@
                 </div>
                 <div id="toDoList"></div>
             </div>
-            <div class="inProgressContainer">
+            <div id="inProgressContainer" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)"  class="inProgressContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">In progress</div>
                     <div onclick="addTaskWindow('inProgress')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
@@ -75,7 +75,7 @@
                 </div>
                 <div id="inProgressList"></div>
             </div>
-            <div class="awaitFeedbackContainer">
+            <div id="awaitFeedbackContainer" ondrop="moveTo('awaitFeedback')" ondragover="allowDrop(event)"  class="awaitFeedbackContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">Await feedback</div>
                     <div onclick="addTaskWindow('awaitFeedback')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
@@ -91,7 +91,7 @@
                 </div>
                 <div id="awaitFeedbackList"></div>
             </div>
-            <div class="doneContainer">
+            <div id="doneContainer" ondrop="moveTo('done')" ondragover="allowDrop(event)"  class="doneContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">Done</div>
                 </div>

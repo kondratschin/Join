@@ -6,10 +6,12 @@ let tasks = {
     done: []
 };
 
+
 function getName() {
     let name = localStorage.getItem('userName');
     return name; // Return the retrieved name
 }
+
 
 function load() {
     addPlus();
@@ -18,6 +20,9 @@ function load() {
         checkArraysForContent();
     });
 }
+
+
+let currentDraggedElement;
 
 async function getTasks() {
     const categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];  // Die Kategorien, die wir abfragen wollen
@@ -139,6 +144,63 @@ function checkArraysForContent() {
     });
 }
 
+function startDragging(currentCategory, index, taskTitle) {
+    currentDraggedElement = [index, currentCategory, taskTitle];
+}
+
+
+function moveTo(category) {
+    let [index, currentCategory, taskTitle] = currentDraggedElement;
+    moveToCategory(category, index, currentCategory, taskTitle)
+    renderToDoList();
+}
+
+
+function allowDrop(ev) {
+ev.preventDefault();
+}
+
+
+async function moveToCategory(category, index, currentCategory, taskTitle) {
+    // Find the task in the current category array
+    let taskIndex = tasks[currentCategory].findIndex(task => task.id === taskTitle);
+    
+    if (taskIndex === -1) {
+        console.error(`Task with id ${taskTitle} not found in ${currentCategory}`);
+        return;
+    }
+    
+    // Remove the task from its current category array
+    let [task] = tasks[currentCategory].splice(taskIndex, 1);
+    
+    // Update the task's category field
+    task.category = category;
+    
+    // Add the task to the new category array at the specified index
+    tasks[category].splice(index, 0, task);
+
+    try {
+        // Delete the task from the current category in Firebase
+        await fetch(`${BASE_URL}tasks/${getName()}/${currentCategory}/${taskTitle}.json`, {
+            method: 'DELETE'
+        });
+        
+        // Add the task to the new category in Firebase with the same taskTitle
+        await fetch(`${BASE_URL}tasks/${getName()}/${category}/${taskTitle}.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        });
+
+        console.log(`Task moved to ${category} at index ${index}`);
+    } catch (error) {
+        console.error("Error moving task:", error);
+    }
+}
+
+
 
 function buildTaskHTML(task, index, taskCategory) {
     let selectedContact = getSelectedContact(task);
@@ -146,8 +208,9 @@ function buildTaskHTML(task, index, taskCategory) {
     let subtasksHTML = getSubtasksHTML(task);
     let contactsHTML = getContactsHTML(task);
     let prioritySVGHTML = getPrioToSVG(task.priority);
+    
     return /*html*/ `
-    <div onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer">
+    <div draggable="true" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer" id="taskBoard${index}">
         <div class="task-overlay-head">
             <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
         </div>
@@ -161,11 +224,13 @@ function buildTaskHTML(task, index, taskCategory) {
     </div>`;
 }
 
+
 function getSelectedContact(task) {
     return Array.isArray(task.selectedContacts) && task.selectedContacts.length > 0
         ? task.selectedContacts[0]
         : { color: '#ccc', initials: '', name: 'Unknown' };
 }
+
 
 function getSubtasksHTML(task) {
     if (task.subTaskList && task.subTaskList.length > 0) {
@@ -184,6 +249,7 @@ function getSubtasksHTML(task) {
     return '';
 }
 
+
 function getContactsHTML(task) {
     let htmlContent = '';
     if (Array.isArray(task.selectedContacts)) {
@@ -199,6 +265,7 @@ function getContactsHTML(task) {
     return htmlContent;
 }
 
+
 function renderList(taskCategory) {
     let content = document.getElementById(`${taskCategory}List`);
     let tasksInCategory = tasks[taskCategory];
@@ -211,6 +278,7 @@ function renderList(taskCategory) {
 
     content.innerHTML = htmlContent;
 }
+
 
 function getPrioToSVG(priority) {
     switch (priority) {
@@ -225,6 +293,7 @@ function getPrioToSVG(priority) {
     }
 }
 
+
 function addPlus() {
     const addButton = document.getElementById('addTaskButton');
     // Prüfen, ob das Plus-Symbol bereits existiert
@@ -232,6 +301,7 @@ function addPlus() {
         addButton.innerHTML += `<img class="add" src="./img/add.svg" alt="Add">`;
     }
 }
+
 
 async function deleteTask(taskId, taskCategory) {
     const userName = getName();
@@ -256,12 +326,14 @@ async function deleteTask(taskId, taskCategory) {
     }
 }
 
+
 function removeTaskFromUI(taskId, taskCategory) {
     tasks[taskCategory] = tasks[taskCategory].filter(task => task.id !== taskId);
     renderList(taskCategory);
     load();
     displayNone('task-overlay')
 }
+
 
 function findTask() {
     let input = document.getElementById('findTaskInput').value.trim().toLowerCase(); // Den Input trimmen und in Kleinbuchstaben umwandeln
