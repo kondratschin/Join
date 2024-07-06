@@ -1,4 +1,3 @@
-// const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
 let tasks = {
     toDo: [],
     inProgress: [],
@@ -6,6 +5,7 @@ let tasks = {
     done: []
 };
 
+let currentDraggedElement;
 
 /**
  * 
@@ -24,9 +24,6 @@ function load() {
         checkArraysForContent();
     });
 }
-
-
-let currentDraggedElement;
 
 
 /**
@@ -161,64 +158,6 @@ function checkArraysForContent() {
         }
     });
 }
-
-function startDragging(currentCategory, index, taskTitle) {
-    currentDraggedElement = [index, currentCategory, taskTitle];
-}
-
-
-function moveTo(category) {
-    let [index, currentCategory, taskTitle] = currentDraggedElement;
-    moveToCategory(category, index, currentCategory, taskTitle);
-    renderToDoList();
-    checkArraysForContent();
-}
-
-
-function allowDrop(ev) {
-ev.preventDefault();
-}
-
-
-async function moveToCategory(category, index, currentCategory, taskTitle) {
-    // Find the task in the current category array
-    let taskIndex = tasks[currentCategory].findIndex(task => task.id === taskTitle);
-    
-    if (taskIndex === -1) {
-        console.error(`Task with id ${taskTitle} not found in ${currentCategory}`);
-        return;
-    }
-    
-    // Remove the task from its current category array
-    let [task] = tasks[currentCategory].splice(taskIndex, 1);
-    
-    // Update the task's category field
-    task.category = category;
-    
-    // Add the task to the new category array at the specified index
-    tasks[category].splice(index, 0, task);
-
-    try {
-        // Delete the task from the current category in Firebase
-        await fetch(`${BASE_URL}tasks/${getName()}/${currentCategory}/${taskTitle}.json`, {
-            method: 'DELETE'
-        });
-        
-        // Add the task to the new category in Firebase with the same taskTitle
-        await fetch(`${BASE_URL}tasks/${getName()}/${category}/${taskTitle}.json`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(task)
-        });
-
-        console.log(`Task moved to ${category} at index ${index}`);
-    } catch (error) {
-        console.error("Error moving task:", error);
-    }
-}
-
 
 
 function buildTaskHTML(task, index, taskCategory) {
@@ -379,3 +318,76 @@ function findTask() {
     checkArraysForContent();
 }
 
+
+function startDragging(currentCategory, index, taskTitle) {
+    currentDraggedElement = [index, currentCategory, taskTitle];
+}
+
+
+async function moveTo(category) {
+    let [index, currentCategory, taskTitle] = currentDraggedElement;
+    
+    // Move the task locally and update UI
+    moveToCategory(category, index, currentCategory, taskTitle);
+    renderToDoList();
+    checkArraysForContent();
+    
+    try {
+        // Update Firebase after local move
+        await updateFirebase(category, index, currentCategory, taskTitle);
+        console.log(`Task successfully moved to ${category}`);
+    } catch (error) {
+        console.error("Error moving task:", error);
+    }
+}
+
+
+function allowDrop(ev) {
+ev.preventDefault();
+}
+
+
+function moveToCategory(category, index, currentCategory, taskTitle) {
+    // Find the task in the current category array
+    let taskIndex = tasks[currentCategory].findIndex(task => task.id === taskTitle);
+    
+    if (taskIndex === -1) {
+        console.error(`Task with id ${taskTitle} not found in ${currentCategory}`);
+        return;
+    }
+    
+    // Remove the task from its current category array
+    let [task] = tasks[currentCategory].splice(taskIndex, 1);
+    
+    // Update the task's category field
+    task.category = category;
+    
+    // Add the task to the new category array at the specified index
+    tasks[category].splice(index, 0, task);
+
+    console.log(`Task moved to ${category} at index ${index}`);
+}
+
+
+async function updateFirebase(category, index, currentCategory, taskTitle) {
+    try {
+        // Delete the task from the current category in Firebase
+        await fetch(`${BASE_URL}tasks/${getName()}/${currentCategory}/${taskTitle}.json`, {
+            method: 'DELETE'
+        });
+        
+        // Add the task to the new category in Firebase with the same taskTitle
+        let task = tasks[category].find(task => task.id === taskTitle);
+        await fetch(`${BASE_URL}tasks/${getName()}/${category}/${taskTitle}.json`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        });
+
+        console.log(`Task moved to ${category} at index ${index}`);
+    } catch (error) {
+        console.error("Error moving task:", error);
+    }
+}
