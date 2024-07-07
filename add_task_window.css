@@ -370,15 +370,15 @@ textarea {
     top: 40px;
 }
 
-.dropdown-category-content::-webkit-scrollbar  {
+.dropdown-category-content::-webkit-scrollbar {
     width: 6px;
 }
 
-.dropdown-category-content::-webkit-scrollbar-track  {
+.dropdown-category-content::-webkit-scrollbar-track {
     border-radius: 10px;
 }
 
-.dropdown-category-content::-webkit-scrollbar-thumb  {
+.dropdown-category-content::-webkit-scrollbar-thumb {
     background: #A8A8A8;
     border-radius: 10px;
 }
@@ -508,7 +508,8 @@ textarea {
 .create-task-button:disabled:hover {
     /* Entferne hier alle Hover-Stile */
     background: #2a36472a;
-    cursor: default; /* Cursor auf Standard zurücksetzen */
+    cursor: default;
+    /* Cursor auf Standard zurücksetzen */
     /* ... weitere Stile, die du beim Hover deaktivieren willst */
     border: solid 1px red;
     filter: none;
@@ -517,7 +518,8 @@ textarea {
 .create-task-button:disabled {
     /* Entferne hier alle Hover-Stile */
     background: #2a36472a;
-    cursor: default; /* Cursor auf Standard zurücksetzen */
+    cursor: default;
+    /* Cursor auf Standard zurücksetzen */
     /* ... weitere Stile, die du beim Hover deaktivieren willst */
     filter: none;
 }
@@ -556,12 +558,12 @@ textarea {
 }
 
 .sub-task-entry {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 14px;
-        padding: 5px 0px 5px 8px;
-        height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 5px 0px 5px 8px;
+    height: 28px;
 }
 
 .highlight-subtask:hover {
@@ -587,4 +589,97 @@ textarea {
 .prio-green {
     transition: none !important;
     filter: brightness(0) saturate(100%) invert(98%) sepia(64%) saturate(3663%) hue-rotate(32deg) brightness(94%) contrast(87%)
+}
+
+@media (max-width: 1350px) {
+
+    .task-form {
+        width: 100%;
+        margin-right: 80px;
+    }
+
+    .task-title {
+        width: auto;
+    }
+
+    .add-task-inline {
+        width: 100%;
+    }
+
+.input-wrapper {
+    width: 100%;
+}
+
+
+.input-left  {
+    width: 100%;
+}
+
+.input-right  {
+    width: 100%;
+}
+
+    .form-wrapper {
+
+        width: 100%;
+
+    }
+
+    .task-form {
+
+        width: auto;
+        margin-left: 320px;
+    }
+
+    .task-title {
+
+        width: auto;
+
+    }
+
+
+    .cancelButton {
+
+        width: 126px;
+
+    }
+
+.prio-buttons {
+    gap: 24px;
+}
+
+    .prio-task {
+        flex-grow: 1;
+    }
+    
+    .assign-field {
+        width: auto;
+    }
+    
+    .contacts-drp-list {
+        width: auto;
+    }
+    
+    .contact-list-open {
+        width: auto;
+    }
+    
+    .dropdown-category-content {
+        width: auto;
+    }
+    
+    .create-task-button {
+        width: 200px;
+    }
+
+    .task-text {
+        height: 120px;
+        padding: 12px;
+    }
+
+
+
+
+
+
 }
