@@ -2,17 +2,31 @@ let selectedContacts = [];
 let subTaskList = [];
 let priority = [];
 let chosenCategory = [];
-let boardStatus = []; //defines in which list in the board the task will be put
+let boardStatus = ['toDo']; //defines in which list in the board the task will be put
 
+let statusFromBoard = localStorage.getItem('boardStatus');
+if (!statusFromBoard) {
+    statusFromBoard = 'toDo'; // Set default status to 'toDo'
+}
 
 /**
  * 
  * @param {string} status name of the list in the board
  */
-function setBoardStatus(status) {
-    boardStatus = status;
+function setBoardStatus(statusFromBoard) {
+    boardStatus = statusFromBoard;
+    localStorage.removeItem('boardStatus');
 }
 
+
+/**
+ * Store the status in localStorage to retrieve it in the addTask.html page
+ * @param {string} status 
+ */
+function openAddTaskPage(status) {
+    localStorage.setItem('boardStatus', status);
+    window.location.href = 'addTask.html';
+}
 
 /**
  * function exists in board.js and must be removed

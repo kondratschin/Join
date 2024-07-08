@@ -398,7 +398,11 @@
     margin-top: 12px;
 }
 
-@media (max-width: 500px){
+.d-mobile {
+    display: none;
+}
+
+@media (max-width: 920px){
     .boardContainer{
         flex-direction: column;
     }
@@ -433,5 +437,13 @@
         width: 12%;
         margin-right: 24px;
         position: absolute;
+    }
+
+    .d-none-mobile {
+        display: none;
+    }
+
+    .d-mobile {
+        display: block;
     }
 }

@@ -391,3 +391,8 @@ async function updateFirebase(category, index, currentCategory, taskTitle) {
         console.error("Error moving task:", error);
     }
 }
+
+
+
+
+

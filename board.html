@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="addtask.css">
     <link rel="stylesheet" href="addtask_window.css">
     <link rel="stylesheet" href="contacts.css">
-
+    <script src="./grund.js"></script>
+    <script src="./board.js"></script>
+    <script src="./addTask.js" defer></script>
+    <script src="./contacts.js"></script>
     <link rel="shortcut icon" href="./img/Capa-1.svg" type="image/x-icon">
 </head>
 
@@ -44,14 +47,22 @@
             <div id="toDoContainer" ondrop="moveTo('toDo')" ondragover="allowDrop(event)" class="toDoContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">To do</div>
-                    <div onclick="addTaskWindow('toDo')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                    <div id="addButtonToDo" onclick="addTaskWindow('toDo')" class="taskHeaderAddButton d-none-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                             <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                         </svg>
                     </div>
+                    <div id="addButtonToDoMobile" id="addButtonToDo" onclick="openAddTaskPage('toDo')" class="taskHeaderAddButton d-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                    </svg>
                 </div>
+                </div>
+                
                 <div id="todoPlaceholder" class="noTask d-none">
                     No task's to do
                 </div>
@@ -60,13 +71,20 @@
             <div id="inProgressContainer" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)"  class="inProgressContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">In progress</div>
-                    <div onclick="addTaskWindow('inProgress')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                    <div id="addButtonProgress" onclick="addTaskWindow('inProgress')" class="taskHeaderAddButtond d-none-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                             <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                         </svg>
                     </div>
+                    <div id="addButtonProgressMobile" onclick="openAddTaskPage('inProgress')" class="taskHeaderAddButton d-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
                 </div>
                 <div id="progressPlaceholder" class="noTask d-none">
                     No task's in progress
@@ -76,13 +94,20 @@
             <div id="awaitFeedbackContainer" ondrop="moveTo('awaitFeedback')" ondragover="allowDrop(event)"  class="awaitFeedbackContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">Await feedback</div>
-                    <div onclick="addTaskWindow('awaitFeedback')" class="taskHeaderAddButton"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                    <div id="addButtonFeedback" onclick="addTaskWindow('awaitFeedback')" class="taskHeaderAddButton d-none-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
                             <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                             <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                         </svg>
                     </div>
+                    <div id="addButtonFeedbackMobile" onclick="openAddTaskPage('awaitFeedback')" class="taskHeaderAddButton d-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1.5" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <path d="M12 8.5V16.5" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 12.5754L8 12.5754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
                 </div>
                 <div id="feedbackPlaceholder" class="noTask d-none">
                     No feedback awaitet
@@ -106,10 +131,7 @@
 
 <div id="addTaskWindow" class="add-task d-none" w3-include-html="templates/add_task_template.html"></div>
 
-<script src="./grund.js" defer></script>
-<script src="./board.js" defer></script>
-<script src="./addTask.js" defer></script>
-<script src="./contacts.js" defer></script>
+
 
 </body>
 
