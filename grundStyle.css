@@ -322,7 +322,7 @@ a {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 920px) {
 
     .leftNavbar {
         top: 90%;
@@ -451,12 +451,10 @@ a {
         align-items: center;
         padding: 20px 16px;
         position: fixed;
-        width: 428px;
         height: 66px;
         left: 0px;
         top: 0px;
         background: #FFFFFF;
-        /* Barra superior */
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     }
 
@@ -560,7 +558,7 @@ a {
 
 }
 
-@media (min-width: 500px) {
+@media (min-width: 920px) {
     .smalLogo {
         display: none;
     }

@@ -1,0 +1,48 @@
+.add-task-title {
+    margin-top: 70px !important;
+}
+
+.task-form {
+    margin-right: 0;
+}
+
+
+@media (max-width: 1050px) {
+.add-task {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    border-radius: 0;
+}
+}
+
+@media (max-width: 920px) {
+
+    .task-form {
+        margin-left: 80px;
+        margin-right: 80px;
+        height: auto;
+    }
+
+    .add-task-inline {
+        margin-left: 0;
+    }
+
+    .add-task-title {
+        margin-top: 0 !important;
+        background-color: #ffffff;
+        width: auto;
+        display: flex;
+    }
+
+    .input-wrapper {
+        margin-top: 200px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0px !important;
+    }
+}
+
