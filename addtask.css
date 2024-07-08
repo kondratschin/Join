@@ -34,6 +34,7 @@
 .add-task-inline {
     height: 100%;
     width: 100%;
+    margin-left: 320px;
 }
 
 .form-wrapper {
@@ -57,7 +58,6 @@
     width: 980px;
     height: 100%;
     font-size: 20px;
-    margin-left: 320px;
 }
 
 .input-wrapper {
@@ -622,7 +622,7 @@ textarea {
     }
 
     .task-form {
-        width: 100%;
+        width: auto;
         margin-right: 80px;
     }
 
@@ -634,10 +634,6 @@ textarea {
         width: 100%;
     }
 
-    .task-form {
-        width: auto;
-        margin-left: 320px;
-    }
 
     .task-title {
         width: auto;
@@ -670,24 +666,24 @@ textarea {
 
 @media (max-width: 1050px) {
 
-.separator {
-    display: none;
-}
+    .separator {
+        display: none;
+    }
 
-.input-wrapper {
-    flex-direction: column;
-}
+    .input-wrapper {
+        flex-direction: column;
+    }
 
-/* .add-task-title {
+    /* .add-task-title {
     position: sticky;
     top: 200px;
 } */
 
 
-.task-lowsection {
-    margin-top: 24px;
-    padding-bottom: 60px;
-}
+    .task-lowsection {
+        margin-top: 24px;
+        padding-bottom: 60px;
+    }
 
 
 }
