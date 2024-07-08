@@ -627,17 +627,17 @@ input {
         margin-right: 80px;
     }
 
-    .task-title {
+    /* .task-title {
         width: auto;
-    }
+    } */
 
-    .add-task-inline {
+    /* .add-task-inline {
         width: 100%;
-    }
+    } */
 
-.input-wrapper {
+/* .input-wrapper {
     width: 100%;
-}
+} */
 
 
 .input-left  {
@@ -648,11 +648,11 @@ input {
     width: 100%;
 }
 
-    .form-wrapper {
+    /* .form-wrapper {
 
         width: 100%;
 
-    }
+    } */
 
     .task-form {
 
@@ -667,23 +667,15 @@ input {
     }
 
 
-    .cancelButton {
-
-        width: 126px;
-
-    }
 
 .prio-buttons {
-    gap: 24px;
+    gap: 16px;
 }
 
     .prio-task {
         flex-grow: 1;
     }
     
-    .assign-field {
-        width: auto;
-    }
     
     .contacts-drp-list {
         width: auto;
@@ -694,9 +686,6 @@ input {
         width: calc(100% + 2px);
     }
     
-    .create-task-button {
-        width: 200px;
-    }
 
     .task-text {
         height: 120px;
