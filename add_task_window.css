@@ -591,7 +591,36 @@ textarea {
     filter: brightness(0) saturate(100%) invert(98%) sepia(64%) saturate(3663%) hue-rotate(32deg) brightness(94%) contrast(87%)
 }
 
+.task-input-field {
+    width: 440px;
+    display: flex;
+    flex-direction: column;
+}
+
+
 @media (max-width: 1350px) {
+
+    .prio-text {
+        display: none !important;
+    }
+
+input {
+    width: 100%;
+}
+
+.contact-list-open {
+    width: 100%;
+}
+
+
+.task-input-field {
+    width: 100%;
+    min-width: 290px;
+}
+
+.input-wrapper {
+    gap: 24px;
+}
 
     .task-form {
         width: 100%;
@@ -660,12 +689,9 @@ textarea {
         width: auto;
     }
     
-    .contact-list-open {
-        width: auto;
-    }
-    
+
     .dropdown-category-content {
-        width: auto;
+        width: calc(100% + 2px);
     }
     
     .create-task-button {
@@ -677,9 +703,9 @@ textarea {
         padding: 12px;
     }
 
+}
 
 
-
-
+@media (max-width: 1350px) {
 
 }
