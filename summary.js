@@ -42,7 +42,6 @@ function goodMorningText() {
 }
 
 async function renderCounts() {
-    debugger
     console.log('Starting renderCounts function');
     const userName = getUserName();
     if (!userName) return;
