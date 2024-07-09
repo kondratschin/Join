@@ -42,6 +42,7 @@ function goodMorningText() {
 }
 
 async function renderCounts() {
+    debugger
     console.log('Starting renderCounts function');
     const userName = getUserName();
     if (!userName) return;
@@ -53,7 +54,7 @@ async function renderCounts() {
             setCountsToZero();
             return;
         }
-
+        
         const counts = processData(data);
         updateUI(counts);
     } catch (error) {
@@ -169,6 +170,7 @@ function setCountsToZero() {
         done: 0,
         inProgress: 0,
         awaitingFeedback: 0,
+        urgent: 0,
         totalTasks: 0,
         nearestDeadline: 'No deadlines set'
     });
