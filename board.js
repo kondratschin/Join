@@ -107,9 +107,9 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
                     ${contactsHtml}
                 </div>
             </div>
-            <div class="${hasSubtasks ? '' : 'd-none'}">
-                <span class="task-overlay-text">Subtasks</span>
-                <li> ${task.subTaskList}</li>
+            <div class="${hasSubtasks ? 'd-flex' : 'd-none'}">
+                <span class="task-overlay-text subtask-overlay">Subtasks</span>
+                <span> ${task.subTaskList}</span>
             </div>
             <div class="task-overlay-foot">
                 <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">

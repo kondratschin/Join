@@ -402,6 +402,15 @@
     display: none;
 }
 
+.d-flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.subtask-overlay {
+    margin-bottom: 12px;
+}
+
 @media (max-width: 920px){
     .boardContainer{
         flex-direction: column;
