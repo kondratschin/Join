@@ -692,8 +692,8 @@ textarea {
 @media (max-width: 920px) {
 
     .task-form {
-        margin-left: 80px;
-        margin-right: 80px;
+        margin-left: 16px;
+        margin-right: 16px;
         height: auto;
     }
 
@@ -716,4 +716,15 @@ textarea {
     ::-webkit-scrollbar {
         width: 0px !important;
     }
+
+    @media (max-width: 560px) {
+
+        .cancelButtonDNone {
+            display: none !important;
+        }
+
+        .create-task-button {
+            width: 183px;
+        }
+}
 }
