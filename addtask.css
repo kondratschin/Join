@@ -403,6 +403,10 @@ textarea {
     padding: 12px;
 }
 
+.pddng-4 {
+    padding: 4px;
+}
+
 .contact-in-list:hover {
     background-color: #D9D9D9;
     border-radius: 10px;
@@ -704,17 +708,19 @@ h1 {
     font-size: 47px;
 }
 
-p {
+/* p {
     font-size: 16px;
-}
+} */
 
 .task-date {
     font-size: 16px;
 }
 
-.assign-contact {
+.assign-contact p {
     font-size: 16px;
 }
+
+
 
 ::placeholder {
     font-size: 16px;

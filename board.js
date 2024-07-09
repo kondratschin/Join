@@ -16,7 +16,6 @@ function getName() {
     return name; // Return the retrieved name
 }
 
-
 function load() {
     addPlus();
     getTasks().then(() => {
@@ -25,35 +24,31 @@ function load() {
     });
 }
 
-
 /**
  * fetches the tasks from firebase
  */
 async function getTasks() {
-    const categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];  // Die Kategorien, die wir abfragen wollen
-
+  const categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+  for (const category of categories) {
     try {
-        for (const category of categories) {
-            const response = await fetch(BASE_URL + "tasks/" + getName() + "/" + category + ".json");
-            const responseAsJson = await response.json();
-            console.log(category, responseAsJson);  // Zur Überprüfung der geladenen Daten
+      const response = await fetch(`${BASE_URL}tasks/${getName()}/${category}.json`);
+      const data = await response.json();
 
-            if (responseAsJson) {
-                tasks[category] = Object.keys(responseAsJson).map(taskKey => ({
-                    ...responseAsJson[taskKey],
-                    id: taskKey,  // Speichern des Keys als 'id' im Task-Objekt
-                    category: category  // Speichern der Kategorie als Teil des Task-Objekts
-                }));
-            }
-        }
+      if (data) {
+        tasks[category] = Object.keys(data).map(key => ({
+          ...data[key],
+          id: key,
+          category
+        }));
+      }
     } catch (error) {
-        console.error("Error fetching tasks:", error);
+      console.error(`Error fetching tasks for ${category}:`, error);
     }
+  }
 }
 
-
 /**
- * shows pop up screen wiht details
+ * shows pop up screen with details
  * @param {string} index 
  * @param {string} taskCategory 
  * @param {string} chosenCategory 
@@ -72,64 +67,108 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
         // Filter out undefined contacts
         let validContacts = selectedContacts.filter(contact => contact !== undefined && contact !== null);
 
-        // Generate HTML for all valid selected contacts
-        let contactsHtml = validContacts.map(contact => `
-            <div id="assOverlayAssPerson" class="task-overlay-ass-person">
-                <div class="initialsContact-small" style="background: ${contact.color}">
-                    ${contact.initials}
-                </div>
-                <span class="pddng-lft-12">${contact.name}</span>
-            </div>
-        `).join('');
-
-        content.innerHTML = /*html*/ `
-            <div class="task-overlay-head">
-                <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
-                <div onclick="displayNone('task-overlay')" class="closeButtonBackground">
-                    <img src="./img/close.svg" alt="">
-                </div>
-            </div>
-            <span class="task-overlay-title">${task.id}</span>
-            <span class="task-overlay-text">${task.taskDescription}</span>
-            <table class="task-overlay-text">
-                <tr>
-                    <td>Due date:</td>
-                    <td>${task.taskDate}</td>
-                </tr>
-                <tr>
-                    <td>Priority:</td>
-                    <td>${task.priority}</td>
-                </tr>
-            </table>
-            <div class="${validContacts.length > 0 ? '' : 'd-none'}">
-                <span class="task-overlay-text">Assigned to:</span>
-                <div class="task-overlay-assigned">
-                    ${contactsHtml}
-                </div>
-            </div>
-            <div class="${hasSubtasks ? 'd-flex' : 'd-none'}">
-                <span class="task-overlay-text subtask-overlay">Subtasks</span>
-                <div>
-                <img id="check-button1" src="./img/check-button.svg" alt=""> <img
-                                    id="checked-button1" class="d-none" src="./img/checked-button.svg" alt=""><span>${task.subTaskList}</span>
-                </div>
-            </div>
-            <div class="task-overlay-foot">
-                <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
-                    <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
-                    <span>Delete</span>
-                </div>
-                <img src="./img/separator-small.svg" class="sep-small" alt="">
-                <div class="overlay-action highlight-gray">
-                    <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
-                    <span>Edit</span>
-                </div>
-            </div>
-        `;
+        // Generate HTML and update content
+        content.innerHTML = generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, index);
     } else {
         content.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
     }
 }
+
+function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
+    // Add class 'd-none' to unchecked button overlay
+    document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+    // Remove class 'd-none' from checked button overlay
+    document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+    // Add 'complete' to the subtask array
+    tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
+}
+
+function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
+    // Add class 'd-none' to checked button overlay
+    document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+    // Remove class 'd-none' from unchecked button overlay
+    document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+    // Remove 'complete' from the subtask array
+    delete tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete;
+}
+
+/**
+ * generates the HTML for the overlay task
+ * @param {object} task 
+ * @param {array} validContacts 
+ * @param {boolean} hasSubtasks 
+ * @param {string} chosenCategory 
+ * @param {string} taskCategory 
+ * @param {number} taskIndex
+ * @returns {string}
+ */
+function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, taskIndex) {
+    // Generate HTML for all valid selected contacts
+    let contactsHtml = validContacts.map(contact => `
+        <div id="assOverlayAssPerson" class="task-overlay-ass-person">
+            <div class="initialsContact-small" style="background: ${contact.color}">
+                ${contact.initials}
+            </div>
+            <span class="pddng-lft-12">${contact.name}</span>
+        </div>
+    `).join('');
+
+    // Generate HTML for subtasks
+    let subtasksHtml = hasSubtasks ? task.subTaskList.map((subtask, index) => `
+    <div class="subtasks-listed highlight-gray pddng-4" id="subtask${index}">
+        <img onclick="checkSubtask('${taskCategory}', ${taskIndex}, ${index})" class="checkbox-subtask" id="unCheckedButtonOverlay${index}" src="./img/check-button.svg" alt=""> 
+        <img onclick="UnCheckSubtask('${taskCategory}', ${taskIndex}, ${index})" id="checkedButtonOverlay${index}" class="d-none checkbox-subtask" src="./img/checked-button.svg" alt="">
+        <span>${subtask.name}</span>
+    </div>
+`).join('') : '';
+
+    // Return the full HTML string
+    return /*html*/ `
+        <div class="task-overlay-head">
+            <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
+            <div onclick="displayNone('task-overlay')" class="closeButtonBackground">
+                <img src="./img/close.svg" alt="">
+            </div>
+        </div>
+        <span class="task-overlay-title">${task.id}</span>
+        <span class="task-overlay-text">${task.taskDescription}</span>
+        <table class="task-overlay-text">
+            <tr>
+                <td>Due date:</td>
+                <td>${task.taskDate}</td>
+            </tr>
+            <tr>
+                <td>Priority:</td>
+                <td>${task.priority}</td>
+            </tr>
+        </table>
+        <div class="${validContacts.length > 0 ? '' : 'd-none'}">
+            <span class="task-overlay-text">Assigned to:</span>
+            <div class="task-overlay-assigned">
+                ${contactsHtml}
+            </div>
+        </div>
+        <div class="${hasSubtasks ? 'd-flex' : 'd-none'}">
+            <span class="task-overlay-text subtask-overlay">Subtasks</span>
+            <div class="subtasks-list-overlay">
+                ${subtasksHtml}
+            </div>
+        </div>
+        <div class="task-overlay-foot">
+            <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
+                <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
+                <span>Delete</span>
+            </div>
+            <img src="./img/separator-small.svg" class="sep-small" alt="">
+            <div class="overlay-action highlight-gray">
+                <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
+                <span>Edit</span>
+            </div>
+        </div>
+    `;
+}
+
+
 
 
 /**
@@ -139,7 +178,6 @@ function renderToDoList() {
     let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
     categories.forEach(renderList);
 }
-
 
 function checkArraysForContent() {
     // Definiere die Kategorien und die zugehörigen Platzhalter
@@ -161,7 +199,6 @@ function checkArraysForContent() {
         }
     });
 }
-
 
 function buildTaskHTML(task, index, taskCategory) {
     let selectedContact = getSelectedContact(task);
@@ -185,13 +222,11 @@ function buildTaskHTML(task, index, taskCategory) {
     </div>`;
 }
 
-
 function getSelectedContact(task) {
     return Array.isArray(task.selectedContacts) && task.selectedContacts.length > 0
         ? task.selectedContacts[0]
         : { color: '#ccc', initials: '', name: 'Unknown' };
 }
-
 
 function getSubtasksHTML(task) {
     if (task.subTaskList && task.subTaskList.length > 0) {
@@ -210,7 +245,6 @@ function getSubtasksHTML(task) {
     return '';
 }
 
-
 function getContactsHTML(task) {
     let htmlContent = '';
     if (Array.isArray(task.selectedContacts)) {
@@ -226,7 +260,6 @@ function getContactsHTML(task) {
     return htmlContent;
 }
 
-
 function renderList(taskCategory) {
     let content = document.getElementById(`${taskCategory}List`);
     let tasksInCategory = tasks[taskCategory];
@@ -239,7 +272,6 @@ function renderList(taskCategory) {
 
     content.innerHTML = htmlContent;
 }
-
 
 function getPrioToSVG(priority) {
     switch (priority) {
@@ -254,7 +286,6 @@ function getPrioToSVG(priority) {
     }
 }
 
-
 function addPlus() {
     const addButton = document.getElementById('addTaskButton');
     // Prüfen, ob das Plus-Symbol bereits existiert
@@ -262,7 +293,6 @@ function addPlus() {
         addButton.innerHTML += `<img class="add" src="./img/add.svg" alt="Add">`;
     }
 }
-
 
 async function deleteTask(taskId, taskCategory) {
     const userName = getName();
@@ -287,7 +317,6 @@ async function deleteTask(taskId, taskCategory) {
     }
 }
 
-
 function removeTaskFromUI(taskId, taskCategory) {
     tasks[taskCategory] = tasks[taskCategory].filter(task => task.id !== taskId);
     renderList(taskCategory);
@@ -295,10 +324,8 @@ function removeTaskFromUI(taskId, taskCategory) {
     displayNone('task-overlay')
 }
 
-
 function findTask() {
     let input = document.getElementById('findTaskInput').value.trim().toLowerCase(); // Den Input trimmen und in Kleinbuchstaben umwandeln
-
 
     let found = false;
     const taskContainers = document.querySelectorAll('.taskContainer'); // Annahme, dass deine Task-Elemente diese Klasse haben
@@ -321,11 +348,9 @@ function findTask() {
     checkArraysForContent();
 }
 
-
 function startDragging(currentCategory, index, taskTitle) {
     currentDraggedElement = [index, currentCategory, taskTitle];
 }
-
 
 async function moveTo(category) {
     let [index, currentCategory, taskTitle] = currentDraggedElement;
@@ -344,11 +369,9 @@ async function moveTo(category) {
     }
 }
 
-
 function allowDrop(ev) {
-ev.preventDefault();
+    ev.preventDefault();
 }
-
 
 function moveToCategory(category, index, currentCategory, taskTitle) {
     // Find the task in the current category array
@@ -370,7 +393,6 @@ function moveToCategory(category, index, currentCategory, taskTitle) {
 
     console.log(`Task moved to ${category} at index ${index}`);
 }
-
 
 async function updateFirebase(category, index, currentCategory, taskTitle) {
     try {
@@ -394,8 +416,3 @@ async function updateFirebase(category, index, currentCategory, taskTitle) {
         console.error("Error moving task:", error);
     }
 }
-
-
-
-
-

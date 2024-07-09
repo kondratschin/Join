@@ -411,6 +411,36 @@
     margin-bottom: 12px;
 }
 
+.subtasks-list-overlay {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subtasks-listed {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.checkbox-subtask {
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: none !important;
+}
+
+
+.checkbox-subtask:hover {
+    background-color: rgba(15, 10, 10, 0.192);
+    border-radius: 50%;
+    transition: none !important;
+}
+
+
 @media (max-width: 920px){
     .boardContainer{
         flex-direction: column;

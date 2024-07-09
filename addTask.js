@@ -18,7 +18,6 @@ function setBoardStatus(statusFromBoard) {
     localStorage.removeItem('boardStatus');
 }
 
-
 /**
  * Store the status in localStorage to retrieve it in the addTask.html page
  * @param {string} status 
@@ -52,7 +51,6 @@ function validateForm() {
         document.getElementById('create-task-bttn').disabled = true;
     }
 }
-
 
 // Wait for DOMContentLoaded to ensure DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -97,14 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
             validateForm(); // Call validateForm after successful validation
         }
     }
-
 });
-
 
 function monitorInputFieldTitle() {
     let inputField = document.getElementById('task-title1');
     let errorSpan = document.getElementById('titleError');
-
 
     inputField.addEventListener('input', function () {
         if (inputField.value.trim() === '') {
@@ -113,13 +108,10 @@ function monitorInputFieldTitle() {
     });
 }
 
-
 function forceDisableButton() {
     let createButton = document.getElementById('create-task-bttn');
-
     createButton.disabled = true;
 }
-
 
 /**
  * Contacts from array 'selectedContacts' will be shown as selected/highlighted, if no contacts have been selected previously, contact list will be rendered
@@ -132,24 +124,20 @@ function showContactDrp() {
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
 }
 
-
 function showCategoryDrp() {
     document.getElementById('category-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn2').classList.toggle('flip-vertically');
 }
-
 
 function hideCategoryDrp() {
     document.getElementById('category-drp-dwn').classList.add('d-none');
     document.getElementById('arrow-drp-dwn2').classList.remove('flip-vertically');
 }
 
-
 function hideContactDrp() {
     document.getElementById('contact-drp-dwn').classList.add('d-none');
     document.getElementById('arrow-drp-dwn').classList.remove('flip-vertically');
 }
-
 
 function prioritySelected(id, className, arrow) {
     removeSelection(id);
@@ -163,7 +151,6 @@ function prioritySelected(id, className, arrow) {
         priority = 'High';
     }
 }
-
 
 function removeSelection(id) {
     if (id == 'prio-baja') {
@@ -186,7 +173,6 @@ function removeSelection(id) {
     };
 }
 
-
 function highlightContact(no) {
     const contactElement = document.getElementById(`contact-in-list${no}`);
     const isSelected = contactElement.classList.toggle('selected-contact');
@@ -196,7 +182,6 @@ function highlightContact(no) {
 
     updateSelectedContacts(contactElement, isSelected, no);
 }
-
 
 function updateSelectedContacts(contactElement, isSelected, index) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
@@ -213,18 +198,15 @@ function updateSelectedContacts(contactElement, isSelected, index) {
     selectedInitialIcos();
 }
 
-
 function toggleTwoElements(one, two) {
     document.getElementById(`${one}`).classList.toggle('d-none');
     document.getElementById(`${two}`).classList.toggle('d-none');
 }
 
-
 function alternateTwoElements(one, two) {
     document.getElementById(`${one}`).classList.remove('d-none');
     document.getElementById(`${two}`).classList.add('d-none');
 }
-
 
 /**
  * Disable submit button and clear fields
@@ -244,7 +226,6 @@ function disableButton() {
     createContactDrpDwn();
 }
 
-
 /**
  * Show error messages if required fields are empty
  */
@@ -260,7 +241,6 @@ function showErrorMsg() {
 function resetInput() {
     document.getElementById('taskSub').value = "";
 }
-
 
 document.addEventListener('click', function (event) {
     let excludedObjects = document.querySelectorAll('.excludedObject');
@@ -282,7 +262,6 @@ document.addEventListener('click', function (event) {
     }
 });
 
-
 /**
 * Select category
 * 
@@ -296,7 +275,6 @@ function assignCategory(category) {
     validateForm();
 }
 
-
 /**
  * Load contacts from Firebase into array
  */
@@ -308,7 +286,6 @@ async function loadContactsArray() {
     sortContactlist(responseAsJson, contactsAsArray);
     createContactDrpDwn();
 }
-
 
 /**
  * Contact list from array will be sorted
@@ -325,7 +302,6 @@ function createContactDrpDwn() {
     }
 }
 
-
 function showContactInDrpDwn(sortLetterNr, i) {
     for (let y = 0; y < sortLetterNr['list'].length; y++) {
         const LetterContactNr = sortLetterNr['list'][y];
@@ -333,14 +309,12 @@ function showContactInDrpDwn(sortLetterNr, i) {
     }
 }
 
-
 function printContactDrpDwn(LetterContactNr, i) {
     let contactDrpDwn = document.getElementById('contact-content');
     contactDrpDwn.innerHTML += "";
     let color = LetterContactNr['color'];
     let initials = LetterContactNr['name'].match(/\b(\w)/g).join('');
     let name = LetterContactNr['name'];
-
 
     contactDrpDwn.innerHTML += /*html*/ `
         <div onclick="highlightContact(${i})" id="contact-in-list${i}" class="contact-in-list pddng-12">
@@ -352,7 +326,6 @@ function printContactDrpDwn(LetterContactNr, i) {
         </div>
     `;
 }
-
 
 function selectedInitialIcos() {
     let selectedInitialIco = document.getElementById('selected-initial-ico');
@@ -369,19 +342,17 @@ function selectedInitialIcos() {
     }
 }
 
-
 function pushToSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
 
     // Check if newSubtask has at least one character
     if (newSubtask.length >= 1) {
-        subTaskList.push(newSubtask);
+        subTaskList.push({ name: newSubtask, complete: false });
         resetInput();
         alternateTwoElements('subtask-plus', 'subtask-buttons');
         renderSubTaskList();
     }
 }
-
 
 function renderSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
@@ -396,7 +367,7 @@ function renderSubTaskList() {
 
         subTaskListHTML.innerHTML += /*html*/ `
             <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
-                <li id="subtask-in-list${i}">${subTask}</li>
+                <li id="subtask-in-list${i}">${subTask.name}</li>
                 <div class="sub-task-buttons" style="display: none">
                     <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
                     <img src="./img/separator-small.svg" class="sep-small" alt="">
@@ -415,12 +386,10 @@ function renderSubTaskList() {
     }
 }
 
-
 function deleteSubtaskHTML(index) {
     subTaskList.splice(index, 1);
     renderSubTaskList();
 }
-
 
 function editTaskInList(index) {
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
@@ -429,7 +398,7 @@ function editTaskInList(index) {
     let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
 
     subTaskElement.innerHTML = /*html*/ `
-        <input type="text" id="edited-sub-task-${index}" value="${currentTask}">
+        <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
     `;
 
     firstButtonImg.src = './img/recycle.svg';
@@ -444,20 +413,17 @@ function editTaskInList(index) {
     changeParentStyle(index);
 }
 
-
 function saveEditedTask(index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
 
     if (editedTask) {
-
-        subTaskList[index] = editedTask;
+        subTaskList[index].name = editedTask;
         renderSubTaskList();
     } else {
         console.error("Edited subtask is empty");
     }
 }
-
 
 function changeParentStyle(index) {
     let childDiv = document.getElementById(`subtask-in-list${index}`);
@@ -470,11 +436,9 @@ function changeParentStyle(index) {
     parentDiv.style.backgroundColor = '#ffffff';
 }
 
-
 function openBoardPage() {
     window.location.href = './board.html';
 }
-
 
 function addTaskEvent() {
     let taskTitle = document.getElementById('task-title1').value;
@@ -484,11 +448,10 @@ function addTaskEvent() {
     document.getElementById('taskForm').reset();
 
     return false;
-};
-
+}
 
 /**
- * Creates a task in the corrospending list
+ * Creates a task in the corresponding list
  * @param {string} taskTitle is called from the input 
  */
 async function createTask(taskTitle) {
@@ -531,9 +494,7 @@ async function createTask(taskTitle) {
     }
 }
 
-
 function addTaskWindow(status) {
     setBoardStatus(status);
     displayElement('addTaskWindow');
 }
-
