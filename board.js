@@ -114,13 +114,17 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
     `).join('');
 
     // Generate HTML for subtasks
-    let subtasksHtml = hasSubtasks ? task.subTaskList.map((subtask, index) => `
-    <div class="subtasks-listed highlight-gray pddng-4" id="subtask${index}">
-        <img onclick="checkSubtask('${taskCategory}', ${taskIndex}, ${index})" class="checkbox-subtask" id="unCheckedButtonOverlay${index}" src="./img/check-button.svg" alt=""> 
-        <img onclick="UnCheckSubtask('${taskCategory}', ${taskIndex}, ${index})" id="checkedButtonOverlay${index}" class="d-none checkbox-subtask" src="./img/checked-button.svg" alt="">
-        <span>${subtask.name}</span>
-    </div>
-`).join('') : '';
+    let subtasksHtml = hasSubtasks ? task.subTaskList.map((subtask, index) => {
+        let checkedClass = subtask.complete ? '' : 'd-none';
+        let uncheckedClass = subtask.complete ? 'd-none' : '';
+        return `
+        <div class="subtasks-listed highlight-gray pddng-4" id="subtask${index}">
+            <img onclick="checkSubtask('${taskCategory}', ${taskIndex}, ${index})" class="checkbox-subtask ${uncheckedClass}" id="unCheckedButtonOverlay${index}" src="./img/check-button.svg" alt=""> 
+            <img onclick="UnCheckSubtask('${taskCategory}', ${taskIndex}, ${index})" id="checkedButtonOverlay${index}" class="${checkedClass} checkbox-subtask" src="./img/checked-button.svg" alt="">
+            <span>${subtask.name}</span>
+        </div>
+        `;
+    }).join('') : '';
 
     // Return the full HTML string
     return /*html*/ `
@@ -230,7 +234,7 @@ function getSelectedContact(task) {
 
 function getSubtasksHTML(task) {
     if (task.subTaskList && task.subTaskList.length > 0) {
-        let completedCount = task.subTaskList.filter(subtask => subtask.completed).length;
+        let completedCount = task.subTaskList.filter(subtask => subtask.complete).length;
         let total = task.subTaskList.length;
         let progressPercent = (completedCount / total) * 100;
 
