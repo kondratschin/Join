@@ -348,7 +348,7 @@ a {
         background-color: #F6F7F8;
         padding-left: 0;
         padding-top: 0;
-        height: 100vh;
+        width: 100%;
     }
 
     a {
@@ -374,6 +374,7 @@ a {
         flex-direction: row;
         height: 68px;
         position: fixed;
+        gap: 15%;
 
     }
 
@@ -561,5 +562,11 @@ a {
 @media (min-width: 920px) {
     .smalLogo {
         display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .navbarMenu{
+        gap: 5%;
     }
 }
