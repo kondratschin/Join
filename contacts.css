@@ -143,8 +143,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
-    width: 50px;
+    min-height: 50px;
+    min-width: 50px;
     font-size: large;
     color: white;
     border-radius: 25px;
@@ -195,7 +195,7 @@ body {
 .addContactCardLeftSide {
     display: flex;
     justify-content: center;
-    width: 40%;
+    min-width: 40%;
     height: 100%;
     background: #2A3647;
     border-radius: 25px 0 0 25px;
@@ -747,6 +747,12 @@ body {
         gap: 16px;
         margin-left: 8px;
     }
+
+
+    .addContactCardLeftSide {
+        justify-content: start;
+        padding-left: 8px;
+    }
 }
 
 
@@ -762,16 +768,113 @@ body {
 
 
     .contactCart {
-        justify-content: center;
+        justify-content: start;
     }
 
 
     .addNewContact {
         gap: 8px;
     }
+
+
+    .nameAndEmail span {
+        display: none;
+    }
 }
 
 
-@media (max-width: 900px) {
-    
+@media (max-width: 950px) {
+    .addContactCardRightSideContentImg {
+        margin: 25px;
+    }
+
+
+    .addContactCardLeftSide {
+        padding: 0 8px;
+
+    }
 }
+
+
+@media (max-width: 920px) {
+    .ContactsContentBox {
+        width: 100%;
+        margin-top: 66px;
+    }
+
+
+    .contactsContent {
+        max-width: unset;
+        height: calc(100% - 100px);
+    }
+
+
+    .contactsRightsideContent {
+        height: calc(100% - 100px);
+    }
+
+
+    .nameAndEmail span {
+        display: block;
+    }
+
+
+    .contactSort {
+        padding: 16px 0;
+    }
+
+
+    .contactCart {
+        padding: 8px 0 8px 24px;
+    }
+}
+
+
+@media (max-width: 770px) {
+    .contactsRightsideContent {
+        width: 100vw;
+    }
+
+
+    .buttonDiv {
+        position: absolute;
+        bottom: 160px;
+        right: 40px;
+        width: 80px;
+        height: 80px;
+        border-radius: 40px;
+        padding: 0;
+        border: solid 1px #FFFFFF;
+    }
+
+
+    .addNewContact {
+        width: 80px;
+        height: 80px;
+        border-radius: 40px;
+    }
+
+
+    .addNewContact p {
+        display: none;
+    }
+
+
+    .addContactImg {
+        width: 48px;
+        height: 48px;
+    }
+
+
+    .contactsText {
+        width: 100vw;
+    }
+}
+
+
+/* 
+Grund js fix navbar height
+content height
+function for show detail copntact and return
+add contact name pattern
+*/

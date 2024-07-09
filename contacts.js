@@ -302,3 +302,17 @@ function clearShowDetails() {
     detailBox.innerHTML = '';
     fadeOut('contactsRightsideContentInfoBox');
 }
+
+
+
+let widthMatch = window.matchMedia("(max-width: 770px)");
+    // mm in the function arg is the matchMedia object, passed back into the function
+widthMatch.addEventListener('change', function(mm) {
+if (mm.matches) {
+    document.querySelectorAll(".contactCart")
+}
+else {
+    // it no longer matches the media query
+    // remove the event listener
+}
+});
