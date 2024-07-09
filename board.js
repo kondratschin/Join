@@ -109,7 +109,10 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
             </div>
             <div class="${hasSubtasks ? 'd-flex' : 'd-none'}">
                 <span class="task-overlay-text subtask-overlay">Subtasks</span>
-                <span> ${task.subTaskList}</span>
+                <div>
+                <img id="check-button1" src="./img/check-button.svg" alt=""> <img
+                                    id="checked-button1" class="d-none" src="./img/checked-button.svg" alt=""><span>${task.subTaskList}</span>
+                </div>
             </div>
             <div class="task-overlay-foot">
                 <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
