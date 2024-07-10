@@ -743,6 +743,7 @@ h1 {
         background-color: #F6F7F8;
         position: fixed;
         width: 100%;
+        z-index: 99I;
     }
 
     .input-wrapper {
