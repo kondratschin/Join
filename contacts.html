@@ -17,7 +17,7 @@
 
     <div w3-include-html="templates/navbar.html"></div>
     <div id="ContactsContentBox" class="ContactsContentBox">
-        <div class="contactsContent">
+        <div id="contactsContent" class="contactsContent">
 
             <div class="buttonDiv">
                 <button class="addNewContact" onclick="showAddContact('addContactPopupBackground')">
@@ -36,12 +36,18 @@
                 
             </div>
         </div>
-        <div class="contactsRightsideContent">
+        <div id="contactsRightsideContent" class="contactsRightsideContent">
+            
             <div class="contactsRightsideContentHeadlineBox">
                 <div class="contactsRightsideContentHeadline">
-                    <h1>Contacts</h1>
-                    <img src="./img/vector-5.svg">
-                    <p>Better with a team</p>
+                    <div class="contactsRightsideContentHeadlineTitle">
+                        <h1>Contacts</h1>
+                        <div class="lineImg"></div>
+                        <p>Better with a team</p>
+                    </div>
+                    <div id="contactsDetailBackarrow" class="contactsDetailBackarrow d-none">
+                        <img src="./img/arrow-left-line.svg" onclick="backToContactList()">
+                    </div>
                 </div>
             </div>
             <div id="contactsRightsideContentInfoBox" class="contactsRightsideContentInfoBox">

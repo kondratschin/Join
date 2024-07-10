@@ -3,6 +3,10 @@ let accName = getName();
 let contacts = [];
 let alphabetContainer = [];
 
+
+window.addEventListener("resize", checkWidthAndAddClickListener);
+
+
 /**
  * function exists in board.js and must be removed
  * @returns 
@@ -68,6 +72,11 @@ function fadeIn(id) {
 function fadeOut(id) {
     document.getElementById(id).classList.remove('fadeIn');
     document.getElementById(id).classList.add('fadeOut');
+}
+
+
+function mobileFadeIn() {
+    document.getElementById('dropdownContainerContent').classList.add('mobileOptionFadeIn');
 }
 
 
@@ -227,6 +236,7 @@ async function getContacts() {
     let contactsAsArray = Object.keys(responseAsJson);
     sortContactlist(responseAsJson, contactsAsArray);
     showContactsInList();
+    checkWidthAndAddClickListener();
 }
 
 
@@ -304,15 +314,38 @@ function clearShowDetails() {
 }
 
 
+function showContactDetailsMobile() {
+    document.getElementById('contactsRightsideContent').classList.remove('d-none');
+    document.getElementById('contactsContent').classList.add('d-none');
+}
 
-let widthMatch = window.matchMedia("(max-width: 770px)");
-    // mm in the function arg is the matchMedia object, passed back into the function
-widthMatch.addEventListener('change', function(mm) {
-if (mm.matches) {
-    document.querySelectorAll(".contactCart")
+
+function backToContactList() {
+    document.getElementById('contactsRightsideContent').classList.add('d-none');
+    document.getElementById('contactsContent').classList.remove('d-none');
 }
-else {
-    // it no longer matches the media query
-    // remove the event listener
+
+
+function checkWidthAndAddClickListener() {
+    let contactCartElements = document.getElementsByClassName('contactCart');
+
+    if (window.innerWidth <= 770) {
+        document.getElementById('contactsDetailBackarrow').classList.remove('d-none');
+        for (let contactCart of contactCartElements) {
+            contactCart.addEventListener("click", showContactDetailsMobile);
+        }
+    } else {
+        document.getElementById('contactsDetailBackarrow').classList.add('d-none');
+        document.getElementById('contactsRightsideContent').classList.remove('d-none');
+        document.getElementById('contactsContent').classList.remove('d-none');
+        for (let contactCart of contactCartElements) {
+            contactCart.removeEventListener("click", showContactDetailsMobile);
+        }
+    }
 }
-});
+
+
+function showMobileOptions(id) {
+    appear(id);
+    mobileFadeIn();
+}
