@@ -173,27 +173,29 @@ function removeSelection(id) {
     };
 }
 
-function highlightContact(no) {
-    const contactElement = document.getElementById(`contact-in-list${no}`);
+
+
+function highlightContact(i, y) {
+    const contactElement = document.getElementById(`contact-in-list${i}-${y}`);
     const isSelected = contactElement.classList.toggle('selected-contact');
 
-    document.getElementById(`checked-button${no}`).classList.toggle('d-none');
-    document.getElementById(`check-button${no}`).classList.toggle('d-none');
+    document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
+    document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
 
-    updateSelectedContacts(contactElement, isSelected, no);
+    updateSelectedContacts(contactElement, isSelected, i, y);
 }
 
-function updateSelectedContacts(contactElement, isSelected, index) {
+function updateSelectedContacts(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
     const initials = contactElement.querySelector('.initialsContact-small').innerText;
     const name = contactElement.querySelector('span').innerText;
 
     if (isSelected) {
         // Add to selectedContacts
-        selectedContacts.push({ index, color, initials, name });
+        selectedContacts.push({ index: `${i}-${y}`, color, initials, name });
     } else {
         // Remove from selectedContacts
-        selectedContacts = selectedContacts.filter(contact => contact.index !== index);
+        selectedContacts = selectedContacts.filter(contact => contact.index !== `${i}-${y}`);
     }
     selectedInitialIcos();
 }
@@ -305,11 +307,11 @@ function createContactDrpDwn() {
 function showContactInDrpDwn(sortLetterNr, i) {
     for (let y = 0; y < sortLetterNr['list'].length; y++) {
         const LetterContactNr = sortLetterNr['list'][y];
-        printContactDrpDwn(LetterContactNr, i);
+        printContactDrpDwn(LetterContactNr, y, i);
     }
 }
 
-function printContactDrpDwn(LetterContactNr, i) {
+function printContactDrpDwn(LetterContactNr, y, i) {
     let contactDrpDwn = document.getElementById('contact-content');
     contactDrpDwn.innerHTML += "";
     let color = LetterContactNr['color'];
@@ -317,12 +319,12 @@ function printContactDrpDwn(LetterContactNr, i) {
     let name = LetterContactNr['name'];
 
     contactDrpDwn.innerHTML += /*html*/ `
-        <div onclick="highlightContact(${i})" id="contact-in-list${i}" class="contact-in-list pddng-12">
+        <div onclick="highlightContact(${i}, ${y})" id="contact-in-list${i}-${y}" class="contact-in-list pddng-12">
             <div class="flex-center">
                 <div class="initialsContact-small" style="background: ${color}">${initials}</div>
                 <span class="pddng-lft-12">${name}</span>
-            </div><img id="check-button${i}" src="./img/check-button.svg" alt="">
-            <img id="checked-button${i}" class="d-none" src="./img/checked-button.svg" alt="">
+            </div><img id="check-button${i}-${y}" src="./img/check-button.svg" alt="">
+            <img id="checked-button${i}-${y}" class="d-none" src="./img/checked-button.svg" alt="">
         </div>
     `;
 }
