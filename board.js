@@ -75,28 +75,23 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
 }
 
 async function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
-    // Add class 'd-none' to unchecked button overlay
     document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
-    // Remove class 'd-none' from checked button overlay
     document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
-    // Add 'complete' to the subtask array
     tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
 
-    // Update Firebase
     await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, true);
+    load();
 }
 
 async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
-    // Add class 'd-none' to checked button overlay
     document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
-    // Remove class 'd-none' from unchecked button overlay
     document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
-    // Remove 'complete' from the subtask array
     tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
 
     // Update Firebase
     await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, false);
-}
+    load();
+    }
 
 async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, complete) {
     const task = tasks[taskCategory][taskIndex];
@@ -406,7 +401,6 @@ function allowDrop(ev) {
 }
 
 function moveToCategory(category, index, currentCategory, taskTitle) {
-    // Find the task in the current category array
     let taskIndex = tasks[currentCategory].findIndex(task => task.id === taskTitle);
     
     if (taskIndex === -1) {
