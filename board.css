@@ -331,7 +331,7 @@
     background: #4589FF;
     text-align: center;
     line-height: 20px;
-    /* Zentriert den Text vertikal */
+    border-radius: 15px;
     color: white;
 }
 
