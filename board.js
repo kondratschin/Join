@@ -187,12 +187,27 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
                 <span>Delete</span>
             </div>
             <img src="./img/separator-small.svg" class="sep-small" alt="">
-            <div class="overlay-action highlight-gray">
+            <div onclick="editTaskOverlay('${taskIndex}', '${taskCategory}')" class="overlay-action highlight-gray">
                 <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
                 <span>Edit</span>
             </div>
         </div>
     `;
+}
+
+
+
+
+/**
+ * Updates the task in the main application and re-renders the task list
+ * @param {number} index - The index of the task in the category array
+ * @param {string} taskCategory - The category of the task (e.g., 'toDo', 'inProgress')
+ * @param {object} updatedTask - The updated task object
+ */
+function updateTask(index, taskCategory, updatedTask) {
+    tasks[taskCategory][index] = updatedTask;
+    renderToDoList();
+    checkArraysForContent();
 }
 
 
