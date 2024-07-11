@@ -496,6 +496,11 @@ async function createTask(taskTitle) {
     }
 }
 
+
+/**
+ * defines in which column the task will be saved 
+ * @param {string} status is the name of the column
+ */
 function addTaskWindow(status) {
     setBoardStatus(status);
     displayElement('addTaskWindow');

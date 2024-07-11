@@ -23,7 +23,7 @@ function editTaskOverlay(index, taskCategory = 'toDo', chosenCategory) {
         let hasSubtasks = task.subTaskList && task.subTaskList.length > 0;
 
         editTaskOverlay.innerHTML = generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, index);
-
+        attachEventListeners();
     } else {
         editTaskOverlay.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
     }
@@ -43,7 +43,7 @@ function generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, in
     `).join('');
 
     return /*html*/ `
-    <form class="task-edit" id="taskForm" onsubmit="return addTaskEvent()">
+    <form class="task-edit" id="taskEditForm" onsubmit="return addEditedTaskEvent()">
         <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
             <h1>Edit Task</h1>
             <div id="closeTaskButton" onclick="displayNone('editOverlay')" class="closeButtonBackground">
@@ -205,48 +205,150 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
 
 
 
-/**
- * Opens a new window with an editable form for the task details
- * @param {number} index - The index of the task in the category array
- * @param {string} taskCategory - The category of the task (e.g., 'toDo', 'inProgress')
- */
-function renderEditableOverlayTask(index, taskCategory = 'toDo') {
-    let tasksInCategory = tasks[taskCategory];
 
-    if (index < 0 || index >= tasksInCategory.length) {
-        alert("Invalid task index.");
-        return;
+
+
+/**
+ * Creates a task in the corresponding list and firebase
+ * @param {string} taskTitle is called from the input 
+ */
+async function saveChangesTask(taskTitle) {
+    let taskDescription = document.getElementById('taskDescription').value;
+    let taskDate = document.getElementById('taskDate').value;
+
+    let dataToSend = {
+        selectedContacts: selectedContacts,
+        subTaskList: subTaskList,
+        priority: priority,
+        chosenCategory: chosenCategory,
+        taskDescription: taskDescription,
+        taskDate: taskDate
+    };
+
+    let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json"; 
+
+    try {
+        let response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataToSend)
+        });
+
+        if (response.ok) {
+            if (window.location.pathname.endsWith("addTask.html")) {
+                displayElement('task-scc-add-ntn');
+                setTimeout(openBoardPage, 900);
+            } else if (window.location.pathname.endsWith("board.html")) {
+                load();
+                displayNone('addTaskWindow');
+            }
+        } else {
+            console.log("Error creating task.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
+
+
+
+// Wait for DOMContentLoaded to ensure DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    function attachEventListeners() {
+        const taskDateInput = document.getElementById('taskDate');
+        const taskTitleInput = document.getElementById('task-title1');
+
+        if (taskDateInput) {
+            taskDateInput.addEventListener('input', validateDateEdited);
+        }
+
+        if (taskTitleInput) {
+            taskTitleInput.addEventListener('input', validateTitleEdited);
+        }
+
+        // Check if both inputs are not empty when created and validate
+        if (taskDateInput && taskTitleInput) {
+            validateFormEdited();
+        }
     }
 
-    let task = tasksInCategory[index];
-    displayElement('editOverlay');
-    let editTaskOverlay = document.getElementById('editOverlay');
-    editTaskOverlay.innerHTML = `
-        <h1>Edit Task</h1>
-        <form id="editTaskForm">
-            <label for="taskId">Task ID:</label>
-            <input type="text" id="taskId" name="taskId" value="${task.id}" readonly>
+    function validateDateEdited() {
+        const taskDateInput = document.getElementById('taskDate');
+        let errorSpan = document.getElementById('errorDate');
 
-            <label for="taskDescription">Task Description:</label>
-            <textarea id="taskDescription" name="taskDescription">${task.taskDescription}</textarea>
+        const taskDate = taskDateInput.value;
 
-            <label for="taskDate">Due Date:</label>
-            <input type="date" id="taskDate" name="taskDate" value="${task.taskDate}">
+        const selectedDate = new Date(taskDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-            <label for="taskPriority">Priority:</label>
-            <select id="taskPriority" name="taskPriority">
-                <option value="High" ${task.priority === 'High' ? 'selected' : ''}>High</option>
-                <option value="Medium" ${task.priority === 'Medium' ? 'selected' : ''}>Medium</option>
-                <option value="Low" ${task.priority === 'Low' ? 'selected' : ''}>Low</option>
-            </select>
+        if (selectedDate < today) {
+            errorSpan.textContent = "Please select a future date.";
+        } else {
+            errorSpan.textContent = "";
+        }
+        validateFormEdited(); // Call validateFormEdited after validation
+    }
 
-            <label for="taskContacts">Assigned Contacts:</label>
-            <input type="text" id="taskContacts" name="taskContacts" value="${task.selectedContacts.map(contact => contact.name).join(', ')}">
+    function validateTitleEdited() {
+        const taskTitleInput = document.getElementById('task-title1');
+        let errorSpan = document.getElementById('titleError');
 
-            <label for="taskSubtasks">Subtasks (comma-separated):</label>
-            <input type="text" id="taskSubtasks" name="taskSubtasks" value="${task.subTaskList.map(subtask => subtask.name).join(', ')}">
+        const taskTitle = taskTitleInput.value.trim();
 
-            <button type="button" onclick="saveTask(${index}, '${taskCategory}')">Save</button>
-        </form>
-    `;
+        if (!taskTitle) {
+            errorSpan.textContent = "Task title must not be empty.";
+        } else {
+            errorSpan.textContent = "";
+        }
+        validateFormEdited(); // Call validateFormEdited after validation
+    }
+
+    function validateFormEdited() {
+        const taskDateInput = document.getElementById('taskDate');
+        const taskTitleInput = document.getElementById('task-title1');
+        const submitButton = document.getElementById('save-changes-bttn');
+
+        if (!taskDateInput || !taskTitleInput) {
+            submitButton.disabled = true;
+            return;
+        }
+
+        const taskDate = new Date(taskDateInput.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const taskTitle = taskTitleInput.value.trim();
+
+        if (taskTitle && taskDate >= today) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    // Add input event listener to handle dynamic validation
+    document.addEventListener('input', (event) => {
+        if (event.target.id === 'taskDate') {
+            validateDateEdited();
+        }
+        if (event.target.id === 'task-title1') {
+            validateTitleEdited();
+        }
+    });
+
+    // Export attachEventListeners function for external use
+    window.attachEventListeners = attachEventListeners;
+});
+
+function addEditedTaskEvent() {
+    let taskTitle = document.getElementById('task-title1').value;
+    taskTitle = String(taskTitle);
+    saveChangesTask(taskTitle);
+
+    return false;
 }
