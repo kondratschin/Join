@@ -46,7 +46,7 @@ function generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, in
     <form class="task-edit" id="taskEditForm" onsubmit="return addEditedTaskEvent()">
         <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
             <h1>Edit Task</h1>
-            <div id="closeTaskButton" onclick="displayNone('editOverlay')" class="closeButtonBackground">
+            <div id="closeTaskButton" onclick="displayNone('editOverlay'); unloadEditTaskScript()" class="closeButtonBackground">
                 <img src="./img/close.svg" alt="Close">
             </div>
         </div>
@@ -256,94 +256,85 @@ async function saveChangesTask(taskTitle) {
 
 
 
-// Wait for DOMContentLoaded to ensure DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    function attachEventListeners() {
-        const taskDateInput = document.getElementById('taskDate');
-        const taskTitleInput = document.getElementById('task-title1');
+// Code inside editTask.js
+console.log('editTask.js is running');
+// Your editTask.js code here
 
-        if (taskDateInput) {
-            taskDateInput.addEventListener('input', validateDateEdited);
-        }
+function attachEventListeners() {
+    const taskDateInput = document.getElementById('taskDate');
+    const taskTitleInput = document.getElementById('task-title1');
 
-        if (taskTitleInput) {
-            taskTitleInput.addEventListener('input', validateTitleEdited);
-        }
-
-        // Check if both inputs are not empty when created and validate
-        if (taskDateInput && taskTitleInput) {
-            validateFormEdited();
-        }
+    if (taskDateInput) {
+        taskDateInput.addEventListener('input', validateDateEdited);
     }
 
-    function validateDateEdited() {
-        const taskDateInput = document.getElementById('taskDate');
-        let errorSpan = document.getElementById('errorDate');
-
-        const taskDate = taskDateInput.value;
-
-        const selectedDate = new Date(taskDate);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        if (selectedDate < today) {
-            errorSpan.textContent = "Please select a future date.";
-        } else {
-            errorSpan.textContent = "";
-        }
-        validateFormEdited(); // Call validateFormEdited after validation
+    if (taskTitleInput) {
+        taskTitleInput.addEventListener('input', validateTitleEdited);
     }
 
-    function validateTitleEdited() {
-        const taskTitleInput = document.getElementById('task-title1');
-        let errorSpan = document.getElementById('titleError');
+    // Check if both inputs are not empty when created and validate
+    if (taskDateInput && taskTitleInput) {
+        validateFormEdited();
+    }
+}
 
-        const taskTitle = taskTitleInput.value.trim();
+function validateDateEdited() {
+    const taskDateInput = document.getElementById('taskDate');
+    let errorSpan = document.getElementById('errorDate');
 
-        if (!taskTitle) {
-            errorSpan.textContent = "Task title must not be empty.";
-        } else {
-            errorSpan.textContent = "";
-        }
-        validateFormEdited(); // Call validateFormEdited after validation
+    const taskDate = taskDateInput.value;
+
+    const selectedDate = new Date(taskDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+        errorSpan.textContent = "Please select a future date.";
+    } else {
+        errorSpan.textContent = "";
+    }
+    validateFormEdited(); // Call validateFormEdited after validation
+}
+
+function validateTitleEdited() {
+    const taskTitleInput = document.getElementById('task-title1');
+    let errorSpan = document.getElementById('titleError');
+
+    const taskTitle = taskTitleInput.value.trim();
+
+    if (!taskTitle) {
+        errorSpan.textContent = "Task title must not be empty.";
+    } else {
+        errorSpan.textContent = "";
+    }
+    validateFormEdited(); // Call validateFormEdited after validation
+}
+
+function validateFormEdited() {
+    const taskDateInput = document.getElementById('taskDate');
+    const taskTitleInput = document.getElementById('task-title1');
+    const submitButton = document.getElementById('save-changes-bttn');
+
+    if (!taskDateInput || !taskTitleInput) {
+        submitButton.disabled = true;
+        return;
     }
 
-    function validateFormEdited() {
-        const taskDateInput = document.getElementById('taskDate');
-        const taskTitleInput = document.getElementById('task-title1');
-        const submitButton = document.getElementById('save-changes-bttn');
+    const taskDate = new Date(taskDateInput.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-        if (!taskDateInput || !taskTitleInput) {
-            submitButton.disabled = true;
-            return;
-        }
+    const taskTitle = taskTitleInput.value.trim();
 
-        const taskDate = new Date(taskDateInput.value);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const taskTitle = taskTitleInput.value.trim();
-
-        if (taskTitle && taskDate >= today) {
-            submitButton.disabled = false;
-        } else {
-            submitButton.disabled = true;
-        }
+    if (taskTitle && taskDate >= today) {
+        submitButton.disabled = false;
+    } else {
+        submitButton.disabled = true;
     }
+}
 
-    // Add input event listener to handle dynamic validation
-    document.addEventListener('input', (event) => {
-        if (event.target.id === 'taskDate') {
-            validateDateEdited();
-        }
-        if (event.target.id === 'task-title1') {
-            validateTitleEdited();
-        }
-    });
-
-    // Export attachEventListeners function for external use
-    window.attachEventListeners = attachEventListeners;
-});
+// Ensure the functions are available globally if needed
+window.attachEventListeners = attachEventListeners;
 
 function addEditedTaskEvent() {
     let taskTitle = document.getElementById('task-title1').value;
