@@ -187,7 +187,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
                 <span>Delete</span>
             </div>
             <img src="./img/separator-small.svg" class="sep-small" alt="">
-            <div onclick="editTaskOverlay('${taskIndex}', '${taskCategory}')" class="overlay-action highlight-gray">
+            <div onclick="loadEditTaskScriptAndRunOverlay('${taskIndex}', '${taskCategory}')" class="overlay-action highlight-gray">
                 <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
                 <span>Edit</span>
             </div>
@@ -456,4 +456,35 @@ async function updateFirebase(category, index, currentCategory, taskTitle) {
     } catch (error) {
         console.error("Error moving task:", error);
     }
+}
+
+function loadEditTaskScript(callback) {
+    // Check if the script is already loaded
+    if (!document.getElementById('editTaskScript')) {
+        const script = document.createElement('script');
+        script.src = './editTask.js';
+        script.id = 'editTaskScript';
+        script.onload = callback;
+        document.body.appendChild(script);
+        console.log('editTask.js loaded');
+    } else {
+        // Script is already loaded, just call the callback
+        callback();
+    }
+}
+
+function unloadEditTaskScript() {
+    const script = document.getElementById('editTaskScript');
+    if (script) {
+        script.parentNode.removeChild(script);
+        console.log('editTask.js unloaded');
+    }
+}
+
+function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory) {
+    loadEditTaskScript(() => {
+        if (typeof editTaskOverlay === 'function') {
+            editTaskOverlay(taskIndex, taskCategory);
+        }
+    });
 }
