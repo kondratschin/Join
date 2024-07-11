@@ -43,16 +43,16 @@ function generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, in
     `).join('');
 
     return /*html*/ `
-    <form class="task-form" id="taskForm" onsubmit="return addTaskEvent()">
-        <div class="add-task-title">
+    <form class="task-edit" id="taskForm" onsubmit="return addTaskEvent()">
+        <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
             <h1>Edit Task</h1>
             <div id="closeTaskButton" onclick="displayNone('editOverlay')" class="closeButtonBackground">
                 <img src="./img/close.svg" alt="Close">
             </div>
         </div>
 
-        <div class="input-wrapper">
-            <div class="input-left">
+        <div class="task-edit-wrapper">
+            <div class="input-left input-edit">
                 <div class="task-input-field">
                     <span class="input-name">Title<span style="color: red">*</span></span>
                     <div class="error-wrapper">
@@ -92,9 +92,8 @@ function generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, in
                         ${assignedContactsHtml}
                     </div>
                 </div>
-            </div>
-            <div class="separator"></div>
-            <div class="input-right">
+
+
                 <div class="task-input-field">
                     <span class="input-name">Due date<span style="color: red">*</span></span>
                     <div class="error-wrapper">
@@ -163,15 +162,15 @@ function generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, in
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="task-lowsection">
+
+        <div class="task-lowsection edit-low-section">
             <div class="task-remark" style="font-size: 16px;">
                 <span style="color: red">*</span><span>This field is required</span>
             </div>
-            <div class="task-buttons">
+            <div class="task-edit-buttons">
 
-                <button onmousemove="showErrorMsg()" type="submit" disabled id="create-task-bttn" class="create-task-button">OK<img src="./img/buttonCheck.svg" alt="Button Check"></button>
+                <button onmousemove="showErrorMsg()" type="submit" disabled id="save-changes-bttn" class="create-task-button">OK<img src="./img/buttonCheck.svg" alt="Button Check"></button>
             </div>
         </div>
     </form>

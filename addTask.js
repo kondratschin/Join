@@ -284,7 +284,7 @@ async function loadContactsArray() {
 
     let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
     let responseAsJson = await response.json();
-    contactsAsArray = Object.keys(responseAsJson);
+    let contactsAsArray = Object.keys(responseAsJson);
     sortContactlist(responseAsJson, contactsAsArray);
     createContactDrpDwn();
 }
