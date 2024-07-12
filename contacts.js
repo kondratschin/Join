@@ -75,8 +75,15 @@ function fadeOut(id) {
 }
 
 
-function mobileFadeIn() {
-    document.getElementById('dropdownContainerContent').classList.add('mobileOptionFadeIn');
+function mobileFadeIn(id) {
+    document.getElementById(id).classList.remove('mobileOptionFadeOut');
+    document.getElementById(id).classList.add('mobileOptionFadeIn');
+}
+
+
+function mobileFadeOut(id) {
+    document.getElementById(id).classList.remove('mobileOptionFadeIn');
+    document.getElementById(id).classList.add('mobileOptionFadeOut');
 }
 
 
@@ -347,5 +354,23 @@ function checkWidthAndAddClickListener() {
 
 function showMobileOptions(id) {
     appear(id);
-    mobileFadeIn();
+    mobileFadeIn(id);
 }
+
+
+document.addEventListener('click', function (event) {
+    let excludedObjects = document.querySelectorAll('.excludedObjectMobile');
+    let clickedElement = event.target;
+    let isExcluded = false;
+
+    excludedObjects.forEach(function (object) {
+      if (object.contains(clickedElement)) {
+        isExcluded = true;
+      }
+    });
+  
+    if (!isExcluded) {
+        mobileFadeOut('dropdownContainerContent');
+        vanish('dropdownContainerContent');
+    }
+  });
