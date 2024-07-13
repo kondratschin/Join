@@ -66,7 +66,7 @@ function showContactDetails(color, initials, name, email, phone) {
             </div>
             
         </div>
-        <div class="moreDropdownContainer excludedObjectMobile" onclick="showMobileOptions('dropdownContainerContent')">
+        <div id="moreDropdownContainer" class="moreDropdownContainer excludedObjectMobile d-none" onclick="showMobileOptions('dropdownContainerContent')">
             <img src="./img/more_vert.svg">
         </div>
         <div id="dropdownContainerContent" class="dropdownContainerContent vanish excludedObjectMobile">

@@ -324,6 +324,7 @@ function clearShowDetails() {
 function showContactDetailsMobile() {
     document.getElementById('contactsRightsideContent').classList.remove('d-none');
     document.getElementById('contactsContent').classList.add('d-none');
+    addEventlistenerMobileMenu();
 }
 
 
@@ -357,7 +358,7 @@ function showMobileOptions(id) {
     mobileFadeIn(id);
 }
 
-
+function addEventlistenerMobileMenu() {
 document.addEventListener('click', function (event) {
     let excludedObjects = document.querySelectorAll('.excludedObjectMobile');
     let clickedElement = event.target;
@@ -374,3 +375,4 @@ document.addEventListener('click', function (event) {
         vanish('dropdownContainerContent');
     }
   });
+}

@@ -449,10 +449,9 @@ body {
 
 
 .contactsRightsideContentHeadlineBox {
-    height: 250px;
     width: 100%;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 
@@ -488,6 +487,7 @@ body {
 
 .contactsRightsideContentInfoBox {
     display: flex;
+    justify-content: space-around;
     background: #F6F7F8;
     width: 100%;
     height: calc(100% - 250px);
@@ -510,7 +510,6 @@ body {
     align-items: center;
     margin-left: 54px;
     gap: 54px;
-    padding-top: 56px;
 }
 
 
@@ -560,7 +559,6 @@ body {
     margin-left: 54px;
     gap: 16px;
     flex-direction: column;
-    padding-top: 80px;
 }
 
 
