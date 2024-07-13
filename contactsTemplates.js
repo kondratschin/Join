@@ -66,7 +66,7 @@ function showContactDetails(color, initials, name, email, phone) {
             </div>
             
         </div>
-        <div id="moreDropdownContainer" class="moreDropdownContainer excludedObjectMobile d-none" onclick="showMobileOptions('dropdownContainerContent')">
+        <div id="moreDropdownContainer" class="moreDropdownContainer excludedObjectMobile" onclick="showMobileOptions('dropdownContainerContent')">
             <img src="./img/more_vert.svg">
         </div>
         <div id="dropdownContainerContent" class="dropdownContainerContent vanish excludedObjectMobile">
@@ -97,7 +97,7 @@ function editCart(color, initials, name, email, phone) {
         </div>
         <div class="addContactCardRightSide">
             <div class="addContactCardRightSideContent">
-                <div class="addContactCardRightSideContentImg">
+                <div class="editContactCardRightSideContentImg">
                     <p class="contactsEditContactInitials" style="background: ${color};">
             ${initials}
             </p>

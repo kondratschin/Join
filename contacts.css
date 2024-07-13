@@ -765,6 +765,22 @@ body {
 }
 
 
+.moreDropdownContainer {
+    display: none;
+}
+
+
+.editContactCardRightSideContentImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    aspect-ratio: 1 / 1;
+    margin: 56px;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.1));
+}
+
+
 @media (max-width: 428) {
     .contactsRightsideContent {
         position: relative;
@@ -843,6 +859,11 @@ body {
     .addContactCardLeftSide {
         padding: 0 8px;
 
+    }
+
+
+    .editContactCardRightSideContentImg {
+        margin: 25px;
     }
 }
 
@@ -967,6 +988,13 @@ body {
     .addContactButtons {
         justify-content: center;
     }
+
+
+    .editContactCardRightSideContentImg {
+        position: relative;
+        bottom: 90px;
+        height: 160px;
+    }
 }
 
 
@@ -1052,7 +1080,12 @@ body {
 
 
     .contactsRightsideContentHeadline h1 {
-        margin: 16px 0;
+        margin: 0;
+    }
+
+
+    .contactsRightsideContentHeadline p {
+        margin: 0;
     }
 
 
@@ -1146,7 +1179,7 @@ body {
         background: #FFFFFF;
         box-shadow: 0px 4px 4px 0px #00000040;
         position: absolute;
-        bottom: 69px;
+        bottom: 16px;
         right: 2vw;
         
     }
@@ -1166,6 +1199,11 @@ body {
         height: 40px;
         background: #FFFFFF;
         border: unset;
+    }
+
+
+    .contactsRightsideContentInfoBoxProfileButtons {
+        display: none;
     }
 }
 
