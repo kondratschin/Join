@@ -158,7 +158,6 @@ p {
 
 .gmName {
     margin-left: 80px;
-    width: 100%;
 }
 
 .goodMorning {
@@ -167,7 +166,6 @@ p {
 }
 
 .name {
-    height: 77px;
     font-family: "Inter-700";
     font-style: normal;
     font-weight: 700;
@@ -340,7 +338,6 @@ p {
 .midContainer {
     display: flex;
     align-items: center;
-    width: 100%;
 }
 
 @media (max-width: 1400px) {
@@ -380,10 +377,7 @@ p {
     }
 
     .midContainer {
-        height: 420px;
-        width: 420px;
         margin: 0;
-        justify-content: space-between;
     }
 
     .TaskContainer {
@@ -435,18 +429,27 @@ p {
 }
 
 
+@media (max-width: 1060px) {
+    .mainContainer {
+        margin-left: 35px;
+    }
+
+
+    .gmName {
+        margin-left: 40px;
+    }
+}
+
+
 @media (max-width: 920px) {
 
-    html {
-        height: 90%;
-    }
 
     .icon{
         height: 32px;
     }
 
     body {
-        height: 50%;
+        margin-top: 66px;
     }
 
     .midContainer{
@@ -454,12 +457,6 @@ p {
         height: 350px !important;
     }
 
-    .mainContainer {
-        height: 500px;
-        width: 320px;
-        margin: 0;
-        position: relative; /* This makes it a reference for absolutely positioned children */
-    }
 
     .headlineContainer {
         display: flex;
@@ -607,7 +604,7 @@ p {
         display: flex;
         align-items: center;
         flex-direction: column;
-        margin-top: 32px;
+        margin: 0;
     }
 
 

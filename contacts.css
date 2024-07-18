@@ -487,7 +487,6 @@ body {
 
 .contactsRightsideContentInfoBox {
     display: flex;
-    justify-content: space-around;
     background: #F6F7F8;
     width: 100%;
     height: calc(100% - 250px);
