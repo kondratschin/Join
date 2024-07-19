@@ -116,7 +116,7 @@ function editCart(color, initials, name, email, phone) {
                                 <input id="contactName" class="addContactInput" placeholder="Name"
                                     type="text"
                                     title="Please enter at least two words with initial capital letters"
-                                    value="${name}" >
+                                    value="${name}" pattern="[A-Z][a-z]+ [A-Z][a-z]+">
                                 <img src="./img/person.svg">
                             </div>
                             <div class="input">
@@ -180,7 +180,7 @@ function addNewContactCart() {
                         <form id="addContactInputForm">
                             <div class="input">
                                 <input id="contactName" class="addContactInput" placeholder="Name"
-                                    type="text" required"
+                                    type="text" pattern="[A-Z][a-z]+ [A-Z][a-z]+" required
                                     title="Please enter at least two words with initial capital letters"
                                     required>
                                 <img src="./img/person.svg">
