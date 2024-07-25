@@ -11,25 +11,24 @@ function processSelectedContacts() {
     }
 }
 
-function editTaskOverlay(index, taskCategory = 'toDo', chosenCategory) {
+function editTaskOverlay(index, taskCategory, taskTitle) {
     displayElement('editOverlay');
     let editTaskOverlay = document.getElementById('editOverlay');
-    const tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
+    let tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
 
     if (index >= 0 && index < tasksInCategory.length) {
         let task = tasksInCategory[index]; // Access the specific task by index
         loadContactsArray();
         selectedContacts = task.selectedContacts || [];
-        let hasSubtasks = task.subTaskList && task.subTaskList.length > 0;
 
-        editTaskOverlay.innerHTML = generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, index);
+        editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory, index, taskTitle);
         attachEventListeners();
     } else {
         editTaskOverlay.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
     }
 }
 
-function generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, index) {
+function generateOverlayEdit(task, taskCategory, index) {
     const assignedContactsHtml = (task.assignedContacts || []).map(contact => `
         <div class="initialsContact-small" style="background: ${contact.color}">${contact.initials}</div>
     `).join('');
@@ -43,7 +42,7 @@ function generateOverlayEdit(task, hasSubtasks, chosenCategory, taskCategory, in
     `).join('');
 
     return /*html*/ `
-    <form class="task-edit" id="taskEditForm" onsubmit="return addEditedTaskEvent()">
+    <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
         <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
             <h1>Edit Task</h1>
             <div id="closeTaskButton" onclick="displayNone('editOverlay'); unloadEditTaskScript()" class="closeButtonBackground">
@@ -212,7 +211,7 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
  * Creates a task in the corresponding list and firebase
  * @param {string} taskTitle is called from the input 
  */
-async function saveChangesTask(taskTitle) {
+async function saveChangesTask(oldTaskTitle, newTaskTitle, boardStatus) {
     let taskDescription = document.getElementById('taskDescription').value;
     let taskDate = document.getElementById('taskDate').value;
 
@@ -225,27 +224,60 @@ async function saveChangesTask(taskTitle) {
         taskDate: taskDate
     };
 
-    let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json"; 
+    let baseUrl = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/";
+    let oldTaskUrl = baseUrl + oldTaskTitle + ".json";
+    let newTaskUrl = baseUrl + newTaskTitle + ".json";
 
     try {
-        let response = await fetch(url, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dataToSend)
-        });
+        // If the task title has changed, update the Firebase record under the new title and delete the old one
+        if (oldTaskTitle !== newTaskTitle) {
+            // Save the task data under the new title
+            let response = await fetch(newTaskUrl, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            });
 
-        if (response.ok) {
-            if (window.location.pathname.endsWith("addTask.html")) {
-                displayElement('task-scc-add-ntn');
-                setTimeout(openBoardPage, 900);
-            } else if (window.location.pathname.endsWith("board.html")) {
-                load();
-                displayNone('addTaskWindow');
+            if (response.ok) {
+                // Delete the old task record
+                await fetch(oldTaskUrl, {
+                    method: "DELETE"
+                });
+
+                // Check the current page and update the UI accordingly
+                if (window.location.pathname.endsWith("addTask.html")) {
+                    displayElement('task-scc-add-ntn');
+                    setTimeout(openBoardPage, 900);
+                } else if (window.location.pathname.endsWith("board.html")) {
+                    load();
+                    displayNone('addTaskWindow');
+                }
+            } else {
+                console.log("Error updating task.");
             }
         } else {
-            console.log("Error creating task.");
+            // If the task title hasn't changed, just update the existing record
+            let response = await fetch(newTaskUrl, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            });
+
+            if (response.ok) {
+                if (window.location.pathname.endsWith("addTask.html")) {
+                    displayElement('task-scc-add-ntn');
+                    setTimeout(openBoardPage, 900);
+                } else if (window.location.pathname.endsWith("board.html")) {
+                    load();
+                    displayNone('addTaskWindow');
+                }
+            } else {
+                console.log("Error creating task.");
+            }
         }
     } catch (error) {
         console.error("Error:", error);
@@ -336,10 +368,11 @@ function validateFormEdited() {
 // Ensure the functions are available globally if needed
 window.attachEventListeners = attachEventListeners;
 
-function addEditedTaskEvent() {
+function saveEditedTaskEvent(oldTaskTitle, taskCategory) {
     let taskTitle = document.getElementById('task-title1').value;
     taskTitle = String(taskTitle);
-    saveChangesTask(taskTitle);
-
+    saveChangesTask(oldTaskTitle, taskTitle, taskCategory);
+    displayNone('task-overlay');
+    displayNone('editOverlay');
     return false;
 }

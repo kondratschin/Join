@@ -473,7 +473,8 @@
 
 .edit-low-section {
 padding-bottom: 0 !important;
-margin-bottom: 24px !important;
+margin-bottom: 0 !important;
+margin-top: 24px !important;
 }
 
 .edit-task-headline {

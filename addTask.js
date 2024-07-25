@@ -453,8 +453,8 @@ function addTaskEvent() {
 }
 
 /**
- * Creates a task in the corresponding list
- * @param {string} taskTitle is called from the input 
+ * Creates/saves a task in the corresponding list
+ * @param {string} taskTitle is called from the input field
  */
 async function createTask(taskTitle) {
     let taskDescription = document.getElementById('taskDescription').value;

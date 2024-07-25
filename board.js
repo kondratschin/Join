@@ -56,7 +56,7 @@ async function getTasks() {
 function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
     displayElement('task-overlay');
     let content = document.getElementById('task-overlay');
-    const tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
+    let tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
 
     if (index >= 0 && index < tasksInCategory.length) {
         let task = tasksInCategory[index]; // Access the specific task by index
@@ -187,7 +187,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
                 <span>Delete</span>
             </div>
             <img src="./img/separator-small.svg" class="sep-small" alt="">
-            <div onclick="loadEditTaskScriptAndRunOverlay('${taskIndex}', '${taskCategory}')" class="overlay-action highlight-gray">
+            <div onclick="loadEditTaskScriptAndRunOverlay('${taskIndex}', '${taskCategory}', '${task.id}')" class="overlay-action highlight-gray">
                 <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
                 <span>Edit</span>
             </div>
@@ -481,10 +481,10 @@ function unloadEditTaskScript() {
     }
 }
 
-function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory) {
+function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory, taskTitle) {
     loadEditTaskScript(() => {
         if (typeof editTaskOverlay === 'function') {
-            editTaskOverlay(taskIndex, taskCategory);
+            editTaskOverlay(taskIndex, taskCategory, taskTitle);
         }
     });
 }
