@@ -215,6 +215,7 @@ async function saveChangesTask(oldTaskTitle, newTaskTitle, boardStatus) {
     let taskDescription = document.getElementById('taskDescription').value;
     let taskDate = document.getElementById('taskDate').value;
 
+
     let dataToSend = {
         selectedContacts: selectedContacts,
         subTaskList: subTaskList,
@@ -370,6 +371,8 @@ window.attachEventListeners = attachEventListeners;
 
 function saveEditedTaskEvent(oldTaskTitle, taskCategory) {
     let taskTitle = document.getElementById('task-title1').value;
+    let category = document.getElementById('selected-category').value;
+    chosenCategory.push(category);
     taskTitle = String(taskTitle);
     saveChangesTask(oldTaskTitle, taskTitle, taskCategory);
     displayNone('task-overlay');
