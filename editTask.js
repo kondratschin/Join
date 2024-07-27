@@ -371,7 +371,8 @@ window.attachEventListeners = attachEventListeners;
 
 function saveEditedTaskEvent(oldTaskTitle, taskCategory) {
     let taskTitle = document.getElementById('task-title1').value;
-    let category = document.getElementById('selected-category').value;
+    chosenCategory = [];
+    let category = document.getElementById('selected-category').innerText;
     chosenCategory.push(category);
     taskTitle = String(taskTitle);
     saveChangesTask(oldTaskTitle, taskTitle, taskCategory);
