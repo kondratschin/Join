@@ -105,15 +105,15 @@ function generateOverlayEdit(task, taskCategory, index) {
                 <div class="task-input-field">
                     <span class="input-name">Prio</span>
                     <div class="prio-buttons">
-                        <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta ${task.priority === 'Urgent' ? 'prio-select-red' : ''}">
+                        <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta ${task.priority === 'Urgent' ? 'prio-select-red prio-select' : ''}">
                             <p class="prio-text">Urgent</p>
                             <img src="./img/prio-alta.svg" alt="Urgent Priority">
                         </div>
-                        <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media" class="task-title prio-task prio-media ${task.priority === 'Medium' ? 'prio-select-orange' : ''}">
+                        <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media" class="task-title prio-task prio-media ${task.priority === 'Medium' ? 'prio-select-orange prio-select' : ''}">
                             <p class="prio-text">Medium</p>
                             <img src="./img/prio-media.svg" alt="Medium Priority">
                         </div>
-                        <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja" class="task-title prio-task prio-baja ${task.priority === 'Low' ? 'prio-select-green' : ''}">
+                        <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja" class="task-title prio-task prio-baja ${task.priority === 'Low' ? 'prio-select-green prio-select' : ''}">
                             <p class="prio-text">Low</p>
                             <img src="./img/prio-baja.svg" alt="Low Priority">
                         </div>
