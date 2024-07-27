@@ -296,9 +296,7 @@ function getContactsHTML(task) {
                     ${contact.initials}
                 </div>`;
         });
-    } else {
-        console.log("Selected contacts is not an array or is undefined", task.selectedContacts);
-    }
+    } 
     return htmlContent;
 }
 

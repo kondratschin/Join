@@ -334,20 +334,22 @@ function backToContactList() {
 }
 
 
-function checkWidthAndAddClickListener() {
-    let contactCartElements = document.getElementsByClassName('contactCart');
+if (window.location.pathname === '/contacts.html') {
+    function checkWidthAndAddClickListener() {
+        let contactCartElements = document.getElementsByClassName('contactCart');
 
-    if (window.innerWidth <= 770) {
-        document.getElementById('contactsDetailBackarrow').classList.remove('d-none');
-        for (let contactCart of contactCartElements) {
-            contactCart.addEventListener("click", showContactDetailsMobile);
-        }
-    } else {
-        document.getElementById('contactsDetailBackarrow').classList.add('d-none');
-        document.getElementById('contactsRightsideContent').classList.remove('d-none');
-        document.getElementById('contactsContent').classList.remove('d-none');
-        for (let contactCart of contactCartElements) {
-            contactCart.removeEventListener("click", showContactDetailsMobile);
+        if (window.innerWidth <= 770) {
+            document.getElementById('contactsDetailBackarrow').classList.remove('d-none');
+            for (let contactCart of contactCartElements) {
+                contactCart.addEventListener("click", showContactDetailsMobile);
+            }
+        } else {
+            document.getElementById('contactsDetailBackarrow').classList.add('d-none');
+            document.getElementById('contactsRightsideContent').classList.remove('d-none');
+            document.getElementById('contactsContent').classList.remove('d-none');
+            for (let contactCart of contactCartElements) {
+                contactCart.removeEventListener("click", showContactDetailsMobile);
+            }
         }
     }
 }
