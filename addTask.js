@@ -1,6 +1,6 @@
 let selectedContacts = [];
 let subTaskList = [];
-let priority = [];
+let priority;
 let chosenCategory = [];
 let boardStatus = ['toDo']; //defines in which list in the board the task will be put
 
@@ -171,6 +171,7 @@ function prioritySelected(id, className, arrow) {
     } else if (id === 'prio-alta') {
         priority = 'High';
     }
+    console.log('Priority Selected:', priority); // Debugging
 }
 
 

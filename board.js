@@ -471,13 +471,6 @@ function loadEditTaskScript(callback) {
     }
 }
 
-function unloadEditTaskScript() {
-    const script = document.getElementById('editTaskScript');
-    if (script) {
-        script.parentNode.removeChild(script);
-        console.log('editTask.js unloaded');
-    }
-}
 
 function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory, taskTitle) {
     loadEditTaskScript(() => {
@@ -497,3 +490,5 @@ function addTaskWindow(status) {
     displayElement('addTaskWindow');
     loadContactsArray();
 }
+
+

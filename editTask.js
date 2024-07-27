@@ -11,6 +11,15 @@ function processSelectedContacts() {
     }
 }
 
+function hideAndRemoveEditOverlay() {
+    let editTaskForm = document.getElementById('taskEditForm');
+    if (editTaskForm) {
+        displayNone('editOverlay');
+        editTaskForm.parentNode.removeChild(editTaskForm);
+    }
+}
+
+
 function editTaskOverlay(index, taskCategory, taskTitle) {
     displayElement('editOverlay');
     let editTaskOverlay = document.getElementById('editOverlay');
@@ -42,10 +51,10 @@ function generateOverlayEdit(task, taskCategory, index) {
     `).join('');
 
     return /*html*/ `
-    <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}'), unloadEditTaskScript()">
+    <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
         <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
             <h1>Edit Task</h1>
-            <div id="closeTaskButton" onclick="displayNone('editOverlay'); unloadEditTaskScript()" class="closeButtonBackground">
+            <div id="closeTaskButton" onclick="hideAndRemoveEditOverlay()" class="closeButtonBackground">
                 <img src="./img/close.svg" alt="Close">
             </div>
         </div>
@@ -377,6 +386,6 @@ function saveEditedTaskEvent(oldTaskTitle, taskCategory) {
     taskTitle = String(taskTitle);
     saveChangesTask(oldTaskTitle, taskTitle, taskCategory);
     displayNone('task-overlay');
-    displayNone('editOverlay');
+    hideAndRemoveEditOverlay();
     return false;
 }
