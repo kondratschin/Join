@@ -124,25 +124,46 @@ function showContactDrp() {
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
 }
 
+
+/**
+ * Category dropdown will be shown
+ */
 function showCategoryDrp() {
     document.getElementById('category-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn2').classList.toggle('flip-vertically');
 }
 
+
+/**
+ *Category dropdown hide
+ */
 function hideCategoryDrp() {
     document.getElementById('category-drp-dwn').classList.add('d-none');
     document.getElementById('arrow-drp-dwn2').classList.remove('flip-vertically');
 }
 
+
+/**
+ *contact dropdown hide
+ */
 function hideContactDrp() {
     document.getElementById('contact-drp-dwn').classList.add('d-none');
     document.getElementById('arrow-drp-dwn').classList.remove('flip-vertically');
 }
 
+
+/**
+ * highlighs the clicked priority button and removes the highlight from other buttons
+ * className describes the color with and toggles the color on or off
+ * arrow sets the text color to white and also the arrow
+ * @param {string} id 
+ * @param {string} className 
+ * @param {string} arrow 
+ */
 function prioritySelected(id, className, arrow) {
     removeSelection(id);
     document.getElementById(id).classList.toggle(className);
-    document.getElementById(id).classList.toggle(arrow);
+    document.getElementById(id).classList.toggle(arrow); 
     if (id === 'prio-baja') {
         priority = 'Low';
     } else if (id === 'prio-media') {
@@ -152,6 +173,11 @@ function prioritySelected(id, className, arrow) {
     }
 }
 
+
+/**
+ * removes the highlights
+ * @param {string} id 
+ */
 function removeSelection(id) {
     if (id == 'prio-baja') {
         document.getElementById('prio-alta').classList.remove('prio-select-red');
@@ -174,7 +200,11 @@ function removeSelection(id) {
 }
 
 
-
+/**
+ * higlights selected contacts from dropdown list
+ * @param {number} i list in json 'alphabetContainer'
+ * @param {number} y value from i list in 'alphabetContainer'
+ */
 function highlightContact(i, y) {
     const contactElement = document.getElementById(`contact-in-list${i}-${y}`);
     const isSelected = contactElement.classList.toggle('selected-contact');
@@ -185,6 +215,14 @@ function highlightContact(i, y) {
     updateSelectedContacts(contactElement, isSelected, i, y);
 }
 
+
+/**
+ * updates the array 'selectedContacts' wiht newly selected contacts
+ * @param {string} contactElement newli selected contact
+ * @param {string} isSelected 
+ * @param {number} i 
+ * @param {number} y 
+ */
 function updateSelectedContacts(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
     const initials = contactElement.querySelector('.initialsContact-small').innerText;
@@ -200,11 +238,18 @@ function updateSelectedContacts(contactElement, isSelected, i, y) {
     selectedInitialIcos();
 }
 
+
 function toggleTwoElements(one, two) {
     document.getElementById(`${one}`).classList.toggle('d-none');
     document.getElementById(`${two}`).classList.toggle('d-none');
 }
 
+
+/**
+ * removes display: none from one and adds display: none to two
+ * @param {string} one 
+ * @param {string} two 
+ */
 function alternateTwoElements(one, two) {
     document.getElementById(`${one}`).classList.remove('d-none');
     document.getElementById(`${two}`).classList.add('d-none');
