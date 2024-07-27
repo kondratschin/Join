@@ -42,7 +42,7 @@ function generateOverlayEdit(task, taskCategory, index) {
     `).join('');
 
     return /*html*/ `
-    <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
+    <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}'), unloadEditTaskScript()">
         <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
             <h1>Edit Task</h1>
             <div id="closeTaskButton" onclick="displayNone('editOverlay'); unloadEditTaskScript()" class="closeButtonBackground">
