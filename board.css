@@ -120,7 +120,6 @@
     display: flex;
     justify-content: space-between;
     gap: 24px;
-    height: ;
 }
 
 .taskHeader {
@@ -489,9 +488,6 @@ margin-top: 24px !important;
 .highlightBorder {
     border: 1px dashed black;
   }
-
-
-
 
 
 @media (max-width: 920px){
