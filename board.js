@@ -250,7 +250,7 @@ function buildTaskHTML(task, index, taskCategory) {
     let prioritySVGHTML = getPrioToSVG(task.priority);
     
     return /*html*/ `
-    <div draggable="true" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer" id="taskBoard${index}">
+    <div draggable="true" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer" id="taskBoard${taskCategory}${index}">
         <div class="task-overlay-head">
             <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
         </div>
@@ -390,7 +390,45 @@ function findTask() {
 
 function startDragging(currentCategory, index, taskTitle) {
     currentDraggedElement = [index, currentCategory, taskTitle];
+      // add class with rotation
+  document.getElementById(`taskBoard${currentCategory}${index}`).classList.add("rotate");
 }
+
+
+let lists = ["doneContainer", "inProgressContainer", "toDoContainer", "awaitFeedbackContainer"];
+
+/**
+ * adds dotted line to the specified list and removes from other lists
+ */
+function addDottedLine(listName) {
+    document.getElementById(`${listName}Container`).classList.add("highlightBorder");
+    removeDottedLine(listName);
+}
+
+
+/**
+ * removes dotted lines
+ * 
+ */
+function removeDottedLine(listName) {
+    lists.forEach(list => {
+        if (list !== `${listName}Container`) {
+            document.getElementById(list).classList.remove("highlightBorder");
+        }
+    });
+}
+
+
+/**
+ * removes all dotted lines on any drop zone
+ * 
+ */
+function removeAllDottedLines() {
+    lists.forEach(list => {
+        document.getElementById(list).classList.remove("highlightBorder");
+    });
+}
+
 
 async function moveTo(category) {
     let [index, currentCategory, taskTitle] = currentDraggedElement;

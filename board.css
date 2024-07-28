@@ -120,6 +120,7 @@
     display: flex;
     justify-content: space-between;
     gap: 24px;
+    height: ;
 }
 
 .taskHeader {
@@ -480,6 +481,16 @@ margin-top: 24px !important;
 .edit-task-headline {
     margin-top: 0 !important;
 }
+
+.rotate {
+  rotate: 5deg;
+}
+
+.highlightBorder {
+    border: 1px dashed black;
+  }
+
+
 
 
 
