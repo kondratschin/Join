@@ -250,7 +250,7 @@ function buildTaskHTML(task, index, taskCategory) {
     let prioritySVGHTML = getPrioToSVG(task.priority);
     
     return /*html*/ `
-    <div draggable="true" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer" id="taskBoard${taskCategory}${index}">
+    <div draggable="true" ondragend="removeRotation('${taskCategory}', ${index})" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer" id="taskBoard${taskCategory}${index}">
         <div class="task-overlay-head">
             <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
         </div>
@@ -392,6 +392,14 @@ function startDragging(currentCategory, index, taskTitle) {
     currentDraggedElement = [index, currentCategory, taskTitle];
       // add class with rotation
   document.getElementById(`taskBoard${currentCategory}${index}`).classList.add("rotate");
+}
+
+
+/**
+ * removes rotated task
+ */
+function removeRotation(currentCategory, index) {
+    document.getElementById(`taskBoard${currentCategory}${index}`).classList.remove("rotate");
 }
 
 
