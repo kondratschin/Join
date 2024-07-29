@@ -44,7 +44,7 @@
         </div>
 
         <div class="boardContainer">
-            <div id="toDoContainer" ondrop="moveTo('toDo'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('toDo');" class="toDoContainer">
+            <div id="toDoContainer" ondrop="moveTo('toDo'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('toDo');" ondragleave="removeAllDottedLines()" class="toDoContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">To do</div>
                     <div id="addButtonToDo" onclick="addTaskWindow('toDo'); loadContactsArray()" class="taskHeaderAddButton d-none-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
@@ -68,7 +68,7 @@
                 </div>
                 <div id="toDoList"></div>
             </div>
-            <div id="inProgressContainer" ondrop="moveTo('inProgress'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('inProgress');" class="inProgressContainer">
+            <div id="inProgressContainer" ondrop="moveTo('inProgress'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('inProgress');" ondragleave="removeAllDottedLines()" class="inProgressContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">In progress</div>
                     <div id="addButtonProgress" onclick="addTaskWindow('inProgress')" class="taskHeaderAddButton d-none-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
@@ -91,7 +91,7 @@
                 </div>
                 <div id="inProgressList"></div>
             </div>
-            <div id="awaitFeedbackContainer" ondrop="moveTo('awaitFeedback'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('awaitFeedback');" class="awaitFeedbackContainer">
+            <div id="awaitFeedbackContainer" ondrop="moveTo('awaitFeedback'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('awaitFeedback');" ondragleave="removeAllDottedLines()" class="awaitFeedbackContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">Await feedback</div>
                     <div id="addButtonFeedback" onclick="addTaskWindow('awaitFeedback')" class="taskHeaderAddButton d-none-mobile"><svg width="20" height="20" viewBox="0 0 24 25" fill="none"
@@ -114,7 +114,7 @@
                 </div>
                 <div id="awaitFeedbackList"></div>
             </div>
-            <div id="doneContainer" ondrop="moveTo('done'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('done');" class="doneContainer">
+            <div id="doneContainer" ondrop="moveTo('done'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('done');" ondragleave="removeAllDottedLines()" class="doneContainer">
                 <div class="taskHeader">
                     <div class="taskTitle">Done</div>
                 </div>
