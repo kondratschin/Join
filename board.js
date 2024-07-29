@@ -408,9 +408,16 @@ function startDragging(currentCategory, index, taskTitle) {
 /**
  * removes rotated task
  */
-function removeRotation(currentCategory, index) {
-    document.getElementById(`taskBoard${currentCategory}${index}`).classList.remove("rotate");
+function removeRotation() {
+    // Select all elements with the class 'rotate'
+    const elements = document.querySelectorAll('.rotate');
+    
+    // Loop through each element and remove the class 'rotate'
+    elements.forEach(element => {
+        element.classList.remove('rotate');
+    });
 }
+
 
 
 let lists = ["doneContainer", "inProgressContainer", "toDoContainer", "awaitFeedbackContainer"];
