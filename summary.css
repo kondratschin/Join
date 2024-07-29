@@ -340,10 +340,10 @@ p {
     align-items: center;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1600px) {
 
     .headlineContainer {
-        margin-top: 40px;
+        margin-top: 0;
         margin-bottom: 40px;
     }
 
@@ -373,7 +373,7 @@ p {
 
     .mainContainer{
         margin-left: 94px;
-        margin-top: 10%;
+        margin-top: 5%;
     }
 
     .midContainer {
