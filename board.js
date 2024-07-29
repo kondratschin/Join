@@ -289,16 +289,26 @@ function getSubtasksHTML(task) {
 
 function getContactsHTML(task) {
     let htmlContent = '';
+    let numberOfContacts = task.selectedContacts.length;
+    let displayCount = Math.min(numberOfContacts, 4); 
+
     if (Array.isArray(task.selectedContacts)) {
-        task.selectedContacts.forEach(contact => {
+        for (let i = 0; i < displayCount; i++) {
+            let contact = task.selectedContacts[i];
             htmlContent += `
                 <div class="initialsContact-small margin-left-10" style="background: ${contact.color}">
                     ${contact.initials}
                 </div>`;
-        });
-    } 
+        }
+        if (numberOfContacts > 4) {
+            let additionalCount = numberOfContacts - 4;
+            htmlContent += `<div class="initialsContact-small margin-left-10">+${additionalCount}</div>`;
+        }
+    }
+
     return htmlContent;
 }
+
 
 function renderList(taskCategory) {
     let content = document.getElementById(`${taskCategory}List`);
