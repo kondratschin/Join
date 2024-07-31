@@ -287,39 +287,28 @@ function getSubtasksHTML(task) {
     return '';
 }
 
-// function getContactsHTML(task) {
-//     let htmlContent = '';
-//     let numberOfContacts = task.selectedContacts.length;
-//     let displayCount = Math.min(numberOfContacts, 4); 
-
-//     if (Array.isArray(task.selectedContacts)) {
-//         for (let i = 0; i < displayCount; i++) {
-//             let contact = task.selectedContacts[i];
-//             htmlContent += `
-//                 <div class="initialsContact-small margin-left-10" style="background: ${contact.color}">
-//                     ${contact.initials}
-//                 </div>`;
-//         }
-//         if (numberOfContacts > 4) {
-//             let additionalCount = numberOfContacts - 4;
-//             htmlContent += `<div class="initialsContact-small margin-left-10">+${additionalCount}</div>`;
-//         }
-//     }
-
-//     return htmlContent;
-// }
-
 
 function getContactsHTML(task) {
     let htmlContent = '';
+
     if (Array.isArray(task.selectedContacts)) {
-        task.selectedContacts.forEach(contact => {
+        let numberOfContacts = task.selectedContacts.length;
+
+        for (let i = 0; i < Math.min(numberOfContacts, 4); i++) {
+            let contact = task.selectedContacts[i];
+            
             htmlContent += `
                 <div class="initialsContact-small margin-left-10" style="background: ${contact.color}">
                     ${contact.initials}
                 </div>`;
-        });
-    } 
+        }
+
+        if (numberOfContacts > 4) {
+            let additionalCount = numberOfContacts - 4;
+            htmlContent += `<div class="initialsContact-small margin-left-10">+${additionalCount}</div>`;
+        }
+    }
+
     return htmlContent;
 }
 
