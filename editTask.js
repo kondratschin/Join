@@ -114,7 +114,7 @@ function generateOverlayEdit(task, taskCategory, index) {
                 <div class="task-input-field">
                     <span class="input-name">Prio</span>
                     <div class="prio-buttons">
-                        <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta ${task.priority === 'Urgent' ? 'prio-select-red prio-select' : ''}">
+                        <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta ${task.priority === 'High' ? 'prio-select-red prio-select' : ''}">
                             <p class="prio-text">Urgent</p>
                             <img src="./img/prio-alta.svg" alt="Urgent Priority">
                         </div>
