@@ -11,6 +11,7 @@ function processSelectedContacts() {
     }
 }
 
+
 function hideAndRemoveEditOverlay() {
     let editTaskForm = document.getElementById('taskEditForm');
     if (editTaskForm) {
@@ -34,6 +35,7 @@ function editTaskOverlay(index, taskCategory, taskTitle) {
     renderEditSubTaskList(taskCategory, index);
     task = [];
 }
+
 
 function generateOverlayEdit(task, taskCategory, index) {
     const assignedContactsHtml = (task.assignedContacts || []).map(contact => `
@@ -171,7 +173,6 @@ function generateOverlayEdit(task, taskCategory, index) {
 }
 
 
-
 function renderEditSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
@@ -237,7 +238,6 @@ function saveEditedTask(index) {
 }
 
 
-
 function deleteEditSubtaskHTML(index) {
     subTaskList.splice(index, 1);
     renderEditSubTaskList();
@@ -279,6 +279,7 @@ function saveEditedSubTask(index) {
     }
 }
 
+
 function pushToEditedSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
 
@@ -301,6 +302,7 @@ function highlightContactEdit(i, y) {
 
     // updateSelectedContactsEdit(contactElement, isSelected, i, y);
 }
+
 
 function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;

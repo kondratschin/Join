@@ -333,6 +333,7 @@ async function loadContactsArray() {
     let contactsAsArray = Object.keys(responseAsJson);
     sortContactlist(responseAsJson, contactsAsArray);
     createContactDrpDwn();
+    selectedInitialIcos();
 }
 
 /**
