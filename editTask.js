@@ -22,167 +22,230 @@ function hideAndRemoveEditOverlay() {
 
 function editTaskOverlay(index, taskCategory, taskTitle) {
     displayElement('editOverlay');
+    subTaskList = subTaskList = tasks[taskCategory][index].subTaskList
     let editTaskOverlay = document.getElementById('editOverlay');
-    let tasksInCategory = tasks[taskCategory]; // Get tasks from the specified category
+    let task = tasks[taskCategory][index];
 
-    if (index >= 0 && index < tasksInCategory.length) {
-        let task = tasksInCategory[index]; // Access the specific task by index
-        loadContactsArray();
-        selectedContacts = task.selectedContacts || [];
+    loadContactsArray();
+    selectedContacts = task.selectedContacts || [];
 
-        editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory, index, taskTitle);
-        attachEventListeners();
-    } else {
-        editTaskOverlay.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
-    }
+    editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory, index, taskTitle);
+    attachEventListeners();
+    renderEditSubTaskList(taskCategory, index);
+    task = [];
 }
 
 function generateOverlayEdit(task, taskCategory, index) {
     const assignedContactsHtml = (task.assignedContacts || []).map(contact => `
-        <div class="initialsContact-small" style="background: ${contact.color}">${contact.initials}</div>
-    `).join('');
-
-    const subTaskListHtml = (task.subTaskList || []).map((subtask, i) => `
-        <div class="subtasks-listed highlight-gray pddng-4" id="subtask${i}">
-            <img onclick="checkSubtask('${taskCategory}', ${index}, ${i})" class="checkbox-subtask ${subtask.complete ? '' : 'd-none'}" id="unCheckedButtonOverlay${i}" src="./img/check-button.svg" alt="Check Subtask">
-            <img onclick="UnCheckSubtask('${taskCategory}', ${index}, ${i})" id="checkedButtonOverlay${i}" class="${subtask.complete ? 'd-none' : ''} checkbox-subtask" src="./img/checked-button.svg" alt="Uncheck Subtask">
-            <span>${subtask.name}</span>
-        </div>
-    `).join('');
+            <div class="initialsContact-small" style="background: ${contact.color}">${contact.initials}</div>
+        `).join('');
 
     return /*html*/ `
-    <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
-        <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
-            <h1>Edit Task</h1>
-            <div id="closeTaskButton" onclick="hideAndRemoveEditOverlay()" class="closeButtonBackground">
-                <img src="./img/close.svg" alt="Close">
+        <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
+            <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
+                <h1>Edit Task</h1>
+                <div id="closeTaskButton" onclick="hideAndRemoveEditOverlay()" class="closeButtonBackground">
+                    <img src="./img/close.svg" alt="Close">
+                </div>
             </div>
-        </div>
-
-        <div class="task-edit-wrapper">
-            <div class="input-left input-edit">
-                <div class="task-input-field">
-                    <span class="input-name">Title<span style="color: red">*</span></span>
-                    <div class="error-wrapper">
-                        <div class="task-title mrg-bttm-0">
-                            <input type="text" id="task-title1" placeholder="Enter a title" title="Please enter at least one word." value="${task.id}">
-                        </div>
-                        <span id="titleError" class="error d-none">Task title must not be empty</span>
-                    </div>
-                </div>
-                <div class="task-input-field">
-                    <span class="input-name">Description</span>
-                    <div class="task-title task-text">
-                        <textarea id="taskDescription" placeholder="Enter a Description">${task.taskDescription}</textarea>
-                    </div>
-                </div>
-                <div class="task-input-field">
-                    <span class="input-name">Assigned to</span>
-
-                    <div id="category-wrapper" class="category-wrapper excludedObject mrg-bttm-8">
-                        <div class="contact-list-open">
-                            <div onclick="showContactDrp(), processSelectedContacts();" id="assign-field" class="category-field">
-                                <div class="assign-contact">
-                                    <p id="assigned-contact">Select contacts to assign</p>
-                                    <div class="arrow-drp-dwn">
-                                        <img id="arrow-drp-dwn" src="./img/arrow_drop_down.svg" alt="Arrow Drop Down">
-                                    </div>
-                                </div>
+    
+            <div class="task-edit-wrapper">
+                <div class="input-left input-edit">
+                    <div class="task-input-field">
+                        <span class="input-name">Title<span style="color: red">*</span></span>
+                        <div class="error-wrapper">
+                            <div class="task-title mrg-bttm-0">
+                                <input type="text" id="task-title1" placeholder="Enter a title" title="Please enter at least one word." value="${task.id}">
                             </div>
-                            <div id="contact-drp-dwn" class="contacts-drp-list d-none">
-                                <div id="contact-content" class="dropdown-category-content">
-
-                                </div>
-                            </div>
+                            <span id="titleError" class="error d-none">Task title must not be empty</span>
                         </div>
                     </div>
-                    <div id="selected-initial-ico" class="selected-initial-ico">
-                        ${assignedContactsHtml}
-                    </div>
-                </div>
-
-
-                <div class="task-input-field">
-                    <span class="input-name">Due date<span style="color: red">*</span></span>
-                    <div class="error-wrapper">
-                        <div class="task-title mrg-bttm-0">
-                            <input class="task-date" type="date" id="taskDate" placeholder="dd/mm/yyyy" title="Please enter date" value="${task.taskDate}">
-                        </div>
-                        <span class="error d-none" id="errorDate">Please select date</span>
-                    </div>
-                </div>
-                <div class="task-input-field">
-                    <span class="input-name">Prio</span>
-                    <div class="prio-buttons">
-                        <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta ${task.priority === 'High' ? 'prio-select-red prio-select' : ''}">
-                            <p class="prio-text">Urgent</p>
-                            <img src="./img/prio-alta.svg" alt="Urgent Priority">
-                        </div>
-                        <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media" class="task-title prio-task prio-media ${task.priority === 'Medium' ? 'prio-select-orange prio-select' : ''}">
-                            <p class="prio-text">Medium</p>
-                            <img src="./img/prio-media.svg" alt="Medium Priority">
-                        </div>
-                        <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja" class="task-title prio-task prio-baja ${task.priority === 'Low' ? 'prio-select-green prio-select' : ''}">
-                            <p class="prio-text">Low</p>
-                            <img src="./img/prio-baja.svg" alt="Low Priority">
+                    <div class="task-input-field">
+                        <span class="input-name">Description</span>
+                        <div class="task-title task-text">
+                            <textarea id="taskDescription" placeholder="Enter a Description">${task.taskDescription}</textarea>
                         </div>
                     </div>
-                </div>
-                <div class="task-input-field">
-                    <span class="input-name">Category<span style="color: red">*</span></span>
-                    <div class="error-wrapper">
-                        <div onclick="showCategoryDrp()" class="category-wrapper excludedObject mrg-bttm-0">
+                    <div class="task-input-field">
+                        <span class="input-name">Assigned to</span>
+                        <div id="category-wrapper" class="category-wrapper excludedObject mrg-bttm-8">
                             <div class="contact-list-open">
-                                <div id="category-field" class="category-field">
+                                <div onclick="showContactDrp(), processSelectedContacts();" id="assign-field" class="category-field">
                                     <div class="assign-contact">
-                                        <p id="selected-category">${task.chosenCategory}</p>
+                                        <p id="assigned-contact">Select contacts to assign</p>
                                         <div class="arrow-drp-dwn">
-                                            <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="Arrow Drop Down">
+                                            <img id="arrow-drp-dwn" src="./img/arrow_drop_down.svg" alt="Arrow Drop Down">
                                         </div>
                                     </div>
                                 </div>
-                                <div id="category-drp-dwn" class="contacts-drp-list d-none">
-                                    <div class="dropdown-category-content">
-                                        <span onclick="assignCategory('Technical Task')" class="pddng-12 highlight-gray">Technical Task</span>
-                                        <span onclick="assignCategory('User Story')" class="pddng-12 highlight-gray">User Story</span>
-                                    </div>
+                                <div id="contact-drp-dwn" class="contacts-drp-list d-none">
+                                    <div id="contact-content" class="dropdown-category-content"></div>
                                 </div>
                             </div>
                         </div>
-                        <span id="categoryError" class="error d-none">Please select category</span>
+                        <div id="selected-initial-ico" class="selected-initial-ico">
+                            ${assignedContactsHtml}
+                        </div>
                     </div>
-                </div>
-                <div class="task-input-field">
-                    <span class="input-name">Subtask</span>
-                    <div class="subtask-wrapper">
-                        <div class="task-title excludedObject mrg-bttm-4">
-                            <input onfocus="alternateTwoElements('subtask-buttons', 'subtask-plus')" type="text" id="taskSub" placeholder="Add new subtask">
-                            <img onclick="pushToSubTaskList()" id="subtask-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="Add Subtask">
-                            <div id="subtask-buttons" class="sub-task-buttons d-none">
-                                <img onclick="resetInput(); alternateTwoElements('subtask-plus', 'subtask-buttons');" class="plus" src="./img/cross-box-small.svg" alt="Cancel Subtask">
-                                <img src="./img/separator-small.svg" alt="Separator">
-                                <img onclick="pushToSubTaskList()" class="plus" src="./img/check-small.svg" alt="Confirm Subtask">
+    
+                    <div class="task-input-field">
+                        <span class="input-name">Due date<span style="color: red">*</span></span>
+                        <div class="error-wrapper">
+                            <div class="task-title mrg-bttm-0">
+                                <input class="task-date" type="date" id="taskDate" placeholder="dd/mm/yyyy" title="Please enter date" value="${task.taskDate}">
+                            </div>
+                            <span class="error d-none" id="errorDate">Please select date</span>
+                        </div>
+                    </div>
+                    <div class="task-input-field">
+                        <span class="input-name">Prio</span>
+                        <div class="prio-buttons">
+                            <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta ${task.priority === 'High' ? 'prio-select-red prio-select' : ''}">
+                                <p class="prio-text">Urgent</p>
+                                <img src="./img/prio-alta.svg" alt="Urgent Priority">
+                            </div>
+                            <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media" class="task-title prio-task prio-media ${task.priority === 'Medium' ? 'prio-select-orange prio-select' : ''}">
+                                <p class="prio-text">Medium</p>
+                                <img src="./img/prio-media.svg" alt="Medium Priority">
+                            </div>
+                            <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja" class="task-title prio-task prio-baja ${task.priority === 'Low' ? 'prio-select-green prio-select' : ''}">
+                                <p class="prio-text">Low</p>
+                                <img src="./img/prio-baja.svg" alt="Low Priority">
                             </div>
                         </div>
-                        <div id="sub-task-list" class="sub-task-list">
-                            ${subTaskListHtml}
+                    </div>
+                    <div class="task-input-field">
+                        <span class="input-name">Category<span style="color: red">*</span></span>
+                        <div class="error-wrapper">
+                            <div onclick="showCategoryDrp()" class="category-wrapper excludedObject mrg-bttm-0">
+                                <div class="contact-list-open">
+                                    <div id="category-field" class="category-field">
+                                        <div class="assign-contact">
+                                            <p id="selected-category">${task.chosenCategory}</p>
+                                            <div class="arrow-drp-dwn">
+                                                <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="Arrow Drop Down">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="category-drp-dwn" class="contacts-drp-list d-none">
+                                        <div class="dropdown-category-content">
+                                            <span onclick="assignCategory('Technical Task')" class="pddng-12 highlight-gray">Technical Task</span>
+                                            <span onclick="assignCategory('User Story')" class="pddng-12 highlight-gray">User Story</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span id="categoryError" class="error d-none">Please select category</span>
+                        </div>
+                    </div>
+                    <div class="task-input-field">
+                        <span class="input-name">Subtask</span>
+                        <div class="subtask-wrapper">
+                            <div class="task-title excludedObject mrg-bttm-4">
+                                <input onfocus="alternateTwoElements('subtask-buttons', 'subtask-plus')" type="text" id="taskSub" placeholder="Add new subtask">
+                                <img onclick="pushToEditedSubTaskList()" id="subtask-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="Add Subtask">
+                                <div id="subtask-buttons" class="sub-task-buttons d-none">
+                                    <img onclick="resetInput(); alternateTwoElements('subtask-plus', 'subtask-buttons');" class="plus" src="./img/cross-box-small.svg" alt="Cancel Subtask">
+                                    <img src="./img/separator-small.svg" alt="Separator">
+                                    <img onclick="pushToEditedSubTaskList()" class="plus" src="./img/check-small.svg" alt="Confirm Subtask">
+                                </div>
+                            </div>
+                            <div id="sub-task-list" class="sub-task-list">
+    
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-        <div class="task-lowsection edit-low-section">
-            <div class="task-remark" style="font-size: 16px;">
-                <span style="color: red">*</span><span>This field is required</span>
+    
+            <div class="task-lowsection edit-low-section">
+                <div class="task-remark" style="font-size: 16px;">
+                    <span style="color: red">*</span><span>This field is required</span>
+                </div>
+                <div class="task-edit-buttons">
+                    <button onmousemove="showErrorMsg()" type="submit" disabled id="save-changes-bttn" class="create-task-button">OK<img src="./img/buttonCheck.svg" alt="Button Check"></button>
+                </div>
             </div>
-            <div class="task-edit-buttons">
+        </form>
+        `;
+}
 
-                <button onmousemove="showErrorMsg()" type="submit" disabled id="save-changes-bttn" class="create-task-button">OK<img src="./img/buttonCheck.svg" alt="Button Check"></button>
-            </div>
-        </div>
-    </form>
+
+
+function renderEditSubTaskList() {
+    let subTaskListHTML = document.getElementById('sub-task-list');
+    subTaskListHTML.innerHTML = '';
+
+    for (let i = 0; i < subTaskList.length; i++) {
+        let subTask = subTaskList[i];
+
+        subTaskListHTML.innerHTML += /*html*/ `
+                    <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
+                        <li id="subtask-in-list${i}">${subTask.name}</li>
+                        <div class="sub-task-buttons" style="display: none">
+                            <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
+                            <img src="./img/separator-small.svg" class="sep-small" alt="">
+                            <img id="recycle-small-img${i}" onclick="deleteSubtaskHTML(${i})" class="plus" src="./img/recycle.svg" alt="">
+                        </div>
+                    </div>
+                `;
+    }
+
+    // Attach double-click event listeners for the displayed entries
+    for (let i = 0; i < subTaskList.length; i++) {
+        let subTaskEntry = document.getElementById(`sub-task-entry${i}`);
+        subTaskEntry.addEventListener('dblclick', () => {
+            editSubTaskInList(i);
+        });
+    }
+}
+
+
+function editSubTaskInList(index) {
+    let subTaskElement = document.getElementById(`subtask-in-list${index}`);
+    let currentTask = subTaskList[index];
+    let firstButtonImg = document.getElementById(`edit-small-img${index}`);
+    let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
+
+    subTaskElement.innerHTML = /*html*/ `
+        <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
     `;
+
+    firstButtonImg.src = './img/recycle.svg';
+    firstButtonImg.onclick = function () {
+        deleteSubtaskHTML(index);
+    };
+
+    secondButtonImg.src = './img/check-small.svg';
+    secondButtonImg.onclick = function () {
+        saveEditedSubTask(index);
+    };
+    changeParentStyle(index);
+}
+
+
+function saveEditedSubTask(index) {
+    let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
+    let editedTask = editedTaskElement.value.trim();
+
+    if (editedTask) {
+        subTaskList[index].name = editedTask;
+        renderEditSubTaskList();
+    } else {
+        console.error("Edited subtask is empty");
+    }
+}
+
+function pushToEditedSubTaskList() {
+    let newSubtask = document.getElementById('taskSub').value;
+
+    // Check if newSubtask has at least one character
+    if (newSubtask.length >= 1) {
+        subTaskList.push({ name: newSubtask, complete: false });
+        resetInput();
+        alternateTwoElements('subtask-plus', 'subtask-buttons');
+        renderEditSubTaskList();
+    }
 }
 
 
