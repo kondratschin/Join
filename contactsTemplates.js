@@ -11,7 +11,7 @@ function printContactAlphabethicContainer(sortLetterNr) {
 
 function printContact(LetterContactNr) {
     let color = LetterContactNr['color'];
-    let initials = LetterContactNr['name'].match(/\b(\w)/g).join('');
+    let initials = LetterContactNr['name'].match(/\b(\w)/g).join('').substr(0, 2);
     let name = LetterContactNr['name'];
     let email = LetterContactNr['email'];
     let phone = LetterContactNr['phone'];
@@ -38,7 +38,7 @@ function showContactDetails(color, initials, name, email, phone) {
     infoBox.innerHTML = `
         <div class="contactsRightsideContentInfoBoxProfile">
             <p class="contactsRightsideContentInfoBoxProfileInitials" style="background: ${color};">
-            ${initials}
+            ${initials.substr(0, 2)}
             </p>
             <div class="contactsRightsideContentInfoBoxProfileName">
                 <h1>${name}</h1>
@@ -116,7 +116,7 @@ function editCart(color, initials, name, email, phone) {
                                 <input id="contactName" class="addContactInput" placeholder="Name"
                                     type="text"
                                     title="Please enter at least two words with initial capital letters"
-                                    value="${name}" pattern="[A-Z][a-z]+ [A-Z][a-z]+">
+                                    value="${name}" pattern="([A-Z][a-z]+) ([A-Z][a-z]+)(( [A-Z][a-z]+)?)">
                                 <img src="./img/person.svg">
                             </div>
                             <div class="input">
@@ -180,7 +180,7 @@ function addNewContactCart() {
                         <form id="addContactInputForm">
                             <div class="input">
                                 <input id="contactName" class="addContactInput" placeholder="Name"
-                                    type="text" pattern="[A-Z][a-z]+ [A-Z][a-z]+" required
+                                    type="text" pattern="([A-Z][a-z]+) ([A-Z][a-z]+)(( [A-Z][a-z]+)?)" required
                                     title="Please enter at least two words with initial capital letters"
                                     required>
                                 <img src="./img/person.svg">
