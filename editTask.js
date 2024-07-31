@@ -183,9 +183,9 @@ function renderEditSubTaskList() {
                     <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
                         <li id="subtask-in-list${i}">${subTask.name}</li>
                         <div class="sub-task-buttons" style="display: none">
-                            <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
+                            <img id="edit-small-img${i}" onclick="editTaskInEditList(${i})" class="plus" src="./img/edit-small.svg" alt="">
                             <img src="./img/separator-small.svg" class="sep-small" alt="">
-                            <img id="recycle-small-img${i}" onclick="deleteSubtaskHTML(${i})" class="plus" src="./img/recycle.svg" alt="">
+                            <img id="recycle-small-img${i}" onclick="deleteEditSubtaskHTML(${i})" class="plus" src="./img/recycle.svg" alt="">
                         </div>
                     </div>
                 `;
@@ -201,6 +201,49 @@ function renderEditSubTaskList() {
 }
 
 
+function editTaskInEditList(index) {
+    let subTaskElement = document.getElementById(`subtask-in-list${index}`);
+    let currentTask = subTaskList[index];
+    let firstButtonImg = document.getElementById(`edit-small-img${index}`);
+    let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
+
+    subTaskElement.innerHTML = /*html*/ `
+        <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
+    `;
+
+    firstButtonImg.src = './img/recycle.svg';
+    firstButtonImg.onclick = function () {
+        deleteEditSubtaskHTML(index);
+    };
+
+    secondButtonImg.src = './img/check-small.svg';
+    secondButtonImg.onclick = function () {
+        saveEditedTask(index);
+    };
+    changeParentStyle(index);
+}
+
+
+function saveEditedTask(index) {
+    let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
+    let editedTask = editedTaskElement.value.trim();
+
+    if (editedTask) {
+        subTaskList[index].name = editedTask;
+        renderSubTaskList();
+    } else {
+        console.error("Edited subtask is empty");
+    }
+}
+
+
+
+function deleteEditSubtaskHTML(index) {
+    subTaskList.splice(index, 1);
+    renderEditSubTaskList();
+}
+
+
 function editSubTaskInList(index) {
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
@@ -213,7 +256,7 @@ function editSubTaskInList(index) {
 
     firstButtonImg.src = './img/recycle.svg';
     firstButtonImg.onclick = function () {
-        deleteSubtaskHTML(index);
+        deleteEditSubtaskHTML(index);
     };
 
     secondButtonImg.src = './img/check-small.svg';
