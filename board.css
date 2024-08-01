@@ -189,6 +189,7 @@
 
 .subtasks-overlay {
     overflow-y: auto;
+    max-height: 200px;
 }
 
 .task-overlay-category {
@@ -213,6 +214,10 @@
     background: #0038FF;
 }
 
+.task-overlay-assigned {
+    max-height: 200px;
+    overflow-y: auto;
+}
 
 .task-overlay-title {
     font-size: 61px;
