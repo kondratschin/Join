@@ -281,7 +281,7 @@ function getSubtasksHTML(task) {
             <div class="progress">
                 <div class="progress-bar" style="width: ${progressPercent}%;"></div>
             </div>
-            <span>Subtasks</span>
+            <span>${completedCount}/${total} Subtasks</span>
         </div>`;
     }
     return '';
