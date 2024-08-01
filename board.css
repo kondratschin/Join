@@ -475,7 +475,7 @@
 }
 
 .input-edit {
-    overflow-y: auto;
+    /* overflow-y: auto; */
     padding-right: 10px;
 }
 
