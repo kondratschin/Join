@@ -175,7 +175,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
                 ${contactsHtml}
             </div>
         </div>
-        <div class="${hasSubtasks ? 'd-flex' : 'd-none'}">
+        <div class="${hasSubtasks ? 'd-flex subtasks-overlay' : 'd-none'}">
             <span class="task-overlay-text subtask-overlay">Subtasks</span>
             <div class="subtasks-list-overlay">
                 ${subtasksHtml}

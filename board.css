@@ -165,12 +165,11 @@
 }
 
 .task-overlay {
-
     z-index: 999;
     display: flex;
     flex-direction: column;
     padding: 48px 40px;
-    max-height: 931px;
+    max-height: 80vh;
     width: 400px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
     border-radius: 30px;
@@ -186,6 +185,10 @@
 .task-overlay-head {
     display: flex;
     justify-content: space-between;
+}
+
+.subtasks-overlay {
+    overflow-y: auto;
 }
 
 .task-overlay-category {
@@ -447,8 +450,8 @@
     display: flex;
     flex-direction: column;
     padding: 48px 40px;
-    max-height: 800px;
     width: 525px;
+    max-height: 800px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
     border-radius: 30px;
     position: fixed;
@@ -457,6 +460,11 @@
     top: 50%;
     transform: translate(-30%, -50%);
     gap: 24px;
+}
+
+.task-edit {
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .task-edit-wrapper {
