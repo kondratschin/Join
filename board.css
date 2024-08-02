@@ -561,10 +561,20 @@ margin-top: 24px !important;
 }
 
 
-@media (max-width: 920px){
+@media (max-width: 1380px){
     .boardContainer{
         flex-direction: column;
     }
+
+.taskContainer {
+    width: 240px;
+
+}
+
+.task-lists-board {
+    display: flex;
+    gap: 24px;
+}
 
     .Header{
         flex-direction: column;

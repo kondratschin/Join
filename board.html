@@ -67,7 +67,7 @@
                 <div id="todoPlaceholder" class="noTask d-none">
                     No task's to do
                 </div>
-                <div id="toDoList"></div>
+                <div class="task-lists-board" id="toDoList"></div>
             </div>
             <div id="inProgressContainer" ondrop="moveTo('inProgress'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('inProgress');" ondragleave="removeAllDottedLines()" class="inProgressContainer categoryContainer">
                 <div class="taskHeader">
@@ -90,7 +90,7 @@
                 <div id="progressPlaceholder" class="noTask d-none">
                     No task's in progress
                 </div>
-                <div id="inProgressList"></div>
+                <div class="task-lists-board" id="inProgressList"></div>
             </div>
             <div id="awaitFeedbackContainer" ondrop="moveTo('awaitFeedback'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('awaitFeedback');" ondragleave="removeAllDottedLines()" class="awaitFeedbackContainer categoryContainer">
                 <div class="taskHeader">
@@ -113,7 +113,7 @@
                 <div id="feedbackPlaceholder" class="noTask d-none">
                     No feedback awaitet
                 </div>
-                <div id="awaitFeedbackList"></div>
+                <div class="task-lists-board" id="awaitFeedbackList"></div>
             </div>
             <div id="doneContainer" ondrop="moveTo('done'); removeAllDottedLines()" ondragover="allowDrop(event); addDottedLine('done');" ondragleave="removeAllDottedLines()" class="doneContainer categoryContainer">
                 <div class="taskHeader">
@@ -122,7 +122,7 @@
                 <div id="donePlaceholder" class="noTask d-none">
                     No task's done
                 </div>
-                <div id="doneList"></div>
+                <div class="task-lists-board" id="doneList"></div>
             </div>
         </div>
     </div>
