@@ -189,7 +189,7 @@
 
 .subtasks-overlay {
     overflow-y: auto;
-    height: 150px;
+    height: 80px;
 }
 
 .task-overlay-category {

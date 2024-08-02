@@ -175,11 +175,13 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
                 ${contactsHtml}
             </div>
         </div>
-        <div class="${hasSubtasks ? 'd-flex subtasks-overlay' : 'd-none'}">
+        <div>
+        <div class="${hasSubtasks ? 'd-flex' : 'd-none'}">
             <span class="task-overlay-text subtask-overlay">Subtasks</span>
-            <div class="subtasks-list-overlay">
+            <div class="subtasks-list-overlay subtasks-overlay">
                 ${subtasksHtml}
             </div>
+        </div>
         </div>
         <div class="task-overlay-foot">
             <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
@@ -554,6 +556,7 @@ function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory, taskTitle) {
 function addTaskWindow(status) {
     setBoardStatus(status);
     displayElement('addTaskWindow');
+    priority = "";
     loadContactsArray();
 }
 
