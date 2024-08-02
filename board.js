@@ -69,6 +69,7 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
 
         // Generate HTML and update content
         content.innerHTML = generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, index);
+        setTimeout(adjustFontSizeOverlay, 100);
     } else {
         content.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
     }
@@ -157,7 +158,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
                 <img src="./img/close.svg" alt="">
             </div>
         </div>
-        <span class="task-overlay-title">${task.id}</span>
+        <span id="taskOverlayTitle" class="task-overlay-title">${task.id}</span>
         <span class="task-overlay-text">${task.taskDescription}</span>
         <table class="task-overlay-text">
             <tr>
@@ -197,7 +198,20 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
     `;
 }
 
+function adjustFontSizeOverlay() {
+    const title = document.getElementById('taskOverlayTitle');
+    const container = title.parentElement;
+    const targetWidth = container.offsetWidth * 0.9; // Use 90% of the container width
 
+    let fontSize = 61; // Starting font size
+    title.style.fontSize = fontSize + 'px';
+
+    // Reduce font size until text fits within the target width with a buffer of 6px
+    while (title.scrollWidth > (targetWidth) && fontSize > 0) {
+        fontSize--;
+        title.style.fontSize = fontSize + 'px';
+    }
+}
 
 
 /**

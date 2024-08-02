@@ -180,6 +180,8 @@
     transform: translate(-30%, -50%);
     animation: flyInRight 500ms forwards;
     gap: 24px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .task-overlay-head {
@@ -220,10 +222,15 @@
 }
 
 .task-overlay-title {
-    font-size: 61px;
     font-weight: 700;
-    line-height: 73.2px;
+    line-height: 1.2;
     text-align: left;
+    max-height: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%; /* Ensure title spans the full width of the container */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .task-overlay-text {
