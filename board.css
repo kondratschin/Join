@@ -219,6 +219,19 @@
     overflow-y: auto;
 }
 
+.task-overlay-assigned::-webkit-scrollbar {
+    width: 6px;
+}
+
+.task-overlay-assigned::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.task-overlay-assigned::-webkit-scrollbar-thumb {
+    background: #A8A8A8;
+    border-radius: 10px;
+}
+
 .task-overlay-title {
     font-size: 61px;
     font-weight: 700;
@@ -471,6 +484,20 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.task-edit::-webkit-scrollbar {
+    width: 6px;
+}
+
+.task-edit::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.task-edit::-webkit-scrollbar-thumb {
+    background: #A8A8A8;
+    border-radius: 10px;
+}
+
 
 .task-edit-wrapper {
     display: flex;
