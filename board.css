@@ -189,7 +189,7 @@
 
 .subtasks-overlay {
     overflow-y: auto;
-    max-height: 200px;
+    height: 150px;
 }
 
 .task-overlay-category {
@@ -217,19 +217,6 @@
 .task-overlay-assigned {
     max-height: 200px;
     overflow-y: auto;
-}
-
-.task-overlay-assigned::-webkit-scrollbar {
-    width: 6px;
-}
-
-.task-overlay-assigned::-webkit-scrollbar-track {
-    border-radius: 10px;
-}
-
-.task-overlay-assigned::-webkit-scrollbar-thumb {
-    background: #A8A8A8;
-    border-radius: 10px;
 }
 
 .task-overlay-title {
