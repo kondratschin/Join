@@ -179,7 +179,7 @@ function generateOverlayEdit(task, taskCategory, index) {
 }
 
 
-function renderEditSubTaskList(subTaskList) {
+function renderEditSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
 
