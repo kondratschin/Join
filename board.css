@@ -470,6 +470,7 @@
 .task-edit {
     overflow-y: auto;
     overflow-x: hidden;
+    padding-right: 8px;
 }
 
 ::-webkit-scrollbar {
