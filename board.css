@@ -329,6 +329,10 @@
     align-self: stretch;
     flex-grow: 0;
     margin-bottom: 26px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .progress {
