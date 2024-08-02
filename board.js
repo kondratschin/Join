@@ -546,6 +546,7 @@ function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory, taskTitle) {
             editTaskOverlay(taskIndex, taskCategory, taskTitle);
         }
     });
+    hideAndRemoveTaskOverlay();
 }
 
 
