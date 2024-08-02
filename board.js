@@ -560,4 +560,10 @@ function addTaskWindow(status) {
     loadContactsArray();
 }
 
-
+function hideAndRemoveTaskOverlay() {
+    let taskOverlay = document.getElementById('task-overlay');
+    if (taskOverlay) {
+        displayNone('task-overlay');
+        taskOverlay.innerHTML = '';  // This removes all child elements and content inside taskOverlay
+    }
+}
