@@ -22,8 +22,9 @@ function hideAndRemoveEditOverlay() {
 
 
 function editTaskOverlay(index, taskCategory, taskTitle) {
+    hideAndRemoveEditOverlay();
     displayElement('editOverlay');
-    subTaskList = subTaskList = tasks[taskCategory][index].subTaskList
+    let subTaskList = tasks[taskCategory][index].subTaskList;
     let editTaskOverlay = document.getElementById('editOverlay');
     let task = tasks[taskCategory][index];
 
@@ -34,6 +35,11 @@ function editTaskOverlay(index, taskCategory, taskTitle) {
     attachEventListeners();
     renderEditSubTaskList(taskCategory, index);
     task = [];
+    
+    // Delay execution of loadSelectedInitialIcosEditWindow by 100 milliseconds
+    setTimeout(function() {
+        selectedInitialIcos();
+    }, 100);
 }
 
 
@@ -68,7 +74,7 @@ function generateOverlayEdit(task, taskCategory, index) {
                             <textarea id="taskDescription" placeholder="Enter a Description">${task.taskDescription}</textarea>
                         </div>
                     </div>
-                    <div class="task-input-field">
+                    <div class="task-input-field margn-btm-32px">
                         <span class="input-name">Assigned to</span>
                         <div id="category-wrapper" class="category-wrapper excludedObject mrg-bttm-8">
                             <div class="contact-list-open">
@@ -250,9 +256,15 @@ function editSubTaskInList(index) {
     let firstButtonImg = document.getElementById(`edit-small-img${index}`);
     let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
 
-    subTaskElement.innerHTML = /*html*/ `
+    // Create the new div element
+    let newDivElement = document.createElement('div');
+    newDivElement.id = `subtask-in-list${index}`; // Preserve the original ID
+    newDivElement.innerHTML = /*html*/ `
         <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
     `;
+
+    // Replace the original li element with the new div element
+    subTaskElement.parentNode.replaceChild(newDivElement, subTaskElement);
 
     firstButtonImg.src = './img/recycle.svg';
     firstButtonImg.onclick = function () {
@@ -263,6 +275,7 @@ function editSubTaskInList(index) {
     secondButtonImg.onclick = function () {
         saveEditedSubTask(index);
     };
+
     changeParentStyle(index);
 }
 
@@ -300,7 +313,7 @@ function highlightContactEdit(i, y) {
     document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
     document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
 
-    // updateSelectedContactsEdit(contactElement, isSelected, i, y);
+    updateSelectedContactsEdit(contactElement, isSelected, i, y);
 }
 
 
@@ -316,7 +329,6 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
         // Remove from selectedContacts
         selectedContacts = selectedContacts.filter(contact => contact.index !== `${i}-${y}`);
     }
-    selectedInitialIcos();
 }
 
 

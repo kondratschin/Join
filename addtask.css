@@ -558,11 +558,14 @@ textarea {
 }
 
 .sub-task-list {
-
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
     padding: 5px 0px 5px 8px;
+}
+
+.sub-task-list input {
+    font-size: 14px;
 }
 
 .sub-task-entry {
