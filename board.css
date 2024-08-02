@@ -499,7 +499,12 @@ margin-top: 24px !important;
 
 .highlightBorder {
     border: 1px dashed black;
-  }
+}
+
+
+.title{
+    font-size: 47px !important;
+}
 
 
 @media (max-width: 920px){
@@ -512,9 +517,6 @@ margin-top: 24px !important;
         align-items: flex-start;
     }
 
-    .title{
-        font-size: 47px !important;
-    }
 
     .mainContainer{
         position: relative;
