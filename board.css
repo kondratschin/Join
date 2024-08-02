@@ -565,19 +565,30 @@ margin-top: 24px !important;
     .findAndAddTask{
         flex-direction: column-reverse;
         align-items: flex-end;
-        width: 300px;
-        margin: 8px;
+        width: 290px;
+        margin: 0px;
         margin-bottom: 40px;
+    }
+
+    .findTaskContainer {
+        width: 100%;
+    }
+
+    .findTask {
+        width: 100%;
+    }
+
+    .findeButton{
+        width: 30px !important;
     }
 
     .addTaskButton{
         font-size: 0;
         top: 10px;
         width: 12%;
-        margin-right: 24px;
+        height: 36px;
         position: absolute;
-        margin-right: 80px;
-        left: 90%;
+        left: 85%;
 
     }
 

@@ -464,8 +464,12 @@ p {
         flex-direction: column;
         height: 50px;
         width: 290px;
-        margin-top: 20px;
+        margin-top: 5%;
         margin-left: 24px;
+    }
+
+    .findeTask {
+        width: 100px;
     }
 
     .gmName{
