@@ -333,7 +333,6 @@ async function loadContactsArray() {
     let contactsAsArray = Object.keys(responseAsJson);
     sortContactlist(responseAsJson, contactsAsArray);
     createContactDrpDwn();
-    // selectedInitialIcos();
 }
 
 /**
@@ -446,9 +445,15 @@ function editTaskInList(index) {
     let firstButtonImg = document.getElementById(`edit-small-img${index}`);
     let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
 
-    subTaskElement.innerHTML = /*html*/ `
+    // Create the new div element
+    let newDivElement = document.createElement('div');
+    newDivElement.id = `subtask-in-list${index}`; // Preserve the original ID
+    newDivElement.innerHTML = /*html*/ `
         <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
     `;
+
+    // Replace the original li element with the new div element
+    subTaskElement.parentNode.replaceChild(newDivElement, subTaskElement);
 
     firstButtonImg.src = './img/recycle.svg';
     firstButtonImg.onclick = function () {
@@ -459,8 +464,11 @@ function editTaskInList(index) {
     secondButtonImg.onclick = function () {
         saveEditedTask(index);
     };
+
     changeParentStyle(index);
 }
+
+
 
 function saveEditedTask(index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
@@ -475,7 +483,7 @@ function saveEditedTask(index) {
 }
 
 function changeParentStyle(index) {
-    let childDiv = document.getElementById(`subtask-in-list${index}`);
+    let childDiv = document.getElementById(`edited-sub-task-${index}`);
     let parentDiv = childDiv.parentElement;
 
     childDiv.style.borderRadius = '0';
@@ -484,6 +492,7 @@ function changeParentStyle(index) {
     parentDiv.style.borderBottom = '1px solid #29ABE2';
     parentDiv.style.backgroundColor = '#ffffff';
 }
+
 
 function openBoardPage() {
     window.location.href = './board.html';
