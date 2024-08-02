@@ -33,7 +33,7 @@ function editTaskOverlay(index, taskCategory, taskTitle) {
 
     editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory, index, taskTitle);
     attachEventListeners();
-    renderEditSubTaskList(taskCategory, index);
+    renderEditSubTaskList(subTaskList);
     task = [];
     
     // Delay execution of loadSelectedInitialIcosEditWindow by 100 milliseconds
@@ -179,7 +179,7 @@ function generateOverlayEdit(task, taskCategory, index) {
 }
 
 
-function renderEditSubTaskList() {
+function renderEditSubTaskList(subTaskList) {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
 
@@ -202,7 +202,7 @@ function renderEditSubTaskList() {
     for (let i = 0; i < subTaskList.length; i++) {
         let subTaskEntry = document.getElementById(`sub-task-entry${i}`);
         subTaskEntry.addEventListener('dblclick', () => {
-            editSubTaskInList(i);
+            editSubTaskInList(subTaskList, i);
         });
     }
 }
@@ -250,7 +250,7 @@ function deleteEditSubtaskHTML(index) {
 }
 
 
-function editSubTaskInList(index) {
+function editSubTaskInList(subTaskList, index) {
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
     let firstButtonImg = document.getElementById(`edit-small-img${index}`);
@@ -330,10 +330,6 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
         selectedContacts = selectedContacts.filter(contact => contact.index !== `${i}-${y}`);
     }
 }
-
-
-
-
 
 
 /**
