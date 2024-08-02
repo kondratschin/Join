@@ -528,6 +528,21 @@ margin-top: 24px !important;
     border: 1px dashed black;
   }
 
+  .closeButtonBackground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+
+
+.closeButtonBackground:hover {
+    background: #F0F0F0;
+    cursor: pointer;
+}
+
 
 @media (max-width: 920px){
     .boardContainer{
