@@ -22,8 +22,9 @@ function hideAndRemoveEditOverlay() {
 
 
 function editTaskOverlay(index, taskCategory, taskTitle) {
+    hideAndRemoveEditOverlay();
     displayElement('editOverlay');
-    subTaskList = subTaskList = tasks[taskCategory][index].subTaskList
+    let subTaskList = tasks[taskCategory][index].subTaskList;
     let editTaskOverlay = document.getElementById('editOverlay');
     let task = tasks[taskCategory][index];
 
@@ -34,6 +35,11 @@ function editTaskOverlay(index, taskCategory, taskTitle) {
     attachEventListeners();
     renderEditSubTaskList(taskCategory, index);
     task = [];
+    
+    // Delay execution of loadSelectedInitialIcosEditWindow by 100 milliseconds
+    setTimeout(function() {
+        selectedInitialIcos();
+    }, 100);
 }
 
 
@@ -307,7 +313,7 @@ function highlightContactEdit(i, y) {
     document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
     document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
 
-    // updateSelectedContactsEdit(contactElement, isSelected, i, y);
+    updateSelectedContactsEdit(contactElement, isSelected, i, y);
 }
 
 
@@ -323,7 +329,6 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
         // Remove from selectedContacts
         selectedContacts = selectedContacts.filter(contact => contact.index !== `${i}-${y}`);
     }
-    selectedInitialIcos();
 }
 
 
