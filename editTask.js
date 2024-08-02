@@ -237,7 +237,7 @@ function saveEditedTask(index) {
 
     if (editedTask) {
         subTaskList[index].name = editedTask;
-        renderSubTaskList();
+        renderEditSubTaskList();
     } else {
         console.error("Edited subtask is empty");
     }
@@ -273,14 +273,14 @@ function editSubTaskInList(subTaskList, index) {
 
     secondButtonImg.src = './img/check-small.svg';
     secondButtonImg.onclick = function () {
-        saveEditedSubTask(index);
+        saveEditedSubTask(subTaskList, index);
     };
 
     changeParentStyle(index);
 }
 
 
-function saveEditedSubTask(index) {
+function saveEditedSubTask(subTaskList, index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
 
