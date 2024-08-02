@@ -485,15 +485,15 @@
     overflow-x: hidden;
 }
 
-.task-edit::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px;
 }
 
-.task-edit::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     border-radius: 10px;
 }
 
-.task-edit::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #A8A8A8;
     border-radius: 10px;
 }
