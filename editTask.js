@@ -68,7 +68,7 @@ function generateOverlayEdit(task, taskCategory, index) {
                             <textarea id="taskDescription" placeholder="Enter a Description">${task.taskDescription}</textarea>
                         </div>
                     </div>
-                    <div class="task-input-field">
+                    <div class="task-input-field margn-btm-32px">
                         <span class="input-name">Assigned to</span>
                         <div id="category-wrapper" class="category-wrapper excludedObject mrg-bttm-8">
                             <div class="contact-list-open">
