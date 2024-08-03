@@ -134,9 +134,9 @@ function removeFromSelectedContactsEdit(i, y) {
 }
 
 
-function editTaskOverlay(index, taskCategory) {
+function editTaskOverlay(index, taskCategory, taskTitle) {
     displayElement('editOverlay');
-    let subTaskList = tasks[taskCategory][index].subTaskList;
+    subTaskList = tasks[taskCategory][index].subTaskList || []; // Ensure subTaskList is an array
     let editTaskOverlay = document.getElementById('editOverlay');
     let task = tasks[taskCategory][index];
 
@@ -144,7 +144,7 @@ function editTaskOverlay(index, taskCategory) {
 
     editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory);
     attachEventListeners();
-    renderEditSubTaskList(subTaskList);
+    renderEditSubTaskList();
     createContactDrpDwnEdit();
     task = [];
     processSelectedContacts();
@@ -153,6 +153,7 @@ function editTaskOverlay(index, taskCategory) {
         generateAssignedContacts();
     }, 100);
 }
+
 
 
 function generateAssignedContacts() {
@@ -326,29 +327,33 @@ function renderEditSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
 
-    for (let i = 0; i < subTaskList.length; i++) {
-        let subTask = subTaskList[i];
+    if (subTaskList && subTaskList.length > 0) { // Check if subTaskList is defined and not empty
+        for (let i = 0; i < subTaskList.length; i++) {
+            let subTask = subTaskList[i];
 
-        subTaskListHTML.innerHTML += /*html*/ `
-                    <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
-                        <li id="subtask-in-list${i}">${subTask.name}</li>
-                        <div class="sub-task-buttons" style="display: none">
-                            <img id="edit-small-img${i}" onclick="editTaskInEditList(${i})" class="plus" src="./img/edit-small.svg" alt="">
-                            <img src="./img/separator-small.svg" class="sep-small" alt="">
-                            <img id="recycle-small-img${i}" onclick="deleteEditSubtaskHTML(${i})" class="plus" src="./img/recycle.svg" alt="">
+            subTaskListHTML.innerHTML += /*html*/ `
+                        <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
+                            <li id="subtask-in-list${i}">${subTask.name}</li>
+                            <div class="sub-task-buttons" style="display: none">
+                                <img id="edit-small-img${i}" onclick="editTaskInEditList(${i})" class="plus" src="./img/edit-small.svg" alt="">
+                                <img src="./img/separator-small.svg" class="sep-small" alt="">
+                                <img id="recycle-small-img${i}" onclick="deleteEditSubtaskHTML(${i})" class="plus" src="./img/recycle.svg" alt="">
+                            </div>
                         </div>
-                    </div>
-                `;
-    }
+                    `;
+        }
 
-    // Attach double-click event listeners for the displayed entries
-    for (let i = 0; i < subTaskList.length; i++) {
-        let subTaskEntry = document.getElementById(`sub-task-entry${i}`);
-        subTaskEntry.addEventListener('dblclick', () => {
-            editSubTaskInList(subTaskList, i);
-        });
+        // Attach double-click event listeners for the displayed entries
+        for (let i = 0; i < subTaskList.length; i++) {
+            let subTaskEntry = document.getElementById(`sub-task-entry${i}`);
+            subTaskEntry.addEventListener('dblclick', () => {
+                editSubTaskInList(subTaskList, i);
+            });
+        }
     }
 }
+
+
 
 
 function editTaskInEditList(index) {
@@ -429,7 +434,7 @@ function saveEditedSubTask(subTaskList, index) {
 
     if (editedTask) {
         subTaskList[index].name = editedTask;
-        renderEditSubTaskList();
+        renderEditSubTaskList(subTaskList);
     } else {
         console.error("Edited subtask is empty");
     }
