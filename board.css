@@ -578,6 +578,7 @@ margin-top: 24px !important;
 .task-lists-board {
     display: flex;
     gap: 24px;
+    flex-wrap: wrap;
 }
 
     .Header{
