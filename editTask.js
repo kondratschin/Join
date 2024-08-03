@@ -21,18 +21,118 @@ function hideAndRemoveEditOverlay() {
 }
 
 
-function editTaskOverlay(index, taskCategory, taskTitle) {
+/**
+ * Contacts from array 'selectedContacts' will be shown as selected/highlighted, if no contacts have been selected previously, contact list will be rendered
+ */
+function showContactDrpEdit() {
+
+    document.getElementById('contact-drp-dwn').classList.toggle('d-none');
+    document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
+    processSelectedContacts();
+}
+
+
+/**
+ * Contact list from array will be sorted
+ */
+function createContactDrpDwnEdit() {
+    let contactDrpDwn = document.getElementById('contact-content');
+    contactDrpDwn.innerHTML = "";
+
+    for (let i = 0; i < alphabetContainer.length; i++) {
+        const sortLetterNr = alphabetContainer[i];
+        showContactInDrpDwnEdit(sortLetterNr, i);
+    }
+}
+
+
+function showContactInDrpDwnEdit(sortLetterNr, i) {
+    for (let y = 0; y < sortLetterNr['list'].length; y++) {
+        const LetterContactNr = sortLetterNr['list'][y];
+        printContactDrpDwnEdit(LetterContactNr, y, i);
+    }
+}
+
+
+function printContactDrpDwnEdit(LetterContactNr, y, i) {
+    let contactDrpDwn = document.getElementById('contact-content');
+    contactDrpDwn.innerHTML += "";
+    let color = LetterContactNr['color'];
+    let initials = LetterContactNr['name'].match(/\b(\w)/g).join('');
+    let name = LetterContactNr['name'];
+
+    contactDrpDwn.innerHTML += /*html*/ `
+        <div onclick="highlightContactEdit(${i}, ${y})" id="contact-in-list${i}-${y}" class="contact-in-list pddng-12">
+            <div class="flex-center">
+                <div class="initialsContact-small" style="background: ${color}">${initials}</div>
+                <span class="pddng-lft-12">${name}</span>
+            </div><img id="check-button${i}-${y}" src="./img/check-button.svg" alt="">
+            <img id="checked-button${i}-${y}" class="d-none" src="./img/checked-button.svg" alt="">
+        </div>
+    `;
+}
+
+
+/**
+ * higlights selected contacts from dropdown list
+ * @param {number} i list in json 'alphabetContainer'
+ * @param {number} y value from i list in 'alphabetContainer'
+ */
+function highlightContactEdit(i, y) {
+    const contactElement = document.getElementById(`contact-in-list${i}-${y}`);
+    
+    // Check if the contactElement has the class 'selected-contact'
+    if (contactElement.classList.contains('selected-contact')) {
+        // If it has the class, remove it
+        contactElement.classList.remove('selected-contact');
+        removeFromSelectedContactsEdit(contactElement, i, y);
+    } else {
+        // If it does not have the class, add it
+        contactElement.classList.add('selected-contact');
+        addToSelectedContactsEdit(contactElement, i, y);
+    }
+    
+    // Determine the current selection state
+    const isSelected = contactElement.classList.contains('selected-contact');
+
+    // Toggle the visibility of the check and checked buttons
+    document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
+    document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
+}
+
+
+
+/**
+ * updates the array 'selectedContacts' with newly selected contacts
+ * @param {string} contactElement newly selected contact
+ * @param {string} isSelected 
+ * @param {number} i 
+ * @param {number} y 
+ */
+function addToSelectedContactsEdit(contactElement, isSelected, i, y) {
+    const color = contactElement.querySelector('.initialsContact-small').style.background;
+    const initials = contactElement.querySelector('.initialsContact-small').innerText;
+    const name = contactElement.querySelector('span').innerText;
+
+
+        selectedContacts.push({ index: `${i}-${y}`, color, initials, name });
+
+    generateAssignedContacts();
+}
+
+
+function editTaskOverlay(index, taskCategory) {
     displayElement('editOverlay');
     let subTaskList = tasks[taskCategory][index].subTaskList;
     let editTaskOverlay = document.getElementById('editOverlay');
     let task = tasks[taskCategory][index];
 
-    loadContactsArray();
     selectedContacts = task.selectedContacts || [];
 
     editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory);
     attachEventListeners();
     renderEditSubTaskList(subTaskList);
+    createContactDrpDwnEdit();
     task = [];
 
     // Delay execution of loadSelectedInitialIcosEditWindow by 100 milliseconds
@@ -76,7 +176,6 @@ function generateAssignedContacts() {
 
 function generateOverlayEdit(task, taskCategory) {
 
-
     // Return the final HTML string
     return /*html*/ `
         <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
@@ -108,7 +207,7 @@ function generateOverlayEdit(task, taskCategory) {
                         <span class="input-name">Assigned to</span>
                         <div id="category-wrapper" class="category-wrapper excludedObject mrg-bttm-8">
                             <div class="contact-list-open">
-                                <div onclick="showContactDrp()" id="assign-field" class="category-field">
+                                <div onclick="showContactDrpEdit()" id="assign-field" class="category-field">
                                     <div class="assign-contact">
                                         <p id="assigned-contact">Select contacts to assign</p>
                                         <div class="arrow-drp-dwn">
@@ -338,20 +437,24 @@ function pushToEditedSubTaskList() {
 
 
 function highlightContactEdit(i, y) {
-    const contactElement = document.getElementById(`contact-in-list${i}-${y}`);
-    const isSelected = contactElement.classList.toggle('selected-contact');
+    let contactElement = document.getElementById(`contact-in-list${i}-${y}`);
+    
+    // Toggle the 'selected-contact' class and determine if the element is selected
+    let isSelected = contactElement.classList.toggle('selected-contact');
 
+    // Toggle the visibility of buttons
     document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
     document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
 
+    // Update selected contacts list
     updateSelectedContactsEdit(contactElement, isSelected, i, y);
 }
-
 
 function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
     const initials = contactElement.querySelector('.initialsContact-small').innerText;
     const name = contactElement.querySelector('span').innerText;
+
 
     if (isSelected) {
         // Add to selectedContacts
@@ -361,6 +464,7 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
         selectedContacts = selectedContacts.filter(contact => contact.index !== `${i}-${y}`);
     }
 }
+
 
 
 /**

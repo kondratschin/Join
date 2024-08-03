@@ -17,12 +17,25 @@ function getName() {
 }
 
 function load() {
+    loadContactsArrayBoard();
     addPlus();
     getTasks().then(() => {
         renderToDoList();
         checkArraysForContent();
     });
 }
+
+/**
+ * Load contacts from Firebase into array
+ */
+async function loadContactsArrayBoard() {
+
+    let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
+    let responseAsJson = await response.json();
+    let contactsAsArray = Object.keys(responseAsJson);
+    sortContactlist(responseAsJson, contactsAsArray);
+}
+
 
 /**
  * fetches the tasks from firebase

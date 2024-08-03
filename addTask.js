@@ -218,8 +218,8 @@ function highlightContact(i, y) {
 
 
 /**
- * updates the array 'selectedContacts' wiht newly selected contacts
- * @param {string} contactElement newli selected contact
+ * updates the array 'selectedContacts' with newly selected contacts
+ * @param {string} contactElement newly selected contact
  * @param {string} isSelected 
  * @param {number} i 
  * @param {number} y 
