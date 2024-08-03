@@ -28,7 +28,7 @@ function showContactDrpEdit() {
 
     document.getElementById('contact-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
-    processSelectedContacts();
+
 }
 
 
@@ -79,43 +79,56 @@ function printContactDrpDwnEdit(LetterContactNr, y, i) {
  * @param {number} y value from i list in 'alphabetContainer'
  */
 function highlightContactEdit(i, y) {
-    const contactElement = document.getElementById(`contact-in-list${i}-${y}`);
+    let contactElement = document.getElementById(`contact-in-list${i}-${y}`);
     
     // Check if the contactElement has the class 'selected-contact'
     if (contactElement.classList.contains('selected-contact')) {
         // If it has the class, remove it
         contactElement.classList.remove('selected-contact');
-        removeFromSelectedContactsEdit(contactElement, i, y);
+        removeFromSelectedContactsEdit(i, y);
     } else {
         // If it does not have the class, add it
         contactElement.classList.add('selected-contact');
         addToSelectedContactsEdit(contactElement, i, y);
     }
     
-    // Determine the current selection state
-    const isSelected = contactElement.classList.contains('selected-contact');
-
     // Toggle the visibility of the check and checked buttons
     document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
     document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
 }
 
-
-
 /**
  * updates the array 'selectedContacts' with newly selected contacts
- * @param {string} contactElement newly selected contact
- * @param {string} isSelected 
+ * @param {HTMLElement} contactElement newly selected contact
  * @param {number} i 
  * @param {number} y 
  */
-function addToSelectedContactsEdit(contactElement, isSelected, i, y) {
+function addToSelectedContactsEdit(contactElement, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
     const initials = contactElement.querySelector('.initialsContact-small').innerText;
     const name = contactElement.querySelector('span').innerText;
+    const contactIndex = `${i}-${y}`;
+
+    // Check if the contact is already in the selectedContacts array
+    const contactExists = selectedContacts.some(contact => contact.index === contactIndex);
+
+    // Only add the contact if it does not already exist in the selectedContacts array
+    if (!contactExists) {
+        selectedContacts.push({ index: contactIndex, color, initials, name });
+        generateAssignedContacts();
+    }
+}
 
 
-        selectedContacts.push({ index: `${i}-${y}`, color, initials, name });
+/**
+ * removes the contact from the array 'selectedContacts'
+ * @param {HTMLElement} contactElement contact to be removed
+ * @param {number} i 
+ * @param {number} y 
+ */
+function removeFromSelectedContactsEdit(i, y) {
+    const indexToRemove = `${i}-${y}`;
+    selectedContacts = selectedContacts.filter(contact => contact.index !== indexToRemove);
 
     generateAssignedContacts();
 }
@@ -134,7 +147,7 @@ function editTaskOverlay(index, taskCategory) {
     renderEditSubTaskList(subTaskList);
     createContactDrpDwnEdit();
     task = [];
-
+    processSelectedContacts();
     // Delay execution of loadSelectedInitialIcosEditWindow by 100 milliseconds
     setTimeout(function() {
         generateAssignedContacts();
@@ -436,19 +449,19 @@ function pushToEditedSubTaskList() {
 }
 
 
-function highlightContactEdit(i, y) {
-    let contactElement = document.getElementById(`contact-in-list${i}-${y}`);
+// function highlightContactEdit(i, y) {
+//     let contactElement = document.getElementById(`contact-in-list${i}-${y}`);
     
-    // Toggle the 'selected-contact' class and determine if the element is selected
-    let isSelected = contactElement.classList.toggle('selected-contact');
+//     // Toggle the 'selected-contact' class and determine if the element is selected
+//     let isSelected = contactElement.classList.toggle('selected-contact');
 
-    // Toggle the visibility of buttons
-    document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
-    document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
+//     // Toggle the visibility of buttons
+//     document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
+//     document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
 
-    // Update selected contacts list
-    updateSelectedContactsEdit(contactElement, isSelected, i, y);
-}
+//     // Update selected contacts list
+//     // updateSelectedContactsEdit(contactElement, isSelected, i, y);
+// }
 
 function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
