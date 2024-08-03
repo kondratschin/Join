@@ -22,7 +22,6 @@ function hideAndRemoveEditOverlay() {
 
 
 function editTaskOverlay(index, taskCategory, taskTitle) {
-    hideAndRemoveEditOverlay();
     displayElement('editOverlay');
     let subTaskList = tasks[taskCategory][index].subTaskList;
     let editTaskOverlay = document.getElementById('editOverlay');
@@ -31,23 +30,54 @@ function editTaskOverlay(index, taskCategory, taskTitle) {
     loadContactsArray();
     selectedContacts = task.selectedContacts || [];
 
-    editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory, index, taskTitle);
+    editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory);
     attachEventListeners();
     renderEditSubTaskList(subTaskList);
     task = [];
-    
+
     // Delay execution of loadSelectedInitialIcosEditWindow by 100 milliseconds
     setTimeout(function() {
-        selectedInitialIcos();
+        generateAssignedContacts();
     }, 100);
 }
 
 
-function generateOverlayEdit(task, taskCategory, index) {
-    const assignedContactsHtml = (task.assignedContacts || []).map(contact => `
-            <div class="initialsContact-small" style="background: ${contact.color}">${contact.initials}</div>
-        `).join('');
+function generateAssignedContacts() {
+    // Get the element where the HTML for the assigned contacts will be placed
+    let assignedContactsContainer = document.getElementById('selected-initial-ico');
 
+    // Check if selectedContacts is defined, if not, use an empty array
+    let contacts = selectedContacts || [];
+
+    // Initialize an empty string to hold the HTML content
+    let assignedContactsHtml = '';
+
+    // Loop through each contact in the contacts array, up to a maximum of 4
+    for (let i = 0; i < Math.min(contacts.length, 6); i++) {
+        let contact = contacts[i];
+        // Create an HTML string for each contact with their initials and background color
+        assignedContactsHtml += `
+            <div class="initialsContact-small" style="background: ${contact.color}">
+                ${contact.initials}
+            </div>
+        `;
+    }
+
+    // If there are more than 6 contacts, add a summary div
+    if (contacts.length > 6) {
+        let additionalCount = contacts.length - 6;
+        assignedContactsHtml += `<div class="initialsContact-small">+${additionalCount}</div>`;
+    }
+
+    // Set the innerHTML of the container to the generated HTML
+    assignedContactsContainer.innerHTML = assignedContactsHtml;
+}
+
+
+function generateOverlayEdit(task, taskCategory) {
+
+
+    // Return the final HTML string
     return /*html*/ `
         <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
             <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
@@ -78,7 +108,7 @@ function generateOverlayEdit(task, taskCategory, index) {
                         <span class="input-name">Assigned to</span>
                         <div id="category-wrapper" class="category-wrapper excludedObject mrg-bttm-8">
                             <div class="contact-list-open">
-                                <div onclick="showContactDrp(), processSelectedContacts();" id="assign-field" class="category-field">
+                                <div onclick="showContactDrp()" id="assign-field" class="category-field">
                                     <div class="assign-contact">
                                         <p id="assigned-contact">Select contacts to assign</p>
                                         <div class="arrow-drp-dwn">
@@ -92,7 +122,7 @@ function generateOverlayEdit(task, taskCategory, index) {
                             </div>
                         </div>
                         <div id="selected-initial-ico" class="selected-initial-ico">
-                            ${assignedContactsHtml}
+                            
                         </div>
                     </div>
     
@@ -175,8 +205,9 @@ function generateOverlayEdit(task, taskCategory, index) {
                 </div>
             </div>
         </form>
-        `;
+    `;
 }
+
 
 
 function renderEditSubTaskList() {
