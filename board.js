@@ -82,7 +82,7 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
 
         // Generate HTML and update content
         content.innerHTML = generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, index);
-        setTimeout(adjustFontSizeOverlay, 100);
+        // setTimeout(adjustFontSizeOverlay, 100); removed function
     } else {
         content.innerHTML = "<p>No tasks available in this category or invalid index.</p>";
     }
@@ -165,6 +165,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
 
     // Return the full HTML string
     return /*html*/ `
+    <div class="task-overlay-wrapper">
         <div class="task-overlay-head">
             <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
             <div onclick="displayNone('task-overlay')" class="closeButtonBackground">
@@ -197,6 +198,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
             </div>
         </div>
         </div>
+        </div>
         <div class="task-overlay-foot">
             <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
                 <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
@@ -208,23 +210,24 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
                 <span>Edit</span>
             </div>
         </div>
+
     `;
 }
 
-function adjustFontSizeOverlay() {
-    const title = document.getElementById('taskOverlayTitle');
-    const container = title.parentElement;
-    const targetWidth = container.offsetWidth * 0.9; // Use 90% of the container width
+// function adjustFontSizeOverlay() {
+//     const title = document.getElementById('taskOverlayTitle');
+//     const container = title.parentElement;
+//     const targetWidth = container.offsetWidth * 0.9; // Use 90% of the container width
 
-    let fontSize = 61; // Starting font size
-    title.style.fontSize = fontSize + 'px';
+//     let fontSize = 61; // Starting font size
+//     title.style.fontSize = fontSize + 'px';
 
-    // Reduce font size until text fits within the target width with a buffer of 6px
-    while (title.scrollWidth > (targetWidth) && fontSize > 0) {
-        fontSize--;
-        title.style.fontSize = fontSize + 'px';
-    }
-}
+//     // Reduce font size until text fits within the target width with a buffer of 6px
+//     while (title.scrollWidth > (targetWidth) && fontSize > 0) {
+//         fontSize--;
+//         title.style.fontSize = fontSize + 'px';
+//     }
+// }
 
 
 /**
