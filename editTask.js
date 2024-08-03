@@ -137,6 +137,7 @@ function removeFromSelectedContactsEdit(i, y) {
 function editTaskOverlay(index, taskCategory, taskTitle) {
     displayElement('editOverlay');
     subTaskList = tasks[taskCategory][index].subTaskList || []; // Ensure subTaskList is an array
+    priority =  tasks[taskCategory][index].priority;
     let editTaskOverlay = document.getElementById('editOverlay');
     let task = tasks[taskCategory][index];
 
