@@ -31,7 +31,7 @@ function openAddTaskPage(status) {
  * function exists in board.js and must be removed
  * @returns 
  */
-function getName(){
+function getName() {
     let name = localStorage.getItem('userName');
     return name; // Return the retrieved name
 }
@@ -163,7 +163,7 @@ function hideContactDrp() {
 function prioritySelected(id, className, arrow) {
     removeSelection(id);
     document.getElementById(id).classList.toggle(className);
-    document.getElementById(id).classList.toggle(arrow); 
+    document.getElementById(id).classList.toggle(arrow);
     if (id === 'prio-baja') {
         priority = 'Low';
     } else if (id === 'prio-media') {
@@ -379,7 +379,7 @@ function selectedInitialIcos() {
     let selectedInitialIco = document.getElementById('selected-initial-ico');
     selectedInitialIco.innerHTML = ""; // Clear the existing content
 
-    for (let i = 0; i < selectedContacts.length; i++) {
+    for (let i = 0; i < Math.min(selectedContacts.length, 5); i++) {
         let contact = selectedContacts[i];
         let color = contact.color;
         let initials = contact.initials;
@@ -387,6 +387,11 @@ function selectedInitialIcos() {
         selectedInitialIco.innerHTML += /*html*/ `
             <div class="initialsContact-small" style="background: ${color}">${initials}</div>
         `;
+    }
+
+    if (selectedContacts.length > 5) {
+        let additionalCount = selectedContacts.length - 5;
+        selectedInitialIco.innerHTML += `<div class="initialsContact-small">+${additionalCount}</div>`;
     }
 }
 
@@ -525,7 +530,7 @@ async function createTask(taskTitle) {
         taskDate: taskDate
     };
 
-    let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json"; 
+    let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json";
 
     try {
         let response = await fetch(url, {

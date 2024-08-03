@@ -28,7 +28,6 @@ function showContactDrpEdit() {
 
     document.getElementById('contact-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
-
 }
 
 
@@ -140,9 +139,7 @@ function editTaskOverlay(index, taskCategory, taskTitle) {
     priority =  tasks[taskCategory][index].priority;
     let editTaskOverlay = document.getElementById('editOverlay');
     let task = tasks[taskCategory][index];
-
     selectedContacts = task.selectedContacts || [];
-
     editTaskOverlay.innerHTML = generateOverlayEdit(task, taskCategory);
     attachEventListeners();
     renderEditSubTaskList();
@@ -454,20 +451,6 @@ function pushToEditedSubTaskList() {
     }
 }
 
-
-// function highlightContactEdit(i, y) {
-//     let contactElement = document.getElementById(`contact-in-list${i}-${y}`);
-    
-//     // Toggle the 'selected-contact' class and determine if the element is selected
-//     let isSelected = contactElement.classList.toggle('selected-contact');
-
-//     // Toggle the visibility of buttons
-//     document.getElementById(`checked-button${i}-${y}`).classList.toggle('d-none');
-//     document.getElementById(`check-button${i}-${y}`).classList.toggle('d-none');
-
-//     // Update selected contacts list
-//     // updateSelectedContactsEdit(contactElement, isSelected, i, y);
-// }
 
 function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
