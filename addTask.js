@@ -115,7 +115,6 @@ function monitorInputFieldTitle() {
 }
 
 
-
 /**
  * Forces the Create Task button to be disabled.
  */
@@ -188,8 +187,8 @@ function prioritySelected(id, className, arrow) {
 
 
 /**
- * removes the highlights
- * @param {string} id 
+ * Removes the highlights from priority buttons.
+ * @param {string} id - The ID of the selected priority button.
  */
 function removeSelection(id) {
     if (id == 'prio-baja') {
@@ -229,13 +228,12 @@ function highlightContact(i, y) {
 }
 
 
-
 /**
- * updates the array 'selectedContacts' with newly selected contacts
- * @param {string} contactElement newly selected contact
- * @param {string} isSelected 
- * @param {number} i 
- * @param {number} y 
+ * Updates the array 'selectedContacts' with newly selected contacts.
+ * @param {HTMLElement} contactElement - The newly selected contact element.
+ * @param {boolean} isSelected - Indicates if the contact is selected.
+ * @param {number} i - Index in the JSON 'alphabetContainer'.
+ * @param {number} y - Value from the list in 'alphabetContainer'.
  */
 function updateSelectedContacts(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
@@ -253,6 +251,11 @@ function updateSelectedContacts(contactElement, isSelected, i, y) {
 }
 
 
+/**
+ * Toggles the visibility between two elements.
+ * @param {string} one - The ID of the first element.
+ * @param {string} two - The ID of the second element.
+ */
 function toggleTwoElements(one, two) {
     document.getElementById(`${one}`).classList.toggle('d-none');
     document.getElementById(`${two}`).classList.toggle('d-none');
@@ -260,17 +263,18 @@ function toggleTwoElements(one, two) {
 
 
 /**
- * removes display: none from one and adds display: none to two
- * @param {string} one 
- * @param {string} two 
+ * Removes 'display: none' from the first element and adds 'display: none' to the second element.
+ * @param {string} one - The ID of the first element.
+ * @param {string} two - The ID of the second element.
  */
 function alternateTwoElements(one, two) {
     document.getElementById(`${one}`).classList.remove('d-none');
     document.getElementById(`${two}`).classList.add('d-none');
 }
 
+
 /**
- * Disable submit button and clear fields
+ * Disables the submit button and clears fields.
  */
 function disableButton() {
     document.getElementById('create-task-bttn').disabled = true;
@@ -287,8 +291,9 @@ function disableButton() {
     createContactDrpDwn();
 }
 
+
 /**
- * Show error messages if required fields are empty
+ * Shows error messages if required fields are empty.
  */
 function showErrorMsg() {
     document.getElementById('errorDate').classList.remove('d-none');
@@ -296,13 +301,18 @@ function showErrorMsg() {
     document.getElementById('categoryError').classList.remove('d-none');
 }
 
+
 /**
- * Reset input field at Subtask
+ * Resets the input field for the subtask.
  */
 function resetInput() {
     document.getElementById('taskSub').value = "";
 }
 
+
+/**
+ * Hides the dropdown menus if clicked somewhere else.
+ */
 document.addEventListener('click', function (event) {
     let excludedObjects = document.querySelectorAll('.excludedObject');
     let clickedElement = event.target;
@@ -323,11 +333,12 @@ document.addEventListener('click', function (event) {
     }
 });
 
+
 /**
-* Select category
-* 
-* @param {category} id -  This is the ID of clicked element
-*/
+ * Assigns a category.
+ * 
+ * @param {string} category - The ID of the clicked element.
+ */
 function assignCategory(category) {
     document.getElementById('selected-category').innerHTML = `${category}`;
     document.getElementById('categoryError').innerHTML = "";
@@ -336,8 +347,9 @@ function assignCategory(category) {
     validateForm();
 }
 
+
 /**
- * Load contacts from Firebase into array
+ * Loads contacts from Firebase into an array.
  */
 async function loadContactsArray() {
 
@@ -348,8 +360,9 @@ async function loadContactsArray() {
     createContactDrpDwn();
 }
 
+
 /**
- * Contact list from array will be sorted
+ * Creates the contact dropdown by sorting the contact list from the array.
  */
 function createContactDrpDwn() {
     let contactDrpDwn = document.getElementById('contact-content');
@@ -363,6 +376,12 @@ function createContactDrpDwn() {
     }
 }
 
+
+/**
+ * Shows the contacts in the dropdown list.
+ * @param {number} sortLetterNr - The sorted letter number.
+ * @param {number} i - The index in the alphabetContainer.
+ */
 function showContactInDrpDwn(sortLetterNr, i) {
     for (let y = 0; y < sortLetterNr['list'].length; y++) {
         const LetterContactNr = sortLetterNr['list'][y];
@@ -370,44 +389,58 @@ function showContactInDrpDwn(sortLetterNr, i) {
     }
 }
 
+
+/**
+ * Creates the HTML content for a contact in the dropdown list.
+ * @param {Object} letterContactNr - The contact information.
+ * @param {number} y - The index in the sorted list.
+ * @param {number} i - The index in the alphabetContainer.
+ */
 function printContactDrpDwn(LetterContactNr, y, i) {
     let contactDrpDwn = document.getElementById('contact-content');
-    contactDrpDwn.innerHTML += "";
-    let color = LetterContactNr['color'];
-    let initials = LetterContactNr['name'].match(/\b(\w)/g).join('');
-    let name = LetterContactNr['name'];
-
-    contactDrpDwn.innerHTML += /*html*/ `
-        <div onclick="highlightContact(${i}, ${y})" id="contact-in-list${i}-${y}" class="contact-in-list pddng-12">
-            <div class="flex-center">
-                <div class="initialsContact-small" style="background: ${color}">${initials}</div>
-                <span class="pddng-lft-12">${name}</span>
-            </div><img id="check-button${i}-${y}" src="./img/check-button.svg" alt="">
-            <img id="checked-button${i}-${y}" class="d-none" src="./img/checked-button.svg" alt="">
-        </div>
-    `;
+    contactDrpDwn.innerHTML += createContactHtml(LetterContactNr, y, i);
 }
 
+
+/**
+ * Creates the icons below the dropdown menu.
+ */
 function selectedInitialIcos() {
     let selectedInitialIco = document.getElementById('selected-initial-ico');
     selectedInitialIco.innerHTML = ""; // Clear the existing content
+
+    selectedInitialIco.innerHTML += createSelectedInitialIcons();
+}
+
+/**
+ * Generates the HTML content for the selected initial icons.
+ * @returns {string} - The HTML string for the selected initial icons.
+ */
+function createSelectedInitialIcons() {
+    let htmlContent = '';
 
     for (let i = 0; i < Math.min(selectedContacts.length, 5); i++) {
         let contact = selectedContacts[i];
         let color = contact.color;
         let initials = contact.initials;
 
-        selectedInitialIco.innerHTML += /*html*/ `
+        htmlContent += /*html*/ `
             <div class="initialsContact-small" style="background: ${color}">${initials}</div>
         `;
     }
 
     if (selectedContacts.length > 5) {
         let additionalCount = selectedContacts.length - 5;
-        selectedInitialIco.innerHTML += `<div class="initialsContact-small">+${additionalCount}</div>`;
+        htmlContent += `<div class="initialsContact-small">+${additionalCount}</div>`;
     }
+
+    return htmlContent;
 }
 
+
+/**
+ * Creates and adds a new subtask to the subtask list.
+ */
 function pushToSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
 
@@ -420,6 +453,10 @@ function pushToSubTaskList() {
     }
 }
 
+
+/**
+ * Renders the subtask list and adds event listeners for the double-click edit function.
+ */
 function renderSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
@@ -427,21 +464,8 @@ function renderSubTaskList() {
     // Determine the starting index based on the length of subTaskList
     let startIndex = Math.max(0, subTaskList.length - 2); // Start from the last two items or less
 
-    // Loop through the last two (or less) items in subTaskList
-    for (let i = startIndex; i < subTaskList.length; i++) {
-        let subTask = subTaskList[i];
-
-        subTaskListHTML.innerHTML += /*html*/ `
-            <div id="sub-task-entry${i}" class="highlight-subtask sub-task-entry">
-                <li id="subtask-in-list${i}">${subTask.name}</li>
-                <div class="sub-task-buttons" style="display: none">
-                    <img id="edit-small-img${i}" onclick="editTaskInList(${i})" class="plus" src="./img/edit-small.svg" alt="">
-                    <img src="./img/separator-small.svg" class="sep-small" alt="">
-                    <img id="recycle-small-img${i}" onclick="deleteSubtaskHTML(${i})" class="plus" src="./img/recycle.svg" alt="">
-                </div>
-            </div>
-        `;
-    }
+    // Generate and append the HTML content for the subtasks
+    subTaskListHTML.innerHTML = createSubTaskListHtml(subTaskList, startIndex);
 
     // Attach double-click event listeners for the displayed entries
     for (let i = startIndex; i < subTaskList.length; i++) {
@@ -452,11 +476,21 @@ function renderSubTaskList() {
     }
 }
 
+
+/**
+ * Deletes an entry from the locally rendered subtask list.
+ * @param {number} index - The index of the subtask to delete.
+ */
 function deleteSubtaskHTML(index) {
     subTaskList.splice(index, 1);
     renderSubTaskList();
 }
 
+
+/**
+ * Edit function for the subtask list.
+ * @param {number} index - The index of the subtask to edit.
+ */
 function editTaskInList(index) {
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
@@ -487,7 +521,10 @@ function editTaskInList(index) {
 }
 
 
-
+/**
+ * Saves the edited subtask.
+ * @param {number} index - The index of the subtask to save.
+ */
 function saveEditedTask(index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
@@ -500,6 +537,11 @@ function saveEditedTask(index) {
     }
 }
 
+
+/**
+ * Adds a blue line to the currently edited subtask.
+ * @param {number} index - The index of the subtask being edited.
+ */
 function changeParentStyle(index) {
     let childDiv = document.getElementById(`edited-sub-task-${index}`);
     let parentDiv = childDiv.parentElement;
@@ -512,10 +554,18 @@ function changeParentStyle(index) {
 }
 
 
+/**
+ * Opens the board page.
+ */
 function openBoardPage() {
     window.location.href = './board.html';
 }
 
+
+/**
+ * Resets the form, deletes all fields, and ensures that the button is disabled.
+ * @returns {boolean} Always returns false to prevent form submission.
+ */
 function addTaskEvent() {
     let taskTitle = document.getElementById('task-title1').value;
     taskTitle = String(taskTitle);
@@ -526,9 +576,10 @@ function addTaskEvent() {
     return false;
 }
 
+
 /**
- * Creates/saves a task in the corresponding list
- * @param {string} taskTitle is called from the input field
+ * Creates/saves a task in the corresponding list.
+ * @param {string} taskTitle - The title of the task from the input field.
  */
 async function createTask(taskTitle) {
     let taskDescription = document.getElementById('taskDescription').value;
@@ -569,6 +620,3 @@ async function createTask(taskTitle) {
         console.error("Error:", error);
     }
 }
-
-
-
