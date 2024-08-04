@@ -5,17 +5,23 @@ let tasks = {
     done: []
 };
 
+
 let currentDraggedElement;
 
+
 /**
- * 
- * @returns the user Name of the logged in user
+ * Retrieves the user name of the logged-in user.
+ * @returns {string} The user name of the logged-in user.
  */
 function getName() {
     let name = localStorage.getItem('userName');
     return name; // Return the retrieved name
 }
 
+
+/**
+ * Loads contact data into temporary arrays, fetches the tasks from Firebase, and renders lists when the page is loaded.
+ */
 function load() {
     loadContactsArrayBoard();
     addPlus();
@@ -24,6 +30,7 @@ function load() {
         checkArraysForContent();
     });
 }
+
 
 /**
  * Load contacts from Firebase into array
@@ -38,33 +45,34 @@ async function loadContactsArrayBoard() {
 
 
 /**
- * fetches the tasks from firebase
+ * Fetches the tasks from Firebase.
  */
 async function getTasks() {
-  const categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
-  for (const category of categories) {
-    try {
-      const response = await fetch(`${BASE_URL}tasks/${getName()}/${category}.json`);
-      const data = await response.json();
-
-      if (data) {
-        tasks[category] = Object.keys(data).map(key => ({
-          ...data[key],
-          id: key,
-          category
-        }));
+    let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+    for (let category of categories) {
+      try {
+        let response = await fetch(`${BASE_URL}tasks/${getName()}/${category}.json`);
+        let data = await response.json();
+  
+        if (data) {
+          tasks[category] = Object.keys(data).map(key => ({
+            ...data[key],
+            id: key,
+            category
+          }));
+        }
+      } catch (error) {
+        console.error(`Error fetching tasks for ${category}:`, error);
       }
-    } catch (error) {
-      console.error(`Error fetching tasks for ${category}:`, error);
     }
   }
-}
+  
 
 /**
- * shows pop up screen with details
- * @param {string} index 
- * @param {string} taskCategory 
- * @param {string} chosenCategory 
+ * Shows a pop-up screen with task details.
+ * @param {number} index - The index of the task in the specified category.
+ * @param {string} taskCategory - The category of the task.
+ * @param {string} chosenCategory - The chosen category for the task.
  */
 function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
     displayElement('task-overlay');
@@ -88,6 +96,13 @@ function renderOverlayTask(index, taskCategory = 'toDo', chosenCategory) {
     }
 }
 
+
+/**
+ * Checks a subtask as done, sets the tick, and updates the Firebase data.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ */
 async function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
     document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
     document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
@@ -97,6 +112,13 @@ async function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
     load();
 }
 
+
+/**
+ * Checks a subtask as undone, removes the tick, and updates the Firebase data.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ */
 async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
     document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
     document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
@@ -107,6 +129,14 @@ async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
     load();
     }
 
+
+/**
+ * Updates the subtasks in Firebase.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ * @param {boolean} complete - The completion status of the subtask.
+ */
 async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, complete) {
     const task = tasks[taskCategory][taskIndex];
     const userName = getName();
@@ -129,92 +159,39 @@ async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, co
     }
 }
 
+
 /**
- * generates the HTML for the overlay task
- * @param {object} task 
- * @param {array} validContacts 
- * @param {boolean} hasSubtasks 
- * @param {string} chosenCategory 
- * @param {string} taskCategory 
- * @param {number} taskIndex
- * @returns {string}
+ * Generates the HTML for the overlay task.
+ * @param {object} task - The task object.
+ * @param {array} validContacts - Array of valid contacts.
+ * @param {boolean} hasSubtasks - Indicates if the task has subtasks.
+ * @param {string} chosenCategory - The chosen category for the task.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task.
+ * @returns {string} - The generated HTML string.
  */
 function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, taskIndex) {
     let prioritySVGHTML = getPrioToSVG(task.priority);
-    // Generate HTML for all valid selected contacts
-    let contactsHtml = validContacts.map(contact => `
-        <div id="assOverlayAssPerson" class="task-overlay-ass-person">
-            <div class="initialsContact-small" style="background: ${contact.color}">
-                ${contact.initials}
-            </div>
-            <span class="pddng-lft-12">${contact.name}</span>
-        </div>
-    `).join('');
 
-    // Generate HTML for subtasks
-    let subtasksHtml = hasSubtasks ? task.subTaskList.map((subtask, index) => {
-        let checkedClass = subtask.complete ? '' : 'd-none';
-        let uncheckedClass = subtask.complete ? 'd-none' : '';
-        return `
-        <div class="subtasks-listed highlight-gray pddng-4" id="subtask${index}">
-            <img onclick="checkSubtask('${taskCategory}', ${taskIndex}, ${index})" class="checkbox-subtask ${uncheckedClass}" id="unCheckedButtonOverlay${index}" src="./img/check-button.svg" alt=""> 
-            <img onclick="UnCheckSubtask('${taskCategory}', ${taskIndex}, ${index})" id="checkedButtonOverlay${index}" class="${checkedClass} checkbox-subtask" src="./img/checked-button.svg" alt="">
-            <span>${subtask.name}</span>
-        </div>
-        `;
-    }).join('') : '';
+    let contactsHtml = generateContactsHTML(validContacts);
+    let subtasksHtml = hasSubtasks ? generateSubtasksHTML(task.subTaskList, taskCategory, taskIndex) : '';
 
-    // Return the full HTML string
     return /*html*/ `
-    <div class="task-overlay-wrapper">
-        <div class="task-overlay-head">
-            <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
-            <div onclick="displayNone('task-overlay'); hideBackGrnd('transparentBackGrnd');" class="closeButtonBackground">
-                <img src="./img/close.svg" alt="">
-            </div>
+        <div class="task-overlay-wrapper">
+            ${generateOverlayHeadHTML(task, chosenCategory)}
+            ${generateTaskDetailsHTML(task, prioritySVGHTML)}
+            ${generateContactsSectionHTML(validContacts, contactsHtml)}
+            ${generateSubtasksSectionHTML(hasSubtasks, subtasksHtml)}
+            ${generateOverlayFooterHTML(task, taskCategory, taskIndex)}
         </div>
-        <span id="taskOverlayTitle" class="task-overlay-title">${task.id}</span>
-        <span class="task-overlay-text">${task.taskDescription}</span>
-        <table class="task-overlay-text">
-            <tr>
-                <td>Due date:</td>
-                <td>${task.taskDate}</td>
-            </tr>
-            <tr>
-                <td>Priority:</td>
-                <td class="priority-overlay">${task.priority} ${prioritySVGHTML}</td>
-            </tr>
-        </table>
-        <div class="${validContacts.length > 0 ? '' : 'd-none'}">
-            <span class="task-overlay-text">Assigned to:</span>
-            <div class="task-overlay-assigned">
-                ${contactsHtml}
-            </div>
-        </div>
-        <div>
-        <div class="${hasSubtasks ? 'd-flex' : 'd-none'}">
-            <span class="task-overlay-text subtask-overlay">Subtasks</span>
-            <div class="subtasks-list-overlay subtasks-overlay">
-                ${subtasksHtml}
-            </div>
-        </div>
-        </div>
-        </div>
-        <div class="task-overlay-foot">
-            <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
-                <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
-                <span>Delete</span>
-            </div>
-            <img src="./img/separator-small.svg" class="sep-small" alt="">
-            <div onclick="loadEditTaskScriptAndRunOverlay('${taskIndex}', '${taskCategory}', '${task.id}')" class="overlay-action highlight-gray">
-                <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
-                <span>Edit</span>
-            </div>
-        </div>
-
     `;
 }
 
+
+/**
+ * Shows a black transparent background if an overlay is being shown.
+ * @param {string} targetId - The ID of the target element.
+ */
 function showBackGrnd(targetId) {
     displayElement(targetId);
     let targetElement = document.getElementById(targetId);
@@ -231,6 +208,10 @@ function showBackGrnd(targetId) {
 }
 
 
+/**
+ * Removes black background if overlay is being closed.
+ * @param {string} targetId - The ID of the target element.
+ */
 function hideBackGrnd(targetId) {
     displayNone(targetId);
     const targetElement = document.getElementById(targetId);
@@ -260,18 +241,19 @@ function updateTask(index, taskCategory, updatedTask) {
 }
 
 
-
-
 /**
- * renders the tasks in the list
+ * Renders the tasks in the list.
  */
 function renderToDoList() {
     let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
     categories.forEach(renderList);
 }
 
+
+/**
+ * Checks if content is available; otherwise, the placeholder will be shown.
+ */
 function checkArraysForContent() {
-    // Definiere die Kategorien und die zugehörigen Platzhalter
     const categories = [
         { key: 'toDo', placeholderId: 'todoPlaceholder' },
         { key: 'inProgress', placeholderId: 'progressPlaceholder' },
@@ -284,46 +266,31 @@ function checkArraysForContent() {
         const visibleTasks = document.querySelectorAll(`.${category.key}Container .taskContainer:not(.d-none)`);
 
         if (visibleTasks.length === 0) {
-            placeholder.classList.remove('d-none'); // Zeige den Platzhalter, wenn keine Tasks sichtbar sind
+            placeholder.classList.remove('d-none'); // Show the placeholder if no tasks are visible
         } else {
-            placeholder.classList.add('d-none'); // Verstecke den Platzhalter, wenn Tasks vorhanden sind
+            placeholder.classList.add('d-none'); // Hide the placeholder if tasks are present
         }
     });
 }
 
 
-function buildTaskHTML(task, index, taskCategory) {
-    let selectedContact = getSelectedContact(task);
-    let chosenCategory = task.chosenCategory[0] || 'Default Category';
-    let subtasksHTML = getSubtasksHTML(task);
-    let contactsHTML = getContactsHTML(task);
-    let prioritySVGHTML = getPrioToSVG(task.priority);
-    
-    return /*html*/ `
-    <div draggable="true" ondragend="removeRotation('${taskCategory}', ${index})" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}'); showBackGrnd('transparentBackGrnd');" class="taskContainer" id="taskBoard${taskCategory}${index}">
-        <div class="task-overlay-head">
-            <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
-            <div class="arrows-move-list">
-            <div onclick="moveCategoryDown(${index}, '${taskCategory}', '${task.id}')" class="highlight-gray arrow-move"><img src="./img/arrow_drop_down.svg" alt="" style="margin-top: 2px;"></div>
-            <div onclick="moveCategoryUp(${index}, '${taskCategory}', '${task.id}')"class="highlight-gray arrow-move"><img src="./img/arrow_drop_down.svg" alt="Arrow" style="transform: rotate(180deg);"></div>
-            </div>
-        </div>
-        <span class="taskTitle">${task.id}</span>
-        <span class="taskText">${task.taskDescription}</span>
-        ${subtasksHTML}
-        <div class="taskFooter">
-            <div class="initialLogoContainer">${contactsHTML}</div>
-            <div class="priority-icon">${prioritySVGHTML}</div>
-        </div>
-    </div>`;
-}
-
+/**
+ * Looks up the assigned contacts for the task.
+ * @param {object} task - The task object containing task details.
+ * @returns {object} - The first selected contact or a default contact object if none are selected.
+ */
 function getSelectedContact(task) {
     return Array.isArray(task.selectedContacts) && task.selectedContacts.length > 0
         ? task.selectedContacts[0]
         : { color: '#ccc', initials: '', name: 'Unknown' };
 }
 
+
+/**
+ * Shows the progress of the subtasks and the completed count.
+ * @param {object} task - The task object containing subtask details.
+ * @returns {string} - The HTML string for the subtasks progress or an empty string if there are no subtasks.
+ */
 function getSubtasksHTML(task) {
     if (task.subTaskList && task.subTaskList.length > 0) {
         let completedCount = task.subTaskList.filter(subtask => subtask.complete).length;
@@ -342,6 +309,11 @@ function getSubtasksHTML(task) {
 }
 
 
+/**
+ * Shows the assigned contacts and adds a small icon if more than 4 contacts are selected.
+ * @param {object} task - The task object containing contact details.
+ * @returns {string} - The HTML string for the contacts.
+ */
 function getContactsHTML(task) {
     let htmlContent = '';
 
@@ -367,6 +339,10 @@ function getContactsHTML(task) {
 }
 
 
+/**
+ * Renders the tasks into each list.
+ * @param {string} taskCategory - The category of tasks to render.
+ */
 function renderList(taskCategory) {
     let content = document.getElementById(`${taskCategory}List`);
     let tasksInCategory = tasks[taskCategory];
@@ -380,6 +356,12 @@ function renderList(taskCategory) {
     content.innerHTML = htmlContent;
 }
 
+
+/**
+ * Creates the correct priority symbol based on priority.
+ * @param {string} priority - The priority level of the task.
+ * @returns {string} - The HTML string for the priority symbol.
+ */
 function getPrioToSVG(priority) {
     switch (priority) {
         case 'High':
@@ -393,14 +375,24 @@ function getPrioToSVG(priority) {
     }
 }
 
+
+/**
+ * Creates the add task button.
+ */
 function addPlus() {
     const addButton = document.getElementById('addTaskButton');
-    // Prüfen, ob das Plus-Symbol bereits existiert
+    // Check if the plus symbol already exists
     if (!addButton.querySelector('.add')) {
         addButton.innerHTML += `<img class="add" src="./img/add.svg" alt="Add">`;
     }
 }
 
+
+/**
+ * Deletes the task from Firebase.
+ * @param {string} taskId - The ID of the task to delete.
+ * @param {string} taskCategory - The category of the task.
+ */
 async function deleteTask(taskId, taskCategory) {
     const userName = getName();
     const url = `${BASE_URL}tasks/${userName}/${taskCategory}/${taskId}.json`;
@@ -424,6 +416,12 @@ async function deleteTask(taskId, taskCategory) {
     }
 }
 
+
+/**
+ * Removes the task from the board.
+ * @param {string} taskId - The ID of the task to remove.
+ * @param {string} taskCategory - The category of the task.
+ */
 function removeTaskFromUI(taskId, taskCategory) {
     tasks[taskCategory] = tasks[taskCategory].filter(task => task.id !== taskId);
     renderList(taskCategory);
@@ -431,15 +429,19 @@ function removeTaskFromUI(taskId, taskCategory) {
     displayNone('task-overlay')
 }
 
+
+/**
+ * Filters the tasks according to the search text.
+ */
 function findTask() {
-    let input = document.getElementById('findTaskInput').value.trim().toLowerCase(); // Den Input trimmen und in Kleinbuchstaben umwandeln
+    let input = document.getElementById('findTaskInput').value.trim().toLowerCase(); // Trim the input and convert to lowercase
 
     let found = false;
-    const taskContainers = document.querySelectorAll('.taskContainer'); // Annahme, dass deine Task-Elemente diese Klasse haben
+    const taskContainers = document.querySelectorAll('.taskContainer'); // Assuming your task elements have this class
 
     taskContainers.forEach(container => {
-        const taskDescription = container.querySelector('.taskText').textContent.toLowerCase(); // Text des Task-Beschreibungselements
-        const taskTitle = container.querySelector('.taskTitle').textContent.toLowerCase(); // Text des Task-Beschreibungselements
+        const taskDescription = container.querySelector('.taskText').textContent.toLowerCase(); // Text of the task description element
+        const taskTitle = container.querySelector('.taskTitle').textContent.toLowerCase(); // Text of the task title element
         if (taskDescription.includes(input) || taskTitle.includes(input)) {
             container.classList.remove('d-none');
             found = true;
@@ -449,12 +451,19 @@ function findTask() {
     });
 
     if (!found) {
-        console.log('Kein Task mit diesem Text gefunden.'); // Hier könntest du auch Benachrichtigungen für den Benutzer anzeigen
+        console.log('No task found with this text.');
     }
 
     checkArraysForContent();
 }
 
+
+/**
+ * Allows dragging of tasks from one list to another.
+ * @param {string} currentCategory - The current category of the task.
+ * @param {number} index - The index of the task in the current category.
+ * @param {string} taskTitle - The title of the task.
+ */
 function startDragging(currentCategory, index, taskTitle) {
     currentDraggedElement = [index, currentCategory, taskTitle];
       // add class with rotation
@@ -463,7 +472,7 @@ function startDragging(currentCategory, index, taskTitle) {
 
 
 /**
- * removes rotated task
+ * Removes the CSS class that rotates the task by a small degree.
  */
 function removeRotation() {
     // Select all elements with the class 'rotate'
@@ -476,11 +485,12 @@ function removeRotation() {
 }
 
 
-
 let lists = ["doneContainer", "inProgressContainer", "toDoContainer", "awaitFeedbackContainer"];
 
+
 /**
- * adds dotted line to the specified list and removes from other lists
+ * Adds a dotted line to the specified list and removes it from other lists.
+ * @param {string} listName - The name of the list to highlight.
  */
 function addDottedLine(listName) {
     document.getElementById(`${listName}Container`).classList.add("highlightBorder");
@@ -489,8 +499,8 @@ function addDottedLine(listName) {
 
 
 /**
- * removes dotted lines
- * 
+ * Removes dotted lines from all lists except the specified one.
+ * @param {string} listName - The name of the list to keep highlighted.
  */
 function removeDottedLine(listName) {
     lists.forEach(list => {
@@ -502,8 +512,7 @@ function removeDottedLine(listName) {
 
 
 /**
- * removes all dotted lines on any drop zone
- * 
+ * Removes all dotted lines if dropped somewhere else as specified.
  */
 function removeAllDottedLines() {
     lists.forEach(list => {
@@ -511,6 +520,14 @@ function removeAllDottedLines() {
     });
 }
 
+
+/**
+ * Moves the task to the category list below the current one.
+ * @param {number} index - The index of the task in the current category.
+ * @param {string} currentCategory - The current category of the task.
+ * @param {string} taskTitle - The title of the task.
+ * @returns {void}
+ */
 async function moveCategoryDown(index, currentCategory, taskTitle) {
     event.stopPropagation();
     if (currentCategory === 'done') {
@@ -534,13 +551,20 @@ async function moveCategoryDown(index, currentCategory, taskTitle) {
     try {
         // Update Firebase after local move
         await updateFirebase(newCategory, index, currentCategory, taskTitle);
-        console.log(`Task successfully moved to ${newCategory}`);
+
     } catch (error) {
         console.error("Error moving task:", error);
     }
 }
 
 
+/**
+ * Moves the task to the category list above the current one.
+ * @param {number} index - The index of the task in the current category.
+ * @param {string} currentCategory - The current category of the task.
+ * @param {string} taskTitle - The title of the task.
+ * @returns {void}
+ */
 async function moveCategoryUp(index, currentCategory, taskTitle) {
     event.stopPropagation();
     if (currentCategory === 'toDo') {
@@ -571,7 +595,11 @@ async function moveCategoryUp(index, currentCategory, taskTitle) {
 }
 
 
-
+/**
+ * Moves the task to the specified category list.
+ * @param {string} category - The target category to move the task to.
+ * @returns {Promise<void>}
+ */
 async function moveTo(category) {
     let [index, currentCategory, taskTitle] = currentDraggedElement;
     
@@ -589,10 +617,23 @@ async function moveTo(category) {
     }
 }
 
+
+/**
+ * Allows drag-and-drop operations by preventing the default behavior of the event.
+ * @param {Event} ev - The dragover event.
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+
+/**
+ * Moves a task to a new category while removing it from the old one.
+ * @param {string} category - The new category where the task should be moved.
+ * @param {number} index - The index position where the task should be inserted in the new category.
+ * @param {string} currentCategory - The current category from which the task is being moved.
+ * @param {string} taskTitle - The ID of the task being moved.
+ */
 function moveToCategory(category, index, currentCategory, taskTitle) {
     let taskIndex = tasks[currentCategory].findIndex(task => task.id === taskTitle);
     
@@ -609,10 +650,16 @@ function moveToCategory(category, index, currentCategory, taskTitle) {
     
     // Add the task to the new category array at the specified index
     tasks[category].splice(index, 0, task);
-
-    console.log(`Task moved to ${category} at index ${index}`);
 }
 
+
+/**
+ * Updates Firebase with the task's new category and removes it from the old category.
+ * @param {string} category - The new category where the task should be moved.
+ * @param {number} index - The index position where the task should be inserted in the new category.
+ * @param {string} currentCategory - The current category from which the task is being moved.
+ * @param {string} taskTitle - The ID of the task being moved.
+ */
 async function updateFirebase(category, index, currentCategory, taskTitle) {
     try {
         // Delete the task from the current category in Firebase
@@ -630,12 +677,16 @@ async function updateFirebase(category, index, currentCategory, taskTitle) {
             body: JSON.stringify(task)
         });
 
-        console.log(`Task moved to ${category} at index ${index}`);
     } catch (error) {
         console.error("Error moving task:", error);
     }
 }
 
+
+/**
+ * Loads the editTask.js file to prevent unexpected behavior if tasks are not being edited.
+ * @param {Function} callback - The function to be executed once the script is loaded.
+ */
 function loadEditTaskScript(callback) {
     // Check if the script is already loaded
     if (!document.getElementById('editTaskScript')) {
@@ -652,6 +703,12 @@ function loadEditTaskScript(callback) {
 }
 
 
+/**
+ * Loads editTask.js and shows the edit overlay for tasks, hides the task overlay and removes the HTML content to avoid unexpected behavior.
+ * @param {number} taskIndex - The index of the task in its category.
+ * @param {string} taskCategory - The category of the task (e.g., 'toDo', 'inProgress', etc.).
+ * @param {string} taskTitle - The title or ID of the task being edited.
+ */
 function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory, taskTitle) {
     loadEditTaskScript(() => {
         if (typeof editTaskOverlay === 'function') {
@@ -663,8 +720,8 @@ function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory, taskTitle) {
 
 
 /**
- * defines in which column the task will be saved 
- * @param {string} status is the name of the column
+ * Defines in which column the task will be saved.
+ * @param {string} status - The name of the column.
  */
 function addTaskWindow(status) {
     setBoardStatus(status);
@@ -673,6 +730,10 @@ function addTaskWindow(status) {
     loadContactsArray();
 }
 
+
+/**
+ * Hides the task overlay and removes the HTML content.
+ */
 function hideAndRemoveTaskOverlay() {
     let taskOverlay = document.getElementById('task-overlay');
     if (taskOverlay) {
