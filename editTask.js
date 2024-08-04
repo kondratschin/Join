@@ -193,7 +193,7 @@ function generateOverlayEdit(task, taskCategory) {
         <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
             <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
                 <h1>Edit Task</h1>
-                <div id="closeTaskButton" onclick="hideAndRemoveEditOverlay()" class="closeButtonBackground">
+                <div id="closeTaskButton" onclick="hideAndRemoveEditOverlay(); hideBackGrnd('transparentBackGrnd');" class="closeButtonBackground">
                     <img src="./img/close.svg" alt="Close">
                 </div>
             </div>
@@ -640,5 +640,6 @@ function saveEditedTaskEvent(oldTaskTitle, taskCategory) {
     saveChangesTask(oldTaskTitle, taskTitle, taskCategory);
     displayNone('task-overlay');
     hideAndRemoveEditOverlay();
+    hideBackGrnd('transparentBackGrnd');
     return false;
 }

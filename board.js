@@ -169,7 +169,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
     <div class="task-overlay-wrapper">
         <div class="task-overlay-head">
             <span class="task-overlay-category ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${task.chosenCategory}</span> 
-            <div onclick="displayNone('task-overlay')" class="closeButtonBackground">
+            <div onclick="displayNone('task-overlay'); hideBackGrnd('transparentBackGrnd');" class="closeButtonBackground">
                 <img src="./img/close.svg" alt="">
             </div>
         </div>
@@ -215,20 +215,36 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
     `;
 }
 
-// function adjustFontSizeOverlay() {
-//     const title = document.getElementById('taskOverlayTitle');
-//     const container = title.parentElement;
-//     const targetWidth = container.offsetWidth * 0.9; // Use 90% of the container width
+function showBackGrnd(targetId) {
+    displayElement(targetId);
+    let targetElement = document.getElementById(targetId);
+    if (targetElement) {
+        let parentElement = targetElement.parentElement;
+        if (parentElement) {
+            parentElement.style.overflow = 'hidden';
+        } else {
+            console.error('Parent element not found.');
+        }
+    } else {
+        console.error('Target element not found.');
+    }
+}
 
-//     let fontSize = 61; // Starting font size
-//     title.style.fontSize = fontSize + 'px';
 
-//     // Reduce font size until text fits within the target width with a buffer of 6px
-//     while (title.scrollWidth > (targetWidth) && fontSize > 0) {
-//         fontSize--;
-//         title.style.fontSize = fontSize + 'px';
-//     }
-// }
+function hideBackGrnd(targetId) {
+    displayNone(targetId);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+        const parentElement = targetElement.parentElement;
+        if (parentElement) {
+            parentElement.style.overflow = '';
+        } else {
+            console.error('Parent element not found.');
+        }
+    } else {
+        console.error('Target element not found.');
+    }
+}
 
 
 /**
@@ -284,7 +300,7 @@ function buildTaskHTML(task, index, taskCategory) {
     let prioritySVGHTML = getPrioToSVG(task.priority);
     
     return /*html*/ `
-    <div draggable="true" ondragend="removeRotation('${taskCategory}', ${index})" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer" id="taskBoard${taskCategory}${index}">
+    <div draggable="true" ondragend="removeRotation('${taskCategory}', ${index})" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}'); showBackGrnd('transparentBackGrnd');" class="taskContainer" id="taskBoard${taskCategory}${index}">
         <div class="task-overlay-head">
             <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
             <div class="arrows-move-list">
