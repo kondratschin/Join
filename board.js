@@ -140,6 +140,7 @@ async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, co
  * @returns {string}
  */
 function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, taskIndex) {
+    let prioritySVGHTML = getPrioToSVG(task.priority);
     // Generate HTML for all valid selected contacts
     let contactsHtml = validContacts.map(contact => `
         <div id="assOverlayAssPerson" class="task-overlay-ass-person">
@@ -181,7 +182,7 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
             </tr>
             <tr>
                 <td>Priority:</td>
-                <td>${task.priority}</td>
+                <td class="priority-overlay">${task.priority} ${prioritySVGHTML}</td>
             </tr>
         </table>
         <div class="${validContacts.length > 0 ? '' : 'd-none'}">
@@ -274,6 +275,7 @@ function checkArraysForContent() {
     });
 }
 
+
 function buildTaskHTML(task, index, taskCategory) {
     let selectedContact = getSelectedContact(task);
     let chosenCategory = task.chosenCategory[0] || 'Default Category';
@@ -285,6 +287,10 @@ function buildTaskHTML(task, index, taskCategory) {
     <div draggable="true" ondragend="removeRotation('${taskCategory}', ${index})" ondragstart="startDragging('${taskCategory}', ${index}, '${task.id}')" onclick="renderOverlayTask(${index}, '${taskCategory}', '${chosenCategory}')" class="taskContainer" id="taskBoard${taskCategory}${index}">
         <div class="task-overlay-head">
             <span class="taskCategory ${chosenCategory === 'Technical Task' ? 'technical-task' : 'user-story-task'}">${chosenCategory}</span>
+            <div class="arrows-move-list">
+            <div onclick="moveCategoryDown(${index}, '${taskCategory}', '${task.id}')" class="highlight-gray arrow-move"><img src="./img/arrow_drop_down.svg" alt="" style="margin-top: 2px;"></div>
+            <div onclick="moveCategoryUp(${index}, '${taskCategory}', '${task.id}')"class="highlight-gray arrow-move"><img src="./img/arrow_drop_down.svg" alt="Arrow" style="transform: rotate(180deg);"></div>
+            </div>
         </div>
         <span class="taskTitle">${task.id}</span>
         <span class="taskText">${task.taskDescription}</span>
@@ -488,6 +494,66 @@ function removeAllDottedLines() {
         document.getElementById(list).classList.remove("highlightBorder");
     });
 }
+
+async function moveCategoryDown(index, currentCategory, taskTitle) {
+    event.stopPropagation();
+    if (currentCategory === 'done') {
+        return; // Stop the function and do nothing
+    }
+    let newCategory;
+
+    if (currentCategory === 'toDo') {
+        newCategory = 'inProgress';
+    } else if (currentCategory === 'inProgress') {
+        newCategory = 'awaitFeedback';
+    } else if (currentCategory === 'awaitFeedback') {
+        newCategory = 'done';
+    }
+
+    // Move the task locally and update UI
+    moveToCategory(newCategory, index, currentCategory, taskTitle);
+    renderToDoList();
+    checkArraysForContent();
+    
+    try {
+        // Update Firebase after local move
+        await updateFirebase(newCategory, index, currentCategory, taskTitle);
+        console.log(`Task successfully moved to ${newCategory}`);
+    } catch (error) {
+        console.error("Error moving task:", error);
+    }
+}
+
+
+async function moveCategoryUp(index, currentCategory, taskTitle) {
+    event.stopPropagation();
+    if (currentCategory === 'toDo') {
+        return; // Stop the function and do nothing
+    }
+    let newCategory;
+
+    if (currentCategory === 'done') {
+        newCategory = 'awaitFeedback';
+    } else if (currentCategory === 'awaitFeedback') {
+        newCategory = 'inProgress';
+    } else if (currentCategory === 'inProgress') {
+        newCategory = 'toDo';
+    }
+
+    // Move the task locally and update UI
+    moveToCategory(newCategory, index, currentCategory, taskTitle);
+    renderToDoList();
+    checkArraysForContent();
+    
+    try {
+        // Update Firebase after local move
+        await updateFirebase(newCategory, index, currentCategory, taskTitle);
+        console.log(`Task successfully moved to ${newCategory}`);
+    } catch (error) {
+        console.error("Error moving task:", error);
+    }
+}
+
 
 
 async function moveTo(category) {

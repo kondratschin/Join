@@ -188,6 +188,7 @@
 .task-overlay-head {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .subtasks-overlay {
@@ -213,8 +214,23 @@
     background: #1FD7C1;
 }
 
+.arrows-move-list {
+    display: none;
+    gap: 16px;
+    height: 20px;
+}
+
 .user-story-task {
     background: #0038FF;
+}
+
+.arrow-move {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10px;
+    width: 10px;
+    padding: 5px;
 }
 
 .task-overlay-assigned {
@@ -570,6 +586,12 @@
     width: 100%
 }
 
+.priority-overlay {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 
 @media (max-width: 1350px) {
     .boardContainer {
@@ -587,7 +609,10 @@
 
     .taskContainer {
         width: 240px;
+    }
 
+    .arrows-move-list {
+        display: flex;
     }
 
     .task-lists-board {
