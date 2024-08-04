@@ -357,6 +357,10 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+    /* Standard property (not yet fully supported in all browsers) */
+    display: box;
+    box-orient: vertical;
+    line-clamp: 2;
 }
 
 .progress {
