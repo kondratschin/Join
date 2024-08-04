@@ -1,3 +1,6 @@
+/**
+ * Check selected contacts and highlights the selected contacts.
+ */
 function processSelectedContacts() {
     // Check if the selectedContacts array exists and has at least one element
     if (selectedContacts && selectedContacts.length > 0) {
@@ -12,6 +15,9 @@ function processSelectedContacts() {
 }
 
 
+/**
+ * Hides the edit overlay and removes HTML content.
+ */
 function hideAndRemoveEditOverlay() {
     let editTaskForm = document.getElementById('taskEditForm');
     if (editTaskForm) {
@@ -22,10 +28,10 @@ function hideAndRemoveEditOverlay() {
 
 
 /**
- * Contacts from array 'selectedContacts' will be shown as selected/highlighted, if no contacts have been selected previously, contact list will be rendered
+ * Contacts from array 'selectedContacts' will be shown as selected/highlighted, 
+ * if no contacts have been selected previously, contact list will be rendered.
  */
 function showContactDrpEdit() {
-
     document.getElementById('contact-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
 }
@@ -45,6 +51,11 @@ function createContactDrpDwnEdit() {
 }
 
 
+/**
+ * Calls the contacts and renders them to drop-down list.
+ * @param {*} sortLetterNr 
+ * @param {*} i 
+ */
 function showContactInDrpDwnEdit(sortLetterNr, i) {
     for (let y = 0; y < sortLetterNr['list'].length; y++) {
         const LetterContactNr = sortLetterNr['list'][y];
@@ -53,29 +64,10 @@ function showContactInDrpDwnEdit(sortLetterNr, i) {
 }
 
 
-function printContactDrpDwnEdit(LetterContactNr, y, i) {
-    let contactDrpDwn = document.getElementById('contact-content');
-    contactDrpDwn.innerHTML += "";
-    let color = LetterContactNr['color'];
-    let initials = LetterContactNr['name'].match(/\b(\w)/g).join('');
-    let name = LetterContactNr['name'];
-
-    contactDrpDwn.innerHTML += /*html*/ `
-        <div onclick="highlightContactEdit(${i}, ${y})" id="contact-in-list${i}-${y}" class="contact-in-list pddng-12">
-            <div class="flex-center">
-                <div class="initialsContact-small" style="background: ${color}">${initials}</div>
-                <span class="pddng-lft-12">${name}</span>
-            </div><img id="check-button${i}-${y}" src="./img/check-button.svg" alt="">
-            <img id="checked-button${i}-${y}" class="d-none" src="./img/checked-button.svg" alt="">
-        </div>
-    `;
-}
-
-
 /**
- * higlights selected contacts from dropdown list
- * @param {number} i list in json 'alphabetContainer'
- * @param {number} y value from i list in 'alphabetContainer'
+ * Highlights selected contacts from dropdown list
+ * @param {number} i List in JSON 'alphabetContainer'
+ * @param {number} y Value from i list in 'alphabetContainer'
  */
 function highlightContactEdit(i, y) {
     let contactElement = document.getElementById(`contact-in-list${i}-${y}`);
@@ -120,8 +112,8 @@ function addToSelectedContactsEdit(contactElement, i, y) {
 
 
 /**
- * removes the contact from the array 'selectedContacts'
- * @param {HTMLElement} contactElement contact to be removed
+ * Removes the contact from the array 'selectedContacts'
+ * @param {HTMLElement} contactElement Contact to be removed
  * @param {number} i 
  * @param {number} y 
  */
@@ -133,6 +125,12 @@ function removeFromSelectedContactsEdit(i, y) {
 }
 
 
+/**
+ * Renders the overlay to edit the task
+ * @param {*} index 
+ * @param {*} taskCategory 
+ * @param {*} taskTitle 
+ */
 function editTaskOverlay(index, taskCategory, taskTitle) {
     displayElement('editOverlay');
     subTaskList = tasks[taskCategory][index].subTaskList || []; // Ensure subTaskList is an array
@@ -153,7 +151,9 @@ function editTaskOverlay(index, taskCategory, taskTitle) {
 }
 
 
-
+/**
+ * Shows the icons of contacts below the drop-down menu and adds a small icon with summary if more than 6 contacts are selected
+ */
 function generateAssignedContacts() {
     // Get the element where the HTML for the assigned contacts will be placed
     let assignedContactsContainer = document.getElementById('selected-initial-ico');
@@ -185,142 +185,9 @@ function generateAssignedContacts() {
     assignedContactsContainer.innerHTML = assignedContactsHtml;
 }
 
-
-function generateOverlayEdit(task, taskCategory) {
-
-    // Return the final HTML string
-    return /*html*/ `
-        <form class="task-edit" id="taskEditForm" onsubmit="return saveEditedTaskEvent('${task.id}', '${taskCategory}')">
-            <div class="add-task-title edit-task-headline" style="margin-top: 0px !important;">
-                <h1>Edit Task</h1>
-                <div id="closeTaskButton" onclick="hideAndRemoveEditOverlay(); hideBackGrnd('transparentBackGrnd');" class="closeButtonBackground">
-                    <img src="./img/close.svg" alt="Close">
-                </div>
-            </div>
-    
-            <div class="task-edit-wrapper">
-                <div class="input-left input-edit">
-                    <div class="task-input-field">
-                        <span class="input-name">Title<span style="color: red">*</span></span>
-                        <div class="error-wrapper">
-                            <div class="task-title mrg-bttm-0">
-                                <input type="text" id="task-title1" placeholder="Enter a title" title="Please enter at least one word." value="${task.id}">
-                            </div>
-                            <span id="titleError" class="error d-none">Task title must not be empty</span>
-                        </div>
-                    </div>
-                    <div class="task-input-field">
-                        <span class="input-name">Description</span>
-                        <div class="task-title task-text">
-                            <textarea id="taskDescription" placeholder="Enter a Description">${task.taskDescription}</textarea>
-                        </div>
-                    </div>
-                    <div class="task-input-field margn-btm-32px">
-                        <span class="input-name">Assigned to</span>
-                        <div id="category-wrapper" class="category-wrapper excludedObject mrg-bttm-8">
-                            <div class="contact-list-open">
-                                <div onclick="showContactDrpEdit()" id="assign-field" class="category-field">
-                                    <div class="assign-contact">
-                                        <p id="assigned-contact">Select contacts to assign</p>
-                                        <div class="arrow-drp-dwn">
-                                            <img id="arrow-drp-dwn" src="./img/arrow_drop_down.svg" alt="Arrow Drop Down">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="contact-drp-dwn" class="contacts-drp-list d-none">
-                                    <div id="contact-content" class="dropdown-category-content"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="selected-initial-ico" class="selected-initial-ico">
-                            
-                        </div>
-                    </div>
-    
-                    <div class="task-input-field">
-                        <span class="input-name">Due date<span style="color: red">*</span></span>
-                        <div class="error-wrapper">
-                            <div class="task-title mrg-bttm-0">
-                                <input class="task-date" type="date" id="taskDate" placeholder="dd/mm/yyyy" title="Please enter date" value="${task.taskDate}">
-                            </div>
-                            <span class="error d-none" id="errorDate">Please select date</span>
-                        </div>
-                    </div>
-                    <div class="task-input-field">
-                        <span class="input-name">Prio</span>
-                        <div class="prio-buttons">
-                            <div onclick="prioritySelected('prio-alta', 'prio-select-red', 'prio-select')" id="prio-alta" class="task-title prio-task prio-alta ${task.priority === 'High' ? 'prio-select-red prio-select' : ''}">
-                                <p class="prio-text">Urgent</p>
-                                <img src="./img/prio-alta.svg" alt="Urgent Priority">
-                            </div>
-                            <div onclick="prioritySelected('prio-media', 'prio-select-orange', 'prio-select')" id="prio-media" class="task-title prio-task prio-media ${task.priority === 'Medium' ? 'prio-select-orange prio-select' : ''}">
-                                <p class="prio-text">Medium</p>
-                                <img src="./img/prio-media.svg" alt="Medium Priority">
-                            </div>
-                            <div onclick="prioritySelected('prio-baja', 'prio-select-green', 'prio-select')" id="prio-baja" class="task-title prio-task prio-baja ${task.priority === 'Low' ? 'prio-select-green prio-select' : ''}">
-                                <p class="prio-text">Low</p>
-                                <img src="./img/prio-baja.svg" alt="Low Priority">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="task-input-field">
-                        <span class="input-name">Category<span style="color: red">*</span></span>
-                        <div class="error-wrapper">
-                            <div onclick="showCategoryDrp()" class="category-wrapper excludedObject mrg-bttm-0">
-                                <div class="contact-list-open">
-                                    <div id="category-field" class="category-field">
-                                        <div class="assign-contact">
-                                            <p id="selected-category">${task.chosenCategory}</p>
-                                            <div class="arrow-drp-dwn">
-                                                <img id="arrow-drp-dwn2" src="./img/arrow_drop_down.svg" alt="Arrow Drop Down">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="category-drp-dwn" class="contacts-drp-list d-none">
-                                        <div class="dropdown-category-content">
-                                            <span onclick="assignCategory('Technical Task')" class="pddng-12 highlight-gray">Technical Task</span>
-                                            <span onclick="assignCategory('User Story')" class="pddng-12 highlight-gray">User Story</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <span id="categoryError" class="error d-none">Please select category</span>
-                        </div>
-                    </div>
-                    <div class="task-input-field">
-                        <span class="input-name">Subtask</span>
-                        <div class="subtask-wrapper">
-                            <div class="task-title excludedObject mrg-bttm-4">
-                                <input onfocus="alternateTwoElements('subtask-buttons', 'subtask-plus')" type="text" id="taskSub" placeholder="Add new subtask">
-                                <img onclick="pushToEditedSubTaskList()" id="subtask-plus" class="plus mrg-rgt-12" src="./img/plus.svg" alt="Add Subtask">
-                                <div id="subtask-buttons" class="sub-task-buttons d-none">
-                                    <img onclick="resetInput(); alternateTwoElements('subtask-plus', 'subtask-buttons');" class="plus" src="./img/cross-box-small.svg" alt="Cancel Subtask">
-                                    <img src="./img/separator-small.svg" alt="Separator">
-                                    <img onclick="pushToEditedSubTaskList()" class="plus" src="./img/check-small.svg" alt="Confirm Subtask">
-                                </div>
-                            </div>
-                            <div id="sub-task-list" class="sub-task-list">
-    
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="task-lowsection edit-low-section">
-                <div class="task-remark" style="font-size: 16px;">
-                    <span style="color: red">*</span><span>This field is required</span>
-                </div>
-                <div class="task-edit-buttons">
-                    <button onmousemove="showErrorMsg()" type="submit" disabled id="save-changes-bttn" class="create-task-button">OK<img src="./img/buttonCheck.svg" alt="Button Check"></button>
-                </div>
-            </div>
-        </form>
-    `;
-}
-
-
-
+/**
+ * Renders the subtask list in the edit overlay and adds event listener for double-click
+ */
 function renderEditSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
@@ -352,8 +219,10 @@ function renderEditSubTaskList() {
 }
 
 
-
-
+/**
+ * Edits the subtask in the edit task overlay
+ * @param {*} index 
+ */
 function editTaskInEditList(index) {
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
@@ -377,6 +246,10 @@ function editTaskInEditList(index) {
 }
 
 
+/**
+ * Saves the edited subtask in the edit overlay
+ * @param {*} index 
+ */
 function saveEditedTask(index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
@@ -390,12 +263,21 @@ function saveEditedTask(index) {
 }
 
 
+/**
+ * Deletes subtask in edit overlay
+ * @param {} index 
+ */
 function deleteEditSubtaskHTML(index) {
     subTaskList.splice(index, 1);
     renderEditSubTaskList();
 }
 
 
+/**
+ * Edit function fur subtasks
+ * @param {*} subTaskList 
+ * @param {*} index 
+ */
 function editSubTaskInList(subTaskList, index) {
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
     let currentTask = subTaskList[index];
@@ -426,6 +308,11 @@ function editSubTaskInList(subTaskList, index) {
 }
 
 
+/**
+ * Save function for subtasks
+ * @param {*} subTaskList 
+ * @param {*} index 
+ */
 function saveEditedSubTask(subTaskList, index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
@@ -439,6 +326,9 @@ function saveEditedSubTask(subTaskList, index) {
 }
 
 
+/**
+ * Push edited subtask to subTaskList
+ */
 function pushToEditedSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
 
@@ -452,6 +342,13 @@ function pushToEditedSubTaskList() {
 }
 
 
+/**
+ * updates selected contacts in selectedContacts array 
+ * @param {*} contactElement 
+ * @param {*} isSelected 
+ * @param {*} i 
+ * @param {*} y 
+ */
 function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
     const color = contactElement.querySelector('.initialsContact-small').style.background;
     const initials = contactElement.querySelector('.initialsContact-small').innerText;
@@ -466,7 +363,6 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
         selectedContacts = selectedContacts.filter(contact => contact.index !== `${i}-${y}`);
     }
 }
-
 
 
 /**
@@ -548,13 +444,9 @@ async function saveChangesTask(oldTaskTitle, newTaskTitle, boardStatus) {
 }
 
 
-
-
-
-// Code inside editTask.js
-console.log('editTask.js is running');
-// Your editTask.js code here
-
+/**
+ * Check if all required fields are filled
+ */
 function attachEventListeners() {
     const taskDateInput = document.getElementById('taskDate');
     const taskTitleInput = document.getElementById('task-title1');
@@ -573,6 +465,10 @@ function attachEventListeners() {
     }
 }
 
+
+/**
+ * Validates form
+ */
 function validateDateEdited() {
     const taskDateInput = document.getElementById('taskDate');
     let errorSpan = document.getElementById('errorDate');
@@ -591,6 +487,10 @@ function validateDateEdited() {
     validateFormEdited(); // Call validateFormEdited after validation
 }
 
+
+/**
+ * Check if title was entered
+ */
 function validateTitleEdited() {
     const taskTitleInput = document.getElementById('task-title1');
     let errorSpan = document.getElementById('titleError');
@@ -605,6 +505,11 @@ function validateTitleEdited() {
     validateFormEdited(); // Call validateFormEdited after validation
 }
 
+
+/**
+ * Check if everything is filled and valid
+ * @returns 
+ */
 function validateFormEdited() {
     const taskDateInput = document.getElementById('taskDate');
     const taskTitleInput = document.getElementById('task-title1');
@@ -628,9 +533,17 @@ function validateFormEdited() {
     }
 }
 
+
 // Ensure the functions are available globally if needed
 window.attachEventListeners = attachEventListeners;
 
+
+/**
+ * Save edited task hide the overlay menu and remove black background
+ * @param {*} oldTaskTitle 
+ * @param {*} taskCategory 
+ * @returns 
+ */
 function saveEditedTaskEvent(oldTaskTitle, taskCategory) {
     let taskTitle = document.getElementById('task-title1').value;
     chosenCategory = [];
