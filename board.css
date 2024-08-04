@@ -23,6 +23,17 @@
     font-weight: 700;
 }
 
+.transparent-bckgrnd {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 900;
+    display: none;
+    overflow: hidden;
+}
+
 
 .findAndAddTask {
     display: flex;
