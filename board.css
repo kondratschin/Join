@@ -14,7 +14,13 @@
 
 .findAndAddTask {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;
+    gap: 32px;
+    width: 604px;
+    height: 40px;
 }
 
 .title {
@@ -32,18 +38,6 @@
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 999;
     overflow: hidden;
-}
-
-
-.findAndAddTask {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0px;
-    gap: 32px;
-    width: 604px;
-    height: 40px;
 }
 
 .findTask {
@@ -98,9 +92,7 @@
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    display: flex;
     flex-direction: row;
-    align-items: center;
     padding: 8px 16px;
     width: 312px;
     height: 40px;
@@ -134,14 +126,13 @@
 }
 
 .taskHeader {
-    font-size: 16px;
+    font-size: 20px;
     font-family: "Inter-700";
     color: #42526E;
     margin-bottom: 24px;
     height: 20px;
     display: flex;
     justify-content: space-between;
-    font-size: 20px;
     font-weight: 700;
     line-height: 24px;
     text-align: left;
@@ -163,7 +154,6 @@
     align-self: stretch;
     flex-grow: 0;
 }
-
 
 @keyframes flyInRight {
     from {
@@ -217,7 +207,7 @@
     text-align: left;
     color: white;
     background: #0038FF;
-    padding: 4px 24px 4px 24px;
+    padding: 4px 24px;
     border-radius: 8px;
 }
 
@@ -261,11 +251,6 @@
     text-align: left;
     font-size: 61px;
     margin-bottom: 12px;
-    /* white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
-    width: 100%; /* Ensure title spans the full width of the container */
-    /* box-sizing: border-box; */
 }
 
 .task-overlay-text {
@@ -286,6 +271,7 @@
 .task-overlay-ass-person {
     display: flex;
     align-items: center;
+    margin-top: 12px;
 }
 
 .task-overlay-text td:first-child {
@@ -420,15 +406,10 @@
 }
 
 .initialsContact-small {
-
     width: 30px;
-    /* oder eine feste Breite, die zu deinem Design passt */
     height: 30px;
-    /* oder eine feste Höhe, die zu deinem Design passt */
     background: #ccc;
-    /* Beispielhintergrundfarbe */
     border-radius: 50%;
-    /* Kreisförmige Initialen-Logos */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -438,15 +419,10 @@
     z-index: 1;
 }
 
-
 .priority-icon {
     background-color: white;
     height: 24px;
     width: 24px;
-}
-
-.task-overlay-ass-person {
-    margin-top: 12px;
 }
 
 .margin-left-10 {
@@ -492,16 +468,13 @@
     transition: none !important;
 }
 
-
 .checkbox-subtask:hover {
     background-color: rgba(15, 10, 10, 0.192);
     border-radius: 50%;
     transition: none !important;
 }
 
-
 .task-edit-overlay {
-
     z-index: 999;
     display: flex;
     flex-direction: column;
@@ -522,7 +495,6 @@
     margin-bottom: 32px;
 }
 
-
 .task-edit {
     overflow-y: auto;
     overflow-x: hidden;
@@ -542,7 +514,6 @@
     border-radius: 10px;
 }
 
-
 .task-edit-wrapper {
     display: flex;
     flex-direction: column;
@@ -550,7 +521,6 @@
 }
 
 .input-edit {
-    /* overflow-y: auto; */
     padding-right: 10px;
 }
 
@@ -572,7 +542,6 @@
     border: 1px dashed black;
 }
 
-
 .title {
     font-size: 47px !important;
 }
@@ -586,12 +555,10 @@
     border-radius: 15px;
 }
 
-
 .closeButtonBackground:hover {
     background: #F0F0F0;
     cursor: pointer;
 }
-
 
 .categoryContainer {
     width: 100%
@@ -603,15 +570,11 @@
     gap: 12px;
 }
 
-
 @media (max-width: 1350px) {
     .boardContainer {
-        display: flex;
-        justify-content: space-between;
         gap: 16px;
     }
 }
-
 
 @media (max-width: 1380px) {
     .boardContainer {
@@ -674,7 +637,6 @@
         height: 36px;
         position: absolute;
         left: 85%;
-
     }
 
     .d-none-mobile {
@@ -684,7 +646,6 @@
     .d-mobile {
         display: block;
     }
-
 
     .add {
         margin: 0;
@@ -707,7 +668,6 @@
         z-index: 999;
         padding-top: 0 !important;
         position: relative !important;
-        width: 100% !important;
     }
 }
 
@@ -717,7 +677,7 @@
         height: 100%;
         max-height: 100% !important;
     }
-    
+
     .task-edit {
         padding: 16px;
     }
