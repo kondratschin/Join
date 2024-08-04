@@ -10,32 +10,28 @@ if (!statusFromBoard) {
 }
 
 /**
- * 
- * @param {string} status name of the list in the board
+ * Sets the status of the board.
+ * @param {string} statusFromBoard - The name of the list in the board.
  */
 function setBoardStatus(statusFromBoard) {
     boardStatus = statusFromBoard;
     localStorage.removeItem('boardStatus');
 }
 
+
 /**
- * Store the status in localStorage to retrieve it in the addTask.html page
- * @param {string} status 
+ * Stores the status in localStorage to retrieve it in the addTask.html page.
+ * @param {string} status - The status to be stored.
  */
 function openAddTaskPage(status) {
     localStorage.setItem('boardStatus', status);
     window.location.href = 'addTask.html';
 }
 
-/**
- * function exists in board.js and must be removed
- * @returns 
- */
-function getName() {
-    let name = localStorage.getItem('userName');
-    return name; // Return the retrieved name
-}
 
+/**
+ * Validates the form by checking all required inputs.
+ */
 function validateForm() {
     const taskDateInput = document.getElementById('taskDate').value;
     const taskTitleInput = document.getElementById('task-title1').value.trim();
@@ -52,6 +48,10 @@ function validateForm() {
     }
 }
 
+
+/**
+ * EventListener checks the required inputs. If required fields are filled, the submit button will be enabled.
+ */
 // Wait for DOMContentLoaded to ensure DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('input', (event) => {
@@ -97,24 +97,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+/**
+ * Monitors the title input field for changes and validates its content.
+ */
 function monitorInputFieldTitle() {
     let inputField = document.getElementById('task-title1');
     let errorSpan = document.getElementById('titleError');
 
     inputField.addEventListener('input', function () {
         if (inputField.value.trim() === '') {
-            errorSpan.textContent = "Task title must not be empty";
+            errorSpan.textContent = "Task title must not be empty.";
+        } else {
+            errorSpan.textContent = "";
         }
     });
 }
 
+
+
+/**
+ * Forces the Create Task button to be disabled.
+ */
 function forceDisableButton() {
     let createButton = document.getElementById('create-task-bttn');
     createButton.disabled = true;
 }
 
+
 /**
- * Contacts from array 'selectedContacts' will be shown as selected/highlighted, if no contacts have been selected previously, contact list will be rendered
+ * Contacts from the array 'selectedContacts' will be shown as selected/highlighted.
+ * If no contacts have been selected previously, the contact list will be rendered.
  */
 function showContactDrp() {
     if (selectedContacts.length === 0) {
@@ -126,7 +139,7 @@ function showContactDrp() {
 
 
 /**
- * Category dropdown will be shown
+ * Toggles the visibility of the category dropdown.
  */
 function showCategoryDrp() {
     document.getElementById('category-drp-dwn').classList.toggle('d-none');
@@ -135,7 +148,7 @@ function showCategoryDrp() {
 
 
 /**
- *Category dropdown hide
+ * Hides the category dropdown.
  */
 function hideCategoryDrp() {
     document.getElementById('category-drp-dwn').classList.add('d-none');
@@ -144,7 +157,7 @@ function hideCategoryDrp() {
 
 
 /**
- *contact dropdown hide
+ * Hides the contact dropdown.
  */
 function hideContactDrp() {
     document.getElementById('contact-drp-dwn').classList.add('d-none');
@@ -153,12 +166,12 @@ function hideContactDrp() {
 
 
 /**
- * highlighs the clicked priority button and removes the highlight from other buttons
- * className describes the color with and toggles the color on or off
- * arrow sets the text color to white and also the arrow
- * @param {string} id 
- * @param {string} className 
- * @param {string} arrow 
+ * Highlights the clicked priority button and removes the highlight from other buttons.
+ * The className describes the color and toggles the color on or off.
+ * The arrow sets the text color to white and also toggles the arrow.
+ * @param {string} id - The ID of the priority button.
+ * @param {string} className - The class name for the color highlight.
+ * @param {string} arrow - The class name for the arrow color.
  */
 function prioritySelected(id, className, arrow) {
     removeSelection(id);
@@ -171,7 +184,6 @@ function prioritySelected(id, className, arrow) {
     } else if (id === 'prio-alta') {
         priority = 'High';
     }
-    console.log('Priority Selected:', priority); // Debugging
 }
 
 
@@ -202,9 +214,9 @@ function removeSelection(id) {
 
 
 /**
- * higlights selected contacts from dropdown list
- * @param {number} i list in json 'alphabetContainer'
- * @param {number} y value from i list in 'alphabetContainer'
+ * Highlights selected contacts from the dropdown list.
+ * @param {number} i - Index in the JSON 'alphabetContainer'.
+ * @param {number} y - Value from the list in 'alphabetContainer'.
  */
 function highlightContact(i, y) {
     const contactElement = document.getElementById(`contact-in-list${i}-${y}`);
@@ -215,6 +227,7 @@ function highlightContact(i, y) {
 
     updateSelectedContacts(contactElement, isSelected, i, y);
 }
+
 
 
 /**
