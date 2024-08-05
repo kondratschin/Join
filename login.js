@@ -9,6 +9,7 @@ function moveLogo() {
   }
 }
 
+
 /**
  * Shows the content after the logo is moved
  */
@@ -20,108 +21,153 @@ function showContent() {
   }, 10); // Slight delay to ensure transition
 }
 
+
+/**
+ * Moves the logo and shows content after that
+ */
 window.addEventListener('load', function () {
-  moveLogo();  // Führe die Logo-Animation aus, wenn die Seite geladen wird
-  showContent(); // Zeige den Inhalt direkt danach
+  moveLogo();  // Execute logo animation when the page loads
+  showContent(); // Show content immediately afterwards
 });
 
+
+/**
+ * Returns to login screen
+ */
 function backToLogInArrow() {
-  let logo = document.getElementById("splash-screen");
-  if (logo) {
-    logo.classList.remove("logo-big"); // Entfernen der Klasse, die die Animation steuert
-    logo.classList.add("logo-small"); // Direktes Umschalten auf die kleine Logo-Klasse
-  }
-  window.location.href = "logIn.html?returnHome=true";
+    let logo = document.getElementById("splash-screen");
+    if (logo) {
+        logo.classList.remove("logo-big"); // Remove the class that controls the animation
+        logo.classList.add("logo-small"); // Directly switch to the small logo class
+    }
+    window.location.href = "logIn.html?returnHome=true";
 }
+
 
 const BASE_URL = "https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/";
 
+
+/**
+ * Load user data from Firebase
+ * @returns {Promise<Object>} The user data
+ */
 async function getUsers() {
   let response = await fetch(BASE_URL + "users.json");
   return await response.json();
 }
 
+
+/**
+ * Handle user login on button click
+ */
 document.addEventListener('DOMContentLoaded', function () {
   let logInButton = document.getElementById('logInButton');
 
   if (logInButton) {
-    logInButton.addEventListener('click', async () => {
-      let email = document.getElementById('mail-login').value;
-      let password = document.getElementById('passwort-login').value;
+      logInButton.addEventListener('click', async () => {
+          let email = document.getElementById('mail-login').value;
+          let password = document.getElementById('passwort-login').value;
 
-      if (!email || !password) {
-        alert("Please fill in all fields to proceed.");
-        return;
-      }
+          if (!email || !password) {
+              alert("Please fill in all fields to proceed.");
+              return;
+          }
 
-      let users = await getUsers();
-      let userFound = false;
-      let userName = ''; // Variable, um den Benutzernamen zu speichern
+          let users = await getUsers();
+          let userFound = false;
+          let userName = ''; // Variable to store the username
 
-      for (let key in users) {
-        if (users[key].email === email && users[key].password === password) {
-          userFound = true;
-          userName = users[key].name; // Speichern des Namens des gefundenen Benutzers
-          break;
-        }
-      }
-      if (userFound) {
-        localStorage.setItem('userName', userName); // Speichern des Benutzernamens im Local Storage
-        window.location.href = "./summary.html"; // Hier wird der Benutzer weitergeleitet
-      } else {
-        alert("Invalid email or password. Please try again.");
-      }
-    });
+          for (let key in users) {
+              if (users[key].email === email && users[key].password === password) {
+                  userFound = true;
+                  userName = users[key].name; // Store the name of the found user
+                  break;
+              }
+          }
+          if (userFound) {
+              localStorage.setItem('userName', userName); // Store the username in local storage
+              window.location.href = "./summary.html"; // Redirect to summary page
+          } else {
+              alert("Invalid email or password. Please try again.");
+          }
+      });
   }
   initRememberMe();
 });
 
 
+/**
+ * Check if an email is registered
+ * @param {*} email 
+ * @returns {Promise<boolean>}
+ */
 async function isEmailRegistered(email) {
   let users = await getUsers();
   for (let key in users) {
-    if (users[key].email === email) {
-      return true;
-    }
+      if (users[key].email === email) {
+          return true;
+      }
   }
   return false;
 }
 
+
+/**
+ * Check if the password and confirm password fields match
+ * @param {string} password 
+ * @param {string} confirmPassword 
+ * @returns {boolean}
+ */
 function arePasswordsMatching(password, confirmPassword) {
   return password === confirmPassword;
 }
 
+
+/**
+ * Sign up a new user with email, password, confirmPassword, and name
+ * @param {string} email 
+ * @param {string} password 
+ * @param {string} confirmPassword 
+ * @param {string} name 
+ */
 async function signUp(email, password, confirmPassword, name) {
   if (await isEmailRegistered(email)) {
-    alert("Email is already registered.");
-    return;
+      alert("Email is already registered.");
+      return;
   }
   if (!arePasswordsMatching(password, confirmPassword)) {
-    alert("Passwords do not match.");
-    return;
+      alert("Passwords do not match.");
+      return;
   }
+  
   let logInData = {
-    name: name,
-    email: email,
-    password: password
+      name: name,
+      email: email,
+      password: password
   };
-  let response = await fetch(BASE_URL + "users/" + name +".json", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(logInData)
+
+  let response = await fetch(BASE_URL + "users/" + name + ".json", {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(logInData)
   });
+
   if (response.ok) {
-    // Speichern der Anmeldedaten im Local Storage für die automatische Anmeldung
-    localStorage.setItem('autoLoginEmail', email);
-    localStorage.setItem('autoLoginPassword', password);
-    showSuccessMessage();  // Zeige die Erfolgsmeldung
+      // Save login data in Local Storage for auto-login
+      localStorage.setItem('autoLoginEmail', email);
+      localStorage.setItem('autoLoginPassword', password);
+      showSuccessMessage();  // Show success message
   } else {
-    console.log("Error registering user.");
+      console.log("Error registering user.");
   }
 }
 
+
+/**
+ * Auto log in
+ */
 document.addEventListener('DOMContentLoaded', function() {
   const storedEmail = localStorage.getItem('autoLoginEmail');
   const storedPassword = localStorage.getItem('autoLoginPassword');
@@ -134,12 +180,16 @@ document.addEventListener('DOMContentLoaded', function() {
       emailInput.value = storedEmail;
       passwordInput.value = storedPassword;
 
-      // Optional: Automatisch das Login-Formular absenden
+      // Optional: Automatically submit the login form
       // document.getElementById('login-form').submit();
     }
   }
-}); 
+});
 
+
+/**
+ * Show success messagve
+ */
 function showSuccessMessage() {
   const overlay = document.createElement('div');
   overlay.className = 'success-overlay';
@@ -150,7 +200,7 @@ function showSuccessMessage() {
   successMessage.textContent = 'You Signed Up Successfully!';
   document.body.appendChild(successMessage);
 
-  // Klasse sofort hinzufügen für eine flüssigere Animation
+    // Add class for smooth animation
   requestAnimationFrame(() => {
       successMessage.classList.add('show');
   });
@@ -158,9 +208,13 @@ function showSuccessMessage() {
   setTimeout(() => {
       backToLogInArrow();
       document.body.removeChild(overlay);
-  }, 2000);  // Verkürzte Zeit für die Demo
+  }, 2000);
 }
 
+
+/**
+ * Handle form submission
+ */
 document.getElementById('inputSection').addEventListener('submit', async function(event) {
   event.preventDefault(); // Prevent default form submission
 
@@ -187,35 +241,46 @@ document.getElementById('inputSection').addEventListener('submit', async functio
   await signUp(email, password, passwordRepeat, name);
 });
 
+
+/**
+ * Changes between lock and eye symbol
+ * @param {*} x 
+ */
 function transformLockIcon(x) {
   const element = document.getElementById(`lock${x}`);
   const inputElement = (x === 1) ? document.getElementById('signUpPassword') : document.getElementById('againSignUpPassword');
   if (element) {
     if (inputElement.value.length > 0) {
-      element.src = "./img/eye.svg"; // Ändere das Bild zu einem Auge
+      element.src = "./img/eye.svg"; // Change image to eye
     } else {
-      element.src = "./img/lock.svg"; // Ändere das Bild zu einem Schloss
+      element.src = "./img/lock.svg"; // Change image to lock
     }
   } else {
     console.error(`Element with ID lock${x} not found`);
   }
 }
 
+
+/**
+ * Toggle password visibility
+ * @param {*} x 
+ */
 function hide(x) {
   const inputElement = (x === 1) ? document.getElementById('signUpPassword') : document.getElementById('againSignUpPassword');
   const iconElement = document.getElementById(`lock${x}`);
 
   if (inputElement.type === "password") {
     inputElement.type = "text";
-    iconElement.src = "./img/hide.svg"; // Ändere das Bild zu einem geschlossenen Auge
+    iconElement.src = "./img/hide.svg"; // Change image to closed eye
   } else {
     inputElement.type = "password";
-    iconElement.src = "./img/eye.svg"; // Ändere das Bild zu einem offenen Auge
+    iconElement.src = "./img/eye.svg"; // Change image to open eye
   }
 }
 
+
 /**
- * Remember Me Funktion
+ * Remember Me function
  */
 function rememberMe(email, password) {
   let rememberMeCheckbox = document.getElementById('rememberMe');
@@ -230,8 +295,9 @@ function rememberMe(email, password) {
   }
 }
 
+
 /**
- * Initialisiere die Remember Me Funktion
+ * Init remember me function
  */
 function initRememberMe() {
   let emailInput = document.getElementById('mail-login');
@@ -251,8 +317,10 @@ function initRememberMe() {
 }
 
 
+/**
+ * Guest login clear data
+ */
 function guestLogIn() {
-  localStorage.clear(); // Löscht alle Daten im localStorage
-  console.log("All local storage data cleared.");
+  localStorage.clear(); // deletes localStorage
   window.location.href = "./summary.html"; 
 }
