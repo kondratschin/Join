@@ -116,7 +116,7 @@ function editCart(color, initials, name, email, phone) {
                                 <input id="contactName" class="addContactInput" placeholder="Name"
                                     type="text"
                                     title="Please enter at least two words with initial capital letters"
-                                    value="${name}" pattern="([A-Z][a-z]+) ([A-Z][a-z]+)(( [A-Z][a-z]+)?)">
+                                    value="${name}" pattern="([A-Z ÄÖÜ][a-z äöü]+)( ?)([A-Z ÄÖÜ][a-z äöü]+)( ?)(([A-Z ÄÖÜ][a-z äöü]+)?)">
                                 <img src="./img/person.svg">
                             </div>
                             <div class="input">
@@ -148,8 +148,8 @@ function editCart(color, initials, name, email, phone) {
 
 
 function addNewContactCart() {
-    let popup = document.getElementById('addContactPopup');
-    popup.innerHTML = `
+        let popup = document.getElementById('addContactPopup');
+        popup.innerHTML = `
         <div class="addContactCardLeftSide">
             <div class="addContactCardLeftSideContent">
                 <img class="addContactCardLeftSideContentImg" src="./img/Capa-2.svg">
@@ -180,7 +180,7 @@ function addNewContactCart() {
                         <form id="addContactInputForm">
                             <div class="input">
                                 <input id="contactName" class="addContactInput" placeholder="Name"
-                                    type="text" pattern="([A-Z][a-z]+) ([A-Z][a-z]+)(( [A-Z][a-z]+)?)" required
+                                    type="text" pattern="([A-Z ÄÖÜ][a-z äöü]+) ([A-Z ÄÖÜ][a-z äöü]+)(( [A-Z ÄÖÜ][a-z äöü]+)?)"
                                     title="Please enter at least two words with initial capital letters"
                                     required>
                                 <img src="./img/person.svg">

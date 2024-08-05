@@ -189,6 +189,7 @@ body {
     border-radius: 30px;
     position: relative;
     animation: slideIn 125ms;
+    margin: 0 24px;
 }
 
 
