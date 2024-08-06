@@ -1,6 +1,6 @@
 let selectedContacts = [];
 let subTaskList = [];
-let priority;
+let priority = 'Medium';
 let chosenCategory = [];
 let boardStatus = ['toDo']; //defines in which list in the board the task will be put
 
@@ -8,12 +8,6 @@ let statusFromBoard = localStorage.getItem('boardStatus');
 if (!statusFromBoard) {
     statusFromBoard = 'toDo'; // Set default status to 'toDo'
 }
-
-// document.addEventListener('DOMContentLoaded', (event) => {
-//     setTimeout(() => {
-//         prioritySelected('prio-media', 'prio-select-orange', 'prio-select');
-//     }, 500);
-// })
 
 
 /**
@@ -173,7 +167,7 @@ function hideContactDrp() {
 
 /**
  * Highlights the clicked priority button and removes the highlight from other buttons.
- * The className describes the color and toggles the color on or off.
+ * The className describes the color and adds the color.
  * The arrow sets the text color to white and also toggles the arrow.
  * @param {string} id - The ID of the priority button.
  * @param {string} className - The class name for the color highlight.
@@ -181,8 +175,8 @@ function hideContactDrp() {
  */
 function prioritySelected(id, className, arrow) {
     removeSelection(id);
-    document.getElementById(id).classList.toggle(className);
-    document.getElementById(id).classList.toggle(arrow);
+    document.getElementById(id).classList.add(className);
+    document.getElementById(id).classList.add(arrow);
     if (id === 'prio-baja') {
         priority = 'Low';
     } else if (id === 'prio-media') {
