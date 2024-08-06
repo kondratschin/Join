@@ -52,7 +52,7 @@
     }
   },
   "tasks": {
-     "Guest": {
+    "Guest": {
       "awaitFeedback": {
         "Daily Kochwelt Recipe": {
           "category": "awaitFeedback",
@@ -260,5 +260,5 @@
         }
       }
     }
-  },
+  }
 }
