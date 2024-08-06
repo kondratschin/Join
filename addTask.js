@@ -583,6 +583,11 @@ function addTaskEvent() {
  * @param {string} taskTitle - The title of the task from the input field.
  */
 async function createTask(taskTitle) {
+    if (!getName() || getName().trim() === "") {
+        createTaskLocally(taskTitle);
+        return;
+    }
+    
     let taskDescription = document.getElementById('taskDescription').value;
     let taskDate = document.getElementById('taskDate').value;
 
@@ -619,5 +624,48 @@ async function createTask(taskTitle) {
         }
     } catch (error) {
         console.error("Error:", error);
+    }
+}
+
+
+/**
+ * Creates/saves a task in the corresponding list.
+ * @param {string} taskTitle - The title of the task from the input field.
+ */
+function createTaskLocally(taskTitle) {
+    let taskDescription = document.getElementById('taskDescription').value;
+    let taskDate = document.getElementById('taskDate').value;
+
+    let dataToSend = {
+        selectedContacts: selectedContacts,
+        subTaskList: subTaskList,
+        priority: priority,
+        chosenCategory: chosenCategory,
+        taskDescription: taskDescription,
+        taskDate: taskDate
+    };
+
+    // Get the existing tasks from local storage
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+
+    // Save the new task to the tasks object
+    if (!tasks[accName]) {
+        tasks[accName] = {};
+    }
+    if (!tasks[accName][boardStatus]) {
+        tasks[accName][boardStatus] = {};
+    }
+    tasks[accName][boardStatus][taskTitle] = dataToSend;
+
+    // Save the updated tasks object back to local storage
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    // Handle UI updates
+    if (window.location.pathname.endsWith("addTask.html")) {
+        displayElement('task-scc-add-ntn');
+        setTimeout(openBoardPage, 900);
+    } else if (window.location.pathname.endsWith("board.html")) {
+        load();
+        displayNone('addTaskWindow');
     }
 }

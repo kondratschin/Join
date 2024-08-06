@@ -1,0 +1,264 @@
+{
+  "contacts": {
+    "Guest": {
+      "Benjamin Sommer": {
+        "color": "hsl(129.0286006966747, 70%, 50%)",
+        "email": "BenjaminSommer@dayrep.com",
+        "name": "Benjamin Sommer",
+        "phone": "9312"
+      },
+      "Christian Nussbaum": {
+        "color": "hsl(175.51532496470486, 70%, 50%)",
+        "email": "ChristianNussbaum@teleworm.us",
+        "name": "Christian Nussbaum",
+        "phone": "05502"
+      },
+      "Christin Kappel": {
+        "color": "hsl(106.34835166203308, 70%, 50%)",
+        "email": "ChristinKappel@dayrep.com",
+        "name": "Christin Kappel",
+        "phone": "06281"
+      },
+      "Katharina Neumann": {
+        "color": "hsl(293.70235195978023, 70%, 50%)",
+        "email": "KatharinaNeumann@teleworm.us",
+        "name": "Katharina Neumann",
+        "phone": "07053"
+      },
+      "Klaudia Hoover": {
+        "color": "hsl(208.38215873053392, 70%, 50%)",
+        "email": "KlaudiaHoover@armyspy.com",
+        "name": "Klaudia Hoover",
+        "phone": "4532"
+      },
+      "Marina Schreiner": {
+        "color": "hsl(134.70413762805237, 70%, 50%)",
+        "email": "MarinaSchreiner@rhyta.com",
+        "name": "Marina Schreiner",
+        "phone": "6879"
+      },
+      "Mario Farber": {
+        "color": "hsl(354.8946323925985, 70%, 50%)",
+        "email": "MarioFarber@jourrapide.com",
+        "name": "Mario Farber",
+        "phone": "030265758"
+      },
+      "Niklas Hofmann": {
+        "color": "hsl(297.3635678721553, 70%, 50%)",
+        "email": "NiklasHofmann@teleworm.us",
+        "name": "Niklas Hofmann",
+        "phone": "08023"
+      }
+    }
+  },
+  "tasks": {
+     "Guest": {
+      "awaitFeedback": {
+        "Daily Kochwelt Recipe": {
+          "category": "awaitFeedback",
+          "chosenCategory": [
+            "User Story"
+          ],
+          "id": "Daily Kochwelt Recipe",
+          "priority": "Medium",
+          "selectedContacts": [
+            {
+              "color": "rgb(38, 217, 65)",
+              "index": "1-0",
+              "initials": "BS",
+              "name": "Benjamin Sommer"
+            },
+            {
+              "color": "rgb(198, 38, 217)",
+              "index": "10-0",
+              "initials": "KN",
+              "name": "Katharina Neumann"
+            },
+            {
+              "color": "rgb(38, 217, 82)",
+              "index": "12-0",
+              "initials": "MS",
+              "name": "Marina Schreiner"
+            }
+          ],
+          "taskDate": "2024-08-30",
+          "taskDescription": "Implement daily recipe and portion calculator."
+        },
+        "HTML Base Template Creation": {
+          "chosenCategory": [
+            "Technical Task"
+          ],
+          "priority": "Low",
+          "selectedContacts": [
+            {
+              "color": "rgb(38, 217, 65)",
+              "index": "1-0",
+              "initials": "BS",
+              "name": "Benjamin Sommer"
+            },
+            {
+              "color": "rgb(217, 38, 53)",
+              "index": "12-1",
+              "initials": "MF",
+              "name": "Mario Farber"
+            },
+            {
+              "color": "rgb(38, 217, 82)",
+              "index": "12-0",
+              "initials": "MS",
+              "name": "Marina Schreiner"
+            }
+          ],
+          "taskDate": "2024-09-01",
+          "taskDescription": "Create reusable HTML base templates."
+        }
+      },
+      "done": {
+        "CSS Architecture": {
+          "category": "done",
+          "chosenCategory": [
+            "Technical Task"
+          ],
+          "id": "CSS Architecture",
+          "priority": "High",
+          "selectedContacts": [
+            {
+              "color": "rgb(79, 217, 38)",
+              "index": "2-1",
+              "initials": "CK",
+              "name": "Christin Kappel"
+            },
+            {
+              "color": "rgb(217, 38, 53)",
+              "index": "12-1",
+              "initials": "MF",
+              "name": "Mario Farber"
+            }
+          ],
+          "subTaskList": [
+            {
+              "complete": false,
+              "name": "Establish CSS Methodology"
+            },
+            {
+              "complete": false,
+              "name": "Setup Base Styles"
+            }
+          ],
+          "taskDate": "2024-08-18",
+          "taskDescription": "Define CSS naming conventions and structure."
+        }
+      },
+      "inProgress": {
+        "Recipe Recommender": {
+          "chosenCategory": [
+            "User Story"
+          ],
+          "priority": "Medium",
+          "selectedContacts": [
+            {
+              "color": "rgb(38, 217, 65)",
+              "index": "1-0",
+              "initials": "BS",
+              "name": "Benjamin Sommer"
+            },
+            {
+              "color": "rgb(38, 217, 203)",
+              "index": "2-0",
+              "initials": "CN",
+              "name": "Christian Nussbaum"
+            },
+            {
+              "color": "rgb(79, 217, 38)",
+              "index": "2-1",
+              "initials": "CK",
+              "name": "Christin Kappel"
+            }
+          ],
+          "subTaskList": [
+            {
+              "complete": false,
+              "name": "Render start page"
+            },
+            {
+              "complete": false,
+              "name": "Show recipies"
+            }
+          ],
+          "taskDate": "2024-08-25",
+          "taskDescription": "Build start page with recipe recommendation."
+        }
+      },
+      "toDo": {
+        "Kochwelt Page": {
+          "chosenCategory": [
+            "User Story"
+          ],
+          "priority": "Medium",
+          "selectedContacts": [
+            {
+              "color": "rgb(38, 217, 65)",
+              "index": "1-0",
+              "initials": "BS",
+              "name": "Benjamin Sommer"
+            },
+            {
+              "color": "rgb(38, 217, 203)",
+              "index": "2-0",
+              "initials": "CN",
+              "name": "Christian Nussbaum"
+            },
+            {
+              "color": "rgb(79, 217, 38)",
+              "index": "2-1",
+              "initials": "CK",
+              "name": "Christin Kappel"
+            },
+            {
+              "color": "rgb(198, 38, 217)",
+              "index": "10-0",
+              "initials": "KN",
+              "name": "Katharina Neumann"
+            },
+            {
+              "color": "rgb(38, 132, 217)",
+              "index": "10-1",
+              "initials": "KH",
+              "name": "Klaudia Hoover"
+            },
+            {
+              "color": "rgb(38, 217, 82)",
+              "index": "12-0",
+              "initials": "MS",
+              "name": "Marina Schreiner"
+            },
+            {
+              "color": "rgb(217, 38, 53)",
+              "index": "12-1",
+              "initials": "MF",
+              "name": "Mario Farber"
+            },
+            {
+              "color": "rgb(209, 38, 217)",
+              "index": "13-0",
+              "initials": "NH",
+              "name": "Niklas Hofmann"
+            }
+          ],
+          "subTaskList": [
+            {
+              "complete": false,
+              "name": "Implement Recipe Recommendation"
+            },
+            {
+              "complete": false,
+              "name": "Start Page Layout"
+            }
+          ],
+          "taskDate": "2024-08-16",
+          "taskDescription": "Build start page with recipe recommendation."
+        }
+      }
+    }
+  },
+}

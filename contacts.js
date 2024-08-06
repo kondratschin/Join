@@ -360,6 +360,7 @@ function showMobileOptions(id) {
     mobileFadeIn(id);
 }
 
+
 function addEventlistenerMobileMenu() {
 document.addEventListener('click', function (event) {
     let excludedObjects = document.querySelectorAll('.excludedObjectMobile');
