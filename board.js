@@ -214,9 +214,9 @@ function showBackGrnd(targetId) {
  */
 function hideBackGrnd(targetId) {
     displayNone(targetId);
-    const targetElement = document.getElementById(targetId);
+    let targetElement = document.getElementById(targetId);
     if (targetElement) {
-        const parentElement = targetElement.parentElement;
+        let parentElement = targetElement.parentElement;
         if (parentElement) {
             parentElement.style.overflow = '';
         } else {

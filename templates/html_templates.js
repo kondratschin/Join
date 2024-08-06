@@ -129,7 +129,7 @@ function generateSubtasksSectionHTML(hasSubtasks, subtasksHtml) {
 function generateOverlayFooterHTML(task, taskCategory, taskIndex) {
     return `
         <div class="task-overlay-foot">
-            <div onclick="deleteTask('${task.id}', '${taskCategory}')" class="overlay-action highlight-gray">
+            <div onclick="deleteTask('${task.id}', '${taskCategory}'); hideBackGrnd('transparentBackGrnd');" class="overlay-action highlight-gray">
                 <img id="recycle-small-img" class="plus" src="./img/recycle.svg" alt="">
                 <span>Delete</span>
             </div>

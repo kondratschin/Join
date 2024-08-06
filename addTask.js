@@ -9,6 +9,13 @@ if (!statusFromBoard) {
     statusFromBoard = 'toDo'; // Set default status to 'toDo'
 }
 
+// document.addEventListener('DOMContentLoaded', (event) => {
+//     setTimeout(() => {
+//         prioritySelected('prio-media', 'prio-select-orange', 'prio-select');
+//     }, 500);
+// })
+
+
 /**
  * Sets the status of the board.
  * @param {string} statusFromBoard - The name of the list in the board.
