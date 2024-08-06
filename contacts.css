@@ -103,7 +103,7 @@ body {
 
 
 .contactCart {
-    height: 100px;
+    height: 120px;
     display: flex;
     align-items: center;
     border-radius: 16px;
@@ -754,7 +754,13 @@ body {
 }
 
 
+.nameAndEmail {
+    margin-right: 30px;
+}
+
+
 .nameAndEmail span {
+    overflow-wrap: anywhere;
     text-wrap: pretty;
 }
 
