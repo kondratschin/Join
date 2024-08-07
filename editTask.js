@@ -367,14 +367,100 @@ function updateSelectedContactsEdit(contactElement, isSelected, i, y) {
 
 /**
  * Creates a task in the corresponding list and firebase
- * @param {string} taskTitle is called from the input 
+ * @param {string} oldTaskTitle - The old title of the task
+ * @param {string} newTaskTitle - The new title of the task
+ * @param {string} boardStatus - The status of the board (e.g., 'toDo', 'inProgress', 'done')
  */
 async function saveChangesTask(oldTaskTitle, newTaskTitle, boardStatus) {
+    if (!accName) {
+        saveChangesTaskToLocalStorage(oldTaskTitle, newTaskTitle, boardStatus);
+    } else {
+        let taskDescription = document.getElementById('taskDescription').value;
+        let taskDate = document.getElementById('taskDate').value;
+
+        let dataToSend = {
+            selectedContacts: selectedContacts,
+            subTaskList: subTaskList,
+            priority: priority,
+            chosenCategory: chosenCategory,
+            taskDescription: taskDescription,
+            taskDate: taskDate
+        };
+
+        let baseUrl = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/";
+        let oldTaskUrl = baseUrl + oldTaskTitle + ".json";
+        let newTaskUrl = baseUrl + newTaskTitle + ".json";
+
+        try {
+            // If the task title has changed, update the Firebase record under the new title and delete the old one
+            if (oldTaskTitle !== newTaskTitle) {
+                // Save the task data under the new title
+                let response = await fetch(newTaskUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dataToSend)
+                });
+
+                if (response.ok) {
+                    // Delete the old task record
+                    await fetch(oldTaskUrl, {
+                        method: "DELETE"
+                    });
+
+                    // Check the current page and update the UI accordingly
+                    if (window.location.pathname.endsWith("addTask.html")) {
+                        displayElement('task-scc-add-ntn');
+                        setTimeout(openBoardPage, 900);
+                    } else if (window.location.pathname.endsWith("board.html")) {
+                        load();
+                        displayNone('addTaskWindow');
+                    }
+                } else {
+                    console.log("Error updating task.");
+                }
+            } else {
+                // If the task title hasn't changed, just update the existing record
+                let response = await fetch(newTaskUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dataToSend)
+                });
+
+                if (response.ok) {
+                    if (window.location.pathname.endsWith("addTask.html")) {
+                        displayElement('task-scc-add-ntn');
+                        setTimeout(openBoardPage, 900);
+                    } else if (window.location.pathname.endsWith("board.html")) {
+                        load();
+                        displayNone('addTaskWindow');
+                    }
+                } else {
+                    console.log("Error creating task.");
+                }
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+}
+
+
+/**
+ * Creates a task in the corresponding list and local storage
+ * @param {string} oldTaskTitle - The old title of the task
+ * @param {string} newTaskTitle - The new title of the task
+ * @param {string} boardStatus - The status of the board (e.g., 'toDo', 'inProgress', 'done')
+ */
+function saveChangesTaskToLocalStorage(oldTaskTitle, newTaskTitle, boardStatus) {
     let taskDescription = document.getElementById('taskDescription').value;
     let taskDate = document.getElementById('taskDate').value;
 
-
     let dataToSend = {
+        id: newTaskTitle,
         selectedContacts: selectedContacts,
         subTaskList: subTaskList,
         priority: priority,
@@ -383,65 +469,43 @@ async function saveChangesTask(oldTaskTitle, newTaskTitle, boardStatus) {
         taskDate: taskDate
     };
 
-    let baseUrl = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/";
-    let oldTaskUrl = baseUrl + oldTaskTitle + ".json";
-    let newTaskUrl = baseUrl + newTaskTitle + ".json";
+    // Retrieve existing tasks from local storage
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+    tasks[boardStatus] = tasks[boardStatus] || [];
 
-    try {
-        // If the task title has changed, update the Firebase record under the new title and delete the old one
+    // Find the index of the old task if it exists
+    let oldTaskIndex = tasks[boardStatus].findIndex(task => task.id === oldTaskTitle);
+
+    // If the task title has changed or it's a new task, update or add the task
+    if (oldTaskIndex !== -1) {
+        // Update existing task if the title has changed
         if (oldTaskTitle !== newTaskTitle) {
-            // Save the task data under the new title
-            let response = await fetch(newTaskUrl, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataToSend)
-            });
-
-            if (response.ok) {
-                // Delete the old task record
-                await fetch(oldTaskUrl, {
-                    method: "DELETE"
-                });
-
-                // Check the current page and update the UI accordingly
-                if (window.location.pathname.endsWith("addTask.html")) {
-                    displayElement('task-scc-add-ntn');
-                    setTimeout(openBoardPage, 900);
-                } else if (window.location.pathname.endsWith("board.html")) {
-                    load();
-                    displayNone('addTaskWindow');
-                }
-            } else {
-                console.log("Error updating task.");
-            }
+            tasks[boardStatus][oldTaskIndex] = dataToSend;
         } else {
-            // If the task title hasn't changed, just update the existing record
-            let response = await fetch(newTaskUrl, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataToSend)
-            });
-
-            if (response.ok) {
-                if (window.location.pathname.endsWith("addTask.html")) {
-                    displayElement('task-scc-add-ntn');
-                    setTimeout(openBoardPage, 900);
-                } else if (window.location.pathname.endsWith("board.html")) {
-                    load();
-                    displayNone('addTaskWindow');
-                }
-            } else {
-                console.log("Error creating task.");
-            }
+            // Remove the old task if the title has changed
+            tasks[boardStatus].splice(oldTaskIndex, 1);
+            // Add the new task to the end of the list
+            tasks[boardStatus].push(dataToSend);
         }
-    } catch (error) {
-        console.error("Error:", error);
+    } else {
+        // Add new task
+        tasks[boardStatus].push(dataToSend);
+    }
+
+    // Save the updated tasks back to local storage
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    // Check the current page and update the UI accordingly
+    if (window.location.pathname.endsWith("addTask.html")) {
+        displayElement('task-scc-add-ntn');
+        setTimeout(openBoardPage, 900);
+    } else if (window.location.pathname.endsWith("board.html")) {
+        load();
+        displayNone('addTaskWindow');
     }
 }
+
+
 
 
 /**

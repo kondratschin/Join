@@ -637,6 +637,7 @@ function createTaskLocally(taskTitle) {
     let taskDate = document.getElementById('taskDate').value;
 
     let dataToSend = {
+        id: taskTitle,
         selectedContacts: selectedContacts,
         subTaskList: subTaskList,
         priority: priority,
@@ -647,15 +648,10 @@ function createTaskLocally(taskTitle) {
 
     // Get the existing tasks from local storage
     let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+    tasks[boardStatus] = tasks[boardStatus] || [];
 
-    // Save the new task to the tasks object
-    if (!tasks) {
-        tasks = {};
-    }
-    if (!tasks[boardStatus]) {
-        tasks[boardStatus] = {};
-    }
-    tasks[boardStatus][taskTitle] = dataToSend;
+    // Add the new task to the tasks object
+    tasks[boardStatus].push(dataToSend);
 
     // Save the updated tasks object back to local storage
     localStorage.setItem('tasks', JSON.stringify(tasks));

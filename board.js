@@ -433,12 +433,17 @@ function addPlus() {
 
 
 /**
- * Deletes the task from Firebase.
+ * Deletes the task, either locally or from Firebase.
  * @param {string} taskId - The ID of the task to delete.
  * @param {string} taskCategory - The category of the task.
  */
 async function deleteTask(taskId, taskCategory) {
     const userName = getName();
+    if (!userName) {
+        deleteTaskLocally(taskId, taskCategory);
+        return;
+    }
+
     const url = `${BASE_URL}tasks/${userName}/${taskCategory}/${taskId}.json`;
 
     try {
@@ -457,6 +462,33 @@ async function deleteTask(taskId, taskCategory) {
         }
     } catch (error) {
         console.error("Error deleting task:", error);
+    }
+}
+
+
+/**
+ * Deletes the task from local storage.
+ * @param {string} taskId - The ID of the task to delete.
+ * @param {string} taskCategory - The category of the task.
+ */
+function deleteTaskLocally(taskId, taskCategory) {
+    // Retrieve the tasks from local storage
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+
+    // Find and remove the task from the appropriate category
+    if (tasks[taskCategory]) {
+        const updatedTasks = tasks[taskCategory].filter(task => task.id !== taskId);
+        tasks[taskCategory] = updatedTasks;
+
+        // Save the updated tasks back to local storage
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        // Remove the task from the UI
+        removeTaskFromUI(taskId, taskCategory);
+
+        console.log("Task successfully deleted locally");
+    } else {
+        console.error(`Task category '${taskCategory}' not found.`);
     }
 }
 
@@ -789,6 +821,28 @@ function hideAndRemoveTaskOverlay() {
 
 
 function loadJSONDataTasks() {
+    const localTasks = localStorage.getItem('tasks');
+
+    if (localTasks) {
+        try {
+            const tasksData = JSON.parse(localTasks);
+            if (tasksData && tasksData.toDo && tasksData.inProgress && tasksData.awaitFeedback && tasksData.done) {
+                // Use the local data
+                tasks.toDo = tasksData.toDo;
+                tasks.inProgress = tasksData.inProgress;
+                tasks.awaitFeedback = tasksData.awaitFeedback;
+                tasks.done = tasksData.done;
+
+                // Render the tasks after loading
+                renderLocalTasks();
+                return;
+            }
+        } catch (error) {
+            console.error('Error parsing local storage data:', error);
+        }
+    }
+
+    // If no valid local data, fetch from guest.json
     fetch('guest.json')
         .then(response => response.json())
         .then(data => {
@@ -808,6 +862,7 @@ function loadJSONDataTasks() {
         })
         .catch(error => console.error('Error loading JSON data:', error));
 }
+
 
 function convertTasksObjectToArray(taskObj) {
     if (!taskObj) return [];
