@@ -649,13 +649,13 @@ function createTaskLocally(taskTitle) {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
 
     // Save the new task to the tasks object
-    if (!tasks[accName]) {
-        tasks[accName] = {};
+    if (!tasks) {
+        tasks = {};
     }
-    if (!tasks[accName][boardStatus]) {
-        tasks[accName][boardStatus] = {};
+    if (!tasks[boardStatus]) {
+        tasks[boardStatus] = {};
     }
-    tasks[accName][boardStatus][taskTitle] = dataToSend;
+    tasks[boardStatus][taskTitle] = dataToSend;
 
     // Save the updated tasks object back to local storage
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -669,3 +669,5 @@ function createTaskLocally(taskTitle) {
         displayNone('addTaskWindow');
     }
 }
+
+

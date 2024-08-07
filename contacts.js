@@ -126,56 +126,96 @@ async function addEditSubmitEvent(color, oldName) {
 
 
 async function createContact(contactName, contactEmail, contactPhone) {
-    let hue = Math.random() * 360;
-    let randomColor = `hsl(${hue}, 70%, 50%)`
-    let newContact = {
-        name: contactName,
-        email: contactEmail,
-        phone: contactPhone,
-        color: randomColor
-    };
-    let response = await fetch(BASE_URL + "contacts/" + accName + "/" + contactName + ".json", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newContact)
-    });
-    if (response.ok) {
+    let accName = getName();
     
+    if (!accName) {
+        createContactLocally(contactName, contactEmail, contactPhone);
     } else {
-        console.log("Error creating contact.");
-    };
-    showSuccesPopup()
-    getContacts();
-    vanishAddConact();
+        let hue = Math.random() * 360;
+        let randomColor = `hsl(${hue}, 70%, 50%)`;
+        let newContact = {
+            name: contactName,
+            email: contactEmail,
+            phone: contactPhone,
+            color: randomColor
+        };
+
+        try {
+            let response = await fetch(BASE_URL + "contacts/" + accName + "/" + contactName + ".json", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newContact)
+            });
+
+            if (response.ok) {
+                showSuccesPopup();
+                await getContacts();
+                vanishAddConact();
+            } else {
+                console.log("Error creating contact.");
+            }
+        } catch (error) {
+            console.error('There was an issue creating the contact:', error);
+        }
+    }
 }
 
 
 async function editContact(contactName, contactEmail, contactPhone, contactColor, oldName) {
-    let initials = contactName.match(/\b(\w)/g).join('');
-    let editData = {
+    let accName = getName();
+
+    if (!accName) {
+        editContactLocally(contactName, contactEmail, contactPhone, contactColor, oldName);
+    } else {
+        let initials = contactName.match(/\b(\w)/g).join('');
+        let editData = {
+            name: contactName,
+            email: contactEmail,
+            phone: contactPhone,
+            color: contactColor
+        };
+
+        try {
+            let response = await fetch(BASE_URL + "contacts/" + accName + "/" + contactName + ".json", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(editData)
+            });
+
+            if (response.ok) {
+                alert("Edit Contact successfully.");
+            } else {
+                console.log("Error editing contact.");
+            }
+
+            await deleteBackendContact(oldName);
+            await getContacts();
+            vanishAddConact();
+            showContactDetails(contactColor, initials, contactName, contactEmail, contactPhone);
+        } catch (error) {
+            console.error('There was an issue editing the contact:', error);
+        }
+    }
+}
+
+
+function editContactLocally(contactName, contactEmail, contactPhone, contactColor, oldName) {
+    let contacts = JSON.parse(localStorage.getItem('contacts')) || {};
+    delete contacts[oldName];
+    contacts[contactName] = {
         name: contactName,
         email: contactEmail,
         phone: contactPhone,
         color: contactColor
     };
-    let response = await fetch(BASE_URL + "contacts/" + accName + "/" + contactName + ".json", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(editData)
-    });
-    if (response.ok) {
-        alert("Edit Contact successfully.");
-    } else {
-        console.log("Error Editing contact.");
-    };
-    await deleteBackendContact(oldName);
-    getContacts();
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+    showSuccesPopup();
+    getContactsLocally();
     vanishAddConact();
-    showContactDetails(contactColor, initials, contactName, contactEmail, contactPhone);
 }
 
 
@@ -238,12 +278,24 @@ function createContactSortArray() {
 
 
 async function getContacts() {
-    let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
-    let responseAsJson = await response.json();
-    let contactsAsArray = Object.keys(responseAsJson);
-    sortContactlist(responseAsJson, contactsAsArray);
-    showContactsInList();
-    checkWidthAndAddClickListener();
+    
+    if (!accName) {
+        getContactsLocally();
+    } else {
+        try {
+            let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            let responseAsJson = await response.json();
+            let contactsAsArray = Object.keys(responseAsJson);
+            sortContactlist(responseAsJson, contactsAsArray);
+            showContactsInList();
+            // checkWidthAndAddClickListener();
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
 }
 
 
@@ -300,8 +352,25 @@ function showContactInList(sortLetterNr) {
 
 
 async function deleteContact(name) {
-    await deleteBackendContact(name);
-    await getContacts();
+    if (!getName()) {
+        deleteContactLocally(name);
+    } else {
+        try {
+            await deleteBackendContact(name);
+            await getContacts();
+            clearShowDetails();
+        } catch (error) {
+            console.error('There was an issue deleting the contact:', error);
+        }
+    }
+}
+
+
+function deleteContactLocally(name) {
+    let contacts = JSON.parse(localStorage.getItem('contacts')) || {};
+    delete contacts[name];
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+    getContactsLocally();
     clearShowDetails();
 }
 
@@ -377,4 +446,45 @@ document.addEventListener('click', function (event) {
         vanish('dropdownContainerContent');
     }
   });
+}
+
+
+function getContactsLocally() {
+    let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    let contactsAsArray = Object.keys(contacts);
+    sortContactlist(contacts, contactsAsArray);
+    if (window.location.pathname.endsWith('contacts.html')) {
+        showContactsInList();
+    }
+    // Uncomment the line below if `checkWidthAndAddClickListener` is needed in this context.
+    // checkWidthAndAddClickListener();
+}
+
+
+function loadJSONDataContacts() {
+    fetch('guest.json')
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('contacts', JSON.stringify(data.contacts.Guest));
+            getContactsLocally();
+        })
+        .catch(error => console.error('Error loading JSON data:', error));
+}
+
+
+function createContactLocally(contactName, contactEmail, contactPhone) {
+    let contacts = JSON.parse(localStorage.getItem('contacts')) || {};
+    let hue = Math.random() * 360;
+    let randomColor = `hsl(${hue}, 70%, 50%)`
+    let newContact = {
+        name: contactName,
+        email: contactEmail,
+        phone: contactPhone,
+        color: randomColor
+    };
+    contacts[contactName] = newContact;
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+    showSuccesPopup();
+    getContactsLocally();
+    vanishAddConact();
 }

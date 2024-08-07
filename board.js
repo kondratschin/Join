@@ -23,35 +23,70 @@ function getName() {
  * Loads contact data into temporary arrays, fetches the tasks from Firebase, and renders lists when the page is loaded.
  */
 function load() {
-    loadContactsArrayBoard();
-    addPlus();
-    getTasks().then(() => {
-        renderToDoList();
-        checkArraysForContent();
-    });
+    if (!getName()) {
+        loadGuest();
+    } else {
+        loadContactsArrayBoard();
+        addPlus();
+        getTasks().then(() => {
+            renderToDoList();
+            checkArraysForContent();
+        }).catch((error) => {
+            console.error('There was an issue loading tasks:', error);
+        });
+    }
 }
 
 
 /**
- * Load contacts from Firebase into array
+ * Loads contact data into temporary arrays, fetches the tasks from local storage, and renders lists when the page is loaded.
+ */
+function loadGuest() {
+    // loadJSONDataContacts();
+    addPlus();
+    loadJSONDataTasks();
+    }
+
+
+/**
+ * Load contacts from Firebase into array, if guest than local json
  */
 async function loadContactsArrayBoard() {
-
-    let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
-    let responseAsJson = await response.json();
-    let contactsAsArray = Object.keys(responseAsJson);
-    sortContactlist(responseAsJson, contactsAsArray);
+    let accName = getName();
+    
+    if (!accName) {
+        loadJSONDataContacts();
+    } else {
+        try {
+            let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            let responseAsJson = await response.json();
+            let contactsAsArray = Object.keys(responseAsJson);
+            sortContactlist(responseAsJson, contactsAsArray);
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
 }
 
 
 /**
- * Fetches the tasks from Firebase.
+ * Fetches the tasks from Firebase or loads JSON data if getName is null or empty.
  */
 async function getTasks() {
     let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+    let name = getName();
+  
+    if (!name) {
+      loadJSONDataTasks();
+      return;
+    }
+  
     for (let category of categories) {
       try {
-        let response = await fetch(`${BASE_URL}tasks/${getName()}/${category}.json`);
+        let response = await fetch(`${BASE_URL}tasks/${name}/${category}.json`);
         let data = await response.json();
   
         if (data) {
@@ -66,6 +101,7 @@ async function getTasks() {
       }
     }
   }
+  
   
 
 /**
@@ -356,6 +392,14 @@ function renderList(taskCategory) {
     content.innerHTML = htmlContent;
 }
 
+
+function renderLocalTasks() {
+    renderList('toDo');
+    renderList('inProgress');
+    renderList('awaitFeedback');
+    renderList('done');
+    checkArraysForContent();
+}
 
 /**
  * Creates the correct priority symbol based on priority.
@@ -740,4 +784,36 @@ function hideAndRemoveTaskOverlay() {
         displayNone('task-overlay');
         taskOverlay.innerHTML = '';  // This removes all child elements and content inside taskOverlay
     }
+}
+
+
+
+function loadJSONDataTasks() {
+    fetch('guest.json')
+        .then(response => response.json())
+        .then(data => {
+            const guestTasks = data.tasks.Guest;
+
+            // Convert objects to arrays and add index
+            tasks.toDo = convertTasksObjectToArray(guestTasks.toDo);
+            tasks.inProgress = convertTasksObjectToArray(guestTasks.inProgress);
+            tasks.awaitFeedback = convertTasksObjectToArray(guestTasks.awaitFeedback);
+            tasks.done = convertTasksObjectToArray(guestTasks.done);
+
+            // Save to localStorage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            // Render the tasks after loading
+            renderLocalTasks();
+        })
+        .catch(error => console.error('Error loading JSON data:', error));
+}
+
+function convertTasksObjectToArray(taskObj) {
+    if (!taskObj) return [];
+    return Object.keys(taskObj).map((taskId, index) => ({
+        ...taskObj[taskId],
+        id: taskId,
+        index: index
+    }));
 }
