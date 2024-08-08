@@ -771,7 +771,6 @@ function loadEditTaskScript(callback) {
         script.id = 'editTaskScript';
         script.onload = callback;
         document.body.appendChild(script);
-        console.log('editTask.js loaded');
     } else {
         // Script is already loaded, just call the callback
         callback();
