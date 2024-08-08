@@ -354,6 +354,10 @@ function assignCategory(category) {
  */
 async function loadContactsArray() {
 
+    if (!accName || accName.trim() === '') {
+        return;
+    }
+
     let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
     let responseAsJson = await response.json();
     let contactsAsArray = Object.keys(responseAsJson);
