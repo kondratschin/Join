@@ -4,9 +4,6 @@ let contacts = [];
 let alphabetContainer = [];
 
 
-window.addEventListener("resize", checkWidthAndAddClickListener);
-
-
 /**
  * function exists in board.js and must be removed
  * @returns 
@@ -433,7 +430,7 @@ async function getContacts() {
             let contactsAsArray = Object.keys(responseAsJson);
             sortContactlist(responseAsJson, contactsAsArray);
             showContactsInList();
-            // checkWidthAndAddClickListener();
+            checkWidthAndAddClickListener();
         } catch (error) {
             console.error('There has been a problem with your fetch operation:', error);
         }
@@ -654,9 +651,7 @@ function backToContactList() {
  * 
  */
 function checkWidthAndAddClickListener() {
-    if (window.location.pathname === '/contacts.html') {
         let contactCartElements = document.getElementsByClassName('contactCart');
-
         if (window.innerWidth <= 770) {
             document.getElementById('contactsDetailBackarrow').classList.remove('d-none');
             for (let contactCart of contactCartElements) {
@@ -670,8 +665,13 @@ function checkWidthAndAddClickListener() {
                 contactCart.removeEventListener("click", showContactDetailsMobile);
             }
         }
-    }
 }
+
+
+if (window.location.pathname === '/contacts.html') {
+    window.addEventListener("resize", checkWidthAndAddClickListener);
+}
+
 
 /**
  * Shows the edit and delete option in mobile version
@@ -726,6 +726,7 @@ function getContactsLocally() {
     sortContactlist(contacts, contactsAsArray);
     if (window.location.pathname.endsWith('contacts.html')) {
         showContactsInList();
+        checkWidthAndAddClickListener();
     }
 }
 
