@@ -80,7 +80,6 @@ function goodMorningText() {
  * @returns 
  */
 async function renderCounts() {
-    console.log('Starting renderCounts function');
     const userName = getUserName();
 
     if (!userName || userName === "null" || userName.trim() === "") {
@@ -119,7 +118,6 @@ async function renderCounts() {
  */
 function getUserName() {
     const userName = localStorage.getItem('userName');
-    console.log('Retrieved userName from localStorage:', userName);
     return userName;
 }
 
@@ -155,7 +153,6 @@ function processData(data) {
         if (data.hasOwnProperty(category)) {
             counts[category] = Object.keys(data[category]).length;
             counts.totalTasks += counts[category];
-            console.log(`Counting tasks in category ${category}:`, counts[category]);
 
             for (let taskKey in data[category]) {
                 let task = data[category][taskKey];
@@ -164,7 +161,6 @@ function processData(data) {
                 }
                 if (task.taskDate && (!counts.nearestDeadline || new Date(task.taskDate) < new Date(counts.nearestDeadline))) {
                     counts.nearestDeadline = formatDate(new Date(task.taskDate));
-                    console.log(`New nearest deadline found:`, counts.nearestDeadline);
                 }
             }
         }
@@ -241,7 +237,6 @@ function updateUI(counts) {
     updateElement('urgent', counts.urgent);
     updateElement('taskInBoard', counts.totalTasks);
     updateElement('dedlineDate', counts.nearestDeadline || 'No deadlines set');
-    console.log('Updated HTML elements with counts');
 }
 
 
