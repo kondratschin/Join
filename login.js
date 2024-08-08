@@ -311,8 +311,6 @@ function initRememberMe() {
     emailInput.value = savedEmail;
     passwordInput.value = savedPassword;
     rememberMeCheckbox.checked = true;
-  } else {
-    rememberMeCheckbox.checked = false;
   }
 }
 

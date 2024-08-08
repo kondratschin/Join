@@ -455,7 +455,6 @@ async function deleteTask(taskId, taskCategory) {
         });
 
         if (response.ok) {
-            console.log("Task successfully deleted");
             removeTaskFromUI(taskId, taskCategory);
         } else {
             throw new Error(`Failed to delete task with status: ${response.status}`);
@@ -485,8 +484,6 @@ function deleteTaskLocally(taskId, taskCategory) {
 
         // Remove the task from the UI
         removeTaskFromUI(taskId, taskCategory);
-
-        console.log("Task successfully deleted locally");
     } else {
         console.error(`Task category '${taskCategory}' not found.`);
     }
@@ -771,7 +768,6 @@ function loadEditTaskScript(callback) {
         script.id = 'editTaskScript';
         script.onload = callback;
         document.body.appendChild(script);
-        console.log('editTask.js loaded');
     } else {
         // Script is already loaded, just call the callback
         callback();

@@ -5,12 +5,3 @@ document.addEventListener("DOMContentLoaded", function() {
         getContactsLocally();
     }
 });
-
-
-
-
-
-
-
-
-

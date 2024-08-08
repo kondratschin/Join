@@ -665,5 +665,3 @@ function createTaskLocally(taskTitle) {
         displayNone('addTaskWindow');
     }
 }
-
-
