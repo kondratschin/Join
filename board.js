@@ -815,7 +815,10 @@ function hideAndRemoveTaskOverlay() {
 }
 
 
-
+/**
+ * If guest is logged in load data from guest.json
+ * @returns 
+ */
 function loadJSONDataTasks() {
     const localTasks = localStorage.getItem('tasks');
 
@@ -860,6 +863,11 @@ function loadJSONDataTasks() {
 }
 
 
+/**
+ * Converts JSON structure to array
+ * @param {*} taskObj 
+ * @returns 
+ */
 function convertTasksObjectToArray(taskObj) {
     if (!taskObj) return [];
     return Object.keys(taskObj).map((taskId, index) => ({

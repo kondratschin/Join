@@ -1,9 +1,29 @@
+let tasks = {
+    toDo: [],
+    inProgress: [],
+    awaitFeedback: [],
+    done: []
+};
+
+/**
+ * Initial load of data to show summary. Load guest.json if guest is logged in
+ */
 function load() {
+    if (!getName()) {
+        loadJSONDataTasks();
+        goodMorningText();
+        setTimeout(renderCounts, 100);
+    } else {
     loadTaskData();
     goodMorningText();
     renderCounts();
 }
+}
 
+
+/**
+ * Load tasks from logged in user, fallback to guest.json if no user name
+ */
 async function loadTaskData() {
     let name = localStorage.getItem('userName');
 
@@ -33,6 +53,10 @@ async function loadTaskData() {
     }
 }
 
+
+/**
+ * Show good morning text and user name if available
+ */
 function goodMorningText() {
     let name = localStorage.getItem('userName');
 
@@ -46,6 +70,11 @@ function goodMorningText() {
     }
 }
 
+
+/**
+ * Render the amount of tasks
+ * @returns 
+ */
 async function renderCounts() {
     const userName = getUserName();
 
@@ -78,15 +107,27 @@ async function renderCounts() {
     }
 }
 
+
+/**
+ * 
+ * @returns User name 
+ */
 function getUserName() {
     const userName = localStorage.getItem('userName');
     return userName;
 }
 
+
+/**
+ * Fetches the tasks from user.
+ * @param {string} userName 
+ * @returns 
+ */
 function createDatabaseURL(userName) {
     const url = `https://join-fda66-default-rtdb.europe-west1.firebasedatabase.app/tasks/${encodeURIComponent(userName)}`;
     return url;
 }
+
 
 async function getUserData(dbUrl) {
     const response = await fetch(`${dbUrl}.json`);
@@ -94,6 +135,12 @@ async function getUserData(dbUrl) {
     return data;
 }
 
+
+/**
+ * Checks the priorities of each tasks and counts them
+ * @param {string} data 
+ * @returns 
+ */
 function processData(data) {
     let counts = initializeCounts();
     for (let category in data) {
@@ -115,6 +162,11 @@ function processData(data) {
     return counts;
 }
 
+
+/**
+ * Initial counts
+ * @returns 
+ */
 function initializeCounts() {
     return {
         toDo: 0,
@@ -127,6 +179,12 @@ function initializeCounts() {
     };
 }
 
+
+/**
+ * Shows the earliest dead line for tasks
+ * @param {*} tasks 
+ * @param {*} counts 
+ */
 function updateNearestDeadline(tasks, counts) {
     for (let taskKey in tasks) {
         let task = tasks[taskKey];
@@ -136,6 +194,12 @@ function updateNearestDeadline(tasks, counts) {
     }
 }
 
+
+/**
+ * Format date
+ * @param {number} date 
+ * @returns 
+ */
 function formatDate(date) {
     return date.toLocaleDateString('de-DE', {
         day: '2-digit',
@@ -144,6 +208,11 @@ function formatDate(date) {
     }).replace(/\./g, '');
 }
 
+
+/**
+ * Updates UI with total counts
+ * @param {number} counts 
+ */
 function updateUI(counts) {
     const updateElement = (id, value) => {
         const element = document.getElementById(id);
@@ -163,6 +232,10 @@ function updateUI(counts) {
     updateElement('dedlineDate', counts.nearestDeadline || 'No deadlines set');
 }
 
+
+/**
+ * Sets all counts to zero
+ */
 function setCountsToZero() {
     updateUI({
         toDo: 0,
@@ -173,4 +246,62 @@ function setCountsToZero() {
         totalTasks: 0,
         nearestDeadline: 'No deadlines set'
     });
+}
+
+
+/**
+ * If guest is logged in load data from guest.json
+ * @returns 
+ */
+function loadJSONDataTasks() {
+    const localTasks = localStorage.getItem('tasks');
+
+    if (localTasks) {
+        try {
+            const tasksData = JSON.parse(localTasks);
+            if (tasksData && tasksData.toDo && tasksData.inProgress && tasksData.awaitFeedback && tasksData.done) {
+                // Use the local data
+                tasks.toDo = tasksData.toDo;
+                tasks.inProgress = tasksData.inProgress;
+                tasks.awaitFeedback = tasksData.awaitFeedback;
+                tasks.done = tasksData.done;
+
+                return;
+            }
+        } catch (error) {
+            console.error('Error parsing local storage data:', error);
+        }
+    }
+
+    // If no valid local data, fetch from guest.json
+    fetch('guest.json')
+        .then(response => response.json())
+        .then(data => {
+            const guestTasks = data.tasks.Guest;
+
+            // Convert objects to arrays and add index
+            tasks.toDo = convertTasksObjectToArray(guestTasks.toDo);
+            tasks.inProgress = convertTasksObjectToArray(guestTasks.inProgress);
+            tasks.awaitFeedback = convertTasksObjectToArray(guestTasks.awaitFeedback);
+            tasks.done = convertTasksObjectToArray(guestTasks.done);
+
+            // Save to localStorage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        })
+        .catch(error => console.error('Error loading JSON data:', error));
+}
+
+/**
+ * Converts JSON structure to array
+ * @param {*} taskObj 
+ * @returns 
+ */
+function convertTasksObjectToArray(taskObj) {
+    if (!taskObj) return [];
+    return Object.keys(taskObj).map((taskId, index) => ({
+        ...taskObj[taskId],
+        id: taskId,
+        index: index
+    }));
 }
