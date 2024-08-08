@@ -653,8 +653,8 @@ function backToContactList() {
  * 
  * 
  */
-if (window.location.pathname === '/contacts.html') {
-    function checkWidthAndAddClickListener() {
+function checkWidthAndAddClickListener() {
+    if (window.location.pathname === '/contacts.html') {
         let contactCartElements = document.getElementsByClassName('contactCart');
 
         if (window.innerWidth <= 770) {
