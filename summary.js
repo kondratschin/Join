@@ -10,7 +10,7 @@ function load() {
     if (!getName()) {
         loadJSONDataTasks();
         goodMorningText();
-        renderCounts();
+        setTimeout(renderCounts, 100);
     } else {
     loadTaskData();
     goodMorningText();
