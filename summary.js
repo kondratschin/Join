@@ -1,7 +1,21 @@
+let tasks = {
+    toDo: [],
+    inProgress: [],
+    awaitFeedback: [],
+    done: []
+};
+
+
 function load() {
+    if (!getName()) {
+        loadJSONDataTasks();
+        goodMorningText();
+        renderCounts();
+    } else {
     loadTaskData();
     goodMorningText();
     renderCounts();
+}
 }
 
 async function loadTaskData() {
@@ -186,4 +200,54 @@ function setCountsToZero() {
         totalTasks: 0,
         nearestDeadline: 'No deadlines set'
     });
+}
+
+
+function loadJSONDataTasks() {
+    const localTasks = localStorage.getItem('tasks');
+
+    if (localTasks) {
+        try {
+            const tasksData = JSON.parse(localTasks);
+            if (tasksData && tasksData.toDo && tasksData.inProgress && tasksData.awaitFeedback && tasksData.done) {
+                // Use the local data
+                tasks.toDo = tasksData.toDo;
+                tasks.inProgress = tasksData.inProgress;
+                tasks.awaitFeedback = tasksData.awaitFeedback;
+                tasks.done = tasksData.done;
+
+                return;
+            }
+        } catch (error) {
+            console.error('Error parsing local storage data:', error);
+        }
+    }
+
+    // If no valid local data, fetch from guest.json
+    fetch('guest.json')
+        .then(response => response.json())
+        .then(data => {
+            const guestTasks = data.tasks.Guest;
+
+            // Convert objects to arrays and add index
+            tasks.toDo = convertTasksObjectToArray(guestTasks.toDo);
+            tasks.inProgress = convertTasksObjectToArray(guestTasks.inProgress);
+            tasks.awaitFeedback = convertTasksObjectToArray(guestTasks.awaitFeedback);
+            tasks.done = convertTasksObjectToArray(guestTasks.done);
+
+            // Save to localStorage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        })
+        .catch(error => console.error('Error loading JSON data:', error));
+}
+
+
+function convertTasksObjectToArray(taskObj) {
+    if (!taskObj) return [];
+    return Object.keys(taskObj).map((taskId, index) => ({
+        ...taskObj[taskId],
+        id: taskId,
+        index: index
+    }));
 }

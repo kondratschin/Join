@@ -494,7 +494,7 @@ function createContactLocally(contactName, contactEmail, contactPhone) {
  * Check if guest is logged in and check local storage for contacts, if not available load guest.json data
  */
 document.addEventListener("DOMContentLoaded", function() {
-    if (accName && accName.trim() !== '') {
+    if (!getName()) {
         if (!localStorage.getItem('contacts')) {
             loadJSONDataContacts();
         } else {
