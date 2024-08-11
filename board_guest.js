@@ -45,7 +45,59 @@ function loadJSONDataTasks() {
         .catch(error => console.error('Error loading JSON data:', error));
 }
 
+/**
+ * Load contacts from Firebase into array, if guest than local json
+ */
+async function loadContactsArrayBoard() {
+    let accName = getName();
+    
+    if (!accName) {
+        loadJSONDataContacts();
+    } else {
+        try {
+            let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            let responseAsJson = await response.json();
+            let contactsAsArray = Object.keys(responseAsJson);
+            sortContactlist(responseAsJson, contactsAsArray);
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
+}
 
+/**
+ * Fetches the tasks from Firebase or loads JSON data if getName is null or empty.
+ */
+async function getTasks() {
+    let categories = ['toDo', 'inProgress', 'awaitFeedback', 'done'];
+    let name = getName();
+  
+    if (!name) {
+      loadJSONDataTasks();
+      return;
+    }
+  
+    for (let category of categories) {
+      try {
+        let response = await fetch(`${BASE_URL}tasks/${name}/${category}.json`);
+        let data = await response.json();
+  
+        if (data) {
+          tasks[category] = Object.keys(data).map(key => ({
+            ...data[key],
+            id: key,
+            category
+          }));
+        }
+      } catch (error) {
+        console.error(`Error fetching tasks for ${category}:`, error);
+      }
+    }
+  }
+  
 /**
  * Deletes the task from local storage.
  * @param {string} taskId - The ID of the task to delete.
@@ -70,7 +122,6 @@ function deleteTaskLocally(taskId, taskCategory) {
     }
 }
 
-
 /**
  * Converts JSON structure to array
  * @param {*} taskObj 
@@ -84,3 +135,12 @@ function convertTasksObjectToArray(taskObj) {
         index: index
     }));
 }
+
+/**
+ * Loads contact data into temporary arrays, fetches the tasks from local storage, and renders lists when the page is loaded.
+ */
+function loadGuest() {
+    // loadJSONDataContacts();
+    addPlus();
+    loadJSONDataTasks();
+    }

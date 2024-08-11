@@ -13,7 +13,6 @@ function pushToSubTaskList() {
     }
 }
 
-
 /**
  * Renders the subtask list and adds event listeners for the double-click edit function.
  */
@@ -36,7 +35,6 @@ function renderSubTaskList() {
     }
 }
 
-
 /**
  * Deletes an entry from the locally rendered subtask list.
  * @param {number} index - The index of the subtask to delete.
@@ -45,7 +43,6 @@ function deleteSubtaskHTML(index) {
     subTaskList.splice(index, 1);
     renderSubTaskList();
 }
-
 
 /**
  * Edit function for the subtask list.
@@ -57,29 +54,24 @@ function editTaskInList(index) {
     let firstButtonImg = document.getElementById(`edit-small-img${index}`);
     let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
 
-    // Create the new div element
     let newDivElement = document.createElement('div');
     newDivElement.id = `subtask-in-list${index}`; // Preserve the original ID
     newDivElement.innerHTML = /*html*/ `
         <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
     `;
 
-    // Replace the original li element with the new div element
     subTaskElement.parentNode.replaceChild(newDivElement, subTaskElement);
 
     firstButtonImg.src = './img/recycle.svg';
     firstButtonImg.onclick = function () {
         deleteSubtaskHTML(index);
     };
-
     secondButtonImg.src = './img/check-small.svg';
     secondButtonImg.onclick = function () {
         saveEditedTask(index);
     };
-
     changeParentStyle(index);
 }
-
 
 /**
  * Saves the edited subtask.
@@ -88,7 +80,6 @@ function editTaskInList(index) {
 function saveEditedTask(index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
-
     if (editedTask) {
         subTaskList[index].name = editedTask;
         renderSubTaskList();
@@ -96,7 +87,6 @@ function saveEditedTask(index) {
         console.error("Edited subtask is empty");
     }
 }
-
 
 /**
  * Adds a blue line to the currently edited subtask.
@@ -113,7 +103,6 @@ function changeParentStyle(index) {
     parentDiv.style.backgroundColor = '#ffffff';
 }
 
-
 /**
  * Toggles the visibility between two elements.
  * @param {string} one - The ID of the first element.
@@ -123,7 +112,6 @@ function toggleTwoElements(one, two) {
     document.getElementById(`${one}`).classList.toggle('d-none');
     document.getElementById(`${two}`).classList.toggle('d-none');
 }
-
 
 /**
  * Removes 'display: none' from the first element and adds 'display: none' to the second element.
@@ -135,14 +123,12 @@ function alternateTwoElements(one, two) {
     document.getElementById(`${two}`).classList.add('d-none');
 }
 
-
 /**
  * Resets the input field for the subtask.
  */
 function resetInput() {
     document.getElementById('taskSub').value = "";
 }
-
 
 /**
  * Hides the dropdown menus if clicked somewhere else.
@@ -151,22 +137,17 @@ document.addEventListener('click', function (event) {
     let excludedObjects = document.querySelectorAll('.excludedObject');
     let clickedElement = event.target;
     let isExcluded = false;
-
-    // Check if the clicked element is contained within any excluded object
     excludedObjects.forEach(function (object) {
         if (object.contains(clickedElement)) {
             isExcluded = true;
         }
     });
-
-    // If the clicked element is not contained within any excluded object, call the function
     if (!isExcluded) {
         hideCategoryDrp();
         hideContactDrp();
         alternateTwoElements('subtask-plus', 'subtask-buttons');
     }
 });
-
 
 /**
  * Sends the task data to the server.
@@ -185,14 +166,12 @@ async function sendTaskData(taskTitle, dataToSend) {
             },
             body: JSON.stringify(dataToSend)
         });
-
         return response;
     } catch (error) {
         console.error("Error:", error);
         throw error; // Rethrow the error to be handled by the calling function
     }
 }
-
 
 /**
  * Creates the data object to send or store.
@@ -213,7 +192,6 @@ function createTaskData(taskTitle) {
         taskDate: taskDate
     };
 }
-
 
 /**
  * Creates/saves a task in the corresponding list.
@@ -246,7 +224,6 @@ async function createTask(taskTitle) {
     }
 }
 
-
 /**
  * Creates/saves a task locally in the corresponding list.
  * @param {string} taskTitle - The title of the task from the input field.
@@ -267,4 +244,154 @@ function createTaskLocally(taskTitle) {
         load();
         displayNone('addTaskWindow');
     }
+}
+
+/**
+ * Shows the progress of the subtasks and the completed count.
+ * @param {object} task - The task object containing subtask details.
+ * @returns {string} - The HTML string for the subtasks progress or an empty string if there are no subtasks.
+ */
+function getSubtasksHTML(task) {
+    if (task.subTaskList && task.subTaskList.length > 0) {
+        let completedCount = task.subTaskList.filter(subtask => subtask.complete).length;
+        let total = task.subTaskList.length;
+        let progressPercent = (completedCount / total) * 100;
+
+        return /*html*/ `
+        <div class="subTaskContainer">
+            <div class="progress">
+                <div class="progress-bar" style="width: ${progressPercent}%;"></div>
+            </div>
+            <span>${completedCount}/${total} Subtasks</span>
+        </div>`;
+    }
+    return '';
+}
+
+/**
+ * Updates the subtasks in Firebase.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ * @param {boolean} complete - The completion status of the subtask.
+ */
+async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, complete) {
+    let task = tasks[taskCategory][taskIndex];
+    let userName = getName();
+    let url = `${BASE_URL}tasks/${userName}/${taskCategory}/${task.id}/subTaskList/${subtaskIndex}.json`;
+
+    try {
+        let response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ...task.subTaskList[subtaskIndex], complete })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to update subtask with status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error("Error updating subtask:", error);
+    }
+}
+
+/**
+ * Checks a subtask as done, sets the tick, and updates the Firebase data.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ */
+async function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
+    document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+    document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+    tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
+
+    await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, true);
+    load();
+}
+
+/**
+ * Checks a subtask as undone, removes the tick, and updates the Firebase data.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ */
+async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
+    document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+    document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+    tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
+
+    // Update Firebase
+    await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, false);
+    load();
+    }
+
+    /**
+ * Push edited subtask to subTaskList
+ */
+function pushToEditedSubTaskList() {
+    let newSubtask = document.getElementById('taskSub').value;
+    if (newSubtask.length >= 1) {
+        subTaskList.push({ name: newSubtask, complete: false });
+        resetInput();
+        alternateTwoElements('subtask-plus', 'subtask-buttons');
+        renderEditSubTaskList();
+    }
+}
+
+/**
+ * Save function for subtasks
+ * @param {*} subTaskList 
+ * @param {*} index 
+ */
+function saveEditedSubTask(subTaskList, index) {
+    let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
+    let editedTask = editedTaskElement.value.trim();
+
+    if (editedTask) {
+        subTaskList[index].name = editedTask;
+        renderEditSubTaskList(subTaskList);
+    } else {
+        console.error("Edited subtask is empty");
+    }
+}
+
+/**
+ * Deletes subtask in edit overlay
+ * @param {} index 
+ */
+function deleteEditSubtaskHTML(index) {
+    subTaskList.splice(index, 1);
+    renderEditSubTaskList();
+}
+
+/**
+ * Edit function fur subtasks
+ * @param {*} subTaskList 
+ * @param {*} index 
+ */
+function editSubTaskInList(subTaskList, index) {
+    let subTaskElement = document.getElementById(`subtask-in-list${index}`);
+    let currentTask = subTaskList[index];
+    let firstButtonImg = document.getElementById(`edit-small-img${index}`);
+    let secondButtonImg = document.getElementById(`recycle-small-img${index}`);
+    let newDivElement = document.createElement('div');
+    newDivElement.id = `subtask-in-list${index}`; // Preserve the original ID
+    newDivElement.innerHTML = /*html*/ `
+        <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
+    `;
+
+    subTaskElement.parentNode.replaceChild(newDivElement, subTaskElement);
+    firstButtonImg.src = './img/recycle.svg';
+    firstButtonImg.onclick = function () {
+        deleteEditSubtaskHTML(index);
+    };
+
+    secondButtonImg.src = './img/check-small.svg';
+    secondButtonImg.onclick = function () {
+        saveEditedSubTask(subTaskList, index);
+    };
+    changeParentStyle(index);
 }

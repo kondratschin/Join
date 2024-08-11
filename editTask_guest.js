@@ -5,46 +5,71 @@
  * @param {string} boardStatus - The status of the board (e.g., 'toDo', 'inProgress', 'done')
  */
 function saveChangesTaskToLocalStorage(oldTaskTitle, newTaskTitle, boardStatus) {
-    let taskDescription = document.getElementById('taskDescription').value;
-    let taskDate = document.getElementById('taskDate').value;
+    let dataToSend = gatherTaskData(newTaskTitle);
+    let tasks = getTasksFromLocalStorage(boardStatus);
 
-    let dataToSend = {
+    updateLocalStorageTasks(tasks, oldTaskTitle, newTaskTitle, boardStatus, dataToSend);
+
+    updateUIAfterSave();
+}
+
+/**
+ * Gathers the task data from the form fields
+ * @param {string} newTaskTitle - The new title of the task
+ * @returns {object} - The task data object to be saved
+ */
+function gatherTaskData(newTaskTitle) {
+    return {
         id: newTaskTitle,
         selectedContacts: selectedContacts,
         subTaskList: subTaskList,
         priority: priority,
         chosenCategory: chosenCategory,
-        taskDescription: taskDescription,
-        taskDate: taskDate
+        taskDescription: document.getElementById('taskDescription').value,
+        taskDate: document.getElementById('taskDate').value
     };
+}
 
-    // Retrieve existing tasks from local storage
+/**
+ * Retrieves tasks from local storage for a specific board status
+ * @param {string} boardStatus - The status of the board (e.g., 'toDo', 'inProgress', 'done')
+ * @returns {object} - The tasks object from local storage
+ */
+function getTasksFromLocalStorage(boardStatus) {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
     tasks[boardStatus] = tasks[boardStatus] || [];
+    return tasks;
+}
 
-    // Find the index of the old task if it exists
+/**
+ * Updates the tasks in local storage based on the old and new task titles
+ * @param {object} tasks - The tasks object retrieved from local storage
+ * @param {string} oldTaskTitle - The old title of the task
+ * @param {string} newTaskTitle - The new title of the task
+ * @param {string} boardStatus - The status of the board
+ * @param {object} dataToSend - The data of the task to be saved
+ */
+function updateLocalStorageTasks(tasks, oldTaskTitle, newTaskTitle, boardStatus, dataToSend) {
     let oldTaskIndex = tasks[boardStatus].findIndex(task => task.id === oldTaskTitle);
 
-    // If the task title has changed or it's a new task, update or add the task
     if (oldTaskIndex !== -1) {
-        // Update existing task if the title has changed
         if (oldTaskTitle !== newTaskTitle) {
             tasks[boardStatus][oldTaskIndex] = dataToSend;
         } else {
-            // Remove the old task if the title has changed
             tasks[boardStatus].splice(oldTaskIndex, 1);
-            // Add the new task to the end of the list
             tasks[boardStatus].push(dataToSend);
         }
     } else {
-        // Add new task
         tasks[boardStatus].push(dataToSend);
     }
 
-    // Save the updated tasks back to local storage
     localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 
-    // Check the current page and update the UI accordingly
+/**
+ * Updates the UI based on the current page after saving the task
+ */
+function updateUIAfterSave() {
     if (window.location.pathname.endsWith("addTask.html")) {
         displayElement('task-scc-add-ntn');
         setTimeout(openBoardPage, 900);
@@ -54,3 +79,148 @@ function saveChangesTaskToLocalStorage(oldTaskTitle, newTaskTitle, boardStatus) 
     }
 }
 
+/**
+ * Creates a task in the corresponding list and firebase
+ * @param {string} oldTaskTitle - The old title of the task
+ * @param {string} newTaskTitle - The new title of the task
+ * @param {string} boardStatus - The status of the board (e.g., 'toDo', 'inProgress', 'done')
+ */
+async function saveChangesTask(oldTaskTitle, newTaskTitle, boardStatus) {
+    if (!accName) {
+        saveChangesTaskToLocalStorage(oldTaskTitle, newTaskTitle, boardStatus);
+    } else {
+        let dataToSend = gatherTaskData(newTaskTitle);
+        let baseUrl = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/";
+
+        if (oldTaskTitle !== newTaskTitle) {
+            await updateFirebaseTask(baseUrl, oldTaskTitle, newTaskTitle, dataToSend);
+        } else {
+            await createOrUpdateFirebaseTask(baseUrl, newTaskTitle, dataToSend);
+        }
+
+        updateUIAfterSave();
+    }
+}
+
+/**
+ * Updates the task in Firebase and deletes the old task if the title has changed
+ * @param {string} baseUrl - The base URL for the Firebase API
+ * @param {string} oldTaskTitle - The old title of the task
+ * @param {string} newTaskTitle - The new title of the task
+ * @param {object} dataToSend - The task data to be sent to Firebase
+ */
+async function updateFirebaseTask(baseUrl, oldTaskTitle, newTaskTitle, dataToSend) {
+    try {
+        let newTaskUrl = baseUrl + newTaskTitle + ".json";
+        let oldTaskUrl = baseUrl + oldTaskTitle + ".json";
+
+        let response = await fetch(newTaskUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataToSend)
+        });
+
+        if (response.ok) {
+            await fetch(oldTaskUrl, {
+                method: "DELETE"
+            });
+        } else {
+            console.log("Error updating task.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+/**
+ * Creates or updates a task in Firebase
+ * @param {string} baseUrl - The base URL for the Firebase API
+ * @param {string} newTaskTitle - The title of the task
+ * @param {object} dataToSend - The task data to be sent to Firebase
+ */
+async function createOrUpdateFirebaseTask(baseUrl, newTaskTitle, dataToSend) {
+    try {
+        let newTaskUrl = baseUrl + newTaskTitle + ".json";
+
+        let response = await fetch(newTaskUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataToSend)
+        });
+
+        if (!response.ok) {
+            console.log("Error creating task.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+/**
+ * Moves the task to the category list below the current one.
+ * @param {number} index - The index of the task in the current category.
+ * @param {string} currentCategory - The current category of the task.
+ * @param {string} taskTitle - The title of the task.
+ * @returns {void}
+ */
+async function moveCategoryDown(index, currentCategory, taskTitle) {
+    event.stopPropagation();
+    if (currentCategory === 'done') {
+        return; // Stop the function and do nothing
+    }
+    let newCategory;
+
+    if (currentCategory === 'toDo') {
+        newCategory = 'inProgress';
+    } else if (currentCategory === 'inProgress') {
+        newCategory = 'awaitFeedback';
+    } else if (currentCategory === 'awaitFeedback') {
+        newCategory = 'done';
+    }
+    moveToCategory(newCategory, index, currentCategory, taskTitle);
+    renderToDoList();
+    checkArraysForContent();
+    
+    try {
+        await updateFirebase(newCategory, index, currentCategory, taskTitle);
+
+    } catch (error) {
+        console.error("Error moving task:", error);
+    }
+}
+
+/**
+ * Moves the task to the category list above the current one.
+ * @param {number} index - The index of the task in the current category.
+ * @param {string} currentCategory - The current category of the task.
+ * @param {string} taskTitle - The title of the task.
+ * @returns {void}
+ */
+async function moveCategoryUp(index, currentCategory, taskTitle) {
+    event.stopPropagation();
+    if (currentCategory === 'toDo') {
+        return; // Stop the function and do nothing
+    }
+    let newCategory;
+
+    if (currentCategory === 'done') {
+        newCategory = 'awaitFeedback';
+    } else if (currentCategory === 'awaitFeedback') {
+        newCategory = 'inProgress';
+    } else if (currentCategory === 'inProgress') {
+        newCategory = 'toDo';
+    }
+    moveToCategory(newCategory, index, currentCategory, taskTitle);
+    renderToDoList();
+    checkArraysForContent();
+    
+    try {
+        await updateFirebase(newCategory, index, currentCategory, taskTitle);
+    } catch (error) {
+        console.error("Error moving task:", error);
+    }
+}
