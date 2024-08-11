@@ -134,7 +134,7 @@ function generateOverlayFooterHTML(task, taskCategory, taskIndex) {
                 <span>Delete</span>
             </div>
             <img src="./img/separator-small.svg" class="sep-small" alt="">
-            <div onclick="loadEditTaskScriptAndRunOverlay('${taskIndex}', '${taskCategory}', '${task.id}')" class="overlay-action highlight-gray">
+            <div onclick="loadEditTaskOverlay('${taskIndex}', '${taskCategory}', '${task.id}')" class="overlay-action highlight-gray">
                 <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
                 <span>Edit</span>
             </div>
@@ -337,5 +337,33 @@ function generateOverlayEdit(task, taskCategory) {
                 </div>
             </div>
         </form>
+    `;
+}
+
+
+/**
+ * Generates the HTML for the overlay task.
+ * @param {object} task - The task object.
+ * @param {array} validContacts - Array of valid contacts.
+ * @param {boolean} hasSubtasks - Indicates if the task has subtasks.
+ * @param {string} chosenCategory - The chosen category for the task.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task.
+ * @returns {string} - The generated HTML string.
+ */
+function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, taskIndex) {
+    let prioritySVGHTML = getPrioToSVG(task.priority);
+
+    let contactsHtml = generateContactsHTML(validContacts);
+    let subtasksHtml = hasSubtasks ? generateSubtasksHTML(task.subTaskList, taskCategory, taskIndex) : '';
+
+    return /*html*/ `
+        <div class="task-overlay-wrapper">
+            ${generateOverlayHeadHTML(task, chosenCategory)}
+            ${generateTaskDetailsHTML(task, prioritySVGHTML)}
+            ${generateContactsSectionHTML(validContacts, contactsHtml)}
+            ${generateSubtasksSectionHTML(hasSubtasks, subtasksHtml)}
+            ${generateOverlayFooterHTML(task, taskCategory, taskIndex)}
+        </div>
     `;
 }

@@ -197,34 +197,6 @@ async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, co
 
 
 /**
- * Generates the HTML for the overlay task.
- * @param {object} task - The task object.
- * @param {array} validContacts - Array of valid contacts.
- * @param {boolean} hasSubtasks - Indicates if the task has subtasks.
- * @param {string} chosenCategory - The chosen category for the task.
- * @param {string} taskCategory - The category of the task.
- * @param {number} taskIndex - The index of the task.
- * @returns {string} - The generated HTML string.
- */
-function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, taskIndex) {
-    let prioritySVGHTML = getPrioToSVG(task.priority);
-
-    let contactsHtml = generateContactsHTML(validContacts);
-    let subtasksHtml = hasSubtasks ? generateSubtasksHTML(task.subTaskList, taskCategory, taskIndex) : '';
-
-    return /*html*/ `
-        <div class="task-overlay-wrapper">
-            ${generateOverlayHeadHTML(task, chosenCategory)}
-            ${generateTaskDetailsHTML(task, prioritySVGHTML)}
-            ${generateContactsSectionHTML(validContacts, contactsHtml)}
-            ${generateSubtasksSectionHTML(hasSubtasks, subtasksHtml)}
-            ${generateOverlayFooterHTML(task, taskCategory, taskIndex)}
-        </div>
-    `;
-}
-
-
-/**
  * Shows a black transparent background if an overlay is being shown.
  * @param {string} targetId - The ID of the target element.
  */
@@ -461,31 +433,6 @@ async function deleteTask(taskId, taskCategory) {
         }
     } catch (error) {
         console.error("Error deleting task:", error);
-    }
-}
-
-
-/**
- * Deletes the task from local storage.
- * @param {string} taskId - The ID of the task to delete.
- * @param {string} taskCategory - The category of the task.
- */
-function deleteTaskLocally(taskId, taskCategory) {
-    // Retrieve the tasks from local storage
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || {};
-
-    // Find and remove the task from the appropriate category
-    if (tasks[taskCategory]) {
-        const updatedTasks = tasks[taskCategory].filter(task => task.id !== taskId);
-        tasks[taskCategory] = updatedTasks;
-
-        // Save the updated tasks back to local storage
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-
-        // Remove the task from the UI
-        removeTaskFromUI(taskId, taskCategory);
-    } else {
-        console.error(`Task category '${taskCategory}' not found.`);
     }
 }
 
@@ -756,39 +703,7 @@ async function updateFirebase(category, index, currentCategory, taskTitle) {
 }
 
 
-/**
- * Loads the editTask.js file to prevent unexpected behavior if tasks are not being edited.
- * @param {Function} callback - The function to be executed once the script is loaded.
- */
-function loadEditTaskScript(callback) {
-    // Check if the script is already loaded
-    if (!document.getElementById('editTaskScript')) {
-        const script = document.createElement('script');
-        script.src = './editTask.js';
-        script.id = 'editTaskScript';
-        script.onload = callback;
-        document.body.appendChild(script);
-    } else {
-        // Script is already loaded, just call the callback
-        callback();
-    }
-}
 
-
-/**
- * Loads editTask.js and shows the edit overlay for tasks, hides the task overlay and removes the HTML content to avoid unexpected behavior.
- * @param {number} taskIndex - The index of the task in its category.
- * @param {string} taskCategory - The category of the task (e.g., 'toDo', 'inProgress', etc.).
- * @param {string} taskTitle - The title or ID of the task being edited.
- */
-function loadEditTaskScriptAndRunOverlay(taskIndex, taskCategory, taskTitle) {
-    loadEditTaskScript(() => {
-        if (typeof editTaskOverlay === 'function') {
-            editTaskOverlay(taskIndex, taskCategory, taskTitle);
-        }
-    });
-    hideAndRemoveTaskOverlay();
-}
 
 
 /**
@@ -812,67 +727,4 @@ function hideAndRemoveTaskOverlay() {
         displayNone('task-overlay');
         taskOverlay.innerHTML = '';  // This removes all child elements and content inside taskOverlay
     }
-}
-
-
-/**
- * If guest is logged in load data from guest.json
- * @returns 
- */
-function loadJSONDataTasks() {
-    const localTasks = localStorage.getItem('tasks');
-
-    if (localTasks) {
-        try {
-            const tasksData = JSON.parse(localTasks);
-            if (tasksData && tasksData.toDo && tasksData.inProgress && tasksData.awaitFeedback && tasksData.done) {
-                // Use the local data
-                tasks.toDo = tasksData.toDo;
-                tasks.inProgress = tasksData.inProgress;
-                tasks.awaitFeedback = tasksData.awaitFeedback;
-                tasks.done = tasksData.done;
-
-                // Render the tasks after loading
-                renderLocalTasks();
-                return;
-            }
-        } catch (error) {
-            console.error('Error parsing local storage data:', error);
-        }
-    }
-
-    // If no valid local data, fetch from guest.json
-    fetch('guest.json')
-        .then(response => response.json())
-        .then(data => {
-            const guestTasks = data.tasks.Guest;
-
-            // Convert objects to arrays and add index
-            tasks.toDo = convertTasksObjectToArray(guestTasks.toDo);
-            tasks.inProgress = convertTasksObjectToArray(guestTasks.inProgress);
-            tasks.awaitFeedback = convertTasksObjectToArray(guestTasks.awaitFeedback);
-            tasks.done = convertTasksObjectToArray(guestTasks.done);
-
-            // Save to localStorage
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-
-            // Render the tasks after loading
-            renderLocalTasks();
-        })
-        .catch(error => console.error('Error loading JSON data:', error));
-}
-
-
-/**
- * Converts JSON structure to array
- * @param {*} taskObj 
- * @returns 
- */
-function convertTasksObjectToArray(taskObj) {
-    if (!taskObj) return [];
-    return Object.keys(taskObj).map((taskId, index) => ({
-        ...taskObj[taskId],
-        id: taskId,
-        index: index
-    }));
 }
