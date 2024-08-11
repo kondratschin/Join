@@ -298,35 +298,116 @@ async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, co
 }
 
 /**
- * Checks a subtask as done, sets the tick, and updates the Firebase data.
+ * Checks a subtask as done, sets the tick, and updates either the local storage or Firebase data.
  * @param {string} taskCategory - The category of the task.
  * @param {number} taskIndex - The index of the task in the category.
  * @param {number} subtaskIndex - The index of the subtask in the task.
  */
 async function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
-    document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
-    document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
-    tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
+    if (getName() === null || getName().trim() === '') {
+        // If getName() returns null or empty, handle the subtask locally
+        checkSubtaskLocally(taskCategory, taskIndex, subtaskIndex);
+    } else {
+        // Otherwise, proceed with the Firebase update
+        document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+        document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+        tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
 
-    await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, true);
-    load();
+        await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, true);
+        load();
+    }
 }
 
 /**
- * Checks a subtask as undone, removes the tick, and updates the Firebase data.
+ * Checks a subtask as done locally, sets the tick, and updates the local storage.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ */
+function checkSubtaskLocally(taskCategory, taskIndex, subtaskIndex) {
+    document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+    document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+    
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+    if (tasks[taskCategory] && tasks[taskCategory][taskIndex]) {
+        tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
+
+        // Update the local storage
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        // Optionally, reload or update the UI
+        load();
+    } else {
+        console.error('Task or subtask not found in local storage.');
+    }
+}
+
+
+/**
+ * Checks a subtask as undone, removes the tick, and updates either the local storage or Firebase data.
  * @param {string} taskCategory - The category of the task.
  * @param {number} taskIndex - The index of the task in the category.
  * @param {number} subtaskIndex - The index of the subtask in the task.
  */
 async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
+    if (getName() === null || getName().trim() === '') {
+        // If getName() returns null or empty, handle the subtask locally
+        UnCheckSubtaskLocally(taskCategory, taskIndex, subtaskIndex);
+    } else {
+        // Otherwise, proceed with the Firebase update
+        document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+        document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+        tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
+
+        await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, false);
+        load();
+    }
+}
+
+/**
+ * Checks a subtask as undone, removes the tick, and updates either the local storage or Firebase data.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ */
+async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
+    if (getName() === null || getName().trim() === '') {
+        // If getName() returns null or empty, handle the subtask locally
+        UnCheckSubtaskLocally(taskCategory, taskIndex, subtaskIndex);
+    } else {
+        // Otherwise, proceed with the Firebase update
+        document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
+        document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
+        tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
+
+        await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, false);
+        load();
+    }
+}
+
+/**
+ * Unchecks a subtask locally, removing the tick and updating the local storage.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task in the category.
+ * @param {number} subtaskIndex - The index of the subtask in the task.
+ */
+function UnCheckSubtaskLocally(taskCategory, taskIndex, subtaskIndex) {
     document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
     document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
-    tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
+    
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+    if (tasks[taskCategory] && tasks[taskCategory][taskIndex]) {
+        tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
 
-    // Update Firebase
-    await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, false);
-    load();
+        // Update the local storage
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        // Optionally, reload or update the UI
+        load();
+    } else {
+        console.error('Task or subtask not found in local storage.');
     }
+}
 
     /**
  * Push edited subtask to subTaskList

@@ -189,7 +189,7 @@ function addPlus() {
  * @param {string} taskCategory - The category of the task.
  */
 async function deleteTask(taskId, taskCategory) {
-    const userName = getName();
+    let userName = getName();
     if (!userName) {
         deleteTaskLocally(taskId, taskCategory);
         return;
@@ -304,7 +304,7 @@ function removeAllDottedLines() {
 }
 
 /**
- * Moves the task to the specified category list.
+ * Moves the task to the specified category list, updating either local storage or Firebase.
  * @param {string} category - The target category to move the task to.
  * @returns {Promise<void>}
  */
@@ -313,12 +313,25 @@ async function moveTo(category) {
     moveToCategory(category, index, currentCategory, taskTitle);
     renderToDoList();
     checkArraysForContent();
+
+    if (getName() === null || getName().trim() === '') {
+        // If getName() returns null or empty, handle the move locally
+        moveToLocally(category, index, currentCategory, taskTitle);
+    } else {
+        // Otherwise, proceed with the Firebase update
         try {
-        await updateFirebase(category, index, currentCategory, taskTitle);
-        console.log(`Task successfully moved to ${category}`);
-    } catch (error) {
-        console.error("Error moving task:", error);
+            await updateFirebase(category, index, currentCategory, taskTitle);
+        } catch (error) {
+            console.error("Error moving task:", error);
+        }
     }
+}
+
+/**
+ * Saves the task within the local storage.
+ */
+function moveToLocally() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 /**

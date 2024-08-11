@@ -279,7 +279,7 @@ async function loadContactsArray() {
     if (!accName || accName.trim() === '') {
         return;
     }
-
+    localStorage.removeItem('contacts');
     let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
     let responseAsJson = await response.json();
     let contactsAsArray = Object.keys(responseAsJson);

@@ -685,4 +685,27 @@
     .task-edit {
         padding: 16px;
     }
+
+    .task-overlay {
+        transform: translate(0, 0);
+        top: 0;
+        left: 0;
+        width: 93vw;
+        height: 100%;
+
+        border-radius: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 16px;
+    }
+
+    @keyframes flyInRight {
+        from {
+            left: 100%;
+        }
+    
+        to {
+            left: 0;
+        }
+    }
 }

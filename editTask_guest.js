@@ -172,6 +172,7 @@ async function moveCategoryDown(index, currentCategory, taskTitle) {
     if (currentCategory === 'done') {
         return; // Stop the function and do nothing
     }
+
     let newCategory;
 
     if (currentCategory === 'toDo') {
@@ -181,20 +182,26 @@ async function moveCategoryDown(index, currentCategory, taskTitle) {
     } else if (currentCategory === 'awaitFeedback') {
         newCategory = 'done';
     }
+
     moveToCategory(newCategory, index, currentCategory, taskTitle);
     renderToDoList();
     checkArraysForContent();
-    
-    try {
-        await updateFirebase(newCategory, index, currentCategory, taskTitle);
 
-    } catch (error) {
-        console.error("Error moving task:", error);
+    if (getName() === null || getName().trim() === '') {
+        // If getName() returns null or empty, handle the move locally
+        moveToLocally(newCategory, index, currentCategory, taskTitle);
+    } else {
+        // Otherwise, proceed with the Firebase update
+        try {
+            await updateFirebase(newCategory, index, currentCategory, taskTitle);
+        } catch (error) {
+            console.error("Error moving task:", error);
+        }
     }
 }
 
 /**
- * Moves the task to the category list above the current one.
+ * Moves the task to the category list above the current one, updating either local storage or Firebase.
  * @param {number} index - The index of the task in the current category.
  * @param {string} currentCategory - The current category of the task.
  * @param {string} taskTitle - The title of the task.
@@ -205,6 +212,7 @@ async function moveCategoryUp(index, currentCategory, taskTitle) {
     if (currentCategory === 'toDo') {
         return; // Stop the function and do nothing
     }
+
     let newCategory;
 
     if (currentCategory === 'done') {
@@ -214,13 +222,20 @@ async function moveCategoryUp(index, currentCategory, taskTitle) {
     } else if (currentCategory === 'inProgress') {
         newCategory = 'toDo';
     }
+
     moveToCategory(newCategory, index, currentCategory, taskTitle);
     renderToDoList();
     checkArraysForContent();
-    
-    try {
-        await updateFirebase(newCategory, index, currentCategory, taskTitle);
-    } catch (error) {
-        console.error("Error moving task:", error);
+
+    if (getName() === null || getName().trim() === '') {
+        // If getName() returns null or empty, handle the move locally
+        moveToLocally(newCategory, index, currentCategory, taskTitle);
+    } else {
+        // Otherwise, proceed with the Firebase update
+        try {
+            await updateFirebase(newCategory, index, currentCategory, taskTitle);
+        } catch (error) {
+            console.error("Error moving task:", error);
+        }
     }
 }
