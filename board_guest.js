@@ -144,3 +144,10 @@ function loadGuest() {
     addPlus();
     loadJSONDataTasks();
     }
+    
+/**
+ * Saves the task within the local storage.
+ */
+function moveToLocally() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}

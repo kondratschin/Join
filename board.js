@@ -328,13 +328,6 @@ async function moveTo(category) {
 }
 
 /**
- * Saves the task within the local storage.
- */
-function moveToLocally() {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-/**
  * Allows drag-and-drop operations by preventing the default behavior of the event.
  * @param {Event} ev - The dragover event.
  */
@@ -363,10 +356,6 @@ function moveToCategory(category, index, currentCategory, taskTitle) {
 
 /**
  * Updates Firebase with the task's new category and removes it from the old category.
- * @param {string} category - The new category where the task should be moved.
- * @param {number} index - The index position where the task should be inserted in the new category.
- * @param {string} currentCategory - The current category from which the task is being moved.
- * @param {string} taskTitle - The ID of the task being moved.
  */
 async function updateFirebase(category, index, currentCategory, taskTitle) {
     try {
