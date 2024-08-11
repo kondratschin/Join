@@ -134,3 +134,118 @@ function alternateTwoElements(one, two) {
     document.getElementById(`${one}`).classList.remove('d-none');
     document.getElementById(`${two}`).classList.add('d-none');
 }
+
+
+/**
+ * Resets the input field for the subtask.
+ */
+function resetInput() {
+    document.getElementById('taskSub').value = "";
+}
+
+
+/**
+ * Hides the dropdown menus if clicked somewhere else.
+ */
+document.addEventListener('click', function (event) {
+    let excludedObjects = document.querySelectorAll('.excludedObject');
+    let clickedElement = event.target;
+    let isExcluded = false;
+
+    // Check if the clicked element is contained within any excluded object
+    excludedObjects.forEach(function (object) {
+        if (object.contains(clickedElement)) {
+            isExcluded = true;
+        }
+    });
+
+    // If the clicked element is not contained within any excluded object, call the function
+    if (!isExcluded) {
+        hideCategoryDrp();
+        hideContactDrp();
+        alternateTwoElements('subtask-plus', 'subtask-buttons');
+    }
+});
+
+
+/**
+ * Creates/saves a task in the corresponding list.
+ * @param {string} taskTitle - The title of the task from the input field.
+ */
+async function createTask(taskTitle) {
+    if (!getName() || getName().trim() === "") {
+        createTaskLocally(taskTitle);
+        return;
+    }
+    
+    let taskDescription = document.getElementById('taskDescription').value;
+    let taskDate = document.getElementById('taskDate').value;
+
+    let dataToSend = {
+        selectedContacts: selectedContacts,
+        subTaskList: subTaskList,
+        priority: priority,
+        chosenCategory: chosenCategory,
+        taskDescription: taskDescription,
+        taskDate: taskDate
+    };
+
+    let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json";
+
+    try {
+        let response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataToSend)
+        });
+
+        if (response.ok) {
+            if (window.location.pathname.endsWith("addTask.html")) {
+                displayElement('task-scc-add-ntn');
+                setTimeout(openBoardPage, 900);
+            } else if (window.location.pathname.endsWith("board.html")) {
+                load();
+                displayNone('addTaskWindow');
+            }
+        } else {
+            console.log("Error creating task.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+
+/**
+ * Creates/saves a task in the corresponding list.
+ * @param {string} taskTitle - The title of the task from the input field.
+ */
+function createTaskLocally(taskTitle) {
+    let taskDescription = document.getElementById('taskDescription').value;
+    let taskDate = document.getElementById('taskDate').value;
+
+    let dataToSend = {
+        id: taskTitle,
+        selectedContacts: selectedContacts,
+        subTaskList: subTaskList,
+        priority: priority,
+        chosenCategory: chosenCategory,
+        taskDescription: taskDescription,
+        taskDate: taskDate
+    };
+
+    // Get the existing tasks from local storage
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
+    tasks[boardStatus] = tasks[boardStatus] || [];
+    tasks[boardStatus].push(dataToSend);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    if (window.location.pathname.endsWith("addTask.html")) {
+        displayElement('task-scc-add-ntn');
+        setTimeout(openBoardPage, 900);
+    } else if (window.location.pathname.endsWith("board.html")) {
+        load();
+        displayNone('addTaskWindow');
+    }
+}

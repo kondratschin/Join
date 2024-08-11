@@ -367,3 +367,5 @@ function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, t
         </div>
     `;
 }
+
+
