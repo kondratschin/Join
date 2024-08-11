@@ -169,27 +169,12 @@ document.addEventListener('click', function (event) {
 
 
 /**
- * Creates/saves a task in the corresponding list.
+ * Sends the task data to the server.
  * @param {string} taskTitle - The title of the task from the input field.
+ * @param {object} dataToSend - The data object containing task details.
+ * @returns {Promise<Response>} The fetch API response.
  */
-async function createTask(taskTitle) {
-    if (!getName() || getName().trim() === "") {
-        createTaskLocally(taskTitle);
-        return;
-    }
-    
-    let taskDescription = document.getElementById('taskDescription').value;
-    let taskDate = document.getElementById('taskDate').value;
-
-    let dataToSend = {
-        selectedContacts: selectedContacts,
-        subTaskList: subTaskList,
-        priority: priority,
-        chosenCategory: chosenCategory,
-        taskDescription: taskDescription,
-        taskDate: taskDate
-    };
-
+async function sendTaskData(taskTitle, dataToSend) {
     let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json";
 
     try {
@@ -200,6 +185,50 @@ async function createTask(taskTitle) {
             },
             body: JSON.stringify(dataToSend)
         });
+
+        return response;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error; // Rethrow the error to be handled by the calling function
+    }
+}
+
+
+/**
+ * Creates the data object to send or store.
+ * @param {string} taskTitle - The title of the task.
+ * @returns {object} The data object containing task details.
+ */
+function createTaskData(taskTitle) {
+    let taskDescription = document.getElementById('taskDescription').value;
+    let taskDate = document.getElementById('taskDate').value;
+
+    return {
+        id: taskTitle, // Include the ID only when saving locally
+        selectedContacts: selectedContacts,
+        subTaskList: subTaskList,
+        priority: priority,
+        chosenCategory: chosenCategory,
+        taskDescription: taskDescription,
+        taskDate: taskDate
+    };
+}
+
+
+/**
+ * Creates/saves a task in the corresponding list.
+ * @param {string} taskTitle - The title of the task from the input field.
+ */
+async function createTask(taskTitle) {
+    if (!getName() || getName().trim() === "") {
+        createTaskLocally(taskTitle);
+        return;
+    }
+
+    let dataToSend = createTaskData(taskTitle);
+
+    try {
+        let response = await sendTaskData(taskTitle, dataToSend);
 
         if (response.ok) {
             if (window.location.pathname.endsWith("addTask.html")) {
@@ -213,34 +242,24 @@ async function createTask(taskTitle) {
             console.log("Error creating task.");
         }
     } catch (error) {
-        console.error("Error:", error);
+        // Error already logged in sendTaskData, can handle further if needed
     }
 }
 
 
 /**
- * Creates/saves a task in the corresponding list.
+ * Creates/saves a task locally in the corresponding list.
  * @param {string} taskTitle - The title of the task from the input field.
  */
 function createTaskLocally(taskTitle) {
-    let taskDescription = document.getElementById('taskDescription').value;
-    let taskDate = document.getElementById('taskDate').value;
-
-    let dataToSend = {
-        id: taskTitle,
-        selectedContacts: selectedContacts,
-        subTaskList: subTaskList,
-        priority: priority,
-        chosenCategory: chosenCategory,
-        taskDescription: taskDescription,
-        taskDate: taskDate
-    };
+    let dataToSend = createTaskData(taskTitle);
 
     // Get the existing tasks from local storage
     let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
     tasks[boardStatus] = tasks[boardStatus] || [];
     tasks[boardStatus].push(dataToSend);
     localStorage.setItem('tasks', JSON.stringify(tasks));
+
     if (window.location.pathname.endsWith("addTask.html")) {
         displayElement('task-scc-add-ntn');
         setTimeout(openBoardPage, 900);
