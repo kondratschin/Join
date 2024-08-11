@@ -115,6 +115,16 @@
     border: #29ABE2;
 }
 
+.error-message {
+    color: red;
+    font-size: 0.85em;
+    display: none; /* Standardmäßig versteckt */
+    margin-top: 5px;
+    width: 300px;
+    position: absolute;
+    margin-bottom: 64px;
+}
+
 .success-container {
     display: flex;
     flex-direction: column;
@@ -163,14 +173,14 @@
     margin-bottom: 40px;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .signUpLayout {
         justify-content: center;
         padding: 0px 0px;
-        width: 396px;
-        height: 595px;
-        left: calc(50% - 396px/2);
-        top: calc(50% - 595px/2);
+        width: 95%;
+        left: 2.5%;
+        height: 68%;
+        top: 20%;
     }
 
     .inputSectionSignUp {
@@ -178,13 +188,15 @@
         flex-direction: column;
         align-items: center;
         padding: 0px;
-        gap: 24px;
-        width: 364px;
-        height: 392px;
+        gap: 16px;
+        width: 75%;
+        height: 330px;
         flex: none;
         order: 0;
         flex-grow: 0;
         z-index: 0;
+        margin-bottom: 20px;
+        border-radius: 30px;
     }
 
     .sign-up-title{
@@ -193,17 +205,22 @@
     }
 
     .sign-up-button {
-        width: 180px;
-        height: 51px;
-
+        width: 100%;
+        height: 40px;
         background: #2A3647;
         border-radius: 8px;
         margin-bottom: 80px;
+        font-size: 16px;
+
+    
     }
 
     .log-in-title{
         font-size: 47px !important;
-        margin-bottom: 40px;
+        margin-bottom: 24px;
+        border-radius: 30px;
+        margin-top: 24px;
+        
     }
 
     .backToLogInArrow {

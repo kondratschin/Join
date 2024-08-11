@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /**
- * Show success messagve
+ * Show success message
  */
 function showSuccessMessage() {
   const overlay = document.createElement('div');
@@ -218,27 +218,53 @@ function showSuccessMessage() {
 document.getElementById('inputSection').addEventListener('submit', async function(event) {
   event.preventDefault(); // Prevent default form submission
 
+  // Reset all error messages
+  document.querySelectorAll('.error-message').forEach(function(el) {
+    el.style.display = 'none';
+  });
+
   // Get form values
-  let name = document.getElementById('signUpName').value;
-  let email = document.getElementById('signUpEmail').value;
-  let password = document.getElementById('signUpPassword').value;
-  let passwordRepeat = document.getElementById('againSignUpPassword').value;
+  const name = document.getElementById('signUpName').value;
+  const email = document.getElementById('signUpEmail').value;
+  const password = document.getElementById('signUpPassword').value;
+  const confirmPassword = document.getElementById('againSignUpPassword').value;
+  const acceptPolicy = document.getElementById('acceptPrivatPolicyButton').checked;
 
-  // Check if passwords match
-  if (password !== passwordRepeat) {
-    alert('Passwords do not match!');
-    return;
+  let hasError = false;
+
+  // Validation checks
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!emailPattern.test(email)) {
+    document.getElementById('emailError').textContent = "Please enter a valid email address.";
+    document.getElementById('emailError').style.display = 'block';
+    hasError = true;
   }
 
-  // Check if checkbox is checked
-  let checkbox = document.getElementById('acceptPrivatPolicyButton');
-  if (!checkbox.checked) {
-    alert('Please accept the Privacy Policy.');
-    return;
+  if (password.length < 6) {
+    document.getElementById('passwordError').textContent = "Password must be at least 6 characters long.";
+    document.getElementById('passwordError').style.display = 'block';
+    hasError = true;
   }
 
-  // Call the signUp function
-  await signUp(email, password, passwordRepeat, name);
+  if (password !== confirmPassword) {
+    document.getElementById('confirmPasswordError').textContent = "Passwords do not match.";
+    document.getElementById('confirmPasswordError').style.display = 'block';
+    hasError = true;
+  }
+
+  if (!acceptPolicy) {
+    document.getElementById('policyError').textContent = "You must accept the Privacy Policy.";
+    document.getElementById('policyError').style.display = 'block';
+    hasError = true;
+  }
+
+  if (hasError) {
+    return; // Stop execution if there are errors
+  }
+
+  // Call the signUp function if no errors
+  await signUp(email, password, confirmPassword, name);
 });
 
 

@@ -25,30 +25,38 @@
 
             <form id="inputSection" class="inputSectionSignUp">
                 <div class="login-credentials">
-                    <input type="name" id="signUpName" placeholder="Name" required pattern="([A-Z ÄÖÜ][a-z äöü]{1,}\s[A-Z ÄÖÜ][a-z äöü]{1,})+" title="Please enter at least two words with initial capital letters.">
+                    <input type="text" id="signUpName" placeholder="Name" required pattern="([A-ZÄÖÜ][a-zäöü]{1,}\s[A-ZÄÖÜ][a-zäöü]{1,})+" title="Please enter at least two words with initial capital letters.">
                     <img class="cred-icon" src="./img/person.svg" alt="">
+                    <small id="nameError" class="error-message"></small>
                 </div>
                 <div class="login-credentials">
-                    <input type="email" name="" id="signUpEmail" placeholder="Email" required>
+                    <input type="email" id="signUpEmail" placeholder="Email" required>
                     <img class="cred-icon" src="./img/mail.svg" alt="">
-                </div>
+                    <small id="emailError" class="error-message"></small>
+                </div>                
                 <div class="login-credentials">
                     <input oninput="transformLockIcon(1)" type="password" id="signUpPassword" placeholder="Password" required>
                     <img onclick="hide(1)" id="lock1" class="cred-icon hoverEffect" src="./img/lock.svg" alt="">
+                    <small id="passwordError" class="error-message"></small>
                 </div>
                 <div class="login-credentials">
                     <input oninput="transformLockIcon(2)" type="password" id="againSignUpPassword" placeholder="Repeat password" required>
                     <img onclick="hide(2)" id="lock2" class="cred-icon hoverEffect" src="./img/lock.svg" alt="">
+                    <small id="confirmPasswordError" class="error-message"></small>
                 </div>
                 <div class="accept-privacy-policy m-top24">
                     <input class="rememberMe-button" type="checkbox" id="acceptPrivatPolicyButton">
                     <label class="rememberMe-text" for="acceptPrivatPolicyButton">I accept the <a href="./privacyPolicyExternal.html" target="_blank">Privacy Policy</a></label>
+                    <small id="policyError" class="error-message"></small>
                 </div>
-
-            <div class="login-guest-login-buttons">
-                <button type="submit" id="signUpButton" class="sign-up-button">Sign up</button>
-            </div>
-        </form>
+            
+                <div class="login-guest-login-buttons">
+                    <button type="submit" id="signUpButton" class="sign-up-button">Sign up</button>
+                </div>
+            </form>
+            
+            
+            
         </div>
 
         <div class="footer">
