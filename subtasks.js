@@ -3,8 +3,6 @@
  */
 function pushToSubTaskList() {
     let newSubtask = document.getElementById('taskSub').value;
-
-    // Check if newSubtask has at least one character
     if (newSubtask.length >= 1) {
         subTaskList.push({ name: newSubtask, complete: false });
         resetInput();
@@ -19,14 +17,8 @@ function pushToSubTaskList() {
 function renderSubTaskList() {
     let subTaskListHTML = document.getElementById('sub-task-list');
     subTaskListHTML.innerHTML = '';
-
-    // Determine the starting index based on the length of subTaskList
     let startIndex = Math.max(0, subTaskList.length - 15); // Start from the last two items or less
-
-    // Generate and append the HTML content for the subtasks
     subTaskListHTML.innerHTML = createSubTaskListHtml(subTaskList, startIndex);
-
-    // Attach double-click event listeners for the displayed entries
     for (let i = startIndex; i < subTaskList.length; i++) {
         let subTaskEntry = document.getElementById(`sub-task-entry${i}`);
         subTaskEntry.addEventListener('dblclick', () => {
@@ -59,9 +51,7 @@ function editTaskInList(index) {
     newDivElement.innerHTML = /*html*/ `
         <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
     `;
-
     subTaskElement.parentNode.replaceChild(newDivElement, subTaskElement);
-
     firstButtonImg.src = './img/recycle.svg';
     firstButtonImg.onclick = function () {
         deleteSubtaskHTML(index);
@@ -95,32 +85,11 @@ function saveEditedTask(index) {
 function changeParentStyle(index) {
     let childDiv = document.getElementById(`edited-sub-task-${index}`);
     let parentDiv = childDiv.parentElement;
-
     childDiv.style.borderRadius = '0';
     childDiv.style.backgroundColor = '#ffffff';
     parentDiv.classList.remove('highlight-subtask');
     parentDiv.style.borderBottom = '1px solid #29ABE2';
     parentDiv.style.backgroundColor = '#ffffff';
-}
-
-/**
- * Toggles the visibility between two elements.
- * @param {string} one - The ID of the first element.
- * @param {string} two - The ID of the second element.
- */
-function toggleTwoElements(one, two) {
-    document.getElementById(`${one}`).classList.toggle('d-none');
-    document.getElementById(`${two}`).classList.toggle('d-none');
-}
-
-/**
- * Removes 'display: none' from the first element and adds 'display: none' to the second element.
- * @param {string} one - The ID of the first element.
- * @param {string} two - The ID of the second element.
- */
-function alternateTwoElements(one, two) {
-    document.getElementById(`${one}`).classList.remove('d-none');
-    document.getElementById(`${two}`).classList.add('d-none');
 }
 
 /**
@@ -157,7 +126,6 @@ document.addEventListener('click', function (event) {
  */
 async function sendTaskData(taskTitle, dataToSend) {
     let url = BASE_URL + "tasks/" + accName + "/" + boardStatus + "/" + taskTitle + ".json";
-
     try {
         let response = await fetch(url, {
             method: "PUT",
@@ -181,7 +149,6 @@ async function sendTaskData(taskTitle, dataToSend) {
 function createTaskData(taskTitle) {
     let taskDescription = document.getElementById('taskDescription').value;
     let taskDate = document.getElementById('taskDate').value;
-
     return {
         id: taskTitle, // Include the ID only when saving locally
         selectedContacts: selectedContacts,
@@ -202,9 +169,7 @@ async function createTask(taskTitle) {
         createTaskLocally(taskTitle);
         return;
     }
-
     let dataToSend = createTaskData(taskTitle);
-
     try {
         let response = await sendTaskData(taskTitle, dataToSend);
 
@@ -220,7 +185,6 @@ async function createTask(taskTitle) {
             console.log("Error creating task.");
         }
     } catch (error) {
-        // Error already logged in sendTaskData, can handle further if needed
     }
 }
 
@@ -230,8 +194,6 @@ async function createTask(taskTitle) {
  */
 function createTaskLocally(taskTitle) {
     let dataToSend = createTaskData(taskTitle);
-
-    // Get the existing tasks from local storage
     let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
     tasks[boardStatus] = tasks[boardStatus] || [];
     tasks[boardStatus].push(dataToSend);
@@ -270,10 +232,6 @@ function getSubtasksHTML(task) {
 
 /**
  * Updates the subtasks in Firebase.
- * @param {string} taskCategory - The category of the task.
- * @param {number} taskIndex - The index of the task in the category.
- * @param {number} subtaskIndex - The index of the subtask in the task.
- * @param {boolean} complete - The completion status of the subtask.
  */
 async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, complete) {
     let task = tasks[taskCategory][taskIndex];
@@ -305,10 +263,8 @@ async function updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, co
  */
 async function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
     if (getName() === null || getName().trim() === '') {
-        // If getName() returns null or empty, handle the subtask locally
         checkSubtaskLocally(taskCategory, taskIndex, subtaskIndex);
     } else {
-        // Otherwise, proceed with the Firebase update
         document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
         document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
         tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
@@ -321,8 +277,6 @@ async function checkSubtask(taskCategory, taskIndex, subtaskIndex) {
 /**
  * Checks a subtask as done locally, sets the tick, and updates the local storage.
  * @param {string} taskCategory - The category of the task.
- * @param {number} taskIndex - The index of the task in the category.
- * @param {number} subtaskIndex - The index of the subtask in the task.
  */
 function checkSubtaskLocally(taskCategory, taskIndex, subtaskIndex) {
     document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.add('d-none');
@@ -331,34 +285,24 @@ function checkSubtaskLocally(taskCategory, taskIndex, subtaskIndex) {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
     if (tasks[taskCategory] && tasks[taskCategory][taskIndex]) {
         tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = true;
-
-        // Update the local storage
         localStorage.setItem('tasks', JSON.stringify(tasks));
-
-        // Optionally, reload or update the UI
         load();
     } else {
         console.error('Task or subtask not found in local storage.');
     }
 }
 
-
 /**
  * Checks a subtask as undone, removes the tick, and updates either the local storage or Firebase data.
  * @param {string} taskCategory - The category of the task.
- * @param {number} taskIndex - The index of the task in the category.
- * @param {number} subtaskIndex - The index of the subtask in the task.
  */
 async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
     if (getName() === null || getName().trim() === '') {
-        // If getName() returns null or empty, handle the subtask locally
         UnCheckSubtaskLocally(taskCategory, taskIndex, subtaskIndex);
     } else {
-        // Otherwise, proceed with the Firebase update
         document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
         document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
         tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
-
         await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, false);
         load();
     }
@@ -366,20 +310,14 @@ async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
 
 /**
  * Checks a subtask as undone, removes the tick, and updates either the local storage or Firebase data.
- * @param {string} taskCategory - The category of the task.
- * @param {number} taskIndex - The index of the task in the category.
- * @param {number} subtaskIndex - The index of the subtask in the task.
  */
 async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
     if (getName() === null || getName().trim() === '') {
-        // If getName() returns null or empty, handle the subtask locally
         UnCheckSubtaskLocally(taskCategory, taskIndex, subtaskIndex);
     } else {
-        // Otherwise, proceed with the Firebase update
         document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
         document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
         tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
-
         await updateSubtaskInFirebase(taskCategory, taskIndex, subtaskIndex, false);
         load();
     }
@@ -387,29 +325,21 @@ async function UnCheckSubtask(taskCategory, taskIndex, subtaskIndex) {
 
 /**
  * Unchecks a subtask locally, removing the tick and updating the local storage.
- * @param {string} taskCategory - The category of the task.
- * @param {number} taskIndex - The index of the task in the category.
- * @param {number} subtaskIndex - The index of the subtask in the task.
  */
 function UnCheckSubtaskLocally(taskCategory, taskIndex, subtaskIndex) {
     document.getElementById(`checkedButtonOverlay${subtaskIndex}`).classList.add('d-none');
     document.getElementById(`unCheckedButtonOverlay${subtaskIndex}`).classList.remove('d-none');
-    
     let tasks = JSON.parse(localStorage.getItem('tasks')) || {};
     if (tasks[taskCategory] && tasks[taskCategory][taskIndex]) {
         tasks[taskCategory][taskIndex].subTaskList[subtaskIndex].complete = false;
-
-        // Update the local storage
         localStorage.setItem('tasks', JSON.stringify(tasks));
-
-        // Optionally, reload or update the UI
         load();
     } else {
         console.error('Task or subtask not found in local storage.');
     }
 }
 
-    /**
+ /**
  * Push edited subtask to subTaskList
  */
 function pushToEditedSubTaskList() {
@@ -430,7 +360,6 @@ function pushToEditedSubTaskList() {
 function saveEditedSubTask(subTaskList, index) {
     let editedTaskElement = document.getElementById(`edited-sub-task-${index}`);
     let editedTask = editedTaskElement.value.trim();
-
     if (editedTask) {
         subTaskList[index].name = editedTask;
         renderEditSubTaskList(subTaskList);
@@ -450,8 +379,6 @@ function deleteEditSubtaskHTML(index) {
 
 /**
  * Edit function fur subtasks
- * @param {*} subTaskList 
- * @param {*} index 
  */
 function editSubTaskInList(subTaskList, index) {
     let subTaskElement = document.getElementById(`subtask-in-list${index}`);
@@ -463,13 +390,11 @@ function editSubTaskInList(subTaskList, index) {
     newDivElement.innerHTML = /*html*/ `
         <input type="text" id="edited-sub-task-${index}" value="${currentTask.name}">
     `;
-
     subTaskElement.parentNode.replaceChild(newDivElement, subTaskElement);
     firstButtonImg.src = './img/recycle.svg';
     firstButtonImg.onclick = function () {
         deleteEditSubtaskHTML(index);
     };
-
     secondButtonImg.src = './img/check-small.svg';
     secondButtonImg.onclick = function () {
         saveEditedSubTask(subTaskList, index);

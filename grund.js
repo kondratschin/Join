@@ -213,3 +213,23 @@ function mobileFadeOut(id) {
   document.getElementById(id).classList.remove('mobileOptionFadeIn');
   document.getElementById(id).classList.add('mobileOptionFadeOut');
 }
+
+/**
+ * Toggles the visibility between two elements.
+ * @param {string} one - The ID of the first element.
+ * @param {string} two - The ID of the second element.
+ */
+function toggleTwoElements(one, two) {
+  document.getElementById(`${one}`).classList.toggle('d-none');
+  document.getElementById(`${two}`).classList.toggle('d-none');
+}
+
+/**
+ * Removes 'display: none' from the first element and adds 'display: none' to the second element.
+ * @param {string} one - The ID of the first element.
+ * @param {string} two - The ID of the second element.
+ */
+function alternateTwoElements(one, two) {
+  document.getElementById(`${one}`).classList.remove('d-none');
+  document.getElementById(`${two}`).classList.add('d-none');
+}
