@@ -360,6 +360,7 @@ input {
     .log-in-title {
         width: 100%;
         height: 139px;
+        margin-bottom: 24px;
     }
 
     h1 {
