@@ -333,7 +333,7 @@ input {
     border: #29ABE2;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 1050px) {
 
     .input-section{
         height: 192px; 
@@ -399,14 +399,14 @@ input {
     }
 
     .not-a-user-container {
-        top: 10%;
         display: flex;
         justify-content: center;
         position: absolute;
         width: 80%;
-        left: 8%;
+        left: 14%;
     }
 
+    
     .login-guest-login-buttons {
         display: flex;
         flex-direction: column;
@@ -423,8 +423,8 @@ input {
         position: sticky;
         width: 64px;
         height: 78.03px;
-        left: calc(60% - 84px/2 - 144px);
-        top: calc(60% - 78.03px/2 - 386.98px);
+        left: 0;
+        top: 5%;
         margin: 16px;
     }
 
@@ -432,10 +432,9 @@ input {
         position: absolute;
         display: flex;
         align-items: center;
-        justify-content: space-around;
-        gap: 35px;
+        justify-content: center;
+        gap: 24px;
         font-family: "Inter-Regular";
-        width: 279px;
         height: 49px;
         top: 83%;
 
