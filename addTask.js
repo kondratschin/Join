@@ -350,9 +350,8 @@ function addTaskEvent() {
     let taskTitle = document.getElementById('task-title1').value;
     taskTitle = String(taskTitle);
     createTask(taskTitle);
-    disableButton();
-    document.getElementById('taskForm').reset();
-
+    // disableButton(); not required 
+    // document.getElementById('taskForm').reset();
     return false;
 }
 
