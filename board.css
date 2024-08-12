@@ -251,6 +251,7 @@
     text-align: left;
     font-size: 61px;
     margin-bottom: 12px;
+    word-wrap: break-word;
 }
 
 .task-overlay-text {
