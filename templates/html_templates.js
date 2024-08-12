@@ -134,7 +134,7 @@ function generateOverlayFooterHTML(task, taskCategory, taskIndex) {
                 <span>Delete</span>
             </div>
             <img src="./img/separator-small.svg" class="sep-small" alt="">
-            <div onclick="loadEditTaskScriptAndRunOverlay('${taskIndex}', '${taskCategory}', '${task.id}')" class="overlay-action highlight-gray">
+            <div onclick="loadEditTaskOverlay('${taskIndex}', '${taskCategory}', '${task.id}')" class="overlay-action highlight-gray">
                 <img id="edit-small-img" class="plus" src="./img/edit-small.svg" alt="">
                 <span>Edit</span>
             </div>
@@ -338,4 +338,61 @@ function generateOverlayEdit(task, taskCategory) {
             </div>
         </form>
     `;
+}
+
+
+/**
+ * Generates the HTML for the overlay task.
+ * @param {object} task - The task object.
+ * @param {array} validContacts - Array of valid contacts.
+ * @param {boolean} hasSubtasks - Indicates if the task has subtasks.
+ * @param {string} chosenCategory - The chosen category for the task.
+ * @param {string} taskCategory - The category of the task.
+ * @param {number} taskIndex - The index of the task.
+ * @returns {string} - The generated HTML string.
+ */
+function generateOverlayHTML(task, validContacts, hasSubtasks, chosenCategory, taskCategory, taskIndex) {
+    let prioritySVGHTML = getPrioToSVG(task.priority);
+
+    let contactsHtml = generateContactsHTML(validContacts);
+    let subtasksHtml = hasSubtasks ? generateSubtasksHTML(task.subTaskList, taskCategory, taskIndex) : '';
+
+    return /*html*/ `
+        <div class="task-overlay-wrapper">
+            ${generateOverlayHeadHTML(task, chosenCategory)}
+            ${generateTaskDetailsHTML(task, prioritySVGHTML)}
+            ${generateContactsSectionHTML(validContacts, contactsHtml)}
+            ${generateSubtasksSectionHTML(hasSubtasks, subtasksHtml)}
+            ${generateOverlayFooterHTML(task, taskCategory, taskIndex)}
+        </div>
+    `;
+}
+
+/**
+ * Shows the assigned contacts and adds a small icon if more than 4 contacts are selected.
+ * @param {object} task - The task object containing contact details.
+ * @returns {string} - The HTML string for the contacts.
+ */
+function getContactsHTML(task) {
+    let htmlContent = '';
+
+    if (Array.isArray(task.selectedContacts)) {
+        let numberOfContacts = task.selectedContacts.length;
+
+        for (let i = 0; i < Math.min(numberOfContacts, 4); i++) {
+            let contact = task.selectedContacts[i];
+            
+            htmlContent += `
+                <div class="initialsContact-small margin-left-10" style="background: ${contact.color}">
+                    ${contact.initials}
+                </div>`;
+        }
+
+        if (numberOfContacts > 4) {
+            let additionalCount = numberOfContacts - 4;
+            htmlContent += `<div class="initialsContact-small margin-left-10">+${additionalCount}</div>`;
+        }
+    }
+
+    return htmlContent;
 }

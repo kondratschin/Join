@@ -3,12 +3,10 @@ let subTaskList = [];
 let priority = 'Medium';
 let chosenCategory = [];
 let boardStatus = ['toDo']; //defines in which list in the board the task will be put
-
 let statusFromBoard = localStorage.getItem('boardStatus');
 if (!statusFromBoard) {
     statusFromBoard = 'toDo'; // Set default status to 'toDo'
 }
-
 
 /**
  * Sets the status of the board.
@@ -19,7 +17,6 @@ function setBoardStatus(statusFromBoard) {
     localStorage.removeItem('boardStatus');
 }
 
-
 /**
  * Stores the status in localStorage to retrieve it in the addTask.html page.
  * @param {string} status - The status to be stored.
@@ -28,7 +25,6 @@ function openAddTaskPage(status) {
     localStorage.setItem('boardStatus', status);
     window.location.href = 'addTask.html';
 }
-
 
 /**
  * Validates the form by checking all required inputs.
@@ -49,11 +45,9 @@ function validateForm() {
     }
 }
 
-
 /**
  * EventListener checks the required inputs. If required fields are filled, the submit button will be enabled.
  */
-// Wait for DOMContentLoaded to ensure DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('input', (event) => {
         if (event.target.id === 'taskDate') {
@@ -98,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
 /**
  * Monitors the title input field for changes and validates its content.
  */
@@ -115,7 +108,6 @@ function monitorInputFieldTitle() {
     });
 }
 
-
 /**
  * Forces the Create Task button to be disabled.
  */
@@ -124,10 +116,8 @@ function forceDisableButton() {
     createButton.disabled = true;
 }
 
-
 /**
  * Contacts from the array 'selectedContacts' will be shown as selected/highlighted.
- * If no contacts have been selected previously, the contact list will be rendered.
  */
 function showContactDrp() {
     if (selectedContacts.length === 0) {
@@ -137,7 +127,6 @@ function showContactDrp() {
     document.getElementById('arrow-drp-dwn').classList.toggle('flip-vertically');
 }
 
-
 /**
  * Toggles the visibility of the category dropdown.
  */
@@ -145,7 +134,6 @@ function showCategoryDrp() {
     document.getElementById('category-drp-dwn').classList.toggle('d-none');
     document.getElementById('arrow-drp-dwn2').classList.toggle('flip-vertically');
 }
-
 
 /**
  * Hides the category dropdown.
@@ -155,7 +143,6 @@ function hideCategoryDrp() {
     document.getElementById('arrow-drp-dwn2').classList.remove('flip-vertically');
 }
 
-
 /**
  * Hides the contact dropdown.
  */
@@ -164,11 +151,8 @@ function hideContactDrp() {
     document.getElementById('arrow-drp-dwn').classList.remove('flip-vertically');
 }
 
-
 /**
  * Highlights the clicked priority button and removes the highlight from other buttons.
- * The className describes the color and adds the color.
- * The arrow sets the text color to white and also toggles the arrow.
  * @param {string} id - The ID of the priority button.
  * @param {string} className - The class name for the color highlight.
  * @param {string} arrow - The class name for the arrow color.
@@ -185,7 +169,6 @@ function prioritySelected(id, className, arrow) {
         priority = 'High';
     }
 }
-
 
 /**
  * Removes the highlights from priority buttons.
@@ -212,7 +195,6 @@ function removeSelection(id) {
     };
 }
 
-
 /**
  * Highlights selected contacts from the dropdown list.
  * @param {number} i - Index in the JSON 'alphabetContainer'.
@@ -227,7 +209,6 @@ function highlightContact(i, y) {
 
     updateSelectedContacts(contactElement, isSelected, i, y);
 }
-
 
 /**
  * Updates the array 'selectedContacts' with newly selected contacts.
@@ -251,29 +232,6 @@ function updateSelectedContacts(contactElement, isSelected, i, y) {
     selectedInitialIcos();
 }
 
-
-/**
- * Toggles the visibility between two elements.
- * @param {string} one - The ID of the first element.
- * @param {string} two - The ID of the second element.
- */
-function toggleTwoElements(one, two) {
-    document.getElementById(`${one}`).classList.toggle('d-none');
-    document.getElementById(`${two}`).classList.toggle('d-none');
-}
-
-
-/**
- * Removes 'display: none' from the first element and adds 'display: none' to the second element.
- * @param {string} one - The ID of the first element.
- * @param {string} two - The ID of the second element.
- */
-function alternateTwoElements(one, two) {
-    document.getElementById(`${one}`).classList.remove('d-none');
-    document.getElementById(`${two}`).classList.add('d-none');
-}
-
-
 /**
  * Disables the submit button and clears fields.
  */
@@ -292,7 +250,6 @@ function disableButton() {
     createContactDrpDwn();
 }
 
-
 /**
  * Shows error messages if required fields are empty.
  */
@@ -302,42 +259,8 @@ function showErrorMsg() {
     document.getElementById('categoryError').classList.remove('d-none');
 }
 
-
-/**
- * Resets the input field for the subtask.
- */
-function resetInput() {
-    document.getElementById('taskSub').value = "";
-}
-
-
-/**
- * Hides the dropdown menus if clicked somewhere else.
- */
-document.addEventListener('click', function (event) {
-    let excludedObjects = document.querySelectorAll('.excludedObject');
-    let clickedElement = event.target;
-    let isExcluded = false;
-
-    // Check if the clicked element is contained within any excluded object
-    excludedObjects.forEach(function (object) {
-        if (object.contains(clickedElement)) {
-            isExcluded = true;
-        }
-    });
-
-    // If the clicked element is not contained within any excluded object, call the function
-    if (!isExcluded) {
-        hideCategoryDrp();
-        hideContactDrp();
-        alternateTwoElements('subtask-plus', 'subtask-buttons');
-    }
-});
-
-
 /**
  * Assigns a category.
- * 
  * @param {string} category - The ID of the clicked element.
  */
 function assignCategory(category) {
@@ -348,7 +271,6 @@ function assignCategory(category) {
     validateForm();
 }
 
-
 /**
  * Loads contacts from Firebase into an array.
  */
@@ -357,14 +279,13 @@ async function loadContactsArray() {
     if (!accName || accName.trim() === '') {
         return;
     }
-
+    localStorage.removeItem('contacts');
     let response = await fetch(BASE_URL + "contacts/" + accName + ".json");
     let responseAsJson = await response.json();
     let contactsAsArray = Object.keys(responseAsJson);
     sortContactlist(responseAsJson, contactsAsArray);
     createContactDrpDwn();
 }
-
 
 /**
  * Creates the contact dropdown by sorting the contact list from the array.
@@ -381,7 +302,6 @@ function createContactDrpDwn() {
     }
 }
 
-
 /**
  * Shows the contacts in the dropdown list.
  * @param {number} sortLetterNr - The sorted letter number.
@@ -394,7 +314,6 @@ function showContactInDrpDwn(sortLetterNr, i) {
     }
 }
 
-
 /**
  * Creates the HTML content for a contact in the dropdown list.
  * @param {Object} letterContactNr - The contact information.
@@ -406,7 +325,6 @@ function printContactDrpDwn(LetterContactNr, y, i) {
     contactDrpDwn.innerHTML += createContactHtml(LetterContactNr, y, i);
 }
 
-
 /**
  * Creates the icons below the dropdown menu.
  */
@@ -415,6 +333,27 @@ function selectedInitialIcos() {
     selectedInitialIco.innerHTML = ""; // Clear the existing content
 
     selectedInitialIco.innerHTML += createSelectedInitialIcons();
+}
+
+/**
+ * Opens the board page.
+ */
+function openBoardPage() {
+    window.location.href = './board.html';
+}
+
+/**
+ * Resets the form, deletes all fields, and ensures that the button is disabled.
+ * @returns {boolean} Always returns false to prevent form submission.
+ */
+function addTaskEvent() {
+    let taskTitle = document.getElementById('task-title1').value;
+    taskTitle = String(taskTitle);
+    createTask(taskTitle);
+    disableButton();
+    document.getElementById('taskForm').reset();
+
+    return false;
 }
 
 /**
@@ -440,6 +379,7 @@ function createSelectedInitialIcons() {
     }
 
     return htmlContent;
+<<<<<<< HEAD
 }
 
 
@@ -668,4 +608,6 @@ function createTaskLocally(taskTitle) {
         load();
         displayNone('addTaskWindow');
     }
+=======
+>>>>>>> 89a72dd8ad77781e3115571bd380255ce9426feb
 }
