@@ -33,16 +33,18 @@
                 <div class="login-credentials">
                     <input type="email" name="" id="mail-login" placeholder="Email" required>
                     <img class="cred-icon" src="./img/mail.svg" alt="">
+                    <small id="emailLoginError" class="error-message"></small>
                 </div>
                 <div class="login-credentials">
                     <input type="password" id="passwort-login" placeholder="Password" required>
                     <img class="cred-icon" src="./img/lock.svg" alt="">
+                    <small id="passwordLoginError" class="error-message"></small>
                 </div>
                 <div class="rememberMe">
                     <input class="rememberMe-button" type="checkbox" id="rememberMe" onclick="">
                     <label class="rememberMe-text" for="rememberMe">Remember me</label>
                 </div>
-            </form>
+            </form>            
 
             <div class="login-guest-login-buttons">
                 <button id="logInButton" class="login-button">Log in</button>

@@ -65,12 +65,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (logInButton) {
       logInButton.addEventListener('click', async () => {
+          // Reset all error messages
+          document.querySelectorAll('.error-message').forEach(function(el) {
+              el.style.display = 'none';
+          });
+
           let email = document.getElementById('mail-login').value;
           let password = document.getElementById('passwort-login').value;
+          let hasError = false;
 
-          if (!email || !password) {
-              alert("Please fill in all fields to proceed.");
-              return;
+          if (!email) {
+              document.getElementById('emailLoginError').textContent = "Please enter your email.";
+              document.getElementById('emailLoginError').style.display = 'block';
+              hasError = true;
+          }
+
+          if (!password) {
+              document.getElementById('passwordLoginError').textContent = "Please enter your password.";
+              document.getElementById('passwordLoginError').style.display = 'block';
+              hasError = true;
+          }
+
+          if (hasError) {
+              return; // Stop further execution if there are errors
           }
 
           let users = await getUsers();
@@ -84,16 +101,20 @@ document.addEventListener('DOMContentLoaded', function () {
                   break;
               }
           }
+
           if (userFound) {
               localStorage.setItem('userName', userName); // Store the username in local storage
               window.location.href = "./summary.html"; // Redirect to summary page
           } else {
-              alert("Invalid email or password. Please try again.");
+              // Display the error message under the email input field
+              document.getElementById('emailLoginError').textContent = "Invalid email or password.";
+              document.getElementById('emailLoginError').style.display = 'block';
           }
       });
   }
   initRememberMe();
 });
+
 
 
 /**

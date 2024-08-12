@@ -493,6 +493,7 @@
     top: 50%;
     transform: translate(-30%, -50%);
     gap: 24px;
+    height: 80%;
 }
 
 .margn-btm-32px {

@@ -467,7 +467,7 @@ function renderSubTaskList() {
     subTaskListHTML.innerHTML = '';
 
     // Determine the starting index based on the length of subTaskList
-    let startIndex = Math.max(0, subTaskList.length - 2); // Start from the last two items or less
+    let startIndex = Math.max(0, subTaskList.length); // Start from the last two items or less
 
     // Generate and append the HTML content for the subtasks
     subTaskListHTML.innerHTML = createSubTaskListHtml(subTaskList, startIndex);
